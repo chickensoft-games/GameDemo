@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cb7m8cgutfp0c"]
+
+[ext_resource type="Texture2D" uid="uid://cme6j34uikqn0" path="res://test/fixtures/textures/grid.png" id="1_ldog7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u45fd"]
+cull_mode = 2
+albedo_texture = ExtResource("1_ldog7")
+uv1_scale = Vector3(25, 25, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e5gf1"]
+material = SubResource("StandardMaterial3D_u45fd")
+size = Vector2(50, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x7sik"]
+size = Vector3(50, 0.5, 50)
+
+[node name="TestGround" type="StaticBody3D"]
+
+[node name="GroundMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_e5gf1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -0.25, 2.08165e-12)
+shape = SubResource("BoxShape3D_x7sik")

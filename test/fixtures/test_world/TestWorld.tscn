@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2cpk155g6ono"]
+
+[ext_resource type="PackedScene" uid="uid://cb7m8cgutfp0c" path="res://test/fixtures/test_ground/TestGround.tscn" id="1_t18hc"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j6y40"]
+sky_top_color = Color(0.690196, 0.741176, 0.819608, 1)
+sky_horizon_color = Color(0.419608, 0.427451, 0.443137, 1)
+ground_bottom_color = Color(0.2, 0.2, 0.2, 1)
+ground_horizon_color = Color(0.203922, 0.203922, 0.203922, 1)
+
+[sub_resource type="Sky" id="Sky_ieu1m"]
+sky_material = SubResource("ProceduralSkyMaterial_j6y40")
+
+[sub_resource type="Environment" id="Environment_a53fc"]
+background_mode = 2
+sky = SubResource("Sky_ieu1m")
+
+[node name="TestWorld" type="Node3D"]
+
+[node name="TestGround" parent="." instance=ExtResource("1_t18hc")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_a53fc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.677967, 0.735092, 0, -0.735092, 0.677967, 0, 2.0396, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 1.51107e-16, 0.889727, 0.456492, -4.69544e-16, -0.456492, 0.889727, 2.08165e-12, 2.51056, 5.821)
+current = true
