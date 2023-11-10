@@ -1,0 +1,19 @@
+@startuml JumpshroomLogic
+state "JumpshroomLogic State" as GameDemo_JumpshroomLogic_State {
+  state "Cooldown" as GameDemo_JumpshroomLogic_State_Cooldown {
+    GameDemo_JumpshroomLogic_State_Cooldown : OnEnter → StartCooldownTimer
+  }
+  state "Idle" as GameDemo_JumpshroomLogic_State_Idle
+  state "Launching" as GameDemo_JumpshroomLogic_State_Launching
+  state "Loading" as GameDemo_JumpshroomLogic_State_Loading {
+    GameDemo_JumpshroomLogic_State_Loading : OnEnter → Animate
+  }
+}
+
+GameDemo_JumpshroomLogic_State_Cooldown --> GameDemo_JumpshroomLogic_State_Idle : CooldownCompleted
+GameDemo_JumpshroomLogic_State_Idle --> GameDemo_JumpshroomLogic_State_Loading : Hit
+GameDemo_JumpshroomLogic_State_Launching --> GameDemo_JumpshroomLogic_State_Cooldown : LaunchCompleted
+GameDemo_JumpshroomLogic_State_Loading --> GameDemo_JumpshroomLogic_State_Launching : Launch
+
+[*] --> GameDemo_JumpshroomLogic_State_Idle
+@enduml

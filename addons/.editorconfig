@@ -1,0 +1,5 @@
+# Don't allow linter errors inside addons since the code may come from
+# other sources.
+
+[*.cs]
+generated_code = true

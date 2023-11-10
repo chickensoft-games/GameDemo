@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "alfish.godot-files",
+    "christian-kohler.path-intellisense",
+    "DavidAnson.vscode-markdownlint",
+    "EditorConfig.EditorConfig",
+    "gurumukhi.selected-lines-count",
+    "jjkim.gdscript",
+    "josefpihrt-vscode.roslynator",
+    "ms-dotnettools.csharp",
+    "selcukermaya.se-csproj-extensions",
+    "streetsidesoftware.code-spell-checker",
+    "VisualStudioExptTeam.vscodeintellicode"
+  ]
+}

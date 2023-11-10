@@ -1,0 +1,11 @@
+@startuml GameLogic
+state "GameLogic State" as GameDemo_GameLogic_State {
+  GameDemo_GameLogic_State : GameAboutToStart() → ChangeToThirdPersonCamera
+  GameDemo_GameLogic_State : GamePaused() → SetPauseMode
+  GameDemo_GameLogic_State : GameResumed() → SetPauseMode
+}
+
+GameDemo_GameLogic_State --> GameDemo_GameLogic_State : Initialize
+
+[*] --> GameDemo_GameLogic_State
+@enduml

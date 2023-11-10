@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://ndll0y08l4t5"]
+
+[ext_resource type="PackedScene" uid="uid://d3jgve1g030hy" path="res://src/map/mushroom/mushroom.glb" id="1_g3eif"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e0lf1"]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(0.117647, 0.870588, 0, 0.172549)
+emission_enabled = true
+emission = Color(0.611765, 1, 0.647059, 1)
+emission_energy_multiplier = 2.58
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_d33n5"]
+radius = 0.774741
+
+[node name="GlowShrooms" type="StaticBody3D"]
+
+[node name="mushroom" parent="." instance=ExtResource("1_g3eif")]
+
+[node name="Mushroom" parent="mushroom" index="0"]
+material_overlay = SubResource("StandardMaterial3D_e0lf1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.846024, 0)
+shape = SubResource("SphereShape3D_d33n5")
+
+[editable path="mushroom"]

@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=3 uid="uid://be3pehf5e67m5"]
+
+[ext_resource type="AudioStream" uid="uid://c1gemc28v25c0" path="res://src/in_game_audio/sounds/coin.wav" id="1_681yd"]
+[ext_resource type="Script" path="res://src/in_game_audio/InGameAudio.cs" id="1_hobj4"]
+[ext_resource type="AudioStream" uid="uid://c1m1yd2inwdhb" path="res://src/in_game_audio/sounds/bounce.wav" id="3_xxu3m"]
+[ext_resource type="AudioStream" uid="uid://8t7ph3h3w2by" path="res://src/in_game_audio/sounds/death.wav" id="4_s1k52"]
+[ext_resource type="AudioStream" uid="uid://bak7d1i0xjrqc" path="res://src/in_game_audio/sounds/jump.wav" id="5_t7dvy"]
+[ext_resource type="AudioStream" uid="uid://lwli84d115g2" path="res://src/in_game_audio/sounds/game_music.mp3" id="6_cwwy4"]
+[ext_resource type="AudioStream" uid="uid://popc3scqxjfk" path="res://src/in_game_audio/sounds/menu_music.mp3" id="7_o8s4p"]
+[ext_resource type="PackedScene" uid="uid://cac8acl84d1ul" path="res://src/in_game_audio/DimmableAudioStreamPlayer.tscn" id="7_rirec"]
+
+[node name="InGameAudio" type="Node"]
+process_mode = 3
+script = ExtResource("1_hobj4")
+
+[node name="CoinCollected" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("1_681yd")
+volume_db = -15.363
+max_polyphony = 8
+
+[node name="Bounce" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_xxu3m")
+volume_db = -11.061
+max_polyphony = 8
+
+[node name="PlayerDied" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_s1k52")
+volume_db = -5.318
+max_polyphony = 2
+
+[node name="PlayerJumped" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_t7dvy")
+volume_db = -4.727
+max_polyphony = 4
+
+[node name="GameMusic" parent="." instance=ExtResource("7_rirec")]
+unique_name_in_owner = true
+stream = ExtResource("6_cwwy4")
+volume_db = -16.0
+
+[node name="MainMenuMusic" parent="." instance=ExtResource("7_rirec")]
+unique_name_in_owner = true
+stream = ExtResource("7_o8s4p")
+volume_db = -4.0

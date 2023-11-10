@@ -1,0 +1,13 @@
+nupkg/
+
+coverage/*
+!coverage/.gdignore
+
+.godot/
+bin/
+obj/
+.generated/
+.vs/
+.DS_Store
+
+*.translation

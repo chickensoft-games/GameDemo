@@ -1,0 +1,166 @@
+{
+  "[csharp]": {
+    "editor.codeActionsOnSave": {
+      "source.addMissingImports": true,
+      "source.fixAll": true,
+      "source.organizeImports": true
+    },
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": false
+  },
+  "csharp.semanticHighlighting.enabled": true,
+  "dotnet.completion.showCompletionItemsFromUnimportedNamespaces": true,
+  "editor.semanticHighlighting.enabled": true,
+  // C# doc comment colorization gets lost with semantic highlighting, but we
+  // need semantic highlighting for proper syntax highlighting with record
+  // shorthand.
+  //
+  // Here's a workaround for doc comment highlighting from
+  // https://github.com/OmniSharp/omnisharp-vscode/issues/3816
+  "editor.tokenColorCustomizations": {
+    "[*Dark*]": {
+      // Themes that include the word "Dark" in them.
+      "textMateRules": [
+        {
+          "scope": "comment.documentation",
+          "settings": {
+            "foreground": "#608B4E"
+          }
+        },
+        {
+          "scope": "comment.documentation.attribute",
+          "settings": {
+            "foreground": "#C8C8C8"
+          }
+        },
+        {
+          "scope": "comment.documentation.cdata",
+          "settings": {
+            "foreground": "#E9D585"
+          }
+        },
+        {
+          "scope": "comment.documentation.delimiter",
+          "settings": {
+            "foreground": "#808080"
+          }
+        },
+        {
+          "scope": "comment.documentation.name",
+          "settings": {
+            "foreground": "#569CD6"
+          }
+        }
+      ]
+    },
+    "[*Light*]": {
+      // Themes that include the word "Light" in them.
+      "textMateRules": [
+        {
+          "scope": "comment.documentation",
+          "settings": {
+            "foreground": "#008000"
+          }
+        },
+        {
+          "scope": "comment.documentation.attribute",
+          "settings": {
+            "foreground": "#282828"
+          }
+        },
+        {
+          "scope": "comment.documentation.cdata",
+          "settings": {
+            "foreground": "#808080"
+          }
+        },
+        {
+          "scope": "comment.documentation.delimiter",
+          "settings": {
+            "foreground": "#808080"
+          }
+        },
+        {
+          "scope": "comment.documentation.name",
+          "settings": {
+            "foreground": "#808080"
+          }
+        }
+      ]
+    },
+    "[*]": {
+      // Themes that don't include the word "Dark" or "Light" in them.
+      // These are some bold colors that show up well against most dark and
+      // light themes.
+      //
+      // Change them to something that goes well with your preferred theme :)
+      "textMateRules": [
+        {
+          "scope": "comment.documentation",
+          "settings": {
+            "foreground": "#0091ff"
+          }
+        },
+        {
+          "scope": "comment.documentation.attribute",
+          "settings": {
+            "foreground": "#8480ff"
+          }
+        },
+        {
+          "scope": "comment.documentation.cdata",
+          "settings": {
+            "foreground": "#0091ff"
+          }
+        },
+        {
+          "scope": "comment.documentation.delimiter",
+          "settings": {
+            "foreground": "#aa00ff"
+          }
+        },
+        {
+          "scope": "comment.documentation.name",
+          "settings": {
+            "foreground": "#ef0074"
+          }
+        }
+      ]
+    }
+  },
+  "markdownlint.config": {
+    // Allow non-unique heading names so we don't break the changelog.
+    "MD024": false,
+    // Allow html in markdown.
+    "MD033": false
+  },
+  "markdownlint.ignore": [
+    "**/LICENSE"
+  ],
+  "omnisharp.enableEditorConfigSupport": true,
+  "omnisharp.enableMsBuildLoadProjectsOnDemand": false,
+  "omnisharp.enableRoslynAnalyzers": true,
+  "omnisharp.maxFindSymbolsItems": 3000,
+  "omnisharp.organizeImportsOnFormat": true,
+  "omnisharp.useModernNet": true,
+  // Remove these if you're happy with your terminal profiles.
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "terminal.integrated.profiles.windows": {
+    "Command Prompt": {
+      "icon": "terminal-cmd",
+      "path": [
+        "${env:windir}\\Sysnative\\cmd.exe",
+        "${env:windir}\\System32\\cmd.exe"
+      ]
+    },
+    "Git Bash": {
+      "icon": "terminal",
+      "source": "Git Bash"
+    },
+    "PowerShell": {
+      "icon": "terminal-powershell",
+      "source": "PowerShell"
+    }
+  }
+}

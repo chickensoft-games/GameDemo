@@ -1,0 +1,31 @@
+name: '🗂 Version Change'
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version (no 'v' prefix)"
+        required: true
+
+jobs:
+  create_version_pull_request:
+    name: '🗂 Create Version Pull Request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: '🧾 Checkout'
+        uses: actions/checkout@v4
+
+      - name: '📝 Change Version'
+        uses: vers-one/dotnet-project-version-updater@v1.3
+        with:
+          file: "GameDemo.csproj"
+          version: ${{ github.event.inputs.version }}
+
+      - name: '⤴️ Create Pull Request'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: version/${{ github.event.inputs.version }}
+          commit-message: update version to ${{ github.event.inputs.version }}
+          title: 'chore(project): update version to ${{ github.event.inputs.version }}'
+          body: >
+            chore(project): update the version to ${{ github.event.inputs.version }}.

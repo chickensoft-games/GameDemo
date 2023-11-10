@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://da6g1opr3lbj7"]
+
+[ext_resource type="PackedScene" uid="uid://ndll0y08l4t5" path="res://src/map/glow_shrooms/glow_shroom.tscn" id="1_dv0h0"]
+
+[node name="GlowShrooms" type="Node3D"]
+
+[node name="GlowShrooms" parent="." instance=ExtResource("1_dv0h0")]
+transform = Transform3D(0.380361, 0, 0, 0, 0.380361, 0, 0, 0, 0.380361, 0, 0, 0)
+
+[node name="GlowShrooms2" parent="." instance=ExtResource("1_dv0h0")]
+transform = Transform3D(-0.00200698, 0, 0.234193, 0, 0.234202, 0, -0.234193, 0, -0.00200698, -0.901476, 0, 0)
+
+[node name="GlowShrooms3" parent="." instance=ExtResource("1_dv0h0")]
+transform = Transform3D(-0.0069578, 0, -0.431406, 0, 0.431462, 0, 0.431406, 0, -0.0069578, -0.484018, 0, 0.612436)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.408109, 0.857869, 0)
+light_color = Color(0.360784, 1, 0.894118, 1)
+light_specular = 0.0

@@ -1,0 +1,137 @@
+[gd_scene load_steps=13 format=3 uid="uid://deqdtimrd6526"]
+
+[ext_resource type="Script" path="res://src/app/App.cs" id="1_g7sps"]
+[ext_resource type="PackedScene" uid="uid://d3qf2po8l4dlr" path="res://src/in_game_ui/InGameUI.tscn" id="2_ypy3i"]
+[ext_resource type="PackedScene" uid="uid://bn84ofaaq4o80" path="res://src/menu/submenus/death_menu/DeathMenu.tscn" id="3_8wag6"]
+[ext_resource type="PackedScene" uid="uid://be3pehf5e67m5" path="res://src/in_game_audio/InGameAudio.tscn" id="3_po33r"]
+[ext_resource type="PackedScene" uid="uid://cwsfvhqinjpy4" path="res://src/menu/Menu.tscn" id="4_kh3vh"]
+[ext_resource type="PackedScene" uid="uid://bthdrw6580hll" path="res://src/menu/submenus/win_menu/WinMenu.tscn" id="5_rjune"]
+[ext_resource type="PackedScene" uid="uid://conmng5ejji6f" path="res://src/menu/submenus/pause_menu/PauseMenu.tscn" id="6_4w75j"]
+[ext_resource type="PackedScene" uid="uid://7tblo640sji4" path="res://src/menu/submenus/splash/Splash.tscn" id="7_eh6dj"]
+
+[sub_resource type="Animation" id="Animation_asqem"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlankScreenControl/BlankScreen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_tj2lb"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlankScreenControl/BlankScreen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ps7d4"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlankScreenControl/BlankScreen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_piei0"]
+_data = {
+"RESET": SubResource("Animation_asqem"),
+"fade_in": SubResource("Animation_tj2lb"),
+"fade_out": SubResource("Animation_ps7d4")
+}
+
+[node name="App" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_g7sps")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="GamePreview" type="SubViewport" parent="SubViewportContainer"]
+unique_name_in_owner = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+deterministic = true
+libraries = {
+"": SubResource("AnimationLibrary_piei0")
+}
+
+[node name="InGameUI" parent="." instance=ExtResource("2_ypy3i")]
+unique_name_in_owner = true
+visible = false
+
+[node name="SubViewport" parent="InGameUI/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/SubViewportContainer" index="0"]
+render_target_update_mode = 0
+
+[node name="InGameAudio" parent="." instance=ExtResource("3_po33r")]
+
+[node name="DeathMenu" parent="." instance=ExtResource("3_8wag6")]
+unique_name_in_owner = true
+visible = false
+
+[node name="Menu" parent="." instance=ExtResource("4_kh3vh")]
+unique_name_in_owner = true
+visible = false
+
+[node name="WinMenu" parent="." instance=ExtResource("5_rjune")]
+unique_name_in_owner = true
+visible = false
+
+[node name="PauseMenu" parent="." instance=ExtResource("6_4w75j")]
+unique_name_in_owner = true
+visible = false
+
+[node name="Splash" parent="." instance=ExtResource("7_eh6dj")]
+unique_name_in_owner = true
+visible = false
+
+[node name="BlankScreenControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BlankScreen" type="ColorRect" parent="BlankScreenControl"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[editable path="InGameUI"]

@@ -1,0 +1,83 @@
+name: 🖼 Visual Tests
+on:
+  push:
+  pull_request:
+
+jobs:
+  visual_tests:
+    name: 🖼 Visual Tests with ${{ matrix.render-driver }}
+    runs-on: ubuntu-latest
+    # Only run the workflow if it's not a PR or if it's a PR from a fork.
+    # This prevents duplicate workflows from running on PR's that originate
+    # from the repository itself.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+      DOTNET_NOLOGO: true
+    strategy:
+      # Don't cancel other runners if one fails.
+      fail-fast: false
+      matrix:
+        # Put the rendering drivers you want to use for tests here.
+        render-driver: [vulkan] # also: opengl3
+    defaults:
+      run:
+        # Use bash shells on all platforms.
+        shell: bash
+    steps:
+      - name: 🧾 Checkout
+        uses: actions/checkout@v4
+        with:
+          # If using git-lfs (large file storage), this ensures that your files
+          # are checked out properly.
+          lfs: true
+          # Make sure any git submodules are checked out as well.
+          submodules: 'recursive'
+
+      - name: 💽 Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          # Use the .NET SDK from global.json in the root of the repository.
+          global-json-file: global.json
+
+      - name: 📦 Restore Dependencies
+        run: dotnet restore
+
+      - name: 💾 Add Graphics Driver Emulators Source
+        run: |
+          sudo rm -f /etc/apt/sources.list.d/microsoft-prod.list
+          sudo add-apt-repository -n ppa:kisak/kisak-mesa
+
+      - name: 💾 Install Graphics Driver Emulators
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: mesa-vulkan-drivers binutils
+          version: 1.0
+
+      - name: 🤖 Setup Godot
+        uses: chickensoft-games/setup-godot@v1
+        with:
+          # Version must include major, minor, and patch, and be >= 4.0.0
+          # Pre-release label is optional.
+          #
+          # In this case, we are using the version from global.json.
+          #
+          # This allows checks on renovatebot PR's to succeed whenever
+          # renovatebot updates the Godot SDK version.
+          version: global.json
+
+      - name: 🧑‍🔬 Generate .NET Bindings
+        run: godot --headless --build-solutions --quit || exit 0
+
+      - name: 🌋 Run Tests in Godot
+        run: |
+          xvfb-run godot --audio-driver Dummy --rendering-driver ${{ matrix.render-driver }} --run-tests --quit-on-finish --coverage
+
+          # The --coverage flag is used by GoDotTest to control the exit code
+          # of Godot by force-exiting through C#.
+          #
+          # Since Godot tends to exit with non-zero exit codes (even on success)
+          # this flag allows GoDotTest to ensure that this step will only fail
+          # when the tests fail.
+
+          echo "Finished running tests in Godot with emulated ${{ matrix.render-driver }} graphics."

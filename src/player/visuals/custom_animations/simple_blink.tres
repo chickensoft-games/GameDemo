@@ -1,0 +1,20 @@
+[gd_resource type="Animation" load_steps=3 format=3 uid="uid://b5s07v24s1tva"]
+
+[ext_resource type="Texture2D" uid="uid://xpy8nmxm56kk" path="res://src/player/visuals/faces/open.png" id="1_irmmc"]
+[ext_resource type="Texture2D" uid="uid://dt00sua74enwp" path="res://src/player/visuals/faces/closed.png" id="2_6yopk"]
+
+[resource]
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Armature/Skeleton3D/gdbot_mesh:surface_material_override/1:shader_parameter/face_texture")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.5, 1.7, 1.9, 2.1, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("1_irmmc"), ExtResource("2_6yopk"), ExtResource("1_irmmc"), ExtResource("2_6yopk"), ExtResource("1_irmmc")]
+}

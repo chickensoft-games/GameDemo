@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cac8acl84d1ul"]
+
+[ext_resource type="Script" path="res://src/in_game_audio/DimmableAudioStreamPlayer.cs" id="1_ymqch"]
+
+[node name="MainMenuMusic" type="AudioStreamPlayer"]
+max_polyphony = 4
+script = ExtResource("1_ymqch")

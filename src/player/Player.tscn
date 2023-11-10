@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwbxe1hh3doh"]
+
+[ext_resource type="Script" path="res://src/player/Player.cs" id="1_t35ph"]
+[ext_resource type="PackedScene" uid="uid://r64voqvjvpfa" path="res://src/player/PlayerModel.tscn" id="1_vjdmj"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c2exj"]
+radius = 0.220019
+height = 1.54453
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 8
+collision_mask = 11
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+script = ExtResource("1_t35ph")
+
+[node name="PlayerModel" parent="." instance=ExtResource("1_vjdmj")]
+
+[node name="GroundCollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.774083, 0)
+shape = SubResource("CapsuleShape3D_c2exj")
