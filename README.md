@@ -10,6 +10,10 @@ The Chickensoft Game Demo — a fully tested, third-person 3D game built with Go
 <img alt="Cardboard Box with Chickensoft Logo" src="docs/preview.jpg" width="100%">
 </p>
 
+
+https://github.com/chickensoft-games/GameDemo/assets/16472250/44012436-bec2-4bdf-b2c1-faa2ced0f3ca
+
+
 > Most 3D assets are from the fine folks at [GDQuest] — go check out their stuff and support them! You'll notice that this project is loosely inspired by GDQuest's [ThirdPersonController], but completely rewritten using Chickensoft's best practice recommendations in C# (and with state machines)!
 >
 > Music from [FreePD] — go check them out, too!
