@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/game/Game.cs" id="1_17mmo"]
 [ext_resource type="PackedScene" uid="uid://pjmfnaiwwwed" path="res://src/player_camera/PlayerCamera.tscn" id="2_g21k4"]
-[ext_resource type="PackedScene" uid="uid://daho0q3ic4vmn" path="res://src/map/map.tscn" id="3_cpkwg"]
+[ext_resource type="PackedScene" uid="uid://daho0q3ic4vmn" path="res://src/map/Map.tscn" id="3_cpkwg"]
 [ext_resource type="PackedScene" uid="uid://bwbxe1hh3doh" path="res://src/player/Player.tscn" id="4_smjqx"]
 
 [node name="Game" type="Node3D"]
