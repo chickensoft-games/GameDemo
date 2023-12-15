@@ -10,9 +10,7 @@ The Chickensoft Game Demo — a fully tested, third-person 3D game built with Go
 <img alt="Cardboard Box with Chickensoft Logo" src="docs/preview.jpg" width="100%">
 </p>
 
-
-https://github.com/chickensoft-games/GameDemo/assets/16472250/44012436-bec2-4bdf-b2c1-faa2ced0f3ca
-
+<https://github.com/chickensoft-games/GameDemo/assets/16472250/44012436-bec2-4bdf-b2c1-faa2ced0f3ca>
 
 > Most 3D assets are from the fine folks at [GDQuest] — go check out their stuff and support them! You'll notice that this project is loosely inspired by GDQuest's [ThirdPersonController], but completely rewritten using Chickensoft's best practice recommendations in C# (and with state machines)!
 >
@@ -75,7 +73,7 @@ Here's a high-level overview of Chickensoft's opinionated architecture:
 
 - ✅ Consistent, automatically enforced coding style via the Chickensoft [EditorConfig]. Combined with the project settings included from [GodotGame], VSCode will automatically format your code whenever you save. And, it'll flag code-style issues, keeping everything annoyingly consistent.
 
-Obviously, many tutorials and articles could be written going into depth about each one of those topics, so until I have time to do that, you'll have to just  look at the code! Or ask me in Discord — I won't shut up about this stuff.
+I've written an entire treatise about the architecture behind this demo. You can read about it over at [Enjoyable Game Architecture][game-arch].
 
 ## 💁 Getting Help
 
@@ -139,3 +137,4 @@ Since we're using [LogicBlocks], here's some of the more interesting state diagr
 [LogicBlocks]: https://github.com/chickensoft-games/LogicBlocks
 [GoDotCollections]: https://github.com/chickensoft-games/GoDotCollections
 [EditorConfig]: https://github.com/chickensoft-games/EditorConfig
+[game-arch]: https://chickensoft.games/blog/game-architecture

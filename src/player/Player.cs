@@ -31,8 +31,7 @@ public interface IPlayer :
 }
 
 [SuperNode(typeof(Provider), typeof(Dependent), typeof(AutoNode))]
-public partial class Player :
-CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
+public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
   public override partial void _Notification(int what);
 
   #region Provisions

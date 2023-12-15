@@ -9,10 +9,8 @@
     <!-- godotengine/godot/issues/42271#issuecomment-751423827 -->
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <!-- To show generated files -->
-    <!-- <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles> -->
-    <!--
-      <CompilerGeneratedFilesOutputPath>.generated</CompilerGeneratedFilesOutputPath>
-    -->
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>.generated</CompilerGeneratedFilesOutputPath>
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <Title>GameDemo</Title>
