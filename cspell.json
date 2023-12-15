@@ -16,7 +16,8 @@
     "coverage/**/*.*",
     ".godot/**/*.*",
     "**/*.tres",
-    "**/*.res"
+    "**/*.res",
+    "project.godot"
   ],
   "words": [
     "skipautoprops",
