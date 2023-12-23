@@ -29,6 +29,10 @@ public partial class Main : Node2D {
 #endif
 
     // If we don't need to run tests, we can just switch to the game scene.
+    CallDeferred("StartApp");
+  }
+
+  private void StartApp() {
     GetTree().ChangeSceneToFile("res://src/app/App.tscn");
   }
 
