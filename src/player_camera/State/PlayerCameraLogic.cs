@@ -9,8 +9,7 @@ public interface IPlayerCameraLogic : ILogicBlock<PlayerCameraLogic.IState> { }
 [StateMachine]
 public partial class PlayerCameraLogic :
 LogicBlock<PlayerCameraLogic.IState>, IPlayerCameraLogic {
-  public override IState GetInitialState(IContext context) =>
-    new State.InputDisabled(context);
+  public override IState GetInitialState() => new State.InputDisabled();
 
   public PlayerCameraLogic(
     IPlayerCamera camera,

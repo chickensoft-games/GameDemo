@@ -2,7 +2,7 @@ namespace GameDemo;
 public partial class AppLogic {
   public partial record State {
     public record LeavingGame : InGame, IGet<Input.FadeOutFinished> {
-      public LeavingGame(IContext context) : base(context) {
+      public LeavingGame() {
         OnEnter<LeavingGame>(
           (previous) => Context.Output(new Output.FadeOut())
         );

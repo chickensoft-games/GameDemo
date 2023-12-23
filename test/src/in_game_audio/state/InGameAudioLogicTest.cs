@@ -20,11 +20,9 @@ public class InGameAudioLogicTest : TestClass {
   [Test]
   public void Initializes() {
     _logic.Get<IAppRepo>().ShouldBe(_appRepo.Object);
-    var context = InGameAudioLogic.CreateFakeContext();
-    context.Set(_appRepo.Object);
 
     _logic
-      .GetInitialState(context)
+      .GetInitialState()
       .ShouldBeAssignableTo<InGameAudioLogic.IState>();
   }
 }

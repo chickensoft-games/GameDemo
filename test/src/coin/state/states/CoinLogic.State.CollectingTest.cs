@@ -1,12 +1,13 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
 public class CoinLogicStateCollectingTest : TestClass {
-  private CoinLogic.IFakeContext _context = default!;
+  private IFakeContext _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private CoinLogic.Settings _settings = default!;
   private Mock<ICoin> _coin = default!;
@@ -17,18 +18,17 @@ public class CoinLogicStateCollectingTest : TestClass {
 
   [Setup]
   public void Setup() {
-    _context = CoinLogic.CreateFakeContext();
-
     _appRepo = new();
     _settings = new(1.0f);
     _coin = new();
     _target = new();
 
+    _state = new(_target.Object);
+    _context = _state.CreateFakeContext();
+
     _context.Set(_settings);
     _context.Set(_appRepo.Object);
     _context.Set(_coin.Object);
-
-    _state = new(_context, _target.Object);
   }
 
   [Test]
@@ -52,7 +52,7 @@ public class CoinLogicStateCollectingTest : TestClass {
 
     _state.On(input).ShouldBe(_state);
 
-    _context.Outputs.ShouldBeOfTypes(new System.Type[] {
+    _context.Outputs.ShouldBeOfTypes(new[] {
       typeof(CoinLogic.Output.SelfDestruct),
       typeof(CoinLogic.Output.Move),
     });

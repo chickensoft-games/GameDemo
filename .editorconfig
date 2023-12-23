@@ -468,3 +468,5 @@ dotnet_diagnostic.RCS1181.severity = none
 dotnet_diagnostic.IDE0046.severity = none
 # Don't make me use expression bodies for methods
 dotnet_diagnostic.IDE0022.severity = none
+# Don't use collection shorhand.
+dotnet_diagnostic.IDE0300.severity = none

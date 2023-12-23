@@ -1,12 +1,13 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
 public class PlayerLogicStateAliveGroundedTest : TestClass {
-  private PlayerLogic.IFakeContext _context = default!;
+  private IFakeContext _context = default!;
   private Mock<IPlayer> _player = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private PlayerLogic.Settings _settings = default!;
@@ -17,17 +18,16 @@ public class PlayerLogicStateAliveGroundedTest : TestClass {
 
   [Setup]
   public void Setup() {
-    _context = PlayerLogic.CreateFakeContext();
-
     _player = new Mock<IPlayer>();
     _appRepo = new Mock<IAppRepo>();
     _settings = new PlayerLogic.Settings(1, 1, 1, 1, 1, 1, 1);
 
+    _state = new();
+    _context = _state.CreateFakeContext();
+
     _context.Set(_player.Object);
     _context.Set(_appRepo.Object);
     _context.Set(_settings);
-
-    _state = new(_context);
   }
 
   [Test]
@@ -38,7 +38,7 @@ public class PlayerLogicStateAliveGroundedTest : TestClass {
 
     next.ShouldBeAssignableTo<PlayerLogic.State.Jumping>();
 
-    _context.Outputs.ShouldBeOfTypes(new System.Type[] {
+    _context.Outputs.ShouldBeOfTypes(new[] {
       typeof(PlayerLogic.Output.VelocityChanged)
     });
   }

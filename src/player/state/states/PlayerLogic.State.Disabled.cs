@@ -3,22 +3,16 @@ namespace GameDemo;
 public partial class PlayerLogic {
   public abstract partial record State : StateLogic, IState {
     public record Disabled : State, IGet<Input.Enable> {
-      public Disabled(IContext context) : base(context) {
-        var appRepo = Context.Get<IAppRepo>();
-
+      public Disabled() {
         OnEnter<Disabled>(
-          (previous) => {
-            Context.Output(new Output.Animations.Idle());
-            appRepo.GameStarting += OnGameAboutToStart;
-          }
+          (previous) => Context.Output(new Output.Animations.Idle())
         );
 
-        OnExit<Disabled>(
-          (next) => appRepo.GameStarting -= OnGameAboutToStart
-        );
+        OnAttach(() => Get<IAppRepo>().GameStarting += OnGameAboutToStart);
+        OnDetach(() => Get<IAppRepo>().GameStarting -= OnGameAboutToStart);
       }
 
-      public IState On(Input.Enable input) => new Idle(Context);
+      public IState On(Input.Enable input) => new Idle();
     }
 
     public void OnGameAboutToStart() => Context.Input(new Input.Enable());

@@ -6,16 +6,14 @@ public partial class AppLogic {
   public partial record State {
     public record InGame : State,
     IGet<Input.GoToMainMenu>, IGet<Input.GameOver> {
-      public InGame(IContext context) : base(context) {
-        var appRepo = Context.Get<IAppRepo>();
-
+      public InGame() {
         OnEnter<InGame>((previous) => {
-          appRepo.OnStartGame();
-          appRepo.GameEnded += OnGameOver;
+          Get<IAppRepo>().OnStartGame();
           Context.Output(new Output.ShowGame());
         });
 
-        OnExit<InGame>((next) => appRepo.GameEnded -= OnGameOver);
+        OnAttach(() => Get<IAppRepo>().GameEnded += OnGameOver);
+        OnDetach(() => Get<IAppRepo>().GameEnded -= OnGameOver);
       }
 
       public void OnGameOver(GameOverReason reason) {
@@ -27,14 +25,14 @@ public partial class AppLogic {
         appRepo.Pause();
 
         return input.Reason switch {
-          GameOverReason.PlayerWon => new WonGame(Context),
-          GameOverReason.PlayerDied => new LostGame(Context),
-          GameOverReason.Exited => new MainMenu(Context),
+          GameOverReason.PlayerWon => new WonGame(),
+          GameOverReason.PlayerDied => new LostGame(),
+          GameOverReason.Exited => new MainMenu(),
           _ => throw new InvalidOperationException()
         };
       }
 
-      public IState On(Input.GoToMainMenu input) => new LeavingGame(Context);
+      public IState On(Input.GoToMainMenu input) => new LeavingGame();
     }
   }
 }

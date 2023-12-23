@@ -7,8 +7,7 @@ public interface ICoinLogic : ILogicBlock<CoinLogic.IState> { }
 
 [StateMachine]
 public partial class CoinLogic : LogicBlock<CoinLogic.IState>, ICoinLogic {
-  public override IState GetInitialState(IContext context) =>
-    new State.Idle(context);
+  public override IState GetInitialState() => new State.Idle();
 
   public record Settings(double CollectionTimeInSeconds);
 

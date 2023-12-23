@@ -3,13 +3,11 @@ namespace GameDemo;
 public partial class PlayerLogic {
   public abstract partial record State {
     public record Jumping : Airborne, IGet<Input.Jump> {
-      public Jumping(IContext context) : base(context) {
-        var appRepo = context.Get<IAppRepo>();
-
+      public Jumping() {
         OnEnter<Jumping>(
           (previous) => {
             Context.Output(new Output.Animations.Jump());
-            appRepo.Jump();
+            Get<IAppRepo>().Jump();
           }
         );
       }

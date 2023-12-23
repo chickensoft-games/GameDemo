@@ -1,12 +1,12 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Godot;
-using Moq;
 using Shouldly;
 
 public class PlayerLogicStateAliveGroundedIdleTest : TestClass {
-  private PlayerLogic.IFakeContext _context = default!;
+  private IFakeContext _context = default!;
   private PlayerLogic.State.Idle _state = default!;
 
   public PlayerLogicStateAliveGroundedIdleTest(Node testScene) :
@@ -14,14 +14,14 @@ public class PlayerLogicStateAliveGroundedIdleTest : TestClass {
 
   [Setup]
   public void Setup() {
-    _context = PlayerLogic.CreateFakeContext();
-    _state = new(_context);
+    _state = new();
+    _context = _state.CreateFakeContext();
   }
 
   [Test]
   public void Enters() {
     var parent =
-      new PlayerLogic.State.Grounded(new Mock<PlayerLogic.IContext>().Object);
+      new PlayerLogic.State.Grounded();
     _state.Enter(parent);
 
     _context.Outputs.ShouldBe(new object[] {

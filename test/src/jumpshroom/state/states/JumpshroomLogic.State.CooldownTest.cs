@@ -1,20 +1,20 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Godot;
 using Shouldly;
 
 public class JumpshroomLogicStateCooldownTest : TestClass {
-  private JumpshroomLogic.IFakeContext _context = default!;
+  private IFakeContext _context = default!;
   private JumpshroomLogic.State.Cooldown _state = default!;
 
   public JumpshroomLogicStateCooldownTest(Node testScene) : base(testScene) { }
 
   [Setup]
   public void Setup() {
-    _context = JumpshroomLogic.CreateFakeContext();
-
-    _state = new(_context);
+    _state = new();
+    _context = _state.CreateFakeContext();
   }
 
   [Test]

@@ -9,7 +9,7 @@ public partial class PlayerLogic {
     /// jump.
     /// </summary>
     public record Liftoff : Airborne {
-      public Liftoff(IContext context) : base(context) {
+      public Liftoff() {
         OnEnter<Jumping>(
           (previous) => Context.Output(new Output.Animations.Jump())
         );

@@ -7,8 +7,7 @@ public interface IPlayerLogic : ILogicBlock<PlayerLogic.IState> { }
 
 [StateMachine]
 public partial class PlayerLogic : LogicBlock<PlayerLogic.IState>, IPlayerLogic {
-  public override IState GetInitialState(IContext context) =>
-    new State.Disabled(Context);
+  public override IState GetInitialState() => new State.Disabled();
 
   public PlayerLogic(
     IPlayer player, Settings settings, IAppRepo appRepo, IGameRepo gameRepo

@@ -7,10 +7,9 @@ public partial class InGameAudioLogic :
   public interface IState : IStateLogic { }
 
   public record State : StateLogic, IState {
-    public State(IContext context) : base(context) {
-      var appRepo = context.Get<IAppRepo>();
-
-      OnEnter<State>((previous) => {
+    public State() {
+      OnAttach(() => {
+        var appRepo = Context.Get<IAppRepo>();
         appRepo.CoinCollected += OnCoinCollected;
         appRepo.JumpshroomUsed += OnJumpshroomUsed;
         appRepo.GameEnded += OnGameEnded;
@@ -19,7 +18,8 @@ public partial class InGameAudioLogic :
         appRepo.GameStarting += OnGameStarting;
       });
 
-      OnExit<State>((previous) => {
+      OnDetach(() => {
+        var appRepo = Context.Get<IAppRepo>();
         appRepo.CoinCollected -= OnCoinCollected;
         appRepo.JumpshroomUsed -= OnJumpshroomUsed;
         appRepo.GameEnded -= OnGameEnded;

@@ -1,44 +1,55 @@
 namespace GameDemo.Tests;
 
 using System;
+using Chickensoft.GoDotCollections;
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
 public class InGameTest : TestClass {
-  private AppLogic.IFakeContext _context = default!;
+  private IFakeContext _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private AppLogic.State.InGame _state = default!;
+  private AutoProp<bool> _isMouseCaptured = default!;
 
   public InGameTest(Node testScene) : base(testScene) { }
 
   [Setup]
   public void Setup() {
-    _context = AppLogic.CreateFakeContext();
     _appRepo = new();
+    _isMouseCaptured = new(false);
+    _appRepo.Setup(repo => repo.IsMouseCaptured)
+      .Returns(_isMouseCaptured);
 
+    _state = new();
+    _context = _state.CreateFakeContext();
     _context.Set(_appRepo.Object);
-    _state = new(_context);
   }
 
   [Test]
   public void EntersAndExits() {
-    var parent = new AppLogic.State(_context);
+    _appRepo.Reset();
 
     _appRepo.Setup(repo => repo.OnStartGame());
 
+    var parent = new AppLogic.State();
     _state.Enter(parent);
+
+    _appRepo.VerifyAll();
 
     _context.Outputs.ShouldBe(
       new object[] { new AppLogic.Output.ShowGame() }
     );
+  }
+
+  [Test]
+  public void Subscribes() {
+    _state.Attach(_context);
     _appRepo.VerifyAdd(repo => repo.GameEnded += _state.OnGameOver);
 
-    _context.Reset();
-
-    _state.Exit(parent);
-
+    _state.Detach();
     _appRepo.VerifyRemove(repo => repo.GameEnded -= _state.OnGameOver);
   }
 

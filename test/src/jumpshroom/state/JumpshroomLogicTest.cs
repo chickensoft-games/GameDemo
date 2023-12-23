@@ -25,13 +25,8 @@ public class JumpshroomLogicTest : TestClass {
     _logic.Get<JumpshroomLogic.Data>().ShouldBe(_data);
     _logic.Get<IAppRepo>().ShouldBe(_appRepo.Object);
 
-    var context = JumpshroomLogic.CreateFakeContext();
-
-    context.Set(_data);
-    context.Set(_appRepo.Object);
-
     _logic
-      .GetInitialState(context)
+      .GetInitialState()
       .ShouldBeAssignableTo<JumpshroomLogic.IState>();
   }
 }

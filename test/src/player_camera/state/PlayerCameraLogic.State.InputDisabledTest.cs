@@ -11,13 +11,13 @@ public class PlayerCameraLogicStateInputDisabledTest : TestClass {
 
   [Test]
   public void GoesToInputEnabled() {
-    var context = PlayerCameraLogic.CreateFakeContext();
+    var state = new PlayerCameraLogic.State.InputDisabled();
+    var context = state.CreateFakeContext();
     var gameRepo = new Mock<IGameRepo>();
     var appRepo = new Mock<IAppRepo>();
     context.Set(gameRepo.Object);
     context.Set(appRepo.Object);
 
-    var state = new PlayerCameraLogic.State.InputDisabled(context);
     var nextState = state.On(new PlayerCameraLogic.Input.EnableInput());
 
     nextState.ShouldBeOfType<PlayerCameraLogic.State.InputEnabled>();

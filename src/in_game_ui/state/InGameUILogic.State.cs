@@ -4,15 +4,15 @@ public partial class InGameUILogic {
   public interface IState : IStateLogic { }
 
   public record State : StateLogic, IState {
-    public State(IContext context) : base(context) {
-      var appRepo = context.Get<IAppRepo>();
-
-      OnEnter<State>((previous) => {
+    public State() {
+      OnAttach(() => {
+        var appRepo = Context.Get<IAppRepo>();
         appRepo.NumCoinsCollected.Sync += OnNumCoinsCollected;
         appRepo.NumCoinsAtStart.Sync += OnNumCoinsAtStart;
       });
 
-      OnExit<State>((next) => {
+      OnDetach(() => {
+        var appRepo = Context.Get<IAppRepo>();
         appRepo.NumCoinsCollected.Sync -= OnNumCoinsCollected;
         appRepo.NumCoinsAtStart.Sync -= OnNumCoinsAtStart;
       });

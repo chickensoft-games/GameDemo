@@ -1,12 +1,13 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
 public class PlayerLogicStateDisabledTest : TestClass {
-  private PlayerLogic.IFakeContext _context = default!;
+  private IFakeContext _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private PlayerLogic.State.Disabled _state = default!;
 
@@ -14,27 +15,30 @@ public class PlayerLogicStateDisabledTest : TestClass {
 
   [Setup]
   public void Setup() {
-    _context = PlayerLogic.CreateFakeContext();
     _appRepo = new();
+    _state = new();
+    _context = _state.CreateFakeContext();
 
     _context.Set(_appRepo.Object);
-    _state = new(_context);
   }
 
   [Test]
   public void EntersAndExits() {
     _state.Enter();
 
+    _context.Outputs.ShouldBe(new object[] {
+      new PlayerLogic.Output.Animations.Idle()
+    });
+  }
+
+  [Test]
+  public void Subscribes() {
+    _state.Attach(_context);
     _appRepo.VerifyAdd(
       (repo) => repo.GameStarting += _state.OnGameAboutToStart
     );
 
-    _context.Outputs.ShouldBe(new object[] {
-      new PlayerLogic.Output.Animations.Idle()
-    });
-
-    _state.Exit();
-
+    _state.Detach();
     _appRepo.VerifyRemove(
       (repo) => repo.GameStarting -= _state.OnGameAboutToStart
     );

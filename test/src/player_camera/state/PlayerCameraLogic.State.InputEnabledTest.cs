@@ -1,25 +1,28 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
 public class PlayerCameraLogicStateInputEnabledTest : TestClass {
-  private PlayerCameraLogic.IFakeContext _context = default!;
+  private IFakeContext _context = default!;
   private PlayerCameraSettings _settings = default!;
   private PlayerCameraLogic.Data _data = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
+  private PlayerCameraLogic.State.InputEnabled _state = default!;
 
   public PlayerCameraLogicStateInputEnabledTest(Node testScene) :
     base(testScene) { }
 
   [Setup]
   public void Setup() {
+    _state = new();
+    _context = _state.CreateFakeContext();
     _settings = new();
     _data = new();
-    _context = PlayerCameraLogic.CreateFakeContext();
 
     _appRepo = new();
     _gameRepo = new();
@@ -37,16 +40,13 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass {
 
   [Test]
   public void GoesToInputDisabled() {
-    var state = new PlayerCameraLogic.State.InputEnabled(_context);
-    var nextState = state.On(new PlayerCameraLogic.Input.DisableInput());
+    var nextState = _state.On(new PlayerCameraLogic.Input.DisableInput());
 
     nextState.ShouldBeOfType<PlayerCameraLogic.State.InputDisabled>();
   }
 
   [Test]
   public void UpdatesTargetAnglesWhenMouseInputOccurs() {
-    var state = new PlayerCameraLogic.State.InputEnabled(_context);
-
     var targetAngleHorizontal = _data.TargetAngleHorizontal;
     var targetAngleVertical = _data.TargetAngleVertical;
 
@@ -54,11 +54,11 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass {
       Relative = Vector2.One
     };
 
-    var nextState = state.On(
+    var nextState = _state.On(
       new PlayerCameraLogic.Input.MouseInputOccurred(motion)
     );
 
-    state.ShouldBeSameAs(nextState);
+    _state.ShouldBeSameAs(nextState);
 
     _data.TargetAngleHorizontal.ShouldNotBe(targetAngleHorizontal);
     _data.TargetAngleVertical.ShouldNotBe(targetAngleVertical);

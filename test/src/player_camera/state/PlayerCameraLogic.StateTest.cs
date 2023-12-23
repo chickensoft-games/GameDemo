@@ -1,8 +1,8 @@
 namespace GameDemo.Tests;
 
-using System;
 using Chickensoft.GoDotCollections;
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
@@ -13,7 +13,8 @@ public class PlayerCameraLogicStateTest : TestClass {
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private PlayerCameraLogic.Data _data = default!;
-  private PlayerCameraLogic.IFakeContext _context = default!;
+  private IFakeContext _context = default!;
+  private PlayerCameraLogic.State _state = default!;
 
   public PlayerCameraLogicStateTest(Node testScene) : base(testScene) { }
 
@@ -24,7 +25,8 @@ public class PlayerCameraLogicStateTest : TestClass {
     _appRepo = new();
     _gameRepo = new();
     _data = new();
-    _context = PlayerCameraLogic.CreateFakeContext();
+    _state = new();
+    _context = _state.CreateFakeContext();
 
     // Automatically mock the logic block context to provide mock versions
     // of everything the state needs.
@@ -45,33 +47,29 @@ public class PlayerCameraLogicStateTest : TestClass {
     _gameRepo.Setup(repo => repo.PlayerGlobalPosition)
       .Returns(playerGlobalPosition.Object);
 
-    var state = new PlayerCameraLogic.State(_context);
-
-    state.Enter();
+    _state.Attach(_context);
 
     _appRepo
-      .VerifyAdd(repo => repo.IsMouseCaptured.Sync += state.OnMouseCaptured);
+      .VerifyAdd(repo => repo.IsMouseCaptured.Sync += _state.OnMouseCaptured);
     _gameRepo
       .VerifyAdd(repo =>
-        repo.PlayerGlobalPosition.Sync += state.OnPlayerGlobalPositionChanged
+        repo.PlayerGlobalPosition.Sync += _state.OnPlayerGlobalPositionChanged
       );
 
-    state.Exit();
+    _state.Detach();
 
     _appRepo
-      .VerifyRemove(repo => repo.IsMouseCaptured.Sync -= state.OnMouseCaptured);
+      .VerifyRemove(repo => repo.IsMouseCaptured.Sync -= _state.OnMouseCaptured);
     _gameRepo
       .VerifyRemove(repo =>
-        repo.PlayerGlobalPosition.Sync -= state.OnPlayerGlobalPositionChanged
+        repo.PlayerGlobalPosition.Sync -= _state.OnPlayerGlobalPositionChanged
       );
   }
 
   [Test]
   public void OnMouseCaptured() {
-    var state = new PlayerCameraLogic.State(_context);
-
     // Make sure it enables input when mouse is captured.
-    state.OnMouseCaptured(true);
+    _state.OnMouseCaptured(true);
 
     _context.Inputs.ShouldBe(new object[] {
       new PlayerCameraLogic.Input.EnableInput()
@@ -80,7 +78,7 @@ public class PlayerCameraLogicStateTest : TestClass {
     _context.Reset();
 
     // Make sure it disables input when mouse is not captured.
-    state.OnMouseCaptured(false);
+    _state.OnMouseCaptured(false);
 
     _context.Inputs.ShouldBe(new object[] {
       new PlayerCameraLogic.Input.DisableInput()
@@ -89,10 +87,8 @@ public class PlayerCameraLogicStateTest : TestClass {
 
   [Test]
   public void OnPlayerGlobalPositionChanged() {
-    var state = new PlayerCameraLogic.State(_context);
-
     // Make sure it updates the camera position when the player moves.
-    state.OnPlayerGlobalPositionChanged(Vector3.Zero);
+    _state.OnPlayerGlobalPositionChanged(Vector3.Zero);
 
     _context.Inputs.ShouldBe(new object[] {
       new PlayerCameraLogic.Input.TargetPositionChanged(Vector3.Zero)
@@ -101,10 +97,8 @@ public class PlayerCameraLogicStateTest : TestClass {
 
   [Test]
   public void OnCameraTargetOffsetChanged() {
-    var state = new PlayerCameraLogic.State(_context);
-
     // Make sure it updates the camera offset when the player moves.
-    state.OnCameraTargetOffsetChanged(Vector3.Zero);
+    _state.OnCameraTargetOffsetChanged(Vector3.Zero);
 
     _context.Inputs.ShouldBe(new object[] {
       new PlayerCameraLogic.Input.TargetOffsetChanged(Vector3.Zero)
@@ -136,13 +130,11 @@ public class PlayerCameraLogicStateTest : TestClass {
 
     _gameRepo.Setup(repo => repo.SetCameraBasis(It.IsAny<Basis>()));
 
-    var state = new PlayerCameraLogic.State(_context);
+    var nextState = _state.On(new PlayerCameraLogic.Input.PhysicsTicked(1d));
 
-    var nextState = state.On(new PlayerCameraLogic.Input.PhysicsTicked(1d));
+    _state.ShouldBeSameAs(nextState);
 
-    state.ShouldBeSameAs(nextState);
-
-    _context.Outputs.ShouldBeOfTypes(new Type[] {
+    _context.Outputs.ShouldBeOfTypes(new[] {
       typeof(PlayerCameraLogic.Output.GimbalRotationChanged),
       typeof(PlayerCameraLogic.Output.GlobalTransformChanged),
       typeof(PlayerCameraLogic.Output.CameraLocalPositionChanged),
@@ -157,9 +149,7 @@ public class PlayerCameraLogicStateTest : TestClass {
     var originalTargetPosition = _data.TargetPosition;
     var newTargetPosition = Vector3.Up;
 
-    var state = new PlayerCameraLogic.State(_context);
-
-    state.On(new PlayerCameraLogic.Input.TargetPositionChanged(
+    _state.On(new PlayerCameraLogic.Input.TargetPositionChanged(
       newTargetPosition
     ));
 
@@ -171,9 +161,7 @@ public class PlayerCameraLogicStateTest : TestClass {
     var originalTargetOffset = _data.TargetOffset;
     var newTargetOffset = Vector3.Up;
 
-    var state = new PlayerCameraLogic.State(_context);
-
-    state.On(new PlayerCameraLogic.Input.TargetOffsetChanged(
+    _state.On(new PlayerCameraLogic.Input.TargetOffsetChanged(
       newTargetOffset
     ));
 

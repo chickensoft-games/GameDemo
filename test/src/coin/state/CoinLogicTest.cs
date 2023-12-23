@@ -26,11 +26,8 @@ public class CoinLogicTest : TestClass {
     _logic.Get<ICoin>().ShouldBe(_coin.Object);
     _logic.Get<CoinLogic.Settings>().ShouldBe(_settings);
 
-    var context = CoinLogic.CreateFakeContext();
-    context.Set(_appRepo.Object);
-
     _logic
-      .GetInitialState(context)
+      .GetInitialState()
       .ShouldBeAssignableTo<CoinLogic.State.Idle>();
   }
 }

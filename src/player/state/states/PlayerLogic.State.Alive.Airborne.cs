@@ -4,16 +4,14 @@ public partial class PlayerLogic {
   public abstract partial record State {
     public record Airborne : Alive,
     IGet<Input.HitFloor>, IGet<Input.StartedFalling> {
-      public Airborne(IContext context) : base(context) { }
-
       public IState On(Input.HitFloor input) {
         if (input.IsMovingHorizontally) {
-          return new Moving(Context);
+          return new Moving();
         }
-        return new Idle(Context);
+        return new Idle();
       }
 
-      public IState On(Input.StartedFalling input) => new Falling(Context);
+      public IState On(Input.StartedFalling input) => new Falling();
     }
   }
 }

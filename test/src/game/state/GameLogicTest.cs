@@ -20,11 +20,9 @@ public class GameLogicTest : TestClass {
   [Test]
   public void Initializes() {
     _logic.Get<IAppRepo>().ShouldBe(_appRepo.Object);
-    var context = GameLogic.CreateFakeContext();
-    context.Set(_appRepo.Object);
 
     _logic
-      .GetInitialState(context)
+      .GetInitialState()
       .ShouldBeAssignableTo<GameLogic.IState>();
   }
 }

@@ -10,11 +10,10 @@ public interface IInGameUILogic : ILogicBlock<InGameUILogic.IState> { }
 
 [StateMachine]
 public partial class InGameUILogic : LogicBlock<InGameUILogic.IState>, IInGameUILogic {
+  public override IState GetInitialState() => new State();
+
   public InGameUILogic(IInGameUI inGameUi, IAppRepo appRepo) {
     Set(inGameUi);
     Set(appRepo);
   }
-
-  public override IState GetInitialState(IContext context) =>
-    new State(context);
 }

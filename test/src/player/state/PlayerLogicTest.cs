@@ -31,12 +31,8 @@ public class PlayerLogicTest : TestClass {
     _logic.Get<IGameRepo>().ShouldBe(_gameRepo.Object);
     _logic.Get<PlayerLogic.Data>().ShouldNotBeNull();
 
-    var context = PlayerLogic.CreateFakeContext();
-
-    context.Set(_appRepo.Object);
-
     _logic
-      .GetInitialState(context)
+      .GetInitialState()
       .ShouldBeAssignableTo<PlayerLogic.IState>();
   }
 }

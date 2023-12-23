@@ -2,9 +2,7 @@ namespace GameDemo;
 public partial class AppLogic {
   public partial record State {
     public record RestartingGame : State, IGet<Input.FadeOutFinished> {
-      public RestartingGame(IContext context) : base(context) {
-        var appRepo = Context.Get<IAppRepo>();
-
+      public RestartingGame() {
         OnEnter<RestartingGame>(
           (previous) => Context.Output(new Output.FadeOut())
         );
@@ -17,7 +15,7 @@ public partial class AppLogic {
       }
 
       public IState On(Input.FadeOutFinished input) =>
-        new PlayingGame(Context);
+        new PlayingGame();
     }
   }
 }

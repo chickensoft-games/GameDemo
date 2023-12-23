@@ -6,8 +6,7 @@ public interface IGameLogic : ILogicBlock<GameLogic.IState> { }
 
 [StateMachine]
 public partial class GameLogic : LogicBlock<GameLogic.IState>, IGameLogic {
-  public override IState GetInitialState(IContext context) =>
-    new State(context);
+  public override IState GetInitialState() => new State();
 
   public GameLogic(IAppRepo appRepo) {
     Set(appRepo);
