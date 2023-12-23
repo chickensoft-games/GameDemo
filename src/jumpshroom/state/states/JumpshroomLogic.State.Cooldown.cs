@@ -5,13 +5,13 @@ using Chickensoft.LogicBlocks;
 public partial class JumpshroomLogic : LogicBlock<JumpshroomLogic.IState> {
   public partial record State {
     public record Cooldown : State, IGet<Input.CooldownCompleted> {
-      public Cooldown(IContext context) : base(context) {
+      public Cooldown() {
         OnEnter<Cooldown>(
           (previous) => Context.Output(new Output.StartCooldownTimer())
         );
       }
 
-      public IState On(Input.CooldownCompleted input) => new Idle(Context);
+      public IState On(Input.CooldownCompleted input) => new Idle();
     }
   }
 }

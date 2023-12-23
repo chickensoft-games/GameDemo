@@ -8,8 +8,6 @@ public partial class PlayerLogic {
     IGet<Input.Moved>,
     IGet<Input.Pushed>,
     IGet<Input.Killed> {
-      public Alive(IContext context) : base(context) { }
-
       // Movement is allowed in any state (even in the air), so these inputs
       // handle movement for each substate unless overridden.
       //
@@ -22,7 +20,7 @@ public partial class PlayerLogic {
 
         appRepo.OnGameEnded(GameOverReason.PlayerDied);
 
-        return new Dead(Context);
+        return new Dead();
       }
 
       public virtual IState On(Input.PhysicsTick input) {

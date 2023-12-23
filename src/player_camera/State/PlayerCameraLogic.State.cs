@@ -13,21 +13,18 @@ public partial class PlayerCameraLogic {
       IGet<Input.PhysicsTicked>,
       IGet<Input.TargetPositionChanged>,
       IGet<Input.TargetOffsetChanged> {
-    public State(IContext context) : base(context) {
-      var gameRepo = Context.Get<IGameRepo>();
-      var appRepo = Context.Get<IAppRepo>();
-
-      OnEnter<State>(
-        (previous) => {
-          appRepo.IsMouseCaptured.Sync += OnMouseCaptured;
-          gameRepo.PlayerGlobalPosition.Sync += OnPlayerGlobalPositionChanged;
+    public State() {
+      OnAttach(
+        () => {
+          Get<IAppRepo>().IsMouseCaptured.Sync += OnMouseCaptured;
+          Get<IGameRepo>().PlayerGlobalPosition.Sync += OnPlayerGlobalPositionChanged;
         }
       );
 
-      OnExit<State>(
-        (next) => {
-          appRepo.IsMouseCaptured.Sync -= OnMouseCaptured;
-          gameRepo.PlayerGlobalPosition.Sync -= OnPlayerGlobalPositionChanged;
+      OnDetach(
+        () => {
+          Get<IAppRepo>().IsMouseCaptured.Sync -= OnMouseCaptured;
+          Get<IGameRepo>().PlayerGlobalPosition.Sync -= OnPlayerGlobalPositionChanged;
         }
       );
     }

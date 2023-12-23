@@ -25,13 +25,8 @@ public class InGameUILogicTest : TestClass {
     _logic.Get<IInGameUI>().ShouldBe(_inGameUi.Object);
     _logic.Get<IAppRepo>().ShouldBe(_appRepo.Object);
 
-    var context = InGameUILogic.CreateFakeContext();
-
-    context.Set(_inGameUi.Object);
-    context.Set(_appRepo.Object);
-
     _logic
-      .GetInitialState(context)
+      .GetInitialState()
       .ShouldBeAssignableTo<InGameUILogic.IState>();
   }
 }

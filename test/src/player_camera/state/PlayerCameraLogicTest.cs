@@ -39,11 +39,8 @@ public class PlayerCameraLogicTest : TestClass {
     _logic.Get<IGameRepo>().ShouldBe(_gameRepo.Object);
     _logic.Get<PlayerCameraLogic.Data>().ShouldNotBeNull();
 
-    var context = PlayerCameraLogic.CreateFakeContext();
-    context.Set(_appRepo.Object);
-    context.Set(_gameRepo.Object);
     _logic
-      .GetInitialState(context)
+      .GetInitialState()
       .ShouldBeOfType<PlayerCameraLogic.State.InputDisabled>();
 
     // Test outputs

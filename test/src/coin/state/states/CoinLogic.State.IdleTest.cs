@@ -1,12 +1,13 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
 public class CoinLogicStateIdleTest : TestClass {
-  private CoinLogic.IFakeContext _context = default!;
+  private IFakeContext _context = default!;
   private CoinLogic.State.Idle _state = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<ICoin> _coin = default!;
@@ -15,15 +16,14 @@ public class CoinLogicStateIdleTest : TestClass {
 
   [Setup]
   public void Setup() {
-    _context = CoinLogic.CreateFakeContext();
-
     _coin = new();
     _appRepo = new();
 
+    _state = new();
+    _context = _state.CreateFakeContext();
+
     _context.Set(_coin.Object);
     _context.Set(_appRepo.Object);
-
-    _state = new(_context);
   }
 
   [Test]

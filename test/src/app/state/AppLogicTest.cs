@@ -19,11 +19,9 @@ public class AppLogicTest : TestClass {
   [Test]
   public void Initializes() {
     _logic.Get<IAppRepo>().ShouldBe(_appRepo.Object);
-    var context = AppLogic.CreateFakeContext();
-    context.Set(_appRepo.Object);
 
     _logic
-      .GetInitialState(context)
+      .GetInitialState()
       .ShouldBeAssignableTo<AppLogic.IState>();
   }
 }

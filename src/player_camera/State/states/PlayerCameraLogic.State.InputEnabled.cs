@@ -5,10 +5,9 @@ using Godot;
 public partial class PlayerCameraLogic {
   public partial record State {
     /// <summary>The state of the player camera.</summary>
-    /// <param name="Context">Logic block context.</param>
-    public record InputEnabled(IContext Context) : State(Context),
-      IGet<Input.DisableInput>, IGet<Input.MouseInputOccurred> {
-      public IState On(Input.DisableInput input) => new InputDisabled(Context);
+    public record InputEnabled : State,
+    IGet<Input.DisableInput>, IGet<Input.MouseInputOccurred> {
+      public IState On(Input.DisableInput input) => new InputDisabled();
 
       public IState On(Input.MouseInputOccurred input) {
         var settings = Context.Get<PlayerCameraSettings>();

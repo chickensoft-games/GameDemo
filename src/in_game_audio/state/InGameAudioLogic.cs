@@ -8,8 +8,7 @@ public interface IInGameAudioLogic : ILogicBlock<InGameAudioLogic.IState> { }
 [StateMachine]
 public partial class InGameAudioLogic :
   LogicBlock<InGameAudioLogic.IState>, IInGameAudioLogic {
-  public override IState GetInitialState(IContext context) =>
-    new State(context);
+  public override IState GetInitialState() => new State();
 
   public InGameAudioLogic(IAppRepo appRepo) {
     Set(appRepo);

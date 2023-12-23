@@ -8,14 +8,12 @@ public partial class CoinLogic {
       public ICoinCollector Target { get; }
       private double _elapsedTime;
 
-      public Collecting(IContext context, ICoinCollector target) :
-        base(context) {
-        var coin = Context.Get<ICoin>();
-        var appRepo = Context.Get<IAppRepo>();
-
+      public Collecting(ICoinCollector target) {
         Target = target;
 
-        OnEnter<Collecting>((previous) => appRepo.StartCoinCollection(coin));
+        OnEnter<Collecting>(
+          (previous) => Get<IAppRepo>().StartCoinCollection(Get<ICoin>())
+        );
       }
 
       public IState On(Input.PhysicsProcess input) {

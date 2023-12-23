@@ -3,20 +3,21 @@ namespace GameDemo;
 public partial class AppLogic {
   public partial record State {
     public record SplashScreen : State, IGet<Input.FadeOutFinished> {
-      public SplashScreen(IContext context) : base(context) {
-        var appRepo = Context.Get<IAppRepo>();
+      public SplashScreen() {
         OnEnter<SplashScreen>(
-          (previous) => {
-            Context.Output(new Output.ShowSplashScreen());
-            appRepo.SplashScreenSkipped += OnSplashScreenSkipped;
-          }
+          (previous) => Context.Output(new Output.ShowSplashScreen())
         );
-        OnExit<SplashScreen>(
-          (next) => appRepo.SplashScreenSkipped -= OnSplashScreenSkipped
+
+        OnAttach(
+          () => Get<IAppRepo>().SplashScreenSkipped += OnSplashScreenSkipped
+        );
+
+        OnDetach(
+          () => Get<IAppRepo>().SplashScreenSkipped -= OnSplashScreenSkipped
         );
       }
 
-      public IState On(Input.FadeOutFinished input) => new MainMenu(Context);
+      public IState On(Input.FadeOutFinished input) => new MainMenu();
 
       public void OnSplashScreenSkipped() =>
         Context.Output(new Output.HideSplashScreen());

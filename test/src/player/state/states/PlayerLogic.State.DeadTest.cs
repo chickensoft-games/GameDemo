@@ -9,8 +9,7 @@ public class PlayerLogicStateDeadTest : TestClass {
 
   [Test]
   public void Initializes() {
-    var context = PlayerLogic.CreateFakeContext();
-    var state = new PlayerLogic.State.Dead(context);
+    var state = new PlayerLogic.State.Dead();
 
     state.ShouldNotBeNull();
   }

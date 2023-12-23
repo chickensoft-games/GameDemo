@@ -1,12 +1,13 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
 public class JumpshroomLogicStateLaunchingTest : TestClass {
-  private JumpshroomLogic.IFakeContext _context = default!;
+  private IFakeContext _context = default!;
   private Mock<IPushEnabled> _target = default!;
   private JumpshroomLogic.Data _data = default!;
   private JumpshroomLogic.State.Launching _state = default!;
@@ -15,14 +16,13 @@ public class JumpshroomLogicStateLaunchingTest : TestClass {
 
   [Setup]
   public void Setup() {
-    _context = JumpshroomLogic.CreateFakeContext();
-
     _target = new Mock<IPushEnabled>();
     _data = new(1.0f);
 
-    _context.Set(_data);
+    _state = new(_target.Object);
+    _context = _state.CreateFakeContext();
 
-    _state = new(_context, _target.Object);
+    _context.Set(_data);
   }
 
   [Test]

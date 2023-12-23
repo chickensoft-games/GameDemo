@@ -2,20 +2,19 @@ namespace GameDemo;
 public partial class GameLogic {
   public interface IState : IStateLogic { }
 
-  public record State :
-  StateLogic, IState, IGet<Input.Initialize> {
-    public State(IContext context) : base(context) {
-      var appRepo = context.Get<IAppRepo>();
-
-      OnEnter<State>(
-        (previous) => {
+  public record State : StateLogic, IState, IGet<Input.Initialize> {
+    public State() {
+      OnAttach(
+        () => {
+          var appRepo = Context.Get<IAppRepo>();
           appRepo.GameStarting += GameAboutToStart;
           appRepo.GamePaused += GamePaused;
           appRepo.GameResumed += GameResumed;
         }
       );
 
-      OnExit<State>((next) => {
+      OnDetach(() => {
+        var appRepo = Context.Get<IAppRepo>();
         appRepo.GameStarting -= GameAboutToStart;
         appRepo.GamePaused -= GamePaused;
         appRepo.GameResumed -= GameResumed;

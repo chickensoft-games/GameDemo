@@ -5,7 +5,6 @@ using Godot;
 using Shouldly;
 
 public class PlayerLogicStateAliveAirborneTest : TestClass {
-  private PlayerLogic.IFakeContext _context = default!;
   private PlayerLogic.State.Falling _state = default!;
 
   public PlayerLogicStateAliveAirborneTest(Node testScene) :
@@ -13,8 +12,7 @@ public class PlayerLogicStateAliveAirborneTest : TestClass {
 
   [Setup]
   public void Setup() {
-    _context = PlayerLogic.CreateFakeContext();
-    _state = new(_context);
+    _state = new();
   }
 
   [Test]

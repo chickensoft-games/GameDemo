@@ -1,12 +1,13 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
 public class PlayerLogicStateAliveGroundedMovingTest : TestClass {
-  private PlayerLogic.IFakeContext _context = default!;
+  private IFakeContext _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private PlayerLogic.State.Moving _state = default!;
 
@@ -15,17 +16,16 @@ public class PlayerLogicStateAliveGroundedMovingTest : TestClass {
 
   [Setup]
   public void Setup() {
-    _context = PlayerLogic.CreateFakeContext();
     _appRepo = new();
+    _state = new();
+    _context = _state.CreateFakeContext();
 
     _context.Set(_appRepo.Object);
-    _state = new(_context);
   }
 
   [Test]
   public void Enters() {
-    var parent =
-      new PlayerLogic.State.Grounded(new Mock<PlayerLogic.IContext>().Object);
+    var parent = new PlayerLogic.State.Grounded();
     _state.Enter(parent);
 
     _context.Outputs.ShouldBe(new object[] {

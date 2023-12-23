@@ -1,12 +1,12 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Godot;
-using Moq;
 using Shouldly;
 
 public class PlayerLogicStateAliveAirborneFallingTest : TestClass {
-  private PlayerLogic.IFakeContext _context = default!;
+  private IFakeContext _context = default!;
   private PlayerLogic.State.Falling _state = default!;
 
   public PlayerLogicStateAliveAirborneFallingTest(Node testScene) :
@@ -14,14 +14,13 @@ public class PlayerLogicStateAliveAirborneFallingTest : TestClass {
 
   [Setup]
   public void Setup() {
-    _context = PlayerLogic.CreateFakeContext();
-    _state = new(_context);
+    _state = new();
+    _context = _state.CreateFakeContext();
   }
 
   [Test]
   public void Enters() {
-    var parent =
-      new PlayerLogic.State.Airborne(new Mock<PlayerLogic.IContext>().Object);
+    var parent = new PlayerLogic.State.Airborne();
 
     _state.Enter(parent);
 

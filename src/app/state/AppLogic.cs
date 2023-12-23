@@ -7,8 +7,7 @@ public interface IAppLogic : ILogicBlock<AppLogic.IState> { }
 
 [StateMachine]
 public partial class AppLogic : LogicBlock<AppLogic.IState>, IAppLogic {
-  public override IState GetInitialState(IContext context)
-  => new State.SplashScreen(context);
+  public override IState GetInitialState() => new State.SplashScreen();
 
   public AppLogic(IAppRepo appRepo) {
     Set(appRepo);
