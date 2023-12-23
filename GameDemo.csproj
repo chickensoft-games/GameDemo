@@ -41,10 +41,8 @@
     <PackageReference Include="Chickensoft.SuperNodes.Types" Version="1.6.1" />
     <PackageReference Include="Chickensoft.AutoInject" Version="1.5.0" PrivateAssets="all" />
     <PackageReference Include="Chickensoft.PowerUps" Version="3.0.1-godot4.2.0-beta.5" PrivateAssets="all" />
-    <!-- <PackageReference Include="Chickensoft.LogicBlocks" Version="3.4.0" /> -->
-    <!-- <PackageReference Include="Chickensoft.LogicBlocks.Generator" Version="3.4.0" PrivateAssets="all" OutputItemType="analyzer" /> -->
-    <ProjectReference Include="/Users/joanna/Dropbox/GameDev/Chickensoft/LogicBlocks/Chickensoft.LogicBlocks/Chickensoft.LogicBlocks.csproj" />
-    <ProjectReference Include="/Users/joanna/Dropbox/GameDev/Chickensoft/LogicBlocks/Chickensoft.LogicBlocks.Generator/Chickensoft.LogicBlocks.Generator.csproj" PrivateAssets="all" OutputItemType="analyzer" />
+    <PackageReference Include="Chickensoft.LogicBlocks" Version="4.0.0" />
+    <PackageReference Include="Chickensoft.LogicBlocks.Generator" Version="4.0.0" PrivateAssets="all" OutputItemType="analyzer" />
     <PackageReference Include="GodotSharp.SourceGenerators" Version="2.1.1" PrivateAssets="all" OutputItemType="analyzer" />
     <PackageReference Include="Chickensoft.GoDotCollections" Version="1.4.0" />
     <PackageReference Include="Chickensoft.GodotNodeInterfaces" Version="2.1.0-godot4.2.0-beta.5 " />
