@@ -12,7 +12,7 @@ public interface IGameRepo : IDisposable {
   IAutoProp<Basis> CameraBasis { get; }
 
   /// <summary>Camera's global forward direction vector.</summary>
-  public Vector3 GlobalCameraDirection { get; }
+  Vector3 GlobalCameraDirection { get; }
 
   /// <summary>Sets the camera's global transform basis.</summary>
   /// <param name="cameraBasis">Camera global transform basis.</param>

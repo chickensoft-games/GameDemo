@@ -2,6 +2,10 @@
 state "AppLogic State" as GameDemo_AppLogic_State {
   state "InGame" as GameDemo_AppLogic_State_InGame {
     state "GamePaused" as GameDemo_AppLogic_State_GamePaused {
+      state "GamePausedSaving" as GameDemo_AppLogic_State_GamePausedSaving {
+        GameDemo_AppLogic_State_GamePausedSaving : OnEnter → ShowPauseSaveOverlay
+        GameDemo_AppLogic_State_GamePausedSaving : OnExit → HidePauseSaveOverlay
+      }
       GameDemo_AppLogic_State_GamePaused : OnEnter → ShowPauseMenu
       GameDemo_AppLogic_State_GamePaused : OnExit → HidePauseMenu
     }
@@ -38,7 +42,9 @@ state "AppLogic State" as GameDemo_AppLogic_State {
   GameDemo_AppLogic_State : OnMouseCaptured() → CaptureMouse
 }
 
+GameDemo_AppLogic_State_GamePaused --> GameDemo_AppLogic_State_GamePausedSaving : GameSaveRequested
 GameDemo_AppLogic_State_GamePaused --> GameDemo_AppLogic_State_ResumingGame : PauseButtonPressed
+GameDemo_AppLogic_State_GamePausedSaving --> GameDemo_AppLogic_State_GamePaused : GameSaveCompleted
 GameDemo_AppLogic_State_InGame --> GameDemo_AppLogic_State_LeavingGame : GoToMainMenu
 GameDemo_AppLogic_State_InGame --> GameDemo_AppLogic_State_LostGame : GameOver
 GameDemo_AppLogic_State_InGame --> GameDemo_AppLogic_State_MainMenu : GameOver

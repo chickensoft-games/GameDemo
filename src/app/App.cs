@@ -6,7 +6,8 @@ using Chickensoft.PowerUps;
 using Godot;
 using SuperNodes.Types;
 
-public interface IApp : ICanvasLayer, IProvide<IAppRepo> { }
+public interface IApp : ICanvasLayer, IProvide<IAppRepo>,
+IProvide<IGameSaveSystem> { }
 
 [SuperNode(typeof(AutoSetup), typeof(AutoNode), typeof(Provider))]
 public partial class App : CanvasLayer, IApp {
@@ -22,11 +23,13 @@ public partial class App : CanvasLayer, IApp {
   #endregion External
 
   #region Provisions
-  public IAppRepo Value() => AppRepo;
+  IAppRepo IProvide<IAppRepo>.Value() => AppRepo;
+  IGameSaveSystem IProvide<IGameSaveSystem>.Value() => SaveSystem;
   #endregion Provisions
 
   #region State
   public IAppRepo AppRepo { get; set; } = default!;
+  public IGameSaveSystem SaveSystem { get; set; } = default!;
   public IAppLogic AppLogic { get; set; } = default!;
   public AppLogic.IBinding AppBinding { get; set; } = default!;
   #endregion State
@@ -55,6 +58,7 @@ public partial class App : CanvasLayer, IApp {
   public void Setup() {
     Instantiator = new Instantiator(GetTree());
     AppRepo = new AppRepo();
+    SaveSystem = new GameSaveSystem(new GameSaveSerializer());
     AppLogic = new AppLogic(AppRepo);
 
     // Listen for various menu signals. Each of these just translate to an input
@@ -67,6 +71,7 @@ public partial class App : CanvasLayer, IApp {
     PauseMenu.MainMenu += OnMainMenu;
     PauseMenu.Resume += OnResume;
     PauseMenu.TransitionCompleted += PauseMenuTransitioned;
+    PauseMenu.Save += PauseMenuSaveRequested;
 
     AnimationPlayer.AnimationFinished += OnAnimationFinished;
 
@@ -130,6 +135,12 @@ public partial class App : CanvasLayer, IApp {
       })
       .Handle<AppLogic.Output.HidePauseMenu>((output) => PauseMenu.FadeOut())
       .Handle<AppLogic.Output.DisablePauseMenu>((output) => PauseMenu.Hide())
+      .Handle<AppLogic.Output.ShowPauseSaveOverlay>((output) =>
+        PauseMenu.OnSaveStarted()
+      )
+      .Handle<AppLogic.Output.HidePauseSaveOverlay>((output) =>
+        PauseMenu.OnSaveFinished()
+      )
       .Handle<AppLogic.Output.CaptureMouse>(
         (output) => Input.MouseMode = output.IsMouseCaptured
           ? Input.MouseModeEnum.Captured
@@ -146,6 +157,9 @@ public partial class App : CanvasLayer, IApp {
     AppLogic.Input(new AppLogic.Input.PauseButtonPressed());
   public void PauseMenuTransitioned() =>
     AppLogic.Input(new AppLogic.Input.PauseMenuTransitioned());
+
+  public void PauseMenuSaveRequested() =>
+    AppLogic.Input(new AppLogic.Input.GameSaveRequested());
 
   public void OnAnimationFinished(StringName animation) {
     // There's only two animations :)

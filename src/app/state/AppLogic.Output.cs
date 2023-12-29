@@ -11,6 +11,8 @@ public partial class AppLogic {
     public readonly record struct ShowMainMenu;
     public readonly record struct ShowPauseMenu;
     public readonly record struct HidePauseMenu;
+    public readonly record struct ShowPauseSaveOverlay;
+    public readonly record struct HidePauseSaveOverlay;
     public readonly record struct DisablePauseMenu;
     public readonly record struct RemoveExistingGame;
     public readonly record struct CaptureMouse(bool IsMouseCaptured);

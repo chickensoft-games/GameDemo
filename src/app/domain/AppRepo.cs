@@ -39,6 +39,10 @@ public interface IAppRepo : IDisposable {
   /// <summary>Event invoked when the game is resumed.</summary>
   event Action? GameResumed;
 
+  /// <summary>Event invoked when the game should be saved.</summary>
+  event Action? GameSaveRequested;
+  event Action? GameSaveCompleted;
+
   /// <summary>Event invoked when the splash screen is skipped.</summary>
   event Action? SplashScreenSkipped;
 
@@ -79,8 +83,11 @@ public interface IAppRepo : IDisposable {
   /// <summary>Skips the splash screen.</summary>
   void SkipSplashScreen();
 
-  /// <summary>Tells the game the app that the player jumped.</summary>
+  /// <summary>Tells the app that the player jumped.</summary>
   void Jump();
+
+  /// <summary>Starts the saving process.</summary>
+  void StartSaving();
 }
 
 /// <summary>
@@ -101,6 +108,8 @@ public class AppRepo : IAppRepo {
   public event Action<GameOverReason>? GameEnded;
   public event Action? GamePaused;
   public event Action? GameResumed;
+  public event Action? GameSaveRequested;
+  public event Action? GameSaveCompleted;
   public event Action? SplashScreenSkipped;
   public event Action? Jumped;
   public event Action? MainMenuEntered;
@@ -175,6 +184,12 @@ public class AppRepo : IAppRepo {
   public void OnMainMenuEntered() => MainMenuEntered?.Invoke();
 
   public void Jump() => Jumped?.Invoke();
+
+  public void StartSaving() {
+    GameSaveRequested?.Invoke();
+    // TODO: Remove this later
+    GameSaveCompleted?.Invoke();
+  }
 
   #region Internals
   private void Reset() {

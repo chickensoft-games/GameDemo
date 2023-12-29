@@ -1,7 +1,9 @@
 namespace GameDemo;
+
 public partial class AppLogic {
   public partial record State {
-    public record GamePaused : InGame, IGet<Input.PauseButtonPressed> {
+    public record GamePaused : InGame,
+    IGet<Input.PauseButtonPressed>, IGet<Input.GameSaveRequested> {
       public GamePaused() {
         OnEnter<GamePaused>(
           (previous) => {
@@ -14,8 +16,12 @@ public partial class AppLogic {
         );
       }
 
-      public IState On(Input.PauseButtonPressed input)
+      public virtual IState On(Input.PauseButtonPressed input)
         => new ResumingGame();
+
+      public IState On(Input.GameSaveRequested input) {
+        return new GamePausedSaving();
+      }
     }
   }
 }

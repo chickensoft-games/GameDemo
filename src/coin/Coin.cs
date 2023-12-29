@@ -6,7 +6,7 @@ using Chickensoft.PowerUps;
 using Godot;
 using SuperNodes.Types;
 
-public interface ICoin : INode3D { }
+public interface ICoin : INode3D, ISave<CoinData> { }
 
 [SuperNode(typeof(AutoNode), typeof(Dependent))]
 public partial class Coin : Node3D, ICoin {
@@ -34,6 +34,26 @@ public partial class Coin : Node3D, ICoin {
   public CoinLogic.IBinding CoinBinding { get; set; } = default!;
   #endregion State
 
+  #region Save
+  // Name is unique and stable among all coin siblings, so we can use it as the
+  // save id.
+  public string SaveId => Name;
+  public CoinData GetSaveData() => new(Name, GlobalTransform, CoinLogic.Value);
+  public void RestoreSaveData(CoinData data) {
+    GlobalTransform = data.Transform;
+    // Todo: restore state
+  }
+  #endregion Save
+
+  #region PackedScenes
+  public static PackedScene CollectorDetector =>
+    GD.Load<PackedScene>("res://src/coin/CollectorDetector.tscn");
+  #endregion PackedScenes
+
+  public Coin() {
+    GD.Print("Coin created");
+  }
+
   public void Setup() {
     Settings = new CoinLogic.Settings(CollectionTimeInSeconds);
     CoinLogic = new CoinLogic(this, Settings, AppRepo);
@@ -48,9 +68,9 @@ public partial class Coin : Node3D, ICoin {
     // though it shouldn't. And this isn't a collision shape for physics, it's
     // just a collision shape for area detection :P
 
-    var collectorDetector = GD
-      .Load<PackedScene>("res://src/coin/CollectorDetector.tscn")
-      .Instantiate<Area3D>();
+    GD.Print("Coin name: " + Name);
+
+    var collectorDetector = CollectorDetector.Instantiate<Area3D>();
 
     collectorDetector.BodyEntered += OnCollectorDetectorBodyEntered;
     AddChild(collectorDetector);

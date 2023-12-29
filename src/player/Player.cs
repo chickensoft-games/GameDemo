@@ -7,7 +7,7 @@ using Godot;
 using SuperNodes.Types;
 
 public interface IPlayer :
-  ICharacterBody3D, IKillable, ICoinCollector, IPushEnabled {
+  ICharacterBody3D, ISave<PlayerData>, IKillable, ICoinCollector, IPushEnabled {
   public bool IsMovingHorizontally();
   public bool IsStopped();
 
@@ -83,6 +83,17 @@ public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
   public PlayerLogic.Settings Settings { get; set; } = default!;
   public PlayerLogic.IBinding PlayerBinding { get; set; } = default!;
   #endregion State
+
+  #region Save
+  public string SaveId => Name;
+  public PlayerData GetSaveData() =>
+    new(GlobalTransform, Velocity, PlayerLogic.Value);
+  public void RestoreSaveData(PlayerData data) {
+    GlobalTransform = data.Transform;
+    Velocity = data.Velocity;
+    // TODO: Restore state.
+  }
+  #endregion Save
 
   public void Setup() {
     Settings = new PlayerLogic.Settings(

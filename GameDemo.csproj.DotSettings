@@ -1,0 +1,1660 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Capp/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Capp_005Cdomain/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Capp_005Cstate/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Capp_005Cstate_005Cstates/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Ccoin/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cdeath_005Fplane/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cgame/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cgame_005Csave/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cin_005Fgame_005Faudio/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cin_005Fgame_005Fui/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cjumpshroom/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmenu/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cplayer/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cplayer_005Fcamera/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Ctraits/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cutils/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=chickensoft.autoinjectsrc/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=chickensoft.powerupssrc/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=chickensoft.autoinjectsrc_005Csrc/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=chickensoft.powerupssrc_005Csrc/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cdeath_plane/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cin_game_ui/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cin_game_audio/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cplayer_camera/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Ccoin_005Cstate/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cgame_005Cdomain/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cgame_005Cstate/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cin_game_audio_005Cstate/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cin_game_ui_005Cstate/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cjumpshroom_005Cstate/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Cstate/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmenu_005Csubmenus/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cplayer_005Cstate/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cplayer_camera_005Cstate/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cutils_005Csave/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cutils_005Cserialization/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C55/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C56/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C53/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C54/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C51/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C52/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cscreenspacereflectionfiltershaderrd_005C16595c21bb03d0ea8463712019332a912c6ecbec85a0093561277bf402a45f5f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccopyshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C50/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2computeluminancepyramidpassshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C7c_005Ce7/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C59/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Ctrees_005Csimple_bark/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C57/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C58/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C4d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C85_005C05/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C4e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cimported/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C4b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C4c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C4a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cresolveshaderrd_005Cd2962ddaec24632a248b36afd3324450e525aa0f419bcb88da17f1ab0a208bcd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cscreenspacereflectionscaleshaderrd_005C8448654b4eff59633a86bc965b037fa944b6d3a4ac605905e19bd2ef729db66b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cplayer_005Cvisuals_005Cmaterials/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cparticlesshaderrd_005C004f85bb73e7cd71b6b2521fbc2d96350efc0749397752373f02af6f1036028c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C4f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgipreprocessshaderrd_005C1b003d88568453d6d9615195da84f6d443e55d102acf33bbe16548c8afaa06e6/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C67/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C64/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C65/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C62/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C63/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cb1_005C61/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C60/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C61/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgidirectlightshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C68/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C69/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C5e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C5f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C5c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.generated_005Cgodot.sourcegenerators_005Cgodot.sourcegenerators.scriptmethodsgenerator/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C5d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C5a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C5b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C70/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C77/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C78/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C75/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C76/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C73/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C74/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C71/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C72/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C79/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C6f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C6d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C6e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C6b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Cwater_005Ctextures/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csseffectsdownsampleshaderrd_005C0c1f259152b1c2a5e6e13771f8caed4f1f67d74796d62a687a751e84be44a478/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C6c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cskyshaderrd_005C2cbc48bdeaf80156e01ba054bc4a97b23ff406e51ef1a60b1ee5ec4b2fd8cf5d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C81/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2lockpassshaderrd_005C0ca6f852321ff5c7f0256b5c0d753857503385e8947e2033a007732253075f1e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2autogenreactivepassshaderrd_005C471a87ef130db26ef636d115d6af328dcb3b4d1d48555af6379cc28bc3a319fb/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C88/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C89/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C86/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C87/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C84/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C85/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C82/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C83/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cblitshaderrd_005C161d8d616ae2c6c618b30951b62ae9abd3fb8fe214c1417b6e28d0a5cec17005/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C7e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C7f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csceneforwardclusteredshaderrd_005Ce1334dff3bd3f73f4075a07c87b825068a37d688d32bbf7ec3b54b8053662aba/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C7c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csceneforwardclusteredshaderrd_005Cb08a7037d35551f9861c0c6bf836a5c53c64051fd358945f3fd92b8396dd3570/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C7d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C7a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C7b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgiintegrateshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C92/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C90/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C11/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C12/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C5b_005C8f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cclusterstoreshaderrd_005C88a317ba26a13c4ab668fefc9f28ef4ee43835f50ecab7c0260ff09ccc89f343/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C2f_005Cb2/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C10/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csortshaderrd_005C5a41c903acc8ad1e3956c60de9e61da06b1c56eface70cc3724e243559fd968d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cin_game_ui/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C19/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cclusterdebugshaderrd_005Cd19e0e0dcdeab4925b73c710d435b66e48bb1c37954f7b49ed8c4b23ac8e6418/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Crefs_005Cremotes_005Corigin_005Crefactor/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccubetodpshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C18/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C15/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C13/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C14/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C0a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cmenu_005Csubmenus_005Csplash/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C0f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C0d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C0c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C22/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C23/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csortshaderrd_005Ccbb038ab430ab9bf058aa50d19ebda2612b7027e144142ba2af1a8a2a364513b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C20/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cclusterrendershaderrd_005C5d43f2ab5a257064a31bb1e7d2e3bd3beed48f6416a40fbf1eab5d6d76b49aac/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C21/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvolumetricfogprocessshaderrd_005Ce952c9234da8e68fd039d0822696e202633d9a5967fb9618925acc3cb220cefa/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cclusterstoreshaderrd_005C97f93b23de7ebabb7ec1a070a6300503cc941ec374837bfe7c0c13eb682b78b2/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C28/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C29/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C26/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C27/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C24/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cgishaderrd_005C2d0efc2bd8154f102f7adbd5764f2f504905103d2c292503ffbfae111061a045/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C25/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C3b_005C16/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C1a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccanvasocclusionshaderrd_005C04419a9858aafb10e40bb8988cd439049d874509c969f13161cc68109550a6db/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C1b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2accumulatepassshaderrd_005C561d871ce19c95d8af1c396dea570638ad19a4f42b10cf79363cafdfaef94da8/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2accumulatepassshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Corange_flowers/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2depthclippassshaderrd_005C7b6c9ef1949cf489f489fe178786e54c68d667d6ee69a247a154eaba18f64626/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cclusterrendershaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgidirectlightshaderrd_005C98abff779acfaa0bdec7dc9724dc38272d965d347d5f41bf04148a77d6a0c1a9/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C81_005C91/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C1e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C1f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C1c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C1d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C33/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C34/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csceneforwardclusteredshaderrd_005Ce53cd256abeb75e852c18c3bf1f145c30d847fd848058ae702ceb3a8ccc67e7f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C31/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C32/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C30/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cparticlesshaderrd_005C86438f71dfc097273a57316133b6295383452b82f247f0c32c6bacc2d24ab0de/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C39/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C37/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C38/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C35/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C36/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C2b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C2c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C2a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Crefs_005Cheads/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C2f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ctaaresolveshaderrd_005C1cfbfc18e228b3d712b02d0587870de2fd25c33064a3bd8aaa0532b386d731e0/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C2d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C2e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C45/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C42/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C43/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C40/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2tcrautogenpassshaderrd_005Cc29ffee519fa6703b2c08b0fc61985007545e5c8618fa5fcc8e4e8ab141f4254/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C41/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csortshaderrd_005C7af6d14c74be96b6a05000e348401fa953d62ecefd5e728778cbf0bed68917e8/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C48/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C49/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C46/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C47/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C3c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C6f_005C0b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.generated_005Cgodot.sourcegenerators_005Cgodot.sourcegenerators.scriptserializationgenerator/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C3d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C3a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C3b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Crefs_005Cheads_005Crefactor/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C08_005Cfa/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C3e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C3f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C56_005C6d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cee_005C05/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsrupscaleshaderrd_005Cbe7b2a444893631de46fdef58e4474c4774dfc004749162e0e1db327e171f693/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2computeluminancepyramidpassshaderrd_005Ce5c88d160ee3af1280ba5cedcc4d5643b7fc0e37c58dc1619e186158ad059af8/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C1e_005C9c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmenu_005Csubmenus_005Csplash/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Ccoin_005Caudio/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cf6_005Cb5/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cskeletonshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssaoimportancemapshaderrd_005C3fd68ea5848ed17c567364e69e044beb1149ad53b728ac0277cd34b1d9f97490/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Cbushes/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cmenu_005Csubmenus_005Cpause_menu/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2depthclippassshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Cwater/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Ce9_005C08/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssaointerleaveshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cblitshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cpack/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C6b_005C7f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C04_005Ceb/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cgame_005Cstate/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssaoimportancemapshaderrd_005C0d026b117b265b296284593369c9cdd1510c4abe15300092de7dc07783320114/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C56_005C9d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C00/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C01/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Capp_005Cstate/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccanvasocclusionshaderrd_005C3bf5ea8f66d8a6e9eca080f8a3272abe2165c6b22d1a4a5a34d635e37203d77f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssaoblurshaderrd_005C75cd207d155a27bbdb311d77e54b0193843c0d9dc69462e4b102b002703f6ffa/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cmenu_005Csubmenus_005Cdeath_menu/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C08/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C09/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C06/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C07/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccubemapfiltershaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C05/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C02/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C03/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvoxelgishaderrd_005Cbc2817edd071cbea26b8fdbb1db00428cb850f5f7b84d96f55d6adb5eaca5922/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Cflowers_005Ctextures/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cplayer_005Cstate/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csceneforwardclusteredshaderrd_005C5ed9a0feccedb8703bfe6c076ba2cd6a0625a9da1916fd11e016a4580ed40e3d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C8a_005Cac/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cf9_005C9f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cshadowfrustumshaderrd_005C8ffff230ab427840e93dd79dfa0631002d74a82943f4d1e3d3ce23c7a8954db4/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsrupscaleshaderrd_005C4b8c9baedc914e085fa36a694ec44f10bead7889178d1c08c5e3f958353cafa0/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.generated_005Cchickensoft.magic.generator/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2tcrautogenpassshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Cglow_shrooms/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cblitshaderrd_005C8a7d7662b00bebb6062a1439a57185434b4be1043c70265680fd14516cf9fdf3/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.generated_005Cgodot.sourcegenerators_005Cgodot.sourcegenerators.godotpluginsinitializergenerator/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssilshaderrd_005C7dd61e42adc9642bb97e8e0aafaa1469d3ae26c626e63d498f4c8272919644f3/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Ce9_005C88/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.generated_005Cgodot.sourcegenerators_005Cgodot.sourcegenerators.scriptpropertydefvalgenerator/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Cfixtures_005Ctest_ground/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Crefs_005Ctags/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Csimple_leaves/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cplayer_005Cvisuals_005Cfaces/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccubemaproughnessshaderrd_005Cd34d3e7459721532eb0f8038de99a8169a5b82ae22bd9b2f0d6b58585f33d40b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2autogenreactivepassshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csceneforwardclusteredshaderrd_005C748f9e0cda06ad04607b742421703d55d2ac126e3e02cb84a6e906c3531c400e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccanvasshaderrd_005C8d6ee6e85b6c09bed3f1a88522cae7c6503587db1f6c5b9992dade7158a4e39d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C32_005C8c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvolumetricfogshaderrd_005C6ffbc6bcd3d4ec4d52333a7ea7886ffee571f02beef66be7645c23c98e64b6f7/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssilblurshaderrd_005Cc660971d53b202c5f4138d3b14a6515ab280a4844d6b6fc5dad3ef3c05ad5724/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgidebugprobesshaderrd_005Cebfdc570f760491e2791de6ee711a80348bfafe8958008ed106fe8652bfd0ac9/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cinfo/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccanvassdfshaderrd_005C68cdd27b27157b7caef8b1319c5d5346a9afc7e782f44cb814b7bfb8009913f8/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cscreenspacereflectionshaderrd_005Ce82ffacdb09e14665a874d7ccd1e89621c1eba647b745f784d1d4417976da899/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cc2_005Ce9/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cee/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cef/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cec/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ced/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cea/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ceb/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csceneforwardclusteredshaderrd_005C7859f1b5e898437c81e9356ba157de6a92addcc71b008428a9331461a2fd19ac/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssilimportancemapshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cef_005C54/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Cdark_bark/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.github_005Cworkflows/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=docs/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cjumpshroom/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmenu_005Csubmenus_005Cpause_menu/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C61_005Ccf/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cff/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cfd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cfe/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cfb/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cfc/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cfa/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Ccache_005Clocks_005Crefs_005Cheads_005Crefactor_005Clogic/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cresolveshaderrd_005Cb8b7e13d44b8938bee029fc849f9780c997b2571f5f7ef6548d369d91ecc7b76/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssilinterleaveshaderrd_005Cc37f1a64db43a514b21242ecd01453fc5c014624f985d1e93d537725b2e474cf/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cspecularmergeshaderrd_005C1fb0d76a79bb82302beac9b25d1593d54f27733a0d92aff7e06b8058c2827403/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Ctree_trunk/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cin_game_audio/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmenu_005Csubmenus_005Cpause_menu_005Cassets/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C1c_005C75/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccopyshaderrd_005C168a8971ff75047625203bac73e6a5128f0e47bd5e8f9015fdff46a03c61212b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C17_005C96/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccanvassdfshaderrd_005C62c9b77b2d55e9d32a19af46a35d87f2892fdbc6ad95ebe93aa99736199be4b6/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvoxelgidebugshaderrd_005C7d8a562f5d1c03582d83571adb9a4a366b77a76da65872c61ce67af75888d75f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Crefs_005Cremotes_005Corigin/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C7b_005C41/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Ced_005C7e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cskeletonshaderrd_005Cfe51f4681cb5f660b134059f4679e894971aa2532215387c71ac9af2165388e2/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cshadowfrustumshaderrd_005C6837305ec1f3fb4f172b7793b217045f9d6f01b889c140c3ed388d25f49339d7/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cef_005C2c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cc3_005Cf4/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssaoimportancemapshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsrupscaleshaderrd_005C7e58aa57a1357285e7984aebe5a2f1389b9d4609fa73a0ebdd218518964f1bf2/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.generated_005Cchickensoft.logicblocks.generator/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cblitshaderrd_005C0e6a459c322d7fb87a642985a50befb4eb4e0da295f7131ffa4ff65537e856b4/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Caa/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cab/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Ccache_005Clocks_005Crefs/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C90/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C92/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csseffectsdownsampleshaderrd_005Ceda72dc04f980ea8ec048c36ba5fde18d6b43abac5877d80773ee83138937566/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cutils/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cae/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Caf/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccubetodpshaderrd_005Cd5323c067410ef2fafa3bf503beefe579a570aad70ddcf6749df0d758986bffc/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cclusterrendershaderrd_005C0a0bdd375c1567b6a897d4e9a4679edc7e19b5bcbcdff589319c9a7d8d49db29/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cac/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cad/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csceneforwardclusteredshaderrd_005C073c02742276ee51d528da951f8c3302dae3422d4836ff6a745267250a3e66fa/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cc3/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cc4/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cc1/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccanvasocclusionshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cc2/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cc0/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvoxelgishaderrd_005C646502f8d79f8c961fe64ea56ac03673f62d25319b6fe11563abd8d4f0145d7f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cclusterstoreshaderrd_005C28071d0edbbdea8b4228224ca4414ab6df02da5b4253ecabe81afa818de831a1/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C10_005C41/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C7b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C7c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cc9/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvoxelgishaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cc7/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cc8/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cc5/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cc6/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssaointerleaveshaderrd_005Cfb7cee40dfcfa0c50f8f4ff394584a7997554aedbf174264065cb60348b0ea47/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cbb/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cbc/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssilblurshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Capp_005Cstate_005Cstates_005Cin_game/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cba/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccubetodpshaderrd_005Cd9491ebcdffcafd8033784729053c9085152ac9f4ea4721fbf7a37b052c1a6b1/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Cmushroom/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgidebugshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cbf/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cbd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cbe/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cd4/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cd5/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cd2/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cd3/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cd0/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cd1/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C8a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C64_005C59/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cmap/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cd8/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cd9/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C88_005C42/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cd6/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ccc/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ccd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cca/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ccb/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C42_005C56/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsrupscaleshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgiintegrateshaderrd_005C396c7a736c9c5950ecce8b453a54dfffe9641607a096657bfb0895abf6e041d7/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cce/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ccf/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ce5/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cab_005C65/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ce6/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ce3/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ce1/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ce2/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C9b_005C8f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C9b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C9c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ce0/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssaoshaderrd_005Cad60898aa02ebef8fc92f54d3ab77cfdebc2b3d1aa635ed68c1bb2b0bbb17c4a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ce9/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ce7/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ce8/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cdd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Cfixtures_005Ctextures/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cde/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cresolveshaderrd_005Ce51b5b1f1a0cfd8f205c660fbdee30ce6e7d208d3d34ca2b162c965350698091/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cdb/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cdc/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C20_005C50/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cda/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.vscode/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccopyshaderrd_005C04a277e3b03bac088455100763d6d961d4191496e22f96e9b3081f88d426598c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cmenu/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Cfixtures/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvolumetricfogprocessshaderrd_005C2ccdadd775a545beac5419c5f23b7fae20b62264ad860a5b4edbfbc7006d22e7/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cdf/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2lockpassshaderrd_005C4d7148235ea7b12233df2c1ecf92d8b84ade32ceea9cdf4773e41151f132578e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cf6/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2rcaspassshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cf7/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cf4/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cf5/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cmono_005Cmetadata/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cf2/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cf3/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cf0/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cplayer_camera_005Cstate/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cf1/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccubemapdownsamplershaderrd_005C5c84b788f8c3a6d8af63bae321417dd10d984fb02d5c143b3e60c51230840e96/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cf8/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cf9/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cspecularmergeshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csubsurfacescatteringshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cclusterdebugshaderrd_005C48f44e21f095aef51d212ce0da695a0ab774a9862c3cccea99c93576dabe7e5b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cmotionvectorsshaderrd_005C262d582f911867aad488a9719623c31ccfb19f3c7b3ebce1d71dc09268579648/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.generated_005Cgodotsharp.sourcegenerators_005Cgodotsharp.sourcegenerators.inputmapextensions.inputmapsourcegenerator/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csceneforwardclusteredshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csubsurfacescatteringshaderrd_005C7ef37d328f8dbdcd03b04615358218e2de26774a12ed226528cf50f2fd971a63/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Ctrees_005Csimple_pine_leaves/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccubemaproughnessshaderrd_005C11efdee115bf8ea31288d954a118cca8be5e3152c1f556b5c6a96ae326e054a0/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Ccache_005Clocks_005Crefs_005Cheads_005Crefactor/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccanvasshaderrd_005Cce2ff3af69127014b437cf6ef26d6ba65198c6c1ca61ad9a54466a14bb72a2f4/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Cfence/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgidebugprobesshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cparticlescopyshaderrd_005Ca3e1fa80529fc326aaa0d25e1eb40783ae0890065374cacc3fb51bfee38dc2bf/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ca1/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ca2/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.generated_005Cgodot.sourcegenerators/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ca0/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cfe_005Ce0/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ca9/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ca7/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ca8/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ca5/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ca6/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ca3/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ca4/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.generated_005Cchickensoft.logicblocks.generator_005Cchickensoft.logicblocks.generator.logicblocksgenerator/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.generated_005Cchickensoft.supernodes_005Csupernodes.supernodesgenerator/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cbf_005C18/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Ctrees/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csortshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvolumetricfogshaderrd_005Ca68ee7bdef457b2e307426d039b5ac54c3f7cc912a4c3a4902b86dad34091780/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.generated/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cb2/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cshadowfrustumshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cb3/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cb0/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cb1/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C10_005Ced/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cgame/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cin_game_ui_005Cstate/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cb8/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cb9/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cresolveshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cb6/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cb7/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cb4/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cb5/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C29_005C4d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cmono_005Ctemp/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cf2_005Ca5/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2rcaspassshaderrd_005C225b915ce54c4343d20104e41a33ae84e4fedf6e692d1cc5fcd9466cd73d9227/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C50_005C51/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvoxelgidebugshaderrd_005C552d5224316d7a57d063bc1dd652de90c3fbeda732ff319b3ae165eefa47e6f6/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cbokehdofshaderrd_005Caf0a09ef5096c206eed181472e510c605bf7b9c6278daa43f8f62418d35e3359/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cb1_005C04/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cparticlescopyshaderrd_005C0faa6ef17efa9ee85c11075bad78a9490a305bcb2f17658aa92260e1fb7279a1/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvolumetricfogshaderrd_005Cda06fb36ccfa3829a3dd985e4df00c6fef8a4f7a317b8d13f20d345576356d0b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Crefs/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Ccoin_005Cvisuals/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cplayer_005Cvisuals/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C3c_005C5b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cplayer_005Cstate_005Cstates/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cad_005C54/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.generated_005Cgodotsharp.sourcegenerators/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2reconstructpreviousdepthpassshaderrd_005C7cfab2809fb4895eae456bb741f5a51b788beb1516bb897ceb03c2480407b41e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccubemapdownsamplershaderrd_005C5cec4ee652572aea825590fb1ee4ddd13640712c9d2c2a238ee5e4980d9d8de5/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgiintegrateshaderrd_005Cd4b39d329e2110417cc975ee9afa0a84e53ad8122556ef8525b260a7762510c6/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2depthclippassshaderrd_005Cf6883d6b597ec8080a30047752f01f6f7d3e53a2d22e591fd15c37d32bbc9f78/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csceneforwardclusteredshaderrd_005C3175e90f4ddcfb4a69a0f19d99fdff7cbff2448da028cb6d7a786d7bf703f0f0/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C50_005C82/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ctaaresolveshaderrd_005C8f91549235ff0dff6b3501aa6bf2aa75255e17a7d3d894a44f613275e94891c7/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2tcrautogenpassshaderrd_005C13716fa404359c9bb19114bde6d92cb4517f2684712675d0fed75c485a6d2247/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cplayer_005Cvisuals_005Cmodel/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccopytofbshaderrd_005Cad524b1410c56ace12680ca485b507cba7f6026cce5a21066250f103a56e2c75/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cin_game_ui_005Ccoin_scene/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccubemapfiltershaderrd_005C38ff1c6b499f38d7e206e21e9d7856270bf76f7438eb81de27ad922cd8388101/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Capp_005Cdomain/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cgishaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccubetodpshaderrd_005Ccab703e71ceb93072e1cce6199c1a385846ce7b2af91ad4763e661e4982fc4ce/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cmotionvectorsshaderrd_005C5dcc88fc536f1b60ee01359298130471af2a29487dcf556b67e0e953e8b91655/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C59_005C6a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccubemapfiltershaderrd_005Cdae1f5a936fcf86c70844d3500eed2f1ebd0ac1bbf895e06fe39c67527ff4b61/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cgame_005Cdomain/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2depthclippassshaderrd_005Cf808eb092a7db391d38e679030406f05c66f4436e35d82742099fde56edb31df/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssilblurshaderrd_005C940a87d27088f25e23bc60dc5749db6c6b66774e6d490cff724081e51a95cd66/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cscreenspacereflectionscaleshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Cterrain_005Cvisuals_005Cvoronoi_rock_cliff/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C60_005C51/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cgishaderrd_005C8d1ee2fa5029354467102a4bf468287ca01b4c6b711e5981f13180421c441c82/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cinfo/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C13_005C3b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Ca9_005C9b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Chooks/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cluminancereduceshaderrd_005Cf8b04e7ee34c10cd86e260d70f1163c3a64f0adbee1d8f4dc3f539dc2cb5e477/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvoxelgidebugshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssaoshaderrd_005C0596ae6d0989273a1d9fc8a95252d18fa8236bf41205dfdf01c505b4352dd49d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C56_005Cb7/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Cflowers/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csceneforwardclusteredshaderrd_005C864e1c22bdcf682f420e2f5e6329d4ed78758b97fa1d334aa302d92700104903/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cmotionvectorsshaderrd_005Cf502051ea63d5274668d2f381b0cf1f18d88fe14a47154c66c03260d66319211/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Ccoin_005Cstate_005Cstates/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Ca2_005C18/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C1a_005C1f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csubsurfacescatteringshaderrd_005C7edd8fb9d711891d7651bb7ae30d38a0353ac2ffce98ac12e4883aebcdae3c64/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C76_005Cdd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Cwaterfall/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2autogenreactivepassshaderrd_005C1dfbf50ffa3a0607633ab740dac4b86ed4388ca67028cbfa528796436443d4c1/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Cterrain/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Ce3_005Cac/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccanvassdfshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvoxelgidebugshaderrd_005Cb5898e82d59921e4d95c2e6ea4b68b11af8cc9f86739aacebaa6416b83797185/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cclusterstoreshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csceneforwardclusteredshaderrd_005C904effb64fe0d48f679712af9f8f41497d7272d09a60dcebf7f98780909d7f26/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Ccd_005Cec/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cscreenspacereflectionscaleshaderrd_005C0af33b42b9ebb0103abac2f426201099275a39e114f7113be4e36ee86b44d6ac/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C6e_005C5d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssaoblurshaderrd_005C744a27020db9124088ec22e88471129a53e287e83bec6ab669e2905a5750cf9c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgidebugshaderrd_005C6fbb5e879a66817cb70139998877e110050123be9f0f0ad5ebfd1c7cded8fd6a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2accumulatepassshaderrd_005Caafb20ce015122b87abaf93d999f664db16764759b5f8a86aeff01d49eb46a04/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C66_005Cc5/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cbd_005Ce6/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cscreenspacereflectionfiltershaderrd_005Cda67a28c5cbdbcbc4a0d7b95497ef342454ec76058c4a75a3a055b2390c27a60/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cscreenspacereflectionshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvolumetricfogprocessshaderrd_005Cd320ddcad7e1bca22c1bfcbc2ea3e51b13976c9ca303206375410bc7ab365ded/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2tcrautogenpassshaderrd_005C3bd74e567e2040bc6f766dce9a81a8b90f934a3b57050a1b5ce88b087b79b7f4/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ctonemapshaderrd_005Cbc4f783259ad43675dd94c7d570d19e3367cda1cd4d57f24b639ba17e4bcd448/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Ceditor/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Cgrass/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cluminancereduceshaderrd_005Cd8efb014e9a09f1bd7dbae6eca1322ddd938873f2d392839b36d3adedecdb54a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cparticlesshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2rcaspassshaderrd_005Cc19814cb66df7e22e77ac0834f489a1bcebd7199fe02efc9abb89245838ff242/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ctonemapshaderrd_005C293e1b090e75d91e7ad6cc958f505e3f54db98c92aa35122443a4ecf3f4bc7ea/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccopytofbshaderrd_005C6cdcaabc6426a871221bc01c5adffdecf413b1c3365af9e2f1875d01231c1416/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvolumetricfogprocessshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cclusterrendershaderrd_005Ce8559782e32b3b5121e4fc06b9d3191725c01fc33dcbc181cc99646bf0cde1a0/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=addons/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C50/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgidebugshaderrd_005C814ef3128aaa80fd2836529a5f5b0397ce1dea63b389481c36fd3385b179a2ac/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C53/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C56/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C57/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cfa_005Cb3/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cshadowfrustumshaderrd_005C25177a582c0f6b77709a2041e6d73cc44d6eeadb86575bfdcb83baf1fc4c5335/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Ctmp/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cc6_005C32/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C3b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csseffectsdownsampleshaderrd_005C2f07cee282ff4d4e8451e8d69d126eeb6dc48b4ff7632944d31b65e9422a8278/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C3c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C3d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssaoshaderrd_005C9341885584d5f843acfe8ff03b6f5f340e77e8efa5156178b0a693da91a5780e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csubsurfacescatteringshaderrd_005C0440c4d736e6de48a412da21b5d314faf075ddaffdb119e62ab178741f99eb7c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C3f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgidirectlightshaderrd_005C11fe17092604843e7484afdc3b4359c4b0e6f2ef7d150758ca495c9eb32e4ae9/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C60/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csceneforwardclusteredshaderrd_005Ce7e47a375b81ad0b9050516b90c5f17e4df0586e070fb668368ce1c25cab170f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C61/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C63/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C64/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C66/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccopyshaderrd_005C536f59023a25bf141b72d314d1a066cc6bf11e04f6515fb57e7b81e5a3646a6b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C59/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C57_005C49/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cjumpshroom_005Cstate_005Cstates/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C90_005C92/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C71/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C76/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C77/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cplayer_camera/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cjumpshroom_005Cstate/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C5b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cplayer/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C0d_005C5a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C81/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgiintegrateshaderrd_005C386df4ae6e5060cc71ec8bc0afd66fed073fa7f0756dce12216a98de25128899/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2rcaspassshaderrd_005C2c58429f317d2df5c4997ebf23210488d84670e9ab8557c0ba47498461dd0420/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C85/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C88/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C6b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cfd_005C51/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssilshaderrd_005C84a8e6d2ae6a6cbfd55c3adfde583d92782d4c4f9fbd48421a140e8cacce8c3a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C6e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C6f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ctonemapshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C10/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.generated_005Cgodot.sourcegenerators_005Cgodot.sourcegenerators.scriptpathattributegenerator/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C13/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgidebugprobesshaderrd_005C022fd9bee071da9bd72911c3b4802eed6ec05bd4c5058bea53d9f0a529a7c286/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C04/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C06/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C08/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C0d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Clarge_tree_trunk_005Cmoss/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C43_005C99/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmenu_005Csubmenus_005Cwin_menu/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C20/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.generated_005Cgodot.sourcegenerators_005Cgodot.sourcegenerators.scriptpropertiesgenerator/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C17/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Crefs_005Cheads_005Cfeat/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ctaaresolveshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Cfixtures_005Ctest_world/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssaointerleaveshaderrd_005Cfcdedf58bc55dbeac66dc1c672d35f2749cf68498b04e3a558881e854517c5a4/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C1e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2autogenreactivepassshaderrd_005Cb05c77d33610bdfad23cd9848d7658e86f0df10ea23440de5c2b9ef17b452ee3/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C40_005Cca/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ctonemapshaderrd_005Cb947a9cc5d44ad577b236462eb0a4fcd80bce1745c38ee168a8fcc9fa800bfe4/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccanvassdfshaderrd_005C5ea119f44a724a1f058ec3e8423ea4c3fe034d2ee82e56ebc747fa1a0baaa9bc/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C31/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C32/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cskyshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Ccoin/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C29/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C1a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C1c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cef_005C09/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C2f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cf7_005Ca4/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2reconstructpreviousdepthpassshaderrd_005Cc163f9a2586629c54cf15bcadc69b0bcce8eb56f18b4424f08245f027f839391/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C40/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C42/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C43/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccanvasshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=badges/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cff_005C38/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C38/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2computeluminancepyramidpassshaderrd_005C35fcb7912aba57611aaaeaf96c48dbc4332c7e2842bea48065b0c4fbd50a224d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccubemaproughnessshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C2d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cskyshaderrd_005C36d272d3d7b681cd4853c59ff124539cc782cd85cbd51358aeb93501660516d5/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C43_005C46/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cbokehdofshaderrd_005C1e426e78e6d82478acfd44f00f74d45aeb291d29d136d9145e9427905daeaccd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.generated_005Cchickensoft.supernodes/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C53_005C94/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Clarge_tree_trunk_005Ctrunk_top/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cbokehdofshaderrd_005C83bfa401b91712be6769a6442f2fe4b89d25a45280811987dd65f0da73b97024/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgidebugprobesshaderrd_005C39b4e279d00568c48d1b5a68f987a81df722a89c85446d7fce14fa20c812a3f2/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cclusterdebugshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccubemaproughnessshaderrd_005C92996424694c7ea151c79ff4282c01b59afa1af9ad8b14a1bcce1620bcd862fc/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.generated_005Cchickensoft.magic.generator_005Cchickensoft.magic.generator.basictypegenerator/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssaoblurshaderrd_005Ccb9abb1f534b451617c91d9dcf24d7129e8be90afa2f5e82d514717eaecd0c70/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C31_005C85/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C06_005C73/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C3f_005C9a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cparticlesshaderrd_005C2481d63001d0ace5546d800996fe7ca4cd2eccc12256cc113cc0b1808743ef5f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Ca9/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccopytofbshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Capp/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cbokehdofshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Ca2/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cmenu_005Csubmenus_005Cwin_menu/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Ce2_005C36/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.github/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssilinterleaveshaderrd_005C7958697a67372027c108176882e90285da494186ab984a2164e226d132242cc6/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C0d_005C56/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cspecularmergeshaderrd_005Ccfacaf5091be67a94dd46e302992d640ce3e18da959696a1a06a5aa648be831e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2reconstructpreviousdepthpassshaderrd_005C18d578fd7e17caf2a1f5372beb553afcf9d5045e77c7752d646c198bcb8dfb28/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccanvasshaderrd_005Cf874249e71659b667e68270d084dd4aecd3c222bd35676ac932250f216bad4da/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssilblurshaderrd_005C5179d9add483fb74da88d007631db7857c81d495d174a8de45cd6f48d962b6ed/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cc7_005C9c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Cterrain_005Cvisuals/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccanvasocclusionshaderrd_005Cafa67418ce46d450afc59595eac9e84111a41a6eff5abaaa7651ab7795ef5254/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cclusterdebugshaderrd_005Cebe5f0afdd280064030a73c41c9ca60feb522d17d4976231e0ba991d7ba31455/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C2d_005C83/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssaoshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C3f_005C4b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Ccloud/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgipreprocessshaderrd_005C4cad5447ea48c95884cd474d77a023e4fc425f64e5f889c09fc1e54638110558/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csseffectsdownsampleshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Capp_005Cstate_005Cstates/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cscreenspacereflectionfiltershaderrd_005Cd6800f2a19dcccf674062202d32599c9c24781c1272a084c136da52ffeb20ceb/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssaoimportancemapshaderrd_005Cd0fea80d6d9335015b79dbf3829f82d3ea868518e0366125b66ba7c77d545781/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Capp_005Cstate_005Cstates_005Cin_game/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccubemapfiltershaderrd_005C237b8625cb5898c054f7636f656bfe4ed09bb481dcee1874224b5acb710e204e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccubemapdownsamplershaderrd_005Cc0e2b8df66da3630a2ebb991bf5e7f9f1be63ef51b1a90441e9b10d3774aac8c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2computeluminancepyramidpassshaderrd_005Cae131c08d4c56c8c213fe03a5e50b9345a5b543273a8c7a707e2504c871dbf2c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Csky/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cmotionvectorsshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C9c_005C5f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2reconstructpreviousdepthpassshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cscreenspacereflectionshaderrd_005Ccad74d7dd04f2bce9ed704321405b5e43eabd6bcba3ea7a41df1c7b0c75d56c3/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C77_005C1b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=coverage/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.generated_005Cgodot.sourcegenerators_005Cgodot.sourcegenerators.scriptsignalsgenerator/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ctaaresolveshaderrd_005C399d35f1897ebe986b1337e6f2f3f402bbfd03589db3fcb84c68a635adbe69d3/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C8a_005C7b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C77_005C21/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cscreenspacereflectionscaleshaderrd_005C58224cdd1b768168e85635af482ae0363058f093b9b741f9ee7351e5ae26ea37/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmenu_005Csubmenus_005Cdeath_menu/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Ccoin_005Cstate_005Cstates/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccubemapdownsamplershaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cparticlescopyshaderrd_005Cc6eaea37e4f932b0d320c35f83dac8089873fe4679b65d4530d1bcd06312d524/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cluminancereduceshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Ced/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cee/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cef/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cluminancereduceshaderrd_005Ceb83f1d3f2ec12713f406c38dae9c9f1a833dbcb74f3fb9e9bfd0a7e2be83ee9/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssilimportancemapshaderrd_005C697397142013b8ab235093e7c522b80519d09a75ce87e3c52230dcda91e4b063/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cdeath_plane/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cjumpshroom_005Cstate_005Cstates/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cf2/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssilinterleaveshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cf6/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cf7/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C92_005Cf5/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cf9/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C92_005Cf4/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgidirectlightshaderrd_005C16422a69cf5d84d98786cce911f3d4fa78e107e4e4e1bdfaac7d77dda480252a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cplayer_005Cvisuals_005Ccustom_animations/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssilshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cfa/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cfd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cfe/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cff/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Ce4_005C28/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cparticlescopyshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csceneforwardclusteredshaderrd_005Cc9abfe93e1ee45bca32a601c3b50a8a4b5609a3d868a57f127ab63f6d386da29/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Ccache_005Clocks_005Crefs_005Cheads_005Cmain/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cspecularmergeshaderrd_005C2a1f4efcac9c94e97732581883706096b536a5591eeaafb086efa80e8418ffea/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgipreprocessshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cgishaderrd_005Cf7499ed5790be296c7c1faee8cab28c4e9b674ed7f76d67cf9ac768e55d0e8e5/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cscreenspacereflectionfiltershaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssilimportancemapshaderrd_005C61635868ff7aee33837accdb331acdc09fed8b656c20bacd019e407345fa0bbc/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cac_005C78/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cskyshaderrd_005C0fb0ee6d61b75b6f897e2e77063e22cb9d9459b1dcab4f4e34d6e1b3ce180c3e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cskeletonshaderrd_005C95dba9128d99eabe9471e4bc632e6327b76ba2d54825293fe68b776258d909e2/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cskeletonshaderrd_005C372b8eef2f41cdf4cfbc4b6a02f1133a18ee4f6ea4a15abc8e2aaab61ef1f394/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2lockpassshaderrd_005C89175251b14d93ff3d2860f07229220ca1026108824c172f4208c08a73f42bba/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C3d_005C8f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cin_game_audio_005Cstate/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cc6_005Cdc/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccopytofbshaderrd_005C494aa10d98f6649bcd52f9c9d7e898ee19194b42289764aff5a575084a10895d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2lockpassshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C97/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C98/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C95/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C96/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C93/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C94/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cab/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Ccoin_005Cstate/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cac/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cad/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C8f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C63_005C15/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C8e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C8b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C8c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cef_005Cb2/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cb1/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cscreenspacereflectionshaderrd_005C5aa51d88c3931420314f75ce54dbcca659d1849c8832ef114198bcfdb3e43841/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C71_005C9f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cc7/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cplayer_005Cstate_005Cstates/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Ccache/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C9a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C9b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cmono/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgipreprocessshaderrd_005Ce478b800d0beaabbb2b67f972551b128cbf93d8828d0f07fc7dcd80bb1420344/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cbd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cplayer_camera_005Cstate_005Cstates/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C9e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C9f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C9c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C9d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cmap_005Clarge_tree_trunk/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cc2/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=test_005Csrc_005Cmenu_005Csubmenus/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cc3/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cc6/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvoxelgishaderrd_005C73bea4061ee86d062e0ebde4ad0d3ca2ee486aa58ed9ba1a10bbd27b4dcd051e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssilimportancemapshaderrd_005C9abd5706f4ed0c179935ffe1b6f113046be3ef48d856399584867f5e499d3b6e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Ccache_005Clocks_005Crefs_005Cheads/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Ccd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssilshaderrd_005C8fce98c5aa1a845e00b64d7ddba9716bf72c71103ad45ef52225c0b177b9ac06/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cbf/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Crefs_005Cheads_005Cfix/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C38_005C6b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Ccache_005Clocks/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssaoblurshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Ce9/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgidebugshaderrd_005C5563abd34c1e83aa616f8189ad145955e7ca437cbc76a13487041c11fee4bb4a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Cf6_005C1f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005C04_005C9a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Crefs_005Cremotes/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2accumulatepassshaderrd_005C6bddee1800f8209fbc53b37e5203452dad4f32dd7746796747ddd0c5f57b9d36/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssilinterleaveshaderrd_005C1084e619ee0587d644e44a0260cf06084028b8d12008e16779c437d2d91cf018/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssaointerleaveshaderrd_005C18ae034e90d91a4d66ab4b951639551586e90be292b8b360965298ee7a94959c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Ce2/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Ce3/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Clfs_005Cobjects_005Ce4/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cin_game_audio_005Csounds/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvolumetricfogshaderrd/@EntryIndexedValue">True</s:Boolean>
+</wpf:ResourceDictionary>
