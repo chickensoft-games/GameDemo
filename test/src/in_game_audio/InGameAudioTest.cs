@@ -70,6 +70,7 @@ public class InGameAudioTest : TestClass {
   public void PlaysMainMenuMusic() {
     _logic.Setup(logic => logic.Start());
     _gameMusic.Setup(music => music.FadeOut());
+    _mainMenuMusic.Setup(music => music.Stop());
     _mainMenuMusic.Setup(music => music.FadeIn());
 
     _audio.OnResolved();
@@ -84,6 +85,7 @@ public class InGameAudioTest : TestClass {
   [Test]
   public void PlaysGameMusic() {
     _logic.Setup(logic => logic.Start());
+    _gameMusic.Setup(music => music.Stop());
     _gameMusic.Setup(music => music.FadeIn());
     _mainMenuMusic.Setup(music => music.FadeOut());
 
