@@ -1657,4 +1657,8 @@
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cin_game_audio_005Csounds/@EntryIndexedValue">True</s:Boolean>
 
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvolumetricfogshaderrd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cgame_005Cstate_005Cstates/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C04/@EntryIndexedValue">True</s:Boolean>
 </wpf:ResourceDictionary>
