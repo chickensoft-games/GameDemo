@@ -2,37 +2,34 @@ namespace GameDemo;
 
 using System;
 
-public partial class AppLogic {
+public partial class GameLogic {
   public partial record State {
     public record InGame : State,
-    IGet<Input.GoToMainMenu>, IGet<Input.GameOver> {
+      IGet<Input.GoToMainMenu>, IGet<Input.GameOver> {
       public InGame() {
-        OnEnter<InGame>((previous) => {
+        OnEnter<InGame>(previous => {
           Get<IAppRepo>().OnStartGame();
-          Context.Output(new Output.ShowGame());
         });
 
-        OnAttach(() => Get<IAppRepo>().GameEnded += OnGameOver);
-        OnDetach(() => Get<IAppRepo>().GameEnded -= OnGameOver);
+        OnAttach(() => Get<IGameRepo>().GameEnded += OnGameOver);
+        OnDetach(() => Get<IGameRepo>().GameEnded -= OnGameOver);
       }
 
-      public void OnGameOver(GameOverReason reason) {
-        Context.Input(new Input.GameOver(reason));
-      }
+      public void OnGameOver(GameOverReason reason)
+        => Context.Input(new Input.GameOver(reason));
 
       public IState On(Input.GameOver input) {
-        var appRepo = Context.Get<IAppRepo>();
-        appRepo.Pause();
+        Get<IGameRepo>().Pause();
 
         return input.Reason switch {
           GameOverReason.PlayerWon => new WonGame(),
           GameOverReason.PlayerDied => new LostGame(),
-          GameOverReason.Exited => new MainMenu(),
+          GameOverReason.Exited => new QuitGame(),
           _ => throw new InvalidOperationException()
         };
       }
 
-      public IState On(Input.GoToMainMenu input) => new LeavingGame();
+      public IState On(Input.GoToMainMenu input) => new QuitGame();
     }
   }
 }

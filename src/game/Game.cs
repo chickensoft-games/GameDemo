@@ -32,6 +32,10 @@ public partial class Game : Node3D, IGame {
   [Node] public IPlayer Player { get; set; } = default!;
 
   [Node] public IMap Map { get; set; } = default!;
+  [Node] public IInGameUI InGameUi { get; set; } = default!;
+  [Node] public IDeathMenu DeathMenu { get; set; } = default!;
+  [Node] public IWinMenu WinMenu { get; set; } = default!;
+  [Node] public IPauseMenu PauseMenu { get; set; } = default!;
 
   #endregion Nodes
 
@@ -57,10 +61,17 @@ public partial class Game : Node3D, IGame {
 
   public void Setup() {
     GameRepo = new GameRepo();
-    GameLogic = new GameLogic(AppRepo);
+    GameLogic = new GameLogic(GameRepo, AppRepo);
     GameSaveSerializer = new GameSaveSerializer();
     GameSaveSystem = new GameSaveSystem(GameSaveSerializer);
 
+    DeathMenu.TryAgain += OnStart;
+    DeathMenu.MainMenu += OnMainMenu;
+    WinMenu.MainMenu += OnMainMenu;
+    PauseMenu.MainMenu += OnMainMenu;
+    PauseMenu.Resume += OnResume;
+    PauseMenu.TransitionCompleted += PauseMenuTransitioned;
+    PauseMenu.Save += PauseMenuSaveRequested;
 
     Provide();
 
@@ -79,6 +90,31 @@ public partial class Game : Node3D, IGame {
       )
       .Handle<GameLogic.Output.SetPauseMode>(
         output => GetTree().Paused = output.IsPaused
+      )
+      .Handle<GameLogic.Output.CaptureMouse>(
+        output => Input.MouseMode = output.IsMouseCaptured
+          ? Input.MouseModeEnum.Captured
+          : Input.MouseModeEnum.Visible
+      )
+      .Handle<GameLogic.Output.ShowPlayerDied>(_ => {
+        DeathMenu.Show();
+        DeathMenu.Animate();
+      })
+      .Handle<GameLogic.Output.ShowPauseMenu>(_ => {
+        InGameUi.Show();
+        PauseMenu.Show();
+        PauseMenu.FadeIn();
+      })
+      .Handle<GameLogic.Output.ShowPlayerWon>(_ => {
+        WinMenu.Show();
+      })
+      .Handle<GameLogic.Output.HidePauseMenu>(_ => PauseMenu.FadeOut())
+      .Handle<GameLogic.Output.DisablePauseMenu>(_ => PauseMenu.Hide())
+      .Handle<GameLogic.Output.ShowPauseSaveOverlay>(
+        _ => PauseMenu.OnSaveStarted()
+      )
+      .Handle<GameLogic.Output.HidePauseSaveOverlay>(
+        _ => PauseMenu.OnSaveFinished()
       );
 
     // Trigger the first state's OnEnter callbacks so our bindings run.
@@ -90,7 +126,41 @@ public partial class Game : Node3D, IGame {
     );
   }
 
+  public override void _Input(InputEvent @event) {
+    if (Input.IsActionJustPressed("ui_cancel")) {
+      GameLogic.Input(new GameLogic.Input.PauseButtonPressed());
+    }
+  }
+
+  public void OnMainMenu() => GameLogic.Input(new GameLogic.Input.GoToMainMenu());
+
+  public void OnResume() =>
+    GameLogic.Input(new GameLogic.Input.PauseButtonPressed());
+
+  public void OnStart() =>
+    GameLogic.Input(new GameLogic.Input.StartGame());
+
+  public void PauseMenuTransitioned() =>
+    GameLogic.Input(new GameLogic.Input.PauseMenuTransitioned());
+
+  public void PauseMenuSaveRequested() =>
+    GameLogic.Input(new GameLogic.Input.GameSaveRequested());
+
+  public void HideMenus() {
+    InGameUi.Hide();
+    DeathMenu.Hide();
+    PauseMenu.Hide();
+    WinMenu.Hide();
+  }
+
   public void OnExitTree() {
+    DeathMenu.TryAgain -= OnStart;
+    DeathMenu.MainMenu -= OnMainMenu;
+    WinMenu.MainMenu -= OnMainMenu;
+    PauseMenu.MainMenu -= OnMainMenu;
+    PauseMenu.Resume -= OnResume;
+    PauseMenu.TransitionCompleted -= PauseMenuTransitioned;
+
     GameLogic.Stop();
     GameBinding.Dispose();
     GameRepo.Dispose();

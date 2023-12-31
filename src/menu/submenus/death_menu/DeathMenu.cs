@@ -23,12 +23,11 @@ public partial class DeathMenu : Control, IDeathMenu {
   public delegate void MainMenuEventHandler();
 
   #region Nodes
-  [Node]
-  public IButton TryAgainButton { get; set; } = default!;
-  [Node]
-  public IButton MainMenuButton { get; set; } = default!;
-  [Node]
-  public IAnimationPlayer AnimationPlayer { get; set; } = default!;
+
+  [Node] public IButton TryAgainButton { get; set; } = default!;
+  [Node] public IButton MainMenuButton { get; set; } = default!;
+  [Node] public IAnimationPlayer AnimationPlayer { get; set; } = default!;
+
   #endregion Nodes
 
   public void OnReady() {
@@ -41,9 +40,8 @@ public partial class DeathMenu : Control, IDeathMenu {
     MainMenuButton.Pressed -= OnMainMenuPressed;
   }
 
-  public void Animate() {
+  public void Animate() =>
     AnimationPlayer.Play("splotch");
-  }
 
   public void OnTryAgainPressed() => EmitSignal(SignalName.TryAgain);
 

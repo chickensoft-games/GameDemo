@@ -1,27 +1,25 @@
 namespace GameDemo;
 
-public partial class AppLogic {
+public partial class GameLogic {
   public partial record State {
     public record GamePaused : InGame,
-    IGet<Input.PauseButtonPressed>, IGet<Input.GameSaveRequested> {
+      IGet<Input.PauseButtonPressed>, IGet<Input.GameSaveRequested> {
       public GamePaused() {
         OnEnter<GamePaused>(
-          (previous) => {
+          previous => {
             Context.Output(new Output.ShowPauseMenu());
-            Get<IAppRepo>().Pause();
+            Get<IGameRepo>().Pause();
           }
         );
         OnExit<GamePaused>(
-          (next) => Context.Output(new Output.HidePauseMenu())
+          next => Context.Output(new Output.HidePauseMenu())
         );
       }
 
       public virtual IState On(Input.PauseButtonPressed input)
         => new ResumingGame();
 
-      public IState On(Input.GameSaveRequested input) {
-        return new GamePausedSaving();
-      }
+      public IState On(Input.GameSaveRequested input) => new GamePausedSaving();
     }
   }
 }

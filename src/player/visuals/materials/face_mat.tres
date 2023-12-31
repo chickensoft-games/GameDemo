@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://8uvbuv5vrbdi"]
 
 [ext_resource type="Shader" path="res://src/player/visuals/faces/face_mat.gdshader" id="1_8wequ"]
-[ext_resource type="Texture2D" uid="uid://dt00sua74enwp" path="res://src/player/visuals/faces/closed.png" id="2_ahqjp"]
+[ext_resource type="Texture2D" uid="uid://xpy8nmxm56kk" path="res://src/player/visuals/faces/open.png" id="2_67rcl"]
 
 [resource]
 render_priority = 0
@@ -12,4 +12,4 @@ shader_parameter/screen_red_offset = Vector2(0, 0)
 shader_parameter/screen_green_offset = Vector2(0, 0)
 shader_parameter/screen_blue_offset = Vector2(0, 0)
 shader_parameter/pixel_size = 44.0
-shader_parameter/face_texture = ExtResource("2_ahqjp")
+shader_parameter/face_texture = ExtResource("2_67rcl")

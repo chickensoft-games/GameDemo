@@ -1,26 +1,26 @@
 namespace GameDemo;
-public partial class AppLogic {
+
+public partial class GameLogic {
   public partial record State {
     public record GamePausedSaving : GamePaused, IGet<Input.GameSaveCompleted> {
       public GamePausedSaving() {
-        OnAttach(() => Get<IAppRepo>().GameSaveCompleted += OnGameSaveCompleted);
-        OnDetach(() => Get<IAppRepo>().GameSaveCompleted -= OnGameSaveCompleted);
+        OnAttach(() => Get<IGameRepo>().GameSaveCompleted += OnGameSaveCompleted);
+        OnDetach(() => Get<IGameRepo>().GameSaveCompleted -= OnGameSaveCompleted);
 
         OnEnter<GamePausedSaving>(
-          (previous) => {
+          previous => {
             Context.Output(new Output.ShowPauseSaveOverlay());
-            Get<IAppRepo>().StartSaving();
+            Get<IGameRepo>().StartSaving();
           }
         );
 
         OnExit<GamePausedSaving>(
-          (next) => Context.Output(new Output.HidePauseSaveOverlay())
+          next => Context.Output(new Output.HidePauseSaveOverlay())
         );
       }
 
-      private void OnGameSaveCompleted() {
+      private void OnGameSaveCompleted() =>
         Context.Input(new Input.GameSaveCompleted());
-      }
 
       public IState On(Input.GameSaveCompleted input)
         => new GamePaused();

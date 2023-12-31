@@ -1,12 +1,14 @@
 namespace GameDemo;
+
 using Godot;
 
 public partial class PlayerCameraLogic {
-  public interface IState : IStateLogic { }
+  public interface IState : IStateLogic {
+  }
 
   /// <summary>
-  /// Overall player camera state. This would be abstract, but it's helpful to
-  /// be able to instantiate it by itself for easier testing.
+  ///   Overall player camera state. This would be abstract, but it's helpful to
+  ///   be able to instantiate it by itself for easier testing.
   /// </summary>
   public partial record State
     : StateLogic, IState,
@@ -16,15 +18,17 @@ public partial class PlayerCameraLogic {
     public State() {
       OnAttach(
         () => {
-          Get<IAppRepo>().IsMouseCaptured.Sync += OnMouseCaptured;
-          Get<IGameRepo>().PlayerGlobalPosition.Sync += OnPlayerGlobalPositionChanged;
+          var gameRepo = Get<IGameRepo>();
+          gameRepo.IsMouseCaptured.Sync += OnMouseCaptured;
+          gameRepo.PlayerGlobalPosition.Sync += OnPlayerGlobalPositionChanged;
         }
       );
 
       OnDetach(
         () => {
-          Get<IAppRepo>().IsMouseCaptured.Sync -= OnMouseCaptured;
-          Get<IGameRepo>().PlayerGlobalPosition.Sync -= OnPlayerGlobalPositionChanged;
+          var gameRepo = Get<IGameRepo>();
+          gameRepo.IsMouseCaptured.Sync -= OnMouseCaptured;
+          gameRepo.PlayerGlobalPosition.Sync -= OnPlayerGlobalPositionChanged;
         }
       );
     }

@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://cywpu6lxdjhuu"]
+[gd_scene load_steps=10 format=3 uid="uid://cywpu6lxdjhuu"]
 
 [ext_resource type="Script" path="res://src/game/Game.cs" id="1_17mmo"]
 [ext_resource type="PackedScene" uid="uid://pjmfnaiwwwed" path="res://src/player_camera/PlayerCamera.tscn" id="2_g21k4"]
-[ext_resource type="PackedScene" uid="uid://daho0q3ic4vmn" path="res://src/map/Map.tscn" id="3_cpkwg"]
+[ext_resource type="PackedScene" uid="uid://dqu3oaninqabd" path="res://src/map/Map.tscn" id="3_cpkwg"]
 [ext_resource type="PackedScene" uid="uid://bwbxe1hh3doh" path="res://src/player/Player.tscn" id="4_smjqx"]
+[ext_resource type="PackedScene" uid="uid://d3qf2po8l4dlr" path="res://src/in_game_ui/InGameUI.tscn" id="5_w4lns"]
+[ext_resource type="PackedScene" uid="uid://be3pehf5e67m5" path="res://src/in_game_audio/InGameAudio.tscn" id="6_wnbqg"]
+[ext_resource type="PackedScene" uid="uid://bn84ofaaq4o80" path="res://src/menu/submenus/death_menu/DeathMenu.tscn" id="7_35ldn"]
+[ext_resource type="PackedScene" uid="uid://bthdrw6580hll" path="res://src/menu/submenus/win_menu/WinMenu.tscn" id="8_ovoi6"]
+[ext_resource type="PackedScene" uid="uid://conmng5ejji6f" path="res://src/menu/submenus/pause_menu/PauseMenu.tscn" id="9_yxma7"]
 
 [node name="Game" type="Node3D"]
 process_mode = 1
@@ -20,3 +25,26 @@ transform = Transform3D(-1, 3.48787e-16, 8.74228e-08, 3.48787e-16, 1, -3.48787e-
 
 [node name="Map" parent="." instance=ExtResource("3_cpkwg")]
 unique_name_in_owner = true
+
+[node name="InGameUi" parent="." instance=ExtResource("5_w4lns")]
+unique_name_in_owner = true
+visible = false
+
+[node name="SubViewport" parent="InGameUi/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/SubViewportContainer" index="0"]
+render_target_update_mode = 0
+
+[node name="InGameAudio" parent="." instance=ExtResource("6_wnbqg")]
+
+[node name="DeathMenu" parent="." instance=ExtResource("7_35ldn")]
+unique_name_in_owner = true
+visible = false
+
+[node name="WinMenu" parent="." instance=ExtResource("8_ovoi6")]
+unique_name_in_owner = true
+visible = false
+
+[node name="PauseMenu" parent="." instance=ExtResource("9_yxma7")]
+unique_name_in_owner = true
+visible = false
+
+[editable path="InGameUi"]

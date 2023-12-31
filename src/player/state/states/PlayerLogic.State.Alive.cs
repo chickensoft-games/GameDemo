@@ -1,13 +1,14 @@
 namespace GameDemo;
+
 using Godot;
 
 public partial class PlayerLogic {
   public abstract partial record State : StateLogic, IState {
     public record Alive : State,
-    IGet<Input.PhysicsTick>,
-    IGet<Input.Moved>,
-    IGet<Input.Pushed>,
-    IGet<Input.Killed> {
+      IGet<Input.PhysicsTick>,
+      IGet<Input.Moved>,
+      IGet<Input.Pushed>,
+      IGet<Input.Killed> {
       // Movement is allowed in any state (even in the air), so these inputs
       // handle movement for each substate unless overridden.
       //
@@ -16,9 +17,7 @@ public partial class PlayerLogic {
       // allowed.
 
       public virtual IState On(Input.Killed input) {
-        var appRepo = Context.Get<IAppRepo>();
-
-        appRepo.OnGameEnded(GameOverReason.PlayerDied);
+        Get<IGameRepo>().OnGameEnded(GameOverReason.PlayerDied);
 
         return new Dead();
       }

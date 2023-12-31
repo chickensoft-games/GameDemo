@@ -1,29 +1,9 @@
 @startuml AppLogic
 state "AppLogic State" as GameDemo_AppLogic_State {
-  state "InGame" as GameDemo_AppLogic_State_InGame {
-    state "GamePaused" as GameDemo_AppLogic_State_GamePaused {
-      state "GamePausedSaving" as GameDemo_AppLogic_State_GamePausedSaving {
-        GameDemo_AppLogic_State_GamePausedSaving : OnEnter → ShowPauseSaveOverlay
-        GameDemo_AppLogic_State_GamePausedSaving : OnExit → HidePauseSaveOverlay
-      }
-      GameDemo_AppLogic_State_GamePaused : OnEnter → ShowPauseMenu
-      GameDemo_AppLogic_State_GamePaused : OnExit → HidePauseMenu
-    }
-    state "LeavingGame" as GameDemo_AppLogic_State_LeavingGame {
-      GameDemo_AppLogic_State_LeavingGame : OnEnter → FadeOut
-      GameDemo_AppLogic_State_LeavingGame : OnExit → RemoveExistingGame
-    }
-    state "LostGame" as GameDemo_AppLogic_State_LostGame {
-      GameDemo_AppLogic_State_LostGame : OnEnter → ShowPlayerDied
-    }
-    state "PlayingGame" as GameDemo_AppLogic_State_PlayingGame
-    state "ResumingGame" as GameDemo_AppLogic_State_ResumingGame {
-      GameDemo_AppLogic_State_ResumingGame : OnExit → DisablePauseMenu
-    }
-    state "WonGame" as GameDemo_AppLogic_State_WonGame {
-      GameDemo_AppLogic_State_WonGame : OnEnter → ShowPlayerWon
-    }
-    GameDemo_AppLogic_State_InGame : OnEnter → ShowGame
+  state "InGame" as GameDemo_AppLogic_State_InGame
+  state "LeavingGame" as GameDemo_AppLogic_State_LeavingGame {
+    GameDemo_AppLogic_State_LeavingGame : OnEnter → FadeOut
+    GameDemo_AppLogic_State_LeavingGame : OnExit → RemoveExistingGame
   }
   state "LeavingMenu" as GameDemo_AppLogic_State_LeavingMenu {
     GameDemo_AppLogic_State_LeavingMenu : OnEnter → FadeOut
@@ -39,23 +19,11 @@ state "AppLogic State" as GameDemo_AppLogic_State {
     GameDemo_AppLogic_State_SplashScreen : OnEnter → ShowSplashScreen
     GameDemo_AppLogic_State_SplashScreen : OnSplashScreenSkipped() → HideSplashScreen
   }
-  GameDemo_AppLogic_State : OnMouseCaptured() → CaptureMouse
 }
 
-GameDemo_AppLogic_State_GamePaused --> GameDemo_AppLogic_State_GamePausedSaving : GameSaveRequested
-GameDemo_AppLogic_State_GamePaused --> GameDemo_AppLogic_State_ResumingGame : PauseButtonPressed
-GameDemo_AppLogic_State_GamePausedSaving --> GameDemo_AppLogic_State_GamePaused : GameSaveCompleted
-GameDemo_AppLogic_State_InGame --> GameDemo_AppLogic_State_LeavingGame : GoToMainMenu
-GameDemo_AppLogic_State_InGame --> GameDemo_AppLogic_State_LostGame : GameOver
-GameDemo_AppLogic_State_InGame --> GameDemo_AppLogic_State_MainMenu : GameOver
-GameDemo_AppLogic_State_InGame --> GameDemo_AppLogic_State_WonGame : GameOver
-GameDemo_AppLogic_State_LeavingGame --> GameDemo_AppLogic_State_LeavingGame : FadeOutFinished
-GameDemo_AppLogic_State_LeavingMenu --> GameDemo_AppLogic_State_PlayingGame : FadeOutFinished
-GameDemo_AppLogic_State_LostGame --> GameDemo_AppLogic_State_RestartingGame : StartGame
+GameDemo_AppLogic_State_LeavingMenu --> GameDemo_AppLogic_State_InGame : FadeOutFinished
 GameDemo_AppLogic_State_MainMenu --> GameDemo_AppLogic_State_LeavingMenu : StartGame
-GameDemo_AppLogic_State_PlayingGame --> GameDemo_AppLogic_State_GamePaused : PauseButtonPressed
-GameDemo_AppLogic_State_RestartingGame --> GameDemo_AppLogic_State_PlayingGame : FadeOutFinished
-GameDemo_AppLogic_State_ResumingGame --> GameDemo_AppLogic_State_PlayingGame : PauseMenuTransitioned
+GameDemo_AppLogic_State_RestartingGame --> GameDemo_AppLogic_State_InGame : FadeOutFinished
 GameDemo_AppLogic_State_SplashScreen --> GameDemo_AppLogic_State_MainMenu : FadeOutFinished
 
 [*] --> GameDemo_AppLogic_State_SplashScreen
