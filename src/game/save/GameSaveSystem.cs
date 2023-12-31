@@ -8,7 +8,7 @@ public interface IGameSaveSystem : ISaveSystem<GameSaveFile> {
 
 public class GameSaveSystem : SaveSystem<GameSaveFile>, IGameSaveSystem {
   public GameSaveSystem(
-    GameSaveSerializer serializer
+    IGameSaveSerializer serializer
   ) : base(
     () => new GameSaveFile(
       Player: default!,

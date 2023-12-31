@@ -2,7 +2,10 @@ namespace GameDemo;
 
 using System.Text.Json;
 
-public class GameSaveSerializer : ISaveSerializer<GameSaveFile> {
+public interface IGameSaveSerializer : ISaveSerializer<GameSaveFile> {
+}
+
+public class GameSaveSerializer : IGameSaveSerializer {
   public string Serialize(GameSaveFile saveFile) =>
     JsonSerializer.Serialize(saveFile);
 
