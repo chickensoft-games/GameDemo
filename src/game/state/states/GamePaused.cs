@@ -6,13 +6,18 @@ public partial class GameLogic {
       IGet<Input.PauseButtonPressed>, IGet<Input.GameSaveRequested> {
       public GamePaused() {
         OnEnter<GamePaused>(
-          previous => {
+          _ => {
             Context.Output(new Output.ShowPauseMenu());
+            Context.Output(new Output.SetPauseMode(true));
             Get<IGameRepo>().Pause();
           }
         );
         OnExit<GamePaused>(
-          next => Context.Output(new Output.HidePauseMenu())
+          _ => {
+            Context.Output(new Output.HidePauseMenu());
+            Context.Output(new Output.SetPauseMode(false));
+            Get<IGameRepo>().Resume();
+          }
         );
       }
 

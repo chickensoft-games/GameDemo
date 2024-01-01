@@ -6,8 +6,8 @@ state "GameLogic State" as GameDemo_GameLogic_State {
         GameDemo_GameLogic_State_GamePausedSaving : OnEnter → ShowPauseSaveOverlay
         GameDemo_GameLogic_State_GamePausedSaving : OnExit → HidePauseSaveOverlay
       }
-      GameDemo_GameLogic_State_GamePaused : OnEnter → ShowPauseMenu
-      GameDemo_GameLogic_State_GamePaused : OnExit → HidePauseMenu
+      GameDemo_GameLogic_State_GamePaused : OnEnter → SetPauseMode, ShowPauseMenu
+      GameDemo_GameLogic_State_GamePaused : OnExit → HidePauseMenu, SetPauseMode
     }
     state "LostGame" as GameDemo_GameLogic_State_LostGame {
       GameDemo_GameLogic_State_LostGame : OnEnter → ShowPlayerDied
@@ -19,17 +19,15 @@ state "GameLogic State" as GameDemo_GameLogic_State {
     state "WonGame" as GameDemo_GameLogic_State_WonGame {
       GameDemo_GameLogic_State_WonGame : OnEnter → ShowPlayerWon
     }
+    GameDemo_GameLogic_State_InGame : OnEnter → ChangeToThirdPersonCamera
   }
   state "QuitGame" as GameDemo_GameLogic_State_QuitGame
-  GameDemo_GameLogic_State : GameAboutToStart() → ChangeToThirdPersonCamera
-  GameDemo_GameLogic_State : OnGamePaused() → SetPauseMode
-  GameDemo_GameLogic_State : OnGameResumed() → SetPauseMode
 }
 
-GameDemo_GameLogic_State --> GameDemo_GameLogic_State : Initialize
 GameDemo_GameLogic_State_GamePaused --> GameDemo_GameLogic_State_GamePausedSaving : GameSaveRequested
 GameDemo_GameLogic_State_GamePaused --> GameDemo_GameLogic_State_ResumingGame : PauseButtonPressed
 GameDemo_GameLogic_State_GamePausedSaving --> GameDemo_GameLogic_State_GamePaused : GameSaveCompleted
+GameDemo_GameLogic_State_InGame --> GameDemo_GameLogic_State_InGame : Initialize
 GameDemo_GameLogic_State_InGame --> GameDemo_GameLogic_State_LostGame : GameOver
 GameDemo_GameLogic_State_InGame --> GameDemo_GameLogic_State_QuitGame : GameOver
 GameDemo_GameLogic_State_InGame --> GameDemo_GameLogic_State_QuitGame : GoToMainMenu
@@ -38,5 +36,5 @@ GameDemo_GameLogic_State_LostGame --> GameDemo_GameLogic_State_LostGame : StartG
 GameDemo_GameLogic_State_PlayingGame --> GameDemo_GameLogic_State_GamePaused : PauseButtonPressed
 GameDemo_GameLogic_State_ResumingGame --> GameDemo_GameLogic_State_PlayingGame : PauseMenuTransitioned
 
-[*] --> GameDemo_GameLogic_State
+[*] --> GameDemo_GameLogic_State_InGame
 @enduml

@@ -76,27 +76,27 @@ public partial class App : CanvasLayer, IApp {
     AppBinding = AppLogic.Bind();
 
     AppBinding
-      .Handle<AppLogic.Output.ShowSplashScreen>(output => {
+      .Handle<AppLogic.Output.ShowSplashScreen>(_ => {
         HideMenus();
         BlankScreen.Hide();
         Splash.Show();
       })
-      .Handle<AppLogic.Output.HideSplashScreen>(output => {
+      .Handle<AppLogic.Output.HideSplashScreen>(_ => {
         BlankScreen.Show();
         FadeOut();
       })
-      .Handle<AppLogic.Output.RemoveExistingGame>(output => {
+      .Handle<AppLogic.Output.RemoveExistingGame>(_ => {
         GamePreview.RemoveChildEx(Game);
         Game.QueueFree();
         Game = default!;
       })
-      .Handle<AppLogic.Output.LoadGame>(output => {
+      .Handle<AppLogic.Output.LoadGame>(_ => {
         Game = Instantiator.LoadAndInstantiate<Game>(GAME_SCENE_PATH);
         GamePreview.AddChildEx(Game);
 
         Instantiator.SceneTree.Paused = false;
       })
-      .Handle<AppLogic.Output.ShowMainMenu>(output => {
+      .Handle<AppLogic.Output.ShowMainMenu>(_ => {
         // Load everything while we're showing a black screen, then fade in.
         HideMenus();
         Menu.Show();
@@ -104,10 +104,14 @@ public partial class App : CanvasLayer, IApp {
 
         FadeIn();
       })
-      .Handle<AppLogic.Output.FadeOut>(output => FadeOut())
-      .Handle<AppLogic.Output.ShowGame>(output => {
+      .Handle<AppLogic.Output.FadeOut>(_ => FadeOut())
+      .Handle<AppLogic.Output.ShowGame>(_ => {
         HideMenus();
         FadeIn();
+      })
+      .Handle<AppLogic.Output.HideGame>(_ => {
+        HideMenus();
+        FadeOut();
       });
 
     // Enter the first state to kick off the binding side effects.

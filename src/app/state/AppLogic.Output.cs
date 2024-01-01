@@ -8,6 +8,8 @@ public partial class AppLogic {
 
     public readonly record struct ShowGame;
 
+    public readonly record struct HideGame;
+
     public readonly record struct PlayGame;
 
     public readonly record struct ShowMainMenu;

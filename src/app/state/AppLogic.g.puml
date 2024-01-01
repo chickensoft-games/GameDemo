@@ -1,6 +1,9 @@
 @startuml AppLogic
 state "AppLogic State" as GameDemo_AppLogic_State {
-  state "InGame" as GameDemo_AppLogic_State_InGame
+  state "InGame" as GameDemo_AppLogic_State_InGame {
+    GameDemo_AppLogic_State_InGame : OnEnter → ShowGame
+    GameDemo_AppLogic_State_InGame : OnExit → HideGame
+  }
   state "LeavingGame" as GameDemo_AppLogic_State_LeavingGame {
     GameDemo_AppLogic_State_LeavingGame : OnEnter → FadeOut
     GameDemo_AppLogic_State_LeavingGame : OnExit → RemoveExistingGame

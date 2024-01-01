@@ -1,14 +1,16 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
+using Chickensoft.LogicBlocks;
 using Chickensoft.PowerUps;
 using Godot;
 using SuperNodes.Types;
 
 public interface IJumpshroom {
   /// <summary>
-  /// Calling this informs the jumpshroom that something hit it.
+  ///   Calling this informs the jumpshroom that something hit it.
   /// </summary>
   public void Hit();
 }
@@ -18,39 +20,45 @@ public partial class Jumpshroom : Node3D {
   public override partial void _Notification(int what);
 
   #region Signals
+
   [Signal]
   public delegate void ShroomLoadedEventHandler();
+
   #endregion Signals
 
   #region State
+
   public IJumpshroomLogic JumpshroomLogic { get; set; } = default!;
-  public JumpshroomLogic.IBinding JumpshroomBinding { get; set; }
+
+  public Logic<JumpshroomLogic.IState, Func<object, JumpshroomLogic.IState>, JumpshroomLogic.IState,
+    Action<JumpshroomLogic.IState?>>.IBinding JumpshroomBinding { get; set; }
     = default!;
+
   [Export(PropertyHint.Range, "1,100,0.5")]
   public float ImpulseStrength { get; set; } = 30;
+
   #endregion State
 
   #region Nodes
-  [Node("%AnimationPlayer")]
-  public IAnimationPlayer AnimationPlayer { get; set; } = default!;
-  [Node("%Area3D")]
-  public IArea3D Area3D { get; set; } = default!;
-  [Node("%Timer")]
-  public ITimer CooldownTimer { get; set; } = default!;
+
+  [Node("%AnimationPlayer")] public IAnimationPlayer AnimationPlayer { get; set; } = default!;
+  [Node("%Area3D")] public IArea3D Area3D { get; set; } = default!;
+  [Node("%Timer")] public ITimer CooldownTimer { get; set; } = default!;
+
   #endregion Nodes
 
   #region Dependencies
-  [Dependency]
-  public IAppRepo AppRepo => DependOn<IAppRepo>();
+
+  [Dependency] public IGameRepo GameRepo => DependOn<IGameRepo>();
+
   #endregion Dependencies
 
-  public void Setup() {
+  public void Setup() =>
     JumpshroomLogic = new JumpshroomLogic(
-      new JumpshroomLogic.Data(ImpulseStrength), AppRepo
+      new JumpshroomLogic.Data(ImpulseStrength), GameRepo
     );
-  }
 
-  public void OnReady() {
+  public void OnResolved() {
     JumpshroomBinding = JumpshroomLogic.Bind();
 
     ShroomLoaded += OnShroomLoaded;
@@ -60,16 +68,14 @@ public partial class Jumpshroom : Node3D {
 
     JumpshroomBinding
       .Handle<JumpshroomLogic.Output.Animate>(
-        (output) => AnimationPlayer.Play("bounce")
+        output => AnimationPlayer.Play("bounce")
       )
       .Handle<JumpshroomLogic.Output.StartCooldownTimer>(
-        (output) => CooldownTimer.Start()
+        output => CooldownTimer.Start()
       );
   }
 
-  public void OnCooldownTimeout() {
-    JumpshroomLogic.Input(new JumpshroomLogic.Input.CooldownCompleted());
-  }
+  public void OnCooldownTimeout() => JumpshroomLogic.Input(new JumpshroomLogic.Input.CooldownCompleted());
 
   public void OnAreaBodyEntered(Node3D body) {
     if (body is IPushEnabled target) {
@@ -79,13 +85,12 @@ public partial class Jumpshroom : Node3D {
     }
   }
 
-  public void OnShroomLoaded() {
+  public void OnShroomLoaded() =>
     // We finished the windup part of the animation, now it's time to launch
     // whatever push-enabled object we are colliding with.
     JumpshroomLogic.Input(
       new JumpshroomLogic.Input.Launch()
     );
-  }
 
   // Tell the state machine we finished animating so it can go back to idle.
   public void OnAnimationFinished(StringName animationName) =>

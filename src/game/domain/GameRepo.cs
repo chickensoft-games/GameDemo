@@ -17,12 +17,6 @@ public interface IGameRepo : IDisposable {
   /// <summary>Event invoked whenever the player jumps.</summary>
   event Action? Jumped;
 
-  /// <summary>Event invoked when the game is paused.</summary>
-  event Action? GamePaused;
-
-  /// <summary>Event invoked when the game is resumed.</summary>
-  event Action? GameResumed;
-
   /// <summary>Event invoked when the game should be saved.</summary>
   event Action? GameSaveRequested;
 
@@ -112,8 +106,6 @@ public class GameRepo : IGameRepo {
   public event Action? CoinCollected;
   public event Action? JumpshroomUsed;
   public event Action<GameOverReason>? GameEnded;
-  public event Action? GamePaused;
-  public event Action? GameResumed;
   public event Action? GameSaveRequested;
   public event Action? GameSaveCompleted;
   public event Action? Jumped;
@@ -179,15 +171,9 @@ public class GameRepo : IGameRepo {
     GameEnded?.Invoke(reason);
   }
 
-  public void Pause() {
-    _isMouseCaptured.OnNext(false);
-    GamePaused?.Invoke();
-  }
+  public void Pause() => _isMouseCaptured.OnNext(false);
 
-  public void Resume() {
-    _isMouseCaptured.OnNext(true);
-    GameResumed?.Invoke();
-  }
+  public void Resume() => _isMouseCaptured.OnNext(true);
 
   public void OnJumpshroomUsed() => JumpshroomUsed?.Invoke();
 

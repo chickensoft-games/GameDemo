@@ -5,11 +5,14 @@ using System;
 public partial class GameLogic {
   public partial record State {
     public record InGame : State,
-      IGet<Input.GoToMainMenu>, IGet<Input.GameOver> {
+      IGet<Input.GoToMainMenu>, IGet<Input.GameOver>, IGet<Input.Initialize> {
       public InGame() {
-        OnEnter<InGame>(previous => {
-          Get<IAppRepo>().OnStartGame();
-        });
+        OnEnter<InGame>(
+          _ => {
+            Get<IAppRepo>().OnStartGame();
+            Context.Output(new Output.ChangeToThirdPersonCamera());
+          }
+        );
 
         OnAttach(() => Get<IGameRepo>().GameEnded += OnGameOver);
         OnDetach(() => Get<IGameRepo>().GameEnded -= OnGameOver);
@@ -30,6 +33,11 @@ public partial class GameLogic {
       }
 
       public IState On(Input.GoToMainMenu input) => new QuitGame();
+
+      public IState On(Input.Initialize input) {
+        Get<IGameRepo>().OnNumCoinsAtStart(input.NumCoinsInWorld);
+        return this;
+      }
     }
   }
 }
