@@ -19,12 +19,11 @@ state "GameLogic State" as GameDemo_GameLogic_State {
     state "WonGame" as GameDemo_GameLogic_State_WonGame {
       GameDemo_GameLogic_State_WonGame : OnEnter → ShowPlayerWon
     }
-    GameDemo_GameLogic_State_InGame : OnEnter → CaptureMouse, ChangeToThirdPersonCamera
+    GameDemo_GameLogic_State_InGame : OnEnter → ChangeToThirdPersonCamera
   }
-  state "MenuBackdrop" as GameDemo_GameLogic_State_MenuBackdrop {
-    GameDemo_GameLogic_State_MenuBackdrop : OnEnter → CaptureMouse
-  }
+  state "MenuBackdrop" as GameDemo_GameLogic_State_MenuBackdrop
   state "QuitGame" as GameDemo_GameLogic_State_QuitGame
+  GameDemo_GameLogic_State : OnIsMouseCaptured() → CaptureMouse
 }
 
 GameDemo_GameLogic_State_GamePaused --> GameDemo_GameLogic_State_GamePausedSaving : GameSaveRequested

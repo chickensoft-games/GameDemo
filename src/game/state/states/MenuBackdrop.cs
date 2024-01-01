@@ -5,7 +5,7 @@ public partial class GameLogic {
     public record MenuBackdrop : State, IGet<Input.StartGame> {
       public MenuBackdrop() {
         OnEnter<MenuBackdrop>(_ => {
-          Context.Output(new Output.CaptureMouse(false));
+          Get<IGameRepo>().SetIsMouseCaptured(false);
           Get<IAppRepo>().GameStarting += OnGameStarting;
         });
       }

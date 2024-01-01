@@ -10,7 +10,7 @@ public partial class GameLogic {
         OnEnter<InGame>(
           _ => {
             Context.Output(new Output.ChangeToThirdPersonCamera());
-            Context.Output(new Output.CaptureMouse(true));
+            Get<IGameRepo>().SetIsMouseCaptured(true);
           }
         );
 

@@ -72,6 +72,12 @@ public interface IGameRepo : IDisposable {
   /// <summary>Starts the saving process.</summary>
   void StartSaving();
 
+  /// <summary>Changes whether the mouse is captured or not.</summary>
+  /// <param name="isMouseCaptured">
+  ///   Whether or not the mouse is captured.
+  /// </param>
+  void SetIsMouseCaptured(bool isMouseCaptured);
+
   /// <summary>Sets the camera's global transform basis.</summary>
   /// <param name="cameraBasis">Camera global transform basis.</param>
   void SetCameraBasis(Basis cameraBasis);
@@ -137,6 +143,9 @@ public class GameRepo : IGameRepo {
 
   public void SetPlayerGlobalPosition(Vector3 playerGlobalPosition) =>
     _playerGlobalPosition.OnNext(playerGlobalPosition);
+
+  public void SetIsMouseCaptured(bool isMouseCaptured) =>
+    _isMouseCaptured.OnNext(isMouseCaptured);
 
   public void SetCameraBasis(Basis cameraBasis) =>
     _cameraBasis.OnNext(cameraBasis);
