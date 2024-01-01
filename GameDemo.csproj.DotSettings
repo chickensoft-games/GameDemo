@@ -1661,4 +1661,140 @@
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cgame_005Cstate_005Cstates/@EntryIndexedValue">True</s:Boolean>
 
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C04/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C80/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssilblurshaderrd_005C794e47b55a0e225e5cfc1712721a60da84266877d2cdaa417189c80a2baaee86/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C91/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccubemaproughnessshaderrd_005C2b8f561b5ffca7f30a0bd790705a8402e338f14e1324dd7ca28b5e4ad8a16c43/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvolumetricfogprocessshaderrd_005Cdece355efbf2ffcd2e3792222a7a55b004988bfc307992b2ad7864648c357d77/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccubemapfiltershaderrd_005Cb77e67f5adf0bae35b6d5ac5d0df0ab4964262e1b443263bafe1e9232e3c4496/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C0b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssaoimportancemapshaderrd_005C644664677b91700a15f9e33204c3967b0a2136eb706967ebf0bdb18da810edcc/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cresolveshaderrd_005Cf3fd4f647751667fe2f51d2c3c34fdc8a6b8056223813a7f9601c4ea152ba6d3/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssaoshaderrd_005C23decde4adb78771ebd6a7ff3e8bbea3dfee04012959384a644ac0fe7a48a1dd/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cshadowfrustumshaderrd_005C1aa62044263bb6821ed4323853cd7eb19e368b6d662146796fd2a7e77e22806c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2autogenreactivepassshaderrd_005Cd329eca057f566db7253e294710f1126046ae3143ad0c7910489ed87db46e15b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccanvassdfshaderrd_005C6ce4a569b23e9de7ae1b751184a5bbe5bf76a6b93ae37dd07c087713e9fefa44/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cluminancereduceshaderrd_005C5dba786d79963d9627fc0f6f8111eb625f994ffb7656419c81a512b67a4bad9e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cgishaderrd_005C0a19daada62407261587276a782e417a5a17b7984a046fb5f731e47d8ac5521a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssaoblurshaderrd_005Cff089c168a3fc48c4896ed2ba16603098402cbad5ce7c943a3c2780caebe55bc/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csubsurfacescatteringshaderrd_005C48d573a6b5f6abc8f0d245125967ecdf330e0051d43a6f255fd56c54fd3d6a7c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csceneforwardclusteredshaderrd_005C6ab845192c5203af20ce49e84b375ac2d9b4a1fd9dd20002b8fa0d27d8441c24/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2computeluminancepyramidpassshaderrd_005C616fd567467bc8d233f0c6b1fdd2cff81165b3c508c3d508af3a90a7f6b2520c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csceneforwardclusteredshaderrd_005C3cfc30ca6118529c729d61c54d96a27db33babaabcb6694719ec1b4fd180517a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cscreenspacereflectionshaderrd_005Cefbc453dc95de6c769c97d0f56e44258979df253bc6aef5c985df75abc3bac5b/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csceneforwardclusteredshaderrd_005Ccefecd7f4508f1301872c16b6b38db6835ace49b7e5bd754e7e4193611314907/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgiintegrateshaderrd_005C07efc1f3dfd36238d73abdb4e7103e02980037e5a30c57e22431ebd72fca9aa9/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cclusterstoreshaderrd_005C79a88838cd28525620dab54bc31b91bd31c952aa876dcf8c17a220202c0313cc/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvolumetricfogshaderrd_005C8af5214e9b7667ce2e4cb14945c9872c9362b6944beaa431227a761029b721e8/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ctonemapshaderrd_005Cd8d838e766a8ff1f736fa74e30c673c2157e5910cd683cfae2c7849bc1552037/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Cd7/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005Ce4/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2rcaspassshaderrd_005C450892be86f6db872bea4bcbd20074129806b4f64706e8f76728092c14308b87/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2reconstructpreviousdepthpassshaderrd_005C945c3376fca1987c04614e4d2a5dda4862952c5ac1d621aebbbf5fb146ad94d9/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgidebugshaderrd_005Ca41f50d5ec16492f88864b94b38033a1d8d89accf65fa676af6c7e0abbb8c4c9/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cclusterdebugshaderrd_005Cf65c82fae94f9cdd98cbd2e4de5abf8bd4d5b59ccd0a3243569c89564d29639d/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccubetodpshaderrd_005Cb716c96d003426a58e9534eb400652c208ee6f55f63a51ff0e4a92f8666696cf/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csceneforwardclusteredshaderrd_005Cad61ec48aac59597f40882afa3722a21a386a94e78bae8d3f9f7ff172015f197/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsrupscaleshaderrd_005C58ab62a2549991b5b8da68aaf3230fba7e32378a87012c3dc827cf502ffea939/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvoxelgishaderrd_005C8fb5450054daa2929f23de5ec6bd25eb0cc9d5b5b934fa1db59ba507d4791b42/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cblitshaderrd_005Cb24b373cc655824431898324ee286cfd367c9f9e7e47ab58965b89a5e9f7393a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cparticlesshaderrd_005C68e73da8c9b285f5f85525ebb794d1ccac0b67287cd2dd5231ec1a16172097ce/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cmotionvectorsshaderrd_005C4a066f6019af0de709e960dc9f741b92d02062ad7d9c8ee65d48f30df61c3f5c/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccubemapdownsamplershaderrd_005C5979ba4663f9c92c07813d1eb888add954abde5ace5fb804dcab01764a56c4f3/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgipreprocessshaderrd_005C878a76ea4071c7c793fd8cb13cbca6dc744ba2008c25aa578e26af9217041691/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssilimportancemapshaderrd_005C1083773cc95df067b9ba4d74cfa232ccbf93dd4e571ed72ee0e293aebed2251a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2depthclippassshaderrd_005C13b11f6718cc2297b841d8e4fdcba2defc9073482e6ca303fb70160778d37aa2/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccopyshaderrd_005C2c8942609e55f2fa7fb88f5d67b346ea76e2437dc30727932428a7ccb30600bb/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssilinterleaveshaderrd_005C297815d67e7c3433661f409c8e5e98a2f6f56e4775b0500a8b8ad1d3658d5203/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgidirectlightshaderrd_005Cf8fb506b7223c9fab1121724249f1ed3c5f3c0ff33d0aeb693d26fa4f9701dba/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccopytofbshaderrd_005Ccb797cb4ec9e08836a540a6d1b6d45832ceafb9caf8832476c673e82abe77103/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csseffectsdownsampleshaderrd_005C707a1a3795e9979c420338dcd41e1dec3394b7a85054b4865eae94d2e2d3de70/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cvoxelgidebugshaderrd_005C6d8d9d0d1d323fd7ab07ec2512309e370b4cc1fd6ea445927cdc63ab045a7f6a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2lockpassshaderrd_005Cbf36abfaeb88d2be70d239151dec6196397151c8dcdd48ceb78cdb8e274f56ca/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cparticlescopyshaderrd_005Cd9f43f2c9c03d11393e2a879ff1b331f2bbc50169cd5e0e34fdba96083c48e88/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cscreenspacereflectionscaleshaderrd_005Ca7770099e1cbf307c69426b7e3347d9bd32845df54ae4169271197f4fc2681e3/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssaointerleaveshaderrd_005C52dacdaa95201df059b485067b2f6959080b10f61fb81ffdbd865a74ae46df3f/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cskyshaderrd_005Cdf0876dbcc38728eaf7d7620cfad42ef7978ffc1545dc6540a566522724909cc/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cclusterrendershaderrd_005C2883e94524352f8179685eb23901bfe5d62324dbf81ddab82f65d762a8616f59/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccanvasocclusionshaderrd_005Cfdc95d34c337a58c39d736032a1a05174fbdf4a065a80ea77ab3d20dacdf61f4/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2accumulatepassshaderrd_005C6e3a0f22c43cc0903c5c59338162c141fd75bc1cf498fdb012b4fda6cf6f7dec/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csdfgidebugprobesshaderrd_005Cde5641d957674026801068c0cd5d6b402f682b4e2c2e8bea2bff25d9187624e2/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ctaaresolveshaderrd_005Cfbf34e259a6b336908fafab1de61b1b7f6212ac8d93d740fd4966ff440cf5836/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Csortshaderrd_005C30a3f3c0dab5b348b4121991d0c89366429175b267a7f2b6a6e7d03bcbc6d491/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cssilshaderrd_005C1871c82ff9b668584944f9d7bd589bb332bec49a5082b5f5531ca7511876bca4/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cbokehdofshaderrd_005C5c93e64579b2db9a61c21b5879af1ccda6496b6bb17a630bc571b10264d37168/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cskeletonshaderrd_005Cdea855fe445fb3cdbeb8c4465240a470805a22a4ad7eff37f5560d8231430887/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cscreenspacereflectionfiltershaderrd_005Cc668af4c1863bf9dbeb6598fa48b2b1be702410503d4b1659f05a6796d4f07ce/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cspecularmergeshaderrd_005C49a3be63bfab97f33755cc85aaad5a2f55aed2bfa95d14f49cf99af524baadae/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C8a/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccanvasshaderrd_005C1ce4f17ddf5c068f386e3fbbe146d5a0930c89597fd0b01ffe34227672c9ffeb/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2tcrautogenpassshaderrd_005C67214e27d5f0406e6585eddb532751fc72a92ada34fdbf4c1974aa42fc8bd695/@EntryIndexedValue">True</s:Boolean>
 </wpf:ResourceDictionary>

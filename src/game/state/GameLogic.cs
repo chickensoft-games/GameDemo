@@ -8,7 +8,7 @@ public interface IGameLogic : ILogicBlock<GameLogic.IState> {
 
 [StateMachine]
 public partial class GameLogic : LogicBlock<GameLogic.IState>, IGameLogic {
-  public override IState GetInitialState() => new State.InGame();
+  public override IState GetInitialState() => new State.MenuBackdrop();
 
   public GameLogic(IGameRepo gameRepo, IAppRepo appRepo) {
     Set(gameRepo);

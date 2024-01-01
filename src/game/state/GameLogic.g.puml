@@ -19,7 +19,10 @@ state "GameLogic State" as GameDemo_GameLogic_State {
     state "WonGame" as GameDemo_GameLogic_State_WonGame {
       GameDemo_GameLogic_State_WonGame : OnEnter → ShowPlayerWon
     }
-    GameDemo_GameLogic_State_InGame : OnEnter → ChangeToThirdPersonCamera
+    GameDemo_GameLogic_State_InGame : OnEnter → CaptureMouse, ChangeToThirdPersonCamera
+  }
+  state "MenuBackdrop" as GameDemo_GameLogic_State_MenuBackdrop {
+    GameDemo_GameLogic_State_MenuBackdrop : OnEnter → CaptureMouse
   }
   state "QuitGame" as GameDemo_GameLogic_State_QuitGame
 }
@@ -33,8 +36,8 @@ GameDemo_GameLogic_State_InGame --> GameDemo_GameLogic_State_QuitGame : GameOver
 GameDemo_GameLogic_State_InGame --> GameDemo_GameLogic_State_QuitGame : GoToMainMenu
 GameDemo_GameLogic_State_InGame --> GameDemo_GameLogic_State_WonGame : GameOver
 GameDemo_GameLogic_State_LostGame --> GameDemo_GameLogic_State_LostGame : StartGame
-GameDemo_GameLogic_State_PlayingGame --> GameDemo_GameLogic_State_GamePaused : PauseButtonPressed
+GameDemo_GameLogic_State_MenuBackdrop --> GameDemo_GameLogic_State_PlayingGame : StartGame
 GameDemo_GameLogic_State_ResumingGame --> GameDemo_GameLogic_State_PlayingGame : PauseMenuTransitioned
 
-[*] --> GameDemo_GameLogic_State_InGame
+[*] --> GameDemo_GameLogic_State_MenuBackdrop
 @enduml

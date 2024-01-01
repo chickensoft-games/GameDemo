@@ -4,13 +4,13 @@ using System;
 
 public partial class GameLogic {
   public partial record State {
-    public record InGame : State,
+    public abstract record InGame : State,
       IGet<Input.GoToMainMenu>, IGet<Input.GameOver>, IGet<Input.Initialize> {
-      public InGame() {
+      protected InGame() {
         OnEnter<InGame>(
           _ => {
-            Get<IAppRepo>().OnStartGame();
             Context.Output(new Output.ChangeToThirdPersonCamera());
+            Context.Output(new Output.CaptureMouse(true));
           }
         );
 
