@@ -2,7 +2,7 @@ namespace GameDemo;
 
 public partial class GameLogic {
   public partial record State {
-    public record ResumingGame : InGame, IGet<Input.PauseMenuTransitioned> {
+    public record ResumingGame : State, IGet<Input.PauseMenuTransitioned> {
       public ResumingGame() {
         OnEnter<ResumingGame>(previous => Get<IGameRepo>().Resume());
         OnExit<ResumingGame>(

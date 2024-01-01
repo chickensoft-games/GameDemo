@@ -1,41 +1,40 @@
 @startuml GameLogic
 state "GameLogic State" as GameDemo_GameLogic_State {
-  state "InGame" as GameDemo_GameLogic_State_InGame {
-    state "GamePaused" as GameDemo_GameLogic_State_GamePaused {
-      state "GamePausedSaving" as GameDemo_GameLogic_State_GamePausedSaving {
-        GameDemo_GameLogic_State_GamePausedSaving : OnEnter → ShowPauseSaveOverlay
-        GameDemo_GameLogic_State_GamePausedSaving : OnExit → HidePauseSaveOverlay
-      }
-      GameDemo_GameLogic_State_GamePaused : OnEnter → SetPauseMode, ShowPauseMenu
-      GameDemo_GameLogic_State_GamePaused : OnExit → HidePauseMenu, SetPauseMode
+  state "GamePaused" as GameDemo_GameLogic_State_GamePaused {
+    state "GamePausedSaving" as GameDemo_GameLogic_State_GamePausedSaving {
+      GameDemo_GameLogic_State_GamePausedSaving : OnEnter → ShowPauseSaveOverlay
+      GameDemo_GameLogic_State_GamePausedSaving : OnExit → HidePauseSaveOverlay
     }
-    state "LostGame" as GameDemo_GameLogic_State_LostGame {
-      GameDemo_GameLogic_State_LostGame : OnEnter → ShowPlayerDied
-    }
-    state "PlayingGame" as GameDemo_GameLogic_State_PlayingGame
-    state "ResumingGame" as GameDemo_GameLogic_State_ResumingGame {
-      GameDemo_GameLogic_State_ResumingGame : OnExit → DisablePauseMenu
-    }
-    state "WonGame" as GameDemo_GameLogic_State_WonGame {
-      GameDemo_GameLogic_State_WonGame : OnEnter → ShowPlayerWon
-    }
-    GameDemo_GameLogic_State_InGame : OnEnter → ChangeToThirdPersonCamera
+    GameDemo_GameLogic_State_GamePaused : OnEnter → SetPauseMode, ShowPauseMenu
+    GameDemo_GameLogic_State_GamePaused : OnExit → HidePauseMenu, SetPauseMode
+  }
+  state "LostGame" as GameDemo_GameLogic_State_LostGame {
+    GameDemo_GameLogic_State_LostGame : OnEnter → ShowPlayerDied
   }
   state "MenuBackdrop" as GameDemo_GameLogic_State_MenuBackdrop
+  state "PlayingGame" as GameDemo_GameLogic_State_PlayingGame {
+    GameDemo_GameLogic_State_PlayingGame : OnEnter → StartGame
+  }
   state "QuitGame" as GameDemo_GameLogic_State_QuitGame
+  state "ResumingGame" as GameDemo_GameLogic_State_ResumingGame {
+    GameDemo_GameLogic_State_ResumingGame : OnExit → DisablePauseMenu
+  }
+  state "WonGame" as GameDemo_GameLogic_State_WonGame {
+    GameDemo_GameLogic_State_WonGame : OnEnter → ShowPlayerWon
+  }
   GameDemo_GameLogic_State : OnIsMouseCaptured() → CaptureMouse
 }
 
-GameDemo_GameLogic_State --> GameDemo_GameLogic_State : Initialize
 GameDemo_GameLogic_State_GamePaused --> GameDemo_GameLogic_State_GamePausedSaving : GameSaveRequested
 GameDemo_GameLogic_State_GamePaused --> GameDemo_GameLogic_State_ResumingGame : PauseButtonPressed
 GameDemo_GameLogic_State_GamePausedSaving --> GameDemo_GameLogic_State_GamePaused : GameSaveCompleted
-GameDemo_GameLogic_State_InGame --> GameDemo_GameLogic_State_LostGame : GameOver
-GameDemo_GameLogic_State_InGame --> GameDemo_GameLogic_State_QuitGame : GameOver
-GameDemo_GameLogic_State_InGame --> GameDemo_GameLogic_State_QuitGame : GoToMainMenu
-GameDemo_GameLogic_State_InGame --> GameDemo_GameLogic_State_WonGame : GameOver
 GameDemo_GameLogic_State_LostGame --> GameDemo_GameLogic_State_LostGame : StartGame
+GameDemo_GameLogic_State_MenuBackdrop --> GameDemo_GameLogic_State_MenuBackdrop : Initialize
 GameDemo_GameLogic_State_MenuBackdrop --> GameDemo_GameLogic_State_PlayingGame : StartGame
+GameDemo_GameLogic_State_PlayingGame --> GameDemo_GameLogic_State_LostGame : GameOver
+GameDemo_GameLogic_State_PlayingGame --> GameDemo_GameLogic_State_QuitGame : GameOver
+GameDemo_GameLogic_State_PlayingGame --> GameDemo_GameLogic_State_QuitGame : GoToMainMenu
+GameDemo_GameLogic_State_PlayingGame --> GameDemo_GameLogic_State_WonGame : GameOver
 GameDemo_GameLogic_State_ResumingGame --> GameDemo_GameLogic_State_PlayingGame : PauseMenuTransitioned
 
 [*] --> GameDemo_GameLogic_State_MenuBackdrop

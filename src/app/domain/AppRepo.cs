@@ -45,6 +45,8 @@ public class AppRepo : IAppRepo {
   private bool _disposedValue;
 
   public void SkipSplashScreen() => SplashScreenSkipped?.Invoke();
+
+  // TODO: Restart game!
   public void RestartGame() => throw new NotImplementedException();
 
   public void OnMainMenuEntered() => MainMenuEntered?.Invoke();

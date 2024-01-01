@@ -2,7 +2,7 @@ namespace GameDemo;
 
 public partial class GameLogic {
   public partial record State {
-    public record GamePaused : InGame,
+    public record GamePaused : State,
       IGet<Input.PauseButtonPressed>, IGet<Input.GameSaveRequested> {
       public GamePaused() {
         OnEnter<GamePaused>(
