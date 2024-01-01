@@ -85,9 +85,11 @@ public partial class Game : Node3D, IGame {
   public void OnResolved() {
     GameBinding = GameLogic.Bind();
     GameBinding
-      .Handle<GameLogic.Output.ChangeToThirdPersonCamera>(
-        _ => PlayerCamera.UsePlayerCamera()
-      )
+      .Handle<GameLogic.Output.StartGame>(
+        _ => {
+          PlayerCamera.UsePlayerCamera();
+          InGameUi.Show();
+        })
       .Handle<GameLogic.Output.SetPauseMode>(
         output => GetTree().Paused = output.IsPaused
       )

@@ -26,10 +26,10 @@ state "GameLogic State" as GameDemo_GameLogic_State {
   GameDemo_GameLogic_State : OnIsMouseCaptured() → CaptureMouse
 }
 
+GameDemo_GameLogic_State --> GameDemo_GameLogic_State : Initialize
 GameDemo_GameLogic_State_GamePaused --> GameDemo_GameLogic_State_GamePausedSaving : GameSaveRequested
 GameDemo_GameLogic_State_GamePaused --> GameDemo_GameLogic_State_ResumingGame : PauseButtonPressed
 GameDemo_GameLogic_State_GamePausedSaving --> GameDemo_GameLogic_State_GamePaused : GameSaveCompleted
-GameDemo_GameLogic_State_InGame --> GameDemo_GameLogic_State_InGame : Initialize
 GameDemo_GameLogic_State_InGame --> GameDemo_GameLogic_State_LostGame : GameOver
 GameDemo_GameLogic_State_InGame --> GameDemo_GameLogic_State_QuitGame : GameOver
 GameDemo_GameLogic_State_InGame --> GameDemo_GameLogic_State_QuitGame : GoToMainMenu

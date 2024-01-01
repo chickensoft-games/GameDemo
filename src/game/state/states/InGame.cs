@@ -5,11 +5,11 @@ using System;
 public partial class GameLogic {
   public partial record State {
     public abstract record InGame : State,
-      IGet<Input.GoToMainMenu>, IGet<Input.GameOver>, IGet<Input.Initialize> {
+      IGet<Input.GoToMainMenu>, IGet<Input.GameOver> {
       protected InGame() {
         OnEnter<InGame>(
           _ => {
-            Context.Output(new Output.ChangeToThirdPersonCamera());
+            Context.Output(new Output.StartGame());
             Get<IGameRepo>().SetIsMouseCaptured(true);
           }
         );
@@ -33,11 +33,6 @@ public partial class GameLogic {
       }
 
       public IState On(Input.GoToMainMenu input) => new QuitGame();
-
-      public IState On(Input.Initialize input) {
-        Get<IGameRepo>().OnNumCoinsAtStart(input.NumCoinsInWorld);
-        return this;
-      }
     }
   }
 }
