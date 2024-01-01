@@ -31,6 +31,7 @@ GameDemo_GameLogic_State_GamePausedSaving --> GameDemo_GameLogic_State_GamePause
 GameDemo_GameLogic_State_LostGame --> GameDemo_GameLogic_State_LostGame : StartGame
 GameDemo_GameLogic_State_MenuBackdrop --> GameDemo_GameLogic_State_MenuBackdrop : Initialize
 GameDemo_GameLogic_State_MenuBackdrop --> GameDemo_GameLogic_State_PlayingGame : StartGame
+GameDemo_GameLogic_State_PlayingGame --> GameDemo_GameLogic_State_GamePaused : PauseButtonPressed
 GameDemo_GameLogic_State_PlayingGame --> GameDemo_GameLogic_State_LostGame : GameOver
 GameDemo_GameLogic_State_PlayingGame --> GameDemo_GameLogic_State_QuitGame : GameOver
 GameDemo_GameLogic_State_PlayingGame --> GameDemo_GameLogic_State_QuitGame : GoToMainMenu

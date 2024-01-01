@@ -16,6 +16,7 @@ ssil_normal_rejection = 0.0
 environment = SubResource("Environment_ugqbc")
 
 [node name="InGameUi" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

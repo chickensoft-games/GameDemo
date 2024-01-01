@@ -62,10 +62,6 @@ public partial class Coin : Node3D, ICoin {
 
   #endregion PackedScenes
 
-  public Coin() {
-    GD.Print("Coin created");
-  }
-
   public void Setup() {
     Settings = new CoinLogic.Settings(CollectionTimeInSeconds);
     CoinLogic = new CoinLogic(this, Settings, GameRepo);
@@ -79,9 +75,6 @@ public partial class Coin : Node3D, ICoin {
     // looks at the biggest collision shape inside a node, recursively, even
     // though it shouldn't. And this isn't a collision shape for physics, it's
     // just a collision shape for area detection :P
-
-    GD.Print("Coin name: " + Name);
-
     var collectorDetector = CollectorDetector.Instantiate<Area3D>();
 
     collectorDetector.BodyEntered += OnCollectorDetectorBodyEntered;

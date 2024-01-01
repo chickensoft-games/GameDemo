@@ -5,7 +5,7 @@ using System;
 public partial class GameLogic {
   public partial record State {
     public record PlayingGame :
-    State, IGet<Input.GoToMainMenu>, IGet<Input.GameOver> {
+      State, IGet<Input.GoToMainMenu>, IGet<Input.GameOver>, IGet<Input.PauseButtonPressed> {
       public PlayingGame() {
         OnEnter<PlayingGame>(
           _ => {
@@ -33,6 +33,7 @@ public partial class GameLogic {
       }
 
       public IState On(Input.GoToMainMenu input) => new QuitGame();
+      public IState On(Input.PauseButtonPressed input) => new GamePaused();
     }
   }
 }

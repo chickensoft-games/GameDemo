@@ -6,7 +6,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r4f68"]
 shader = ExtResource("1_m43vi")
-shader_parameter/opacity = 1.0
+shader_parameter/opacity = 0.0
 
 [sub_resource type="FontVariation" id="FontVariation_ps6b3"]
 variation_embolden = 0.54
@@ -25,6 +25,21 @@ corner_radius_bottom_left = 16
 [sub_resource type="LabelSettings" id="LabelSettings_dourt"]
 font_size = 32
 
+[sub_resource type="Animation" id="Animation_xporw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
 [sub_resource type="Animation" id="Animation_focl7"]
 resource_name = "spin"
 loop_mode = 1
@@ -39,21 +54,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, -0.5, 0.18301),
 "update": 0,
 "values": [0.0, 3.14159, 6.28319]
-}
-
-[sub_resource type="Animation" id="Animation_xporw"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_80o4u"]
@@ -145,7 +145,7 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_tpfyc"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7stnf"]
 _data = {
 "RESET": SubResource("Animation_xhe6j"),
 "fade_in": SubResource("Animation_hmby5"),
@@ -216,6 +216,8 @@ _data = {
 }
 
 [node name="PauseMenu" type="Control"]
+process_mode = 3
+modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -353,7 +355,7 @@ autoplay = "spin"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_tpfyc")
+"": SubResource("AnimationLibrary_7stnf")
 }
 
 [node name="SaveOverlayAnimationPlayer" type="AnimationPlayer" parent="."]

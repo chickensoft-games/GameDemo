@@ -103,7 +103,6 @@ public partial class Game : Node3D, IGame {
         DeathMenu.Animate();
       })
       .Handle<GameLogic.Output.ShowPauseMenu>(_ => {
-        InGameUi.Show();
         PauseMenu.Show();
         PauseMenu.FadeIn();
       })
@@ -111,7 +110,9 @@ public partial class Game : Node3D, IGame {
         WinMenu.Show();
       })
       .Handle<GameLogic.Output.HidePauseMenu>(_ => PauseMenu.FadeOut())
-      .Handle<GameLogic.Output.DisablePauseMenu>(_ => PauseMenu.Hide())
+      .Handle<GameLogic.Output.DisablePauseMenu>(_ => {
+        PauseMenu.Hide();
+      })
       .Handle<GameLogic.Output.ShowPauseSaveOverlay>(
         _ => PauseMenu.OnSaveStarted()
       )
