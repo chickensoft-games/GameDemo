@@ -23,12 +23,6 @@ public interface IAppRepo : IDisposable {
   /// <summary>Event invoked when the main menu is entered.</summary>
   event Action? MainMenuEntered;
 
-  /// <summary>
-  ///   Event invoked when a request to restart the game is received while
-  ///   playing a game.
-  /// </summary>
-  event Action? RestartGameRequested;
-
   /// <summary>Inform the app that the game is about to begin.</summary>
   void OnStartGame();
 
@@ -37,11 +31,6 @@ public interface IAppRepo : IDisposable {
 
   /// <summary>Skips the splash screen.</summary>
   void SkipSplashScreen();
-
-  /// <summary>
-  ///   User wants to restart the game from inside the game.
-  /// </summary>
-  void RestartGame();
 
   /// <summary>
   ///   End the game with the given reason.
@@ -59,13 +48,10 @@ public class AppRepo : IAppRepo {
   public event Action? MainMenuEntered;
   public event Action? GameStarting;
   public event Action<GameOverReason>? GameEnding;
-  public event Action? RestartGameRequested;
 
   private bool _disposedValue;
 
   public void SkipSplashScreen() => SplashScreenSkipped?.Invoke();
-
-  public void RestartGame() => RestartGameRequested?.Invoke();
   public void EndGame(GameOverReason reason) => GameEnding?.Invoke(reason);
 
   public void OnMainMenuEntered() => MainMenuEntered?.Invoke();

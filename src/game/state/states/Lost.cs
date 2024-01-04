@@ -5,12 +5,12 @@ public partial class GameLogic {
     public record Lost : State, IGet<Input.StartGame> {
       public Lost() {
         OnEnter<Lost>(
-          previous => Context.Output(new Output.ShowPlayerDied())
+          _ => Context.Output(new Output.ShowPlayerDied())
         );
       }
 
       public IState On(Input.StartGame input) {
-        Get<IAppRepo>().RestartGame();
+        Get<IAppRepo>().EndGame(GameOverReason.Exited);
         return this;
       }
     }

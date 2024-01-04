@@ -3,16 +3,23 @@ namespace GameDemo;
 public partial class AppLogic {
   public partial record State {
     public record LeavingGame : State, IGet<Input.FadeOutFinished> {
-      public LeavingGame() {
-        OnEnter<LeavingGame>(
-          previous => Context.Output(new Output.HideGame())
-        );
+      public bool ShouldRestartGame { get; }
+
+      public LeavingGame(bool shouldRestartGame) {
+        ShouldRestartGame = shouldRestartGame;
+
         OnExit<LeavingGame>(
-          next => Context.Output(new Output.RemoveExistingGame())
+          _ => Context.Output(new Output.RemoveExistingGame())
         );
       }
 
-      public IState On(Input.FadeOutFinished input) => new RestartingGame();
+      public IState On(Input.FadeOutFinished input) {
+        if (ShouldRestartGame) {
+          return new RestartingGame();
+        }
+
+        return new MainMenu();
+      }
     }
   }
 }
