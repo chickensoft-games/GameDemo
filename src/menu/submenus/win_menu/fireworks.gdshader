@@ -91,7 +91,6 @@ void fragment() {
         c += explosion(uv, p, id, et);
 		}
     
-	float alpha = 1.0;
-//	if (c.x < 0.2){alpha=0.0;} 
+	float alpha = c.r + c.g + c.b / 3.0;
     COLOR = vec4(c, alpha);
 }

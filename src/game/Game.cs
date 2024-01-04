@@ -67,11 +67,13 @@ public partial class Game : Node3D, IGame {
 
     DeathMenu.TryAgain += OnStart;
     DeathMenu.MainMenu += OnMainMenu;
+    DeathMenu.TransitionCompleted += OnDeathMenuTransitioned;
     WinMenu.MainMenu += OnMainMenu;
+    WinMenu.TransitionCompleted += OnWinMenuTransitioned;
     PauseMenu.MainMenu += OnMainMenu;
     PauseMenu.Resume += OnResume;
-    PauseMenu.TransitionCompleted += PauseMenuTransitioned;
-    PauseMenu.Save += PauseMenuSaveRequested;
+    PauseMenu.TransitionCompleted += OnPauseMenuTransitioned;
+    PauseMenu.Save += OnPauseMenuSaveRequested;
 
     Provide();
 
@@ -100,7 +102,11 @@ public partial class Game : Node3D, IGame {
       )
       .Handle<GameLogic.Output.ShowPlayerDied>(_ => {
         DeathMenu.Show();
+        DeathMenu.FadeIn();
         DeathMenu.Animate();
+      })
+      .Handle<GameLogic.Output.ExitPlayerDied>(_ => {
+        DeathMenu.FadeOut();
       })
       .Handle<GameLogic.Output.ShowPauseMenu>(_ => {
         PauseMenu.Show();
@@ -108,11 +114,11 @@ public partial class Game : Node3D, IGame {
       })
       .Handle<GameLogic.Output.ShowPlayerWon>(_ => {
         WinMenu.Show();
+        WinMenu.FadeIn();
       })
-      .Handle<GameLogic.Output.HidePauseMenu>(_ => PauseMenu.FadeOut())
-      .Handle<GameLogic.Output.DisablePauseMenu>(_ => {
-        PauseMenu.Hide();
-      })
+      .Handle<GameLogic.Output.HidePlayerWon>(_ => WinMenu.FadeOut())
+      .Handle<GameLogic.Output.ExitPauseMenu>(_ => PauseMenu.FadeOut())
+      .Handle<GameLogic.Output.HidePauseMenu>(_ => PauseMenu.Hide())
       .Handle<GameLogic.Output.ShowPauseSaveOverlay>(
         _ => PauseMenu.OnSaveStarted()
       )
@@ -143,11 +149,17 @@ public partial class Game : Node3D, IGame {
   public void OnStart() =>
     GameLogic.Input(new GameLogic.Input.StartGame());
 
-  public void PauseMenuTransitioned() =>
+  public void OnWinMenuTransitioned() =>
+    GameLogic.Input(new GameLogic.Input.WinMenuTransitioned());
+
+  public void OnPauseMenuTransitioned() =>
     GameLogic.Input(new GameLogic.Input.PauseMenuTransitioned());
 
-  public void PauseMenuSaveRequested() =>
+  public void OnPauseMenuSaveRequested() =>
     GameLogic.Input(new GameLogic.Input.GameSaveRequested());
+
+  public void OnDeathMenuTransitioned() =>
+    GameLogic.Input(new GameLogic.Input.DeathMenuTransitioned());
 
   public void HideMenus() {
     InGameUi.Hide();
@@ -159,10 +171,11 @@ public partial class Game : Node3D, IGame {
   public void OnExitTree() {
     DeathMenu.TryAgain -= OnStart;
     DeathMenu.MainMenu -= OnMainMenu;
+    DeathMenu.TransitionCompleted -= OnDeathMenuTransitioned;
     WinMenu.MainMenu -= OnMainMenu;
     PauseMenu.MainMenu -= OnMainMenu;
     PauseMenu.Resume -= OnResume;
-    PauseMenu.TransitionCompleted -= PauseMenuTransitioned;
+    PauseMenu.TransitionCompleted -= OnPauseMenuTransitioned;
 
     GameLogic.Stop();
     GameBinding.Dispose();

@@ -5,11 +5,10 @@ public partial class AppLogic {
     public record RestartingGame : State, IGet<Input.FadeOutFinished> {
       public RestartingGame() {
         OnEnter<RestartingGame>(
-          _ => Context.Output(new Output.FadeOut())
+          _ => Context.Output(new Output.HideGame())
         );
         OnExit<RestartingGame>(
           _ => {
-            Context.Output(new Output.RemoveExistingGame());
             Context.Output(new Output.LoadGame());
           }
         );

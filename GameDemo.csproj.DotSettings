@@ -1797,4 +1797,8 @@
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Ccanvasshaderrd_005C1ce4f17ddf5c068f386e3fbbe146d5a0930c89597fd0b01ffe34227672c9ffeb/@EntryIndexedValue">True</s:Boolean>
 
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.godot_005Cshader_cache_005Cfsr2tcrautogenpassshaderrd_005C67214e27d5f0406e6585eddb532751fc72a92ada34fdbf4c1974aa42fc8bd695/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=.git_005Cobjects_005C0e/@EntryIndexedValue">True</s:Boolean>
+
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=src_005Cgame_005Cpause_listener/@EntryIndexedValue">True</s:Boolean>
 </wpf:ResourceDictionary>

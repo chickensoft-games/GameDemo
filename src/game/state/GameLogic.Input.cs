@@ -10,6 +10,10 @@ public partial class GameLogic {
 
     public readonly record struct PauseMenuTransitioned;
 
+    public readonly record struct WinMenuTransitioned;
+
+    public readonly record struct DeathMenuTransitioned;
+
     public readonly record struct GameSaveRequested;
 
     public readonly record struct GameSaveCompleted;

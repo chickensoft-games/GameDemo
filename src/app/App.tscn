@@ -84,10 +84,12 @@ libraries = {
 [node name="Menu" parent="." instance=ExtResource("4_kh3vh")]
 unique_name_in_owner = true
 visible = false
+mouse_filter = 1
 
 [node name="Splash" parent="." instance=ExtResource("7_eh6dj")]
 unique_name_in_owner = true
 visible = false
+mouse_filter = 1
 
 [node name="BlankScreenControl" type="Control" parent="."]
 layout_mode = 3

@@ -83,7 +83,7 @@ public partial class App : CanvasLayer, IApp {
       })
       .Handle<AppLogic.Output.HideSplashScreen>(_ => {
         BlankScreen.Show();
-        FadeOut();
+        FadeToBlack();
       })
       .Handle<AppLogic.Output.RemoveExistingGame>(_ => {
         GamePreview.RemoveChildEx(Game);
@@ -102,16 +102,15 @@ public partial class App : CanvasLayer, IApp {
         Menu.Show();
         Game.Show();
 
-        FadeIn();
+        FadeInFromBlack();
       })
-      .Handle<AppLogic.Output.FadeOut>(_ => FadeOut())
+      .Handle<AppLogic.Output.FadeToBlack>(_ => FadeToBlack())
       .Handle<AppLogic.Output.ShowGame>(_ => {
         HideMenus();
-        FadeIn();
+        FadeInFromBlack();
       })
       .Handle<AppLogic.Output.HideGame>(_ => {
-        HideMenus();
-        FadeOut();
+        FadeToBlack();
       });
 
     // Enter the first state to kick off the binding side effects.
@@ -134,12 +133,12 @@ public partial class App : CanvasLayer, IApp {
     AppLogic.Input(new AppLogic.Input.FadeOutFinished());
   }
 
-  public void FadeIn() {
+  public void FadeInFromBlack() {
     BlankScreen.Show();
     AnimationPlayer.Play("fade_in");
   }
 
-  public void FadeOut() {
+  public void FadeToBlack() {
     BlankScreen.Show();
     AnimationPlayer.Play("fade_out");
   }

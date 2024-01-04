@@ -7,5 +7,7 @@ public partial class AppLogic {
     public readonly record struct FadeOutFinished;
 
     public readonly record struct StartGame;
+
+    public readonly record struct EndGame(GameOverReason Reason);
   }
 }

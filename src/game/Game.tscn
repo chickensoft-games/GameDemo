@@ -11,19 +11,23 @@
 [ext_resource type="PackedScene" uid="uid://conmng5ejji6f" path="res://src/menu/submenus/pause_menu/PauseMenu.tscn" id="9_yxma7"]
 
 [node name="Game" type="Node3D"]
-process_mode = 1
+process_mode = 3
 script = ExtResource("1_17mmo")
 
-[node name="PlayerCamera" parent="." instance=ExtResource("2_g21k4")]
+[node name="PauseContainer" type="Node3D" parent="."]
+unique_name_in_owner = true
+process_mode = 1
+
+[node name="PlayerCamera" parent="PauseContainer" instance=ExtResource("2_g21k4")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5627, 6.93445, 13.521)
 Offset = Vector3(2.08165e-12, 1.6, 2.08165e-12)
 
-[node name="Player" parent="." instance=ExtResource("4_smjqx")]
+[node name="Player" parent="PauseContainer" instance=ExtResource("4_smjqx")]
 unique_name_in_owner = true
 transform = Transform3D(-1, 3.48787e-16, 8.74228e-08, 3.48787e-16, 1, -3.48787e-16, -8.74228e-08, -3.48787e-16, -1, 5.47546, 4.39983, 8.56415)
 
-[node name="Map" parent="." instance=ExtResource("3_cpkwg")]
+[node name="Map" parent="PauseContainer" instance=ExtResource("3_cpkwg")]
 unique_name_in_owner = true
 
 [node name="InGameUi" parent="." instance=ExtResource("5_w4lns")]
@@ -38,13 +42,16 @@ render_target_update_mode = 0
 [node name="DeathMenu" parent="." instance=ExtResource("7_35ldn")]
 unique_name_in_owner = true
 visible = false
+mouse_filter = 1
 
 [node name="WinMenu" parent="." instance=ExtResource("8_ovoi6")]
 unique_name_in_owner = true
 visible = false
+mouse_filter = 1
 
 [node name="PauseMenu" parent="." instance=ExtResource("9_yxma7")]
 unique_name_in_owner = true
 visible = false
+mouse_filter = 1
 
 [editable path="InGameUi"]

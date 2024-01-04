@@ -14,7 +14,7 @@ public partial class GameLogic {
 
       private void OnGameStarting() => Context.Input(new Input.StartGame());
 
-      public IState On(Input.StartGame input) => new PlayingGame();
+      public IState On(Input.StartGame input) => new Playing();
 
       public IState On(Input.Initialize input) {
         Get<IGameRepo>().OnNumCoinsAtStart(input.NumCoinsInWorld);

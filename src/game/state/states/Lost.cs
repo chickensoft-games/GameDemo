@@ -2,9 +2,9 @@ namespace GameDemo;
 
 public partial class GameLogic {
   public partial record State {
-    public record LostGame : State, IGet<Input.StartGame> {
-      public LostGame() {
-        OnEnter<LostGame>(
+    public record Lost : State, IGet<Input.StartGame> {
+      public Lost() {
+        OnEnter<Lost>(
           previous => Context.Output(new Output.ShowPlayerDied())
         );
       }

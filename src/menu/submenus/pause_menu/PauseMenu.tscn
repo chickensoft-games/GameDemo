@@ -74,18 +74,6 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MarginContainer/CenterContainer/SaveOverlay:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
 "values": [false]
 }
 
@@ -224,6 +212,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_6kvog")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -236,6 +225,7 @@ offset_left = 1.0
 offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -262,6 +252,7 @@ theme_override_constants/margin_bottom = 24
 
 [node name="Title" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
+mouse_filter = 1
 text = "Paused"
 label_settings = SubResource("LabelSettings_57jok")
 horizontal_alignment = 1
@@ -280,6 +271,7 @@ custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+mouse_filter = 1
 text = "Resume"
 
 [node name="SaveButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
@@ -288,6 +280,7 @@ custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+mouse_filter = 1
 text = "Save Game"
 expand_icon = true
 
@@ -297,6 +290,7 @@ custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+mouse_filter = 1
 text = "Main Menu"
 
 [node name="SaveOverlay" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
@@ -308,6 +302,7 @@ layout_mode = 2
 [node name="Panel" type="Panel" parent="MarginContainer/CenterContainer/SaveOverlay"]
 custom_minimum_size = Vector2(512, 512)
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_bg3p1")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/SaveOverlay/Panel"]
@@ -329,6 +324,7 @@ layout_mode = 2
 
 [node name="SavingGameLabel" type="Label" parent="MarginContainer/CenterContainer/SaveOverlay/Panel/MarginContainer/VBoxContainer/SaveTitleContainer"]
 layout_mode = 2
+mouse_filter = 1
 text = "Saving Game"
 label_settings = SubResource("LabelSettings_dourt")
 
@@ -342,6 +338,7 @@ grow_vertical = 2
 
 [node name="Control" type="Control" parent="MarginContainer/CenterContainer/SaveOverlay/Panel/CenterContainer"]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="MarginContainer/CenterContainer/SaveOverlay/Panel/CenterContainer/Control"]
 texture = ExtResource("3_w1cw3")

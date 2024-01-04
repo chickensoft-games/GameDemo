@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bn84ofaaq4o80"]
+[gd_scene load_steps=22 format=3 uid="uid://bn84ofaaq4o80"]
 
 [ext_resource type="Script" path="res://src/menu/submenus/death_menu/DeathMenu.cs" id="1_36ukh"]
 [ext_resource type="Shader" path="res://src/menu/submenus/death_menu/DeathMenu.gdshader" id="2_se3wr"]
@@ -44,6 +44,7 @@ shader = ExtResource("2_se3wr")
 shader_parameter/speed = 0.0
 shader_parameter/variation = 0.0
 shader_parameter/width = 0.302
+shader_parameter/opacity = 0.0
 shader_parameter/color_gradient = SubResource("GradientTexture1D_52wi4")
 shader_parameter/noiseTexture = SubResource("NoiseTexture2D_wqqyk")
 
@@ -96,8 +97,75 @@ _data = {
 "splotch": SubResource("Animation_mkl5g")
 }
 
+[sub_resource type="Animation" id="Animation_qq1c3"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_0rl87"]
+resource_name = "fade_in"
+length = 0.33
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33),
+"transitions": PackedFloat32Array(2.63902, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.33),
+"transitions": PackedFloat32Array(3.4822, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_lgj8v"]
+resource_name = "fade_out"
+length = 0.33
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33),
+"transitions": PackedFloat32Array(0.203063, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.33),
+"transitions": PackedFloat32Array(0.196146, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kxx0w"]
+_data = {
+"RESET": SubResource("Animation_qq1c3"),
+"fade_in": SubResource("Animation_0rl87"),
+"fade_out": SubResource("Animation_lgj8v")
+}
+
 [node name="DeathMenu" type="Control"]
 process_mode = 3
+modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -180,4 +248,10 @@ unique_name_in_owner = true
 deterministic = true
 libraries = {
 "": SubResource("AnimationLibrary_5xdmp")
+}
+
+[node name="FadeAnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_kxx0w")
 }

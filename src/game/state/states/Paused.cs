@@ -2,29 +2,30 @@ namespace GameDemo;
 
 public partial class GameLogic {
   public partial record State {
-    public record GamePaused : State,
-      IGet<Input.PauseButtonPressed>, IGet<Input.GameSaveRequested> {
-      public GamePaused() {
-        OnEnter<GamePaused>(
+    public record Paused : State,
+      IGet<Input.PauseButtonPressed>, IGet<Input.GoToMainMenu>, IGet<Input.GameSaveRequested> {
+      public Paused() {
+        OnEnter<Paused>(
           _ => {
             Context.Output(new Output.ShowPauseMenu());
             Context.Output(new Output.SetPauseMode(true));
             Get<IGameRepo>().Pause();
           }
         );
-        OnExit<GamePaused>(
+        OnExit<Paused>(
           _ => {
-            Context.Output(new Output.HidePauseMenu());
+            Context.Output(new Output.ExitPauseMenu());
             Context.Output(new Output.SetPauseMode(false));
-            Get<IGameRepo>().Resume();
           }
         );
       }
 
       public virtual IState On(Input.PauseButtonPressed input)
-        => new ResumingGame();
+        => new Resuming();
 
-      public IState On(Input.GameSaveRequested input) => new GamePausedSaving();
+      public IState On(Input.GameSaveRequested input) => new Saving();
+
+      public IState On(Input.GoToMainMenu input) => new Quit();
     }
   }
 }
