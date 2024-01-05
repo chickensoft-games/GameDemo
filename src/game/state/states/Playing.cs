@@ -22,9 +22,9 @@ public partial class GameLogic {
         Get<IGameRepo>().Pause();
 
         return input.Reason switch {
-          GameOverReason.PlayerWon => new Won(),
-          GameOverReason.PlayerDied => new Lost(),
-          GameOverReason.Exited or _ => new Quit()
+          GameOverReason.Won => new Won(),
+          GameOverReason.Lost => new Lost(),
+          GameOverReason.Quit or _ => new Quit()
         };
       }
 

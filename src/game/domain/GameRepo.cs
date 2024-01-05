@@ -26,6 +26,9 @@ public interface IGameRepo : IDisposable {
   /// <summary>Mouse captured status.</summary>
   IAutoProp<bool> IsMouseCaptured { get; }
 
+  /// <summary>Pause status.</summary>
+  IAutoProp<bool> IsPaused { get; }
+
   /// <summary>Number of coins collected by the players.</summary>
   IAutoProp<int> NumCoinsCollected { get; }
 
@@ -41,7 +44,7 @@ public interface IGameRepo : IDisposable {
   /// <summary>Camera's global forward direction vector.</summary>
   Vector3 GlobalCameraDirection { get; }
 
-  /// <summary>Inform the app that a jumpshroom was used.</summary>
+  /// <summary>Inform the game that a jumpshroom was used.</summary>
   void OnJumpshroomUsed();
 
   /// <summary>Inform the game that the player is collecting a coin.</summary>
@@ -52,12 +55,11 @@ public interface IGameRepo : IDisposable {
   /// <param name="coin">Coin that was collected.</param>
   void OnFinishCoinCollection(ICoin coin);
 
-  /// <summary>Tells the app how many coins the game world contains.</summary>
+  /// <summary>Tells the game how many coins the game world contains.</summary>
   /// <param name="numCoinsAtStart">Initial number of coins.</param>
   void OnNumCoinsAtStart(int numCoinsAtStart);
 
-  /// <summary>Inform the application that the game ended.</summary>
-  /// <param name="reason">Reason why the game ended.</param>
+  /// <summary>Inform the game that the game ended.</summary>
   void OnGameEnded(GameOverReason reason);
 
   /// <summary>Pauses the game and releases the mouse.</summary>
@@ -66,11 +68,11 @@ public interface IGameRepo : IDisposable {
   /// <summary>Resumes the game and recaptures the mouse.</summary>
   void Resume();
 
-  /// <summary>Tells the app that the player jumped.</summary>
-  void Jump();
+  /// <summary>Tells the game that the player jumped.</summary>
+  void OnJump();
 
   /// <summary>Starts the saving process.</summary>
-  void StartSaving();
+  void OnStartSaving();
 
   /// <summary>Changes whether the mouse is captured or not.</summary>
   /// <param name="isMouseCaptured">
@@ -97,6 +99,8 @@ public interface IGameRepo : IDisposable {
 public class GameRepo : IGameRepo {
   public IAutoProp<bool> IsMouseCaptured => _isMouseCaptured;
   private readonly AutoProp<bool> _isMouseCaptured;
+  public IAutoProp<bool> IsPaused => _isPaused;
+  private readonly AutoProp<bool> _isPaused;
   public IAutoProp<Vector3> PlayerGlobalPosition => _playerGlobalPosition;
   private readonly AutoProp<Vector3> _playerGlobalPosition;
 
@@ -121,6 +125,7 @@ public class GameRepo : IGameRepo {
 
   public GameRepo() {
     _isMouseCaptured = new AutoProp<bool>(false);
+    _isPaused = new AutoProp<bool>(false);
     _playerGlobalPosition = new AutoProp<Vector3>(Vector3.Zero);
     _cameraBasis = new AutoProp<Basis>(Basis.Identity);
     _numCoinsCollected = new AutoProp<int>(0);
@@ -129,12 +134,14 @@ public class GameRepo : IGameRepo {
 
   internal GameRepo(
     AutoProp<bool> isMouseCaptured,
+    AutoProp<bool> isPaused,
     AutoProp<Vector3> playerGlobalPosition,
     AutoProp<Basis> cameraBasis,
     AutoProp<int> numCoinsCollected,
     AutoProp<int> numCoinsAtStart
   ) {
     _isMouseCaptured = isMouseCaptured;
+    _isPaused = isPaused;
     _playerGlobalPosition = playerGlobalPosition;
     _cameraBasis = cameraBasis;
     _numCoinsCollected = numCoinsCollected;
@@ -163,13 +170,13 @@ public class GameRepo : IGameRepo {
       _coinsBeingCollected == 0 &&
       _numCoinsCollected.Value >= _numCoinsAtStart.Value
     ) {
-      OnGameEnded(GameOverReason.PlayerWon);
+      OnGameEnded(GameOverReason.Won);
     }
   }
 
-  public void Jump() => Jumped?.Invoke();
+  public void OnJump() => Jumped?.Invoke();
 
-  public void StartSaving() {
+  public void OnStartSaving() {
     GameSaveRequested?.Invoke();
     // TODO: Remove this later
     GameSaveCompleted?.Invoke();
@@ -177,12 +184,19 @@ public class GameRepo : IGameRepo {
 
   public void OnGameEnded(GameOverReason reason) {
     _isMouseCaptured.OnNext(false);
+    Pause();
     GameEnded?.Invoke(reason);
   }
 
-  public void Pause() => _isMouseCaptured.OnNext(false);
+  public void Pause() {
+    _isMouseCaptured.OnNext(false);
+    _isPaused.OnNext(true);
+  }
 
-  public void Resume() => _isMouseCaptured.OnNext(true);
+  public void Resume() {
+    _isMouseCaptured.OnNext(true);
+    _isPaused.OnNext(false);
+  }
 
   public void OnJumpshroomUsed() => JumpshroomUsed?.Invoke();
 

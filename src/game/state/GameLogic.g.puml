@@ -1,7 +1,7 @@
 @startuml GameLogic
 state "GameLogic State" as GameDemo_GameLogic_State {
   state "Lost" as GameDemo_GameLogic_State_Lost {
-    GameDemo_GameLogic_State_Lost : OnEnter → ShowPlayerDied
+    GameDemo_GameLogic_State_Lost : OnEnter → ShowLostScreen
   }
   state "MenuBackdrop" as GameDemo_GameLogic_State_MenuBackdrop
   state "Paused" as GameDemo_GameLogic_State_Paused {
@@ -9,23 +9,26 @@ state "GameLogic State" as GameDemo_GameLogic_State {
       GameDemo_GameLogic_State_Saving : OnEnter → ShowPauseSaveOverlay
       GameDemo_GameLogic_State_Saving : OnExit → HidePauseSaveOverlay
     }
-    GameDemo_GameLogic_State_Paused : OnEnter → SetPauseMode, ShowPauseMenu
-    GameDemo_GameLogic_State_Paused : OnExit → ExitPauseMenu, SetPauseMode
+    GameDemo_GameLogic_State_Paused : OnEnter → ShowPauseMenu
+    GameDemo_GameLogic_State_Paused : OnExit → ExitPauseMenu
   }
   state "Playing" as GameDemo_GameLogic_State_Playing {
     GameDemo_GameLogic_State_Playing : OnEnter → StartGame
   }
   state "Quit" as GameDemo_GameLogic_State_Quit
+  state "RestartingGame" as GameDemo_GameLogic_State_RestartingGame
   state "Resuming" as GameDemo_GameLogic_State_Resuming {
     GameDemo_GameLogic_State_Resuming : OnExit → HidePauseMenu
   }
   state "Won" as GameDemo_GameLogic_State_Won {
-    GameDemo_GameLogic_State_Won : OnEnter → ShowPlayerWon
+    GameDemo_GameLogic_State_Won : OnEnter → ShowWonScreen
   }
   GameDemo_GameLogic_State : OnIsMouseCaptured() → CaptureMouse
+  GameDemo_GameLogic_State : OnIsPaused() → SetPauseMode
 }
 
-GameDemo_GameLogic_State_Lost --> GameDemo_GameLogic_State_Lost : StartGame
+GameDemo_GameLogic_State_Lost --> GameDemo_GameLogic_State_Quit : GoToMainMenu
+GameDemo_GameLogic_State_Lost --> GameDemo_GameLogic_State_RestartingGame : StartGame
 GameDemo_GameLogic_State_MenuBackdrop --> GameDemo_GameLogic_State_MenuBackdrop : Initialize
 GameDemo_GameLogic_State_MenuBackdrop --> GameDemo_GameLogic_State_Playing : StartGame
 GameDemo_GameLogic_State_Paused --> GameDemo_GameLogic_State_Quit : GoToMainMenu

@@ -1,7 +1,7 @@
 namespace GameDemo;
 
 public enum GameOverReason {
-  PlayerDied,
-  PlayerWon,
-  Exited,
+  Won,
+  Lost,
+  Quit
 }

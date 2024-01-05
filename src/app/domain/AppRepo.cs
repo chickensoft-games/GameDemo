@@ -10,12 +10,12 @@ public interface IAppRepo : IDisposable {
   /// <summary>
   ///   Event invoked when the game is about to start.
   /// </summary>
-  event Action? GameStarting;
+  event Action? GameEntered;
 
   /// <summary>
   ///   Event invoked when the game is about to end.
   /// </summary>
-  event Action<GameOverReason>? GameEnding;
+  event Action<PostGameAction>? GameExited;
 
   /// <summary>Event invoked when the splash screen is skipped.</summary>
   event Action? SplashScreenSkipped;
@@ -23,20 +23,18 @@ public interface IAppRepo : IDisposable {
   /// <summary>Event invoked when the main menu is entered.</summary>
   event Action? MainMenuEntered;
 
-  /// <summary>Inform the app that the game is about to begin.</summary>
-  void OnStartGame();
+  /// <summary>Inform the app that the game should be shown.</summary>
+  void OnEnterGame();
+
+  /// <summary>Inform the app that the game should be exited.</summary>
+  /// <param name="action">Action to take following the end of the game.</param>
+  void OnExitGame(PostGameAction action);
 
   /// <summary>Tells the app that the main menu was entered.</summary>
   void OnMainMenuEntered();
 
   /// <summary>Skips the splash screen.</summary>
   void SkipSplashScreen();
-
-  /// <summary>
-  ///   End the game with the given reason.
-  /// </summary>
-  /// <param name="reason">Game over reason.</param>
-  void EndGame(GameOverReason reason);
 }
 
 /// <summary>
@@ -46,17 +44,18 @@ public interface IAppRepo : IDisposable {
 public class AppRepo : IAppRepo {
   public event Action? SplashScreenSkipped;
   public event Action? MainMenuEntered;
-  public event Action? GameStarting;
-  public event Action<GameOverReason>? GameEnding;
+  public event Action? GameEntered;
+  public event Action<PostGameAction>? GameExited;
 
   private bool _disposedValue;
 
   public void SkipSplashScreen() => SplashScreenSkipped?.Invoke();
-  public void EndGame(GameOverReason reason) => GameEnding?.Invoke(reason);
+  public void EndGame(PostGameAction reason) => GameExited?.Invoke(reason);
 
   public void OnMainMenuEntered() => MainMenuEntered?.Invoke();
 
-  public void OnStartGame() => GameStarting?.Invoke();
+  public void OnEnterGame() => GameEntered?.Invoke();
+  public void OnExitGame(PostGameAction action) => GameExited?.Invoke(action);
 
   #region Internals
 

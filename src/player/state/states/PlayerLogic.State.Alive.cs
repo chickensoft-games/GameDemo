@@ -17,7 +17,7 @@ public partial class PlayerLogic {
       // allowed.
 
       public virtual IState On(Input.Killed input) {
-        Get<IGameRepo>().OnGameEnded(GameOverReason.PlayerDied);
+        Get<IGameRepo>().OnGameEnded(GameOverReason.Lost);
 
         return new Dead();
       }

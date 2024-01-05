@@ -7,7 +7,7 @@ public partial class PlayerLogic {
         OnEnter<Jumping>(
           previous => {
             Context.Output(new Output.Animations.Jump());
-            Get<IGameRepo>().Jump();
+            Get<IGameRepo>().OnJump();
           }
         );
       }

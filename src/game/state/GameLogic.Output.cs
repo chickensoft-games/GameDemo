@@ -12,18 +12,18 @@ public partial class GameLogic {
 
     public readonly record struct HidePauseSaveOverlay;
 
-    public readonly record struct HidePauseMenu;
-
     public readonly record struct ShowPauseMenu;
+
+    public readonly record struct HidePauseMenu;
 
     public readonly record struct ExitPauseMenu;
 
-    public readonly record struct ShowPlayerDied;
+    public readonly record struct ShowLostScreen;
 
-    public readonly record struct ExitPlayerDied;
+    public readonly record struct ExitLostScreen;
 
-    public readonly record struct ShowPlayerWon;
+    public readonly record struct ShowWonScreen;
 
-    public readonly record struct HidePlayerWon;
+    public readonly record struct ExitWonScreen;
   }
 }

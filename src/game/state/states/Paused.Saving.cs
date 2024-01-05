@@ -10,7 +10,7 @@ public partial class GameLogic {
         OnEnter<Saving>(
           previous => {
             Context.Output(new Output.ShowPauseSaveOverlay());
-            Get<IGameRepo>().StartSaving();
+            Get<IGameRepo>().OnStartSaving();
           }
         );
 

@@ -7,8 +7,6 @@ public partial class AppLogic {
         OnEnter<LeavingMenu>(
           previous => Context.Output(new Output.FadeToBlack())
         );
-
-        OnExit<LeavingMenu>(_ => Get<IAppRepo>().OnStartGame());
       }
 
       public IState On(Input.FadeOutFinished input) =>

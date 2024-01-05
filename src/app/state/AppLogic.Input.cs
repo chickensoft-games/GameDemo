@@ -8,6 +8,6 @@ public partial class AppLogic {
 
     public readonly record struct StartGame;
 
-    public readonly record struct EndGame(GameOverReason Reason);
+    public readonly record struct EndGame(PostGameAction PostGameAction);
   }
 }

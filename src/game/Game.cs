@@ -100,23 +100,23 @@ public partial class Game : Node3D, IGame {
           ? Input.MouseModeEnum.Captured
           : Input.MouseModeEnum.Visible
       )
-      .Handle<GameLogic.Output.ShowPlayerDied>(_ => {
+      .Handle<GameLogic.Output.ShowLostScreen>(_ => {
         DeathMenu.Show();
         DeathMenu.FadeIn();
         DeathMenu.Animate();
       })
-      .Handle<GameLogic.Output.ExitPlayerDied>(_ => {
+      .Handle<GameLogic.Output.ExitLostScreen>(_ => {
         DeathMenu.FadeOut();
       })
       .Handle<GameLogic.Output.ShowPauseMenu>(_ => {
         PauseMenu.Show();
         PauseMenu.FadeIn();
       })
-      .Handle<GameLogic.Output.ShowPlayerWon>(_ => {
+      .Handle<GameLogic.Output.ShowWonScreen>(_ => {
         WinMenu.Show();
         WinMenu.FadeIn();
       })
-      .Handle<GameLogic.Output.HidePlayerWon>(_ => WinMenu.FadeOut())
+      .Handle<GameLogic.Output.ExitWonScreen>(_ => WinMenu.FadeOut())
       .Handle<GameLogic.Output.ExitPauseMenu>(_ => PauseMenu.FadeOut())
       .Handle<GameLogic.Output.HidePauseMenu>(_ => PauseMenu.Hide())
       .Handle<GameLogic.Output.ShowPauseSaveOverlay>(

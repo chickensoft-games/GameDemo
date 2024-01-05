@@ -5,7 +5,7 @@ public partial class GameLogic {
     public record Won : State {
       public Won() {
         OnEnter<Won>(
-          previous => Context.Output(new Output.ShowPlayerWon())
+          previous => Context.Output(new Output.ShowWonScreen())
         );
       }
     }

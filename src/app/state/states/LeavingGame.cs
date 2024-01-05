@@ -3,22 +3,24 @@ namespace GameDemo;
 public partial class AppLogic {
   public partial record State {
     public record LeavingGame : State, IGet<Input.FadeOutFinished> {
-      public bool ShouldRestartGame { get; }
+      public PostGameAction PostGameAction { get; }
 
-      public LeavingGame(bool shouldRestartGame) {
-        ShouldRestartGame = shouldRestartGame;
-
-        OnExit<LeavingGame>(
-          _ => Context.Output(new Output.RemoveExistingGame())
-        );
+      public LeavingGame(PostGameAction postGameAction) {
+        PostGameAction = postGameAction;
       }
 
       public IState On(Input.FadeOutFinished input) {
-        if (ShouldRestartGame) {
-          return new RestartingGame();
+        // We are either supposed to restart the game or go back to the main
+        // menu. More complex games might have more post-game destinations,
+        // but it's pretty simple for us.
+        Context.Output(new Output.RemoveExistingGame());
+
+        if (PostGameAction is not PostGameAction.RestartGame) {
+          return new MainMenu();
         }
 
-        return new MainMenu();
+        Context.Output(new Output.LoadGame());
+        return new InGame();
       }
     }
   }

@@ -8,11 +8,11 @@ public partial class GameLogic {
           Get<IGameRepo>().SetIsMouseCaptured(false);
         });
 
-        OnAttach(() => Get<IAppRepo>().GameStarting += OnGameStarting);
-        OnDetach(() => Get<IAppRepo>().GameStarting -= OnGameStarting);
+        OnAttach(() => Get<IAppRepo>().GameEntered += OnGameEntered);
+        OnDetach(() => Get<IAppRepo>().GameEntered -= OnGameEntered);
       }
 
-      private void OnGameStarting() => Context.Input(new Input.StartGame());
+      private void OnGameEntered() => Context.Input(new Input.StartGame());
 
       public IState On(Input.StartGame input) => new Playing();
 

@@ -17,7 +17,7 @@ public partial class InGameAudioLogic :
         gameRepo.GameEnded += OnGameEnded;
         gameRepo.Jumped += OnJumped;
         appRepo.MainMenuEntered += OnMainMenuEntered;
-        appRepo.GameStarting += OnGameStarting;
+        appRepo.GameEntered += OnGameEntered;
       });
 
       OnDetach(() => {
@@ -28,7 +28,7 @@ public partial class InGameAudioLogic :
         gameRepo.GameEnded -= OnGameEnded;
         gameRepo.Jumped -= OnJumped;
         appRepo.MainMenuEntered -= OnMainMenuEntered;
-        appRepo.GameStarting -= OnGameStarting;
+        appRepo.GameEntered -= OnGameEntered;
       });
     }
 
@@ -37,9 +37,13 @@ public partial class InGameAudioLogic :
     public void OnJumpshroomUsed() => Context.Output(new Output.PlayBounce());
 
     public void OnGameEnded(GameOverReason reason) {
-      if (reason == GameOverReason.PlayerDied) {
-        Context.Output(new Output.PlayPlayerDied());
+      Context.Output(new Output.StopGameMusic());
+
+      if (reason is not GameOverReason.Lost) {
+        return;
       }
+
+      Context.Output(new Output.PlayPlayerDied());
     }
 
     public void OnJumped() => Context.Output(new Output.PlayJump());
@@ -48,6 +52,6 @@ public partial class InGameAudioLogic :
 
     public void OnMainMenuEntered() => Context.Output(new Output.PlayMainMenuMusic());
 
-    public void OnGameStarting() => Context.Output(new Output.PlayGameMusic());
+    public void OnGameEntered() => Context.Output(new Output.PlayGameMusic());
   }
 }

@@ -63,6 +63,9 @@ public partial class InGameAudio : Node {
       )
       .Handle<InGameAudioLogic.Output.PlayGameMusic>(
         _ => StartGameMusic()
+      )
+      .Handle<InGameAudioLogic.Output.StopGameMusic>(
+        _ => GameMusic.FadeOut()
       );
 
     InGameAudioLogic.Start();

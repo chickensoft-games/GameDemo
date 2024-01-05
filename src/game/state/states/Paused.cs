@@ -7,15 +7,15 @@ public partial class GameLogic {
       public Paused() {
         OnEnter<Paused>(
           _ => {
-            Context.Output(new Output.ShowPauseMenu());
-            Context.Output(new Output.SetPauseMode(true));
             Get<IGameRepo>().Pause();
+            Context.Output(new Output.ShowPauseMenu());
           }
         );
         OnExit<Paused>(
           _ => {
+            // We don't resume on exit because we can leave this state for
+            // a menu and we want to remain paused.
             Context.Output(new Output.ExitPauseMenu());
-            Context.Output(new Output.SetPauseMode(false));
           }
         );
       }
