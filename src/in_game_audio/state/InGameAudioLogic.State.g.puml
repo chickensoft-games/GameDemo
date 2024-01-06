@@ -1,0 +1,11 @@
+@startuml InGameAudioLogic
+state "InGameAudioLogic State" as GameDemo_InGameAudioLogic_State {
+  GameDemo_InGameAudioLogic_State : OnCoinCollected() → PlayCoinCollected
+  GameDemo_InGameAudioLogic_State : OnGameEnded() → PlayPlayerDied, StopGameMusic
+  GameDemo_InGameAudioLogic_State : OnGameEntered() → PlayGameMusic
+  GameDemo_InGameAudioLogic_State : OnJumped() → PlayJump
+  GameDemo_InGameAudioLogic_State : OnJumpshroomUsed() → PlayBounce
+  GameDemo_InGameAudioLogic_State : OnMainMenuEntered() → PlayMainMenuMusic
+}
+[*] --> GameDemo_InGameAudioLogic_State
+@enduml

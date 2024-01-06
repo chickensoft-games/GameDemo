@@ -40,6 +40,7 @@ GameDemo_GameLogic_State_Playing --> GameDemo_GameLogic_State_Quit : GameOver
 GameDemo_GameLogic_State_Playing --> GameDemo_GameLogic_State_Won : GameOver
 GameDemo_GameLogic_State_Resuming --> GameDemo_GameLogic_State_Playing : PauseMenuTransitioned
 GameDemo_GameLogic_State_Saving --> GameDemo_GameLogic_State_Paused : GameSaveCompleted
+GameDemo_GameLogic_State_Won --> GameDemo_GameLogic_State_Won : GoToMainMenu
 
 [*] --> GameDemo_GameLogic_State_MenuBackdrop
 @enduml

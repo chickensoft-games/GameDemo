@@ -52,6 +52,5 @@ mouse_filter = 1
 [node name="PauseMenu" parent="." instance=ExtResource("9_yxma7")]
 unique_name_in_owner = true
 visible = false
-mouse_filter = 1
 
 [editable path="InGameUi"]

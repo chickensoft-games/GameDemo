@@ -28,7 +28,7 @@ max_polyphony = 8
 [node name="PlayerDied" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("4_s1k52")
-volume_db = -5.318
+volume_db = -11.718
 max_polyphony = 2
 
 [node name="PlayerJumped" type="AudioStreamPlayer" parent="."]
@@ -40,9 +40,9 @@ max_polyphony = 4
 [node name="GameMusic" parent="." instance=ExtResource("7_rirec")]
 unique_name_in_owner = true
 stream = ExtResource("6_cwwy4")
-volume_db = -16.0
+volume_db = -30.4
 
 [node name="MainMenuMusic" parent="." instance=ExtResource("7_rirec")]
 unique_name_in_owner = true
 stream = ExtResource("7_o8s4p")
-volume_db = -4.0
+volume_db = -16.267
