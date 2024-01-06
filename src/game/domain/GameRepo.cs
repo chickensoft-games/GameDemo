@@ -168,8 +168,7 @@ public class GameRepo : IGameRepo {
 
     if (
       _coinsBeingCollected == 0 &&
-      // TODO: Put this back
-      _numCoinsCollected.Value >= 1 // _numCoinsAtStart.Value
+      _numCoinsCollected.Value >= _numCoinsAtStart.Value
     ) {
       OnGameEnded(GameOverReason.Won);
     }
