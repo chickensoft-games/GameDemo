@@ -4,13 +4,13 @@ public partial class GameLogic {
   public partial record State {
     public record Saving : Paused, IGet<Input.GameSaveCompleted> {
       public Saving() {
-        OnAttach(() => Get<IGameRepo>().GameSaveCompleted += OnGameSaveCompleted);
-        OnDetach(() => Get<IGameRepo>().GameSaveCompleted -= OnGameSaveCompleted);
+        OnAttach(() => Get<IGameRepo>().SaveCompleted += OnGameSaveCompleted);
+        OnDetach(() => Get<IGameRepo>().SaveCompleted -= OnGameSaveCompleted);
 
         OnEnter<Saving>(
           previous => {
             Context.Output(new Output.ShowPauseSaveOverlay());
-            Get<IGameRepo>().OnStartSaving();
+            Get<IGameRepo>().Save();
           }
         );
 

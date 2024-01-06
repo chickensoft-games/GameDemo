@@ -11,8 +11,8 @@ public partial class GameLogic {
           }
         );
 
-        OnAttach(() => Get<IGameRepo>().GameEnded += OnGameOver);
-        OnDetach(() => Get<IGameRepo>().GameEnded -= OnGameOver);
+        OnAttach(() => Get<IGameRepo>().Ended += OnGameOver);
+        OnDetach(() => Get<IGameRepo>().Ended -= OnGameOver);
       }
 
       public void OnGameOver(GameOverReason reason)

@@ -50,7 +50,6 @@ public class AppRepo : IAppRepo {
   private bool _disposedValue;
 
   public void SkipSplashScreen() => SplashScreenSkipped?.Invoke();
-  public void EndGame(PostGameAction reason) => GameExited?.Invoke(reason);
 
   public void OnMainMenuEntered() => MainMenuEntered?.Invoke();
 
@@ -63,6 +62,10 @@ public class AppRepo : IAppRepo {
     if (!_disposedValue) {
       if (disposing) {
         // Dispose managed objects.
+        SplashScreenSkipped = null;
+        MainMenuEntered = null;
+        GameEntered = null;
+        GameExited = null;
       }
 
       _disposedValue = true;

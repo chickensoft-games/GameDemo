@@ -14,7 +14,7 @@ public partial class InGameAudioLogic :
         var gameRepo = Context.Get<IGameRepo>();
         gameRepo.CoinCollected += OnCoinCollected;
         gameRepo.JumpshroomUsed += OnJumpshroomUsed;
-        gameRepo.GameEnded += OnGameEnded;
+        gameRepo.Ended += OnGameEnded;
         gameRepo.Jumped += OnJumped;
         appRepo.MainMenuEntered += OnMainMenuEntered;
         appRepo.GameEntered += OnGameEntered;
@@ -25,7 +25,7 @@ public partial class InGameAudioLogic :
         var gameRepo = Context.Get<IGameRepo>();
         gameRepo.CoinCollected -= OnCoinCollected;
         gameRepo.JumpshroomUsed -= OnJumpshroomUsed;
-        gameRepo.GameEnded -= OnGameEnded;
+        gameRepo.Ended -= OnGameEnded;
         gameRepo.Jumped -= OnJumped;
         appRepo.MainMenuEntered -= OnMainMenuEntered;
         appRepo.GameEntered -= OnGameEntered;
