@@ -2,8 +2,8 @@ namespace GameDemo;
 
 using Godot;
 
-public partial class PlayerLogic {
-  public abstract partial record State : StateLogic, IState {
+partial class PlayerLogic {
+  partial record State : StateLogic, IState {
     public record Alive : State,
       IGet<Input.PhysicsTick>,
       IGet<Input.Moved>,

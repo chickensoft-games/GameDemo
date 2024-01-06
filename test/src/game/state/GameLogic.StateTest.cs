@@ -1,5 +1,6 @@
 namespace GameDemo.Tests;
 
+using Chickensoft.GoDotCollections;
 using Chickensoft.GoDotTest;
 using Chickensoft.LogicBlocks;
 using Godot;
@@ -7,82 +8,68 @@ using Moq;
 using Shouldly;
 
 public class GameLogicStateTest : TestClass {
+  public record TestGameState : GameLogic.State;
+
   private IFakeContext _context = default!;
-  private Mock<IAppRepo> _appRepo = default!;
+  private Mock<IGameRepo> _gameRepo = default!;
   private GameLogic.State _state = default!;
+
+  private Mock<IAutoProp<bool>> _isMouseCaptured = default!;
+  private Mock<IAutoProp<bool>> _isPaused = default!;
 
   public GameLogicStateTest(Node testScene) : base(testScene) { }
 
   [Setup]
   public void Setup() {
-    _appRepo = new();
+    _gameRepo = new();
 
-    _state = new();
+    _state = new TestGameState();
     _context = _state.CreateFakeContext();
-    _context.Set(_appRepo.Object);
+    _context.Set(_gameRepo.Object);
+
+    _isMouseCaptured = new();
+    _isPaused = new();
+
+    _gameRepo.Setup(repo => repo.IsMouseCaptured)
+      .Returns(_isMouseCaptured.Object);
+    _gameRepo.Setup(repo => repo.IsPaused).Returns(_isPaused.Object);
   }
 
   [Test]
   public void Subscribes() {
     _state.Attach(_context);
 
-    _appRepo.VerifyAdd(
-      (repo) => repo.GameStarting += _state.GameAboutToStart
+    _gameRepo.VerifyAdd(
+      repo => repo.IsMouseCaptured.Sync += _state.OnIsMouseCaptured
     );
-    _appRepo.VerifyAdd(
-      (repo) => repo.GamePaused += _state.GamePaused
-    );
-    _appRepo.VerifyAdd(
-      (repo) => repo.GameResumed += _state.GameResumed
+    _gameRepo.VerifyAdd(
+      repo => repo.IsPaused.Sync += _state.OnIsPaused
     );
 
     _state.Detach();
 
-    _appRepo.VerifyRemove(
-      (repo) => repo.GameStarting -= _state.GameAboutToStart
+    _gameRepo.VerifyRemove(
+      repo => repo.IsMouseCaptured.Sync -= _state.OnIsMouseCaptured
     );
-    _appRepo.VerifyRemove(
-      (repo) => repo.GamePaused -= _state.GamePaused
-    );
-    _appRepo.VerifyRemove(
-      (repo) => repo.GameResumed -= _state.GameResumed
+
+    _gameRepo.VerifyRemove(
+      repo => repo.IsPaused.Sync -= _state.OnIsPaused
     );
   }
 
   [Test]
-  public void ChangesToThirdPersonCameraWhenGameIsAboutToStart() {
-    _state.GameAboutToStart();
+  public void OnIsMouseCaptured() {
+    _state.OnIsMouseCaptured(true);
 
-    _context.Outputs.ShouldBe(new object[] {
-      new GameLogic.Output.ChangeToThirdPersonCamera()
-    });
+    _context.Outputs
+      .ShouldBe(new object[] { new GameLogic.Output.CaptureMouse(true) });
   }
 
   [Test]
-  public void UpdatesPauseModeOnGamePaused() {
-    _state.GamePaused();
+  public void OnIsPaused() {
+    _state.OnIsPaused(true);
 
-    _context.Outputs.ShouldBe(new object[] {
-      new GameLogic.Output.SetPauseMode(true)
-    });
-  }
-
-  [Test]
-  public void UpdatesPauseModeOnGameResumed() {
-    _state.GameResumed();
-
-    _context.Outputs.ShouldBe(new object[] {
-      new GameLogic.Output.SetPauseMode(false)
-    });
-  }
-
-  [Test]
-  public void SetsNumCoinsAtStartOnInitialize() {
-    var numCoins = 3;
-
-    _appRepo.Setup((repo) => repo.OnNumCoinsAtStart(numCoins));
-    _state.On(new GameLogic.Input.Initialize(numCoins));
-
-    _appRepo.VerifyAll();
+    _context.Outputs
+      .ShouldBe(new object[] { new GameLogic.Output.SetPauseMode(true) });
   }
 }

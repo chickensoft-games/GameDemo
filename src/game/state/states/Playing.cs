@@ -1,7 +1,7 @@
 namespace GameDemo;
 
-public partial class GameLogic {
-  public partial record State {
+partial class GameLogic {
+  partial record State {
     public record Playing : State, IGet<Input.GameOver>, IGet<Input.PauseButtonPressed> {
       public Playing() {
         OnEnter<Playing>(

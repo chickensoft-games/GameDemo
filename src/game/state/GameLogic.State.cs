@@ -18,10 +18,10 @@ public partial class GameLogic {
       });
     }
 
-    private void OnIsMouseCaptured(bool isMouseCaptured) =>
+    public void OnIsMouseCaptured(bool isMouseCaptured) =>
       Context.Output(new Output.CaptureMouse(isMouseCaptured));
 
-    private void OnIsPaused(bool isPaused) =>
+    public void OnIsPaused(bool isPaused) =>
       Context.Output(new Output.SetPauseMode(isPaused));
   }
 }

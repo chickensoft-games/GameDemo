@@ -1,7 +1,7 @@
 namespace GameDemo;
 
-public partial class GameLogic {
-  public partial record State {
+partial class GameLogic {
+  partial record State {
     public record MenuBackdrop : State, IGet<Input.StartGame>, IGet<Input.Initialize> {
       public MenuBackdrop() {
         OnEnter<MenuBackdrop>(_ => {
