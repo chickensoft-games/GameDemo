@@ -9,6 +9,7 @@ using Shouldly;
 public class InGameAudioLogicStateTest : TestClass {
   private IFakeContext _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
+  private Mock<IGameRepo> _gameRepo = default!;
   private InGameAudioLogic.State _state = default!;
 
   public InGameAudioLogicStateTest(Node testScene) : base(testScene) { }
@@ -16,54 +17,56 @@ public class InGameAudioLogicStateTest : TestClass {
   [Setup]
   public void Setup() {
     _appRepo = new();
+    _gameRepo = new();
 
     _state = new();
     _context = _state.CreateFakeContext();
     _context.Set(_appRepo.Object);
+    _context.Set(_gameRepo.Object);
   }
 
   [Test]
   public void Subscribes() {
     _state.Attach(_context);
 
-    _appRepo.VerifyAdd(
-      (repo) => repo.CoinCollected += _state.OnCoinCollected
+    _gameRepo.VerifyAdd(
+      repo => repo.CoinCollected += _state.OnCoinCollected
+    );
+    _gameRepo.VerifyAdd(
+      repo => repo.JumpshroomUsed += _state.OnJumpshroomUsed
+    );
+    _gameRepo.VerifyAdd(
+      repo => repo.Ended += _state.OnGameEnded
+    );
+    _gameRepo.VerifyAdd(
+      repo => repo.Jumped += _state.OnJumped
     );
     _appRepo.VerifyAdd(
-      (repo) => repo.JumpshroomUsed += _state.OnJumpshroomUsed
+      repo => repo.MainMenuEntered += _state.OnMainMenuEntered
     );
     _appRepo.VerifyAdd(
-      (repo) => repo.GameEnded += _state.OnGameEnded
-    );
-    _appRepo.VerifyAdd(
-      (repo) => repo.Jumped += _state.OnJumped
-    );
-    _appRepo.VerifyAdd(
-      (repo) => repo.MainMenuEntered += _state.OnMainMenuEntered
-    );
-    _appRepo.VerifyAdd(
-      (repo) => repo.GameStarting += _state.OnGameStarting
+      repo => repo.GameEntered += _state.OnGameEntered
     );
 
     _state.Detach();
 
-    _appRepo.VerifyRemove(
-      (repo) => repo.CoinCollected -= _state.OnCoinCollected
+    _gameRepo.VerifyRemove(
+      repo => repo.CoinCollected -= _state.OnCoinCollected
+    );
+    _gameRepo.VerifyRemove(
+      repo => repo.JumpshroomUsed -= _state.OnJumpshroomUsed
+    );
+    _gameRepo.VerifyRemove(
+      repo => repo.Ended -= _state.OnGameEnded
+    );
+    _gameRepo.VerifyRemove(
+      repo => repo.Jumped -= _state.OnJumped
     );
     _appRepo.VerifyRemove(
-      (repo) => repo.JumpshroomUsed -= _state.OnJumpshroomUsed
+      repo => repo.MainMenuEntered -= _state.OnMainMenuEntered
     );
     _appRepo.VerifyRemove(
-      (repo) => repo.GameEnded -= _state.OnGameEnded
-    );
-    _appRepo.VerifyRemove(
-      (repo) => repo.Jumped -= _state.OnJumped
-    );
-    _appRepo.VerifyRemove(
-      (repo) => repo.MainMenuEntered -= _state.OnMainMenuEntered
-    );
-    _appRepo.VerifyRemove(
-      (repo) => repo.GameStarting -= _state.OnGameStarting
+      repo => repo.GameEntered -= _state.OnGameEntered
     );
   }
 
@@ -86,11 +89,21 @@ public class InGameAudioLogicStateTest : TestClass {
   }
 
   [Test]
-  public void OnGameEnded() {
-    _state.OnGameEnded(GameOverReason.PlayerDied);
+  public void OnGameEndedLost() {
+    _state.OnGameEnded(GameOverReason.Lost);
 
     _context.Outputs.ShouldBe(new object[] {
+      new InGameAudioLogic.Output.StopGameMusic(),
       new InGameAudioLogic.Output.PlayPlayerDied()
+    });
+  }
+
+  [Test]
+  public void OnGameEndedOther() {
+    _state.OnGameEnded(GameOverReason.Quit);
+
+    _context.Outputs.ShouldBe(new object[] {
+      new InGameAudioLogic.Output.StopGameMusic()
     });
   }
 
@@ -113,8 +126,8 @@ public class InGameAudioLogicStateTest : TestClass {
   }
 
   [Test]
-  public void OnGameStarting() {
-    _state.OnGameStarting();
+  public void OnGameEntered() {
+    _state.OnGameEntered();
 
     _context.Outputs.ShouldBe(new object[] {
       new InGameAudioLogic.Output.PlayGameMusic()

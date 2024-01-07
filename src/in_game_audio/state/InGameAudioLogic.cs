@@ -26,8 +26,6 @@ public partial class InGameAudioLogic :
 
     public readonly record struct PlayMainMenuMusic;
 
-    public readonly record struct StopMainMenuMusic;
-
     public readonly record struct PlayGameMusic;
 
     public readonly record struct StopGameMusic;
