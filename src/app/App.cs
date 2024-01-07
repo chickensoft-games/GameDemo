@@ -8,9 +8,7 @@ using Chickensoft.PowerUps;
 using Godot;
 using SuperNodes.Types;
 
-public interface IApp : ICanvasLayer, IProvide<IAppRepo>,
-  IProvide<IGameSaveSystem> {
-}
+public interface IApp : ICanvasLayer, IProvide<IAppRepo>;
 
 [SuperNode(typeof(AutoSetup), typeof(AutoNode), typeof(Provider))]
 public partial class App : CanvasLayer, IApp {
@@ -32,17 +30,16 @@ public partial class App : CanvasLayer, IApp {
   #region Provisions
 
   IAppRepo IProvide<IAppRepo>.Value() => AppRepo;
-  IGameSaveSystem IProvide<IGameSaveSystem>.Value() => SaveSystem;
 
   #endregion Provisions
 
   #region State
 
   public IAppRepo AppRepo { get; set; } = default!;
-  public IGameSaveSystem SaveSystem { get; set; } = default!;
   public IAppLogic AppLogic { get; set; } = default!;
 
-  public Logic<AppLogic.IState, Func<object, AppLogic.IState>, AppLogic.IState, Action<AppLogic.IState?>>.IBinding
+  public Logic<AppLogic.IState, Func<object, AppLogic.IState>, AppLogic.IState,
+      Action<AppLogic.IState?>>.IBinding
     AppBinding { get; set; } = default!;
 
   #endregion State
@@ -60,7 +57,6 @@ public partial class App : CanvasLayer, IApp {
   public void Setup() {
     Instantiator = new Instantiator(GetTree());
     AppRepo = new AppRepo();
-    SaveSystem = new GameSaveSystem(new GameSaveSerializer());
     AppLogic = new AppLogic(AppRepo);
 
     // Listen for various menu signals. Each of these just translate to an input
