@@ -35,12 +35,12 @@ public class PlayerLogicStateDisabledTest : TestClass {
   public void Subscribes() {
     _state.Attach(_context);
     _appRepo.VerifyAdd(
-      (repo) => repo.GameStarting += _state.OnGameAboutToStart
+      repo => repo.GameEntered += _state.OnGameEntered
     );
 
     _state.Detach();
     _appRepo.VerifyRemove(
-      (repo) => repo.GameStarting -= _state.OnGameAboutToStart
+      repo => repo.GameEntered -= _state.OnGameEntered
     );
   }
 
@@ -53,10 +53,8 @@ public class PlayerLogicStateDisabledTest : TestClass {
 
   [Test]
   public void OnGameAboutToStartEnables() {
-    _state.OnGameAboutToStart();
+    _state.OnGameEntered();
 
-    _context.Inputs.ShouldBe(new object[] {
-      new PlayerLogic.Input.Enable()
-    });
+    _context.Inputs.ShouldBe(new object[] { new PlayerLogic.Input.Enable() });
   }
 }

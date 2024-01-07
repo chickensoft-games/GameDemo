@@ -1,11 +1,12 @@
 namespace GameDemo.Tests;
 
+using System;
 using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Godot;
 using GodotTestDriver;
-using GodotTestDriver.Input;
 using Moq;
 using Shouldly;
 
@@ -14,7 +15,11 @@ public class PlayerTest : TestClass {
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private Mock<IPlayerLogic> _logic = default!;
-  private PlayerLogic.IFakeBinding _binding = default!;
+
+  private Logic<PlayerLogic.IState, Func<object, PlayerLogic.IState>,
+    PlayerLogic.IState, Action<PlayerLogic.IState?>>.IFakeBinding _binding =
+    default!;
+
   private PlayerLogic.Settings _settings = default!;
   private Player _player = default!;
 
@@ -53,9 +58,7 @@ public class PlayerTest : TestClass {
   }
 
   [Cleanup]
-  public async Task Cleanup() {
-    await _fixture.Cleanup();
-  }
+  public async Task Cleanup() => await _fixture.Cleanup();
 
   [Test]
   public void Initializes() {
@@ -83,8 +86,7 @@ public class PlayerTest : TestClass {
 
   [Test]
   public async Task OnPhysicsProcessJumpsOnInput() {
-    await _player.StartAction(GameInputs.Jump);
-    await _player.EndAction(GameInputs.Jump);
+    Input.ActionPress(GameInputs.Jump);
 
     _player.OnPhysicsProcess(1d);
 
@@ -146,9 +148,7 @@ public class PlayerTest : TestClass {
   }
 
   [Test]
-  public void CoinCollector() {
-    _player.CenterOfMass.ShouldBeOfType<Vector3>();
-  }
+  public void CoinCollector() => _player.CenterOfMass.ShouldBeOfType<Vector3>();
 
   [Test]
   public void Dies() {
@@ -179,5 +179,18 @@ public class PlayerTest : TestClass {
     );
 
     _player.Velocity.ShouldBe(Vector3.Forward);
+  }
+
+  [Test]
+  public void SaveData() {
+    _player.SaveId.ShouldBeOfType<string>();
+    _player.GetSaveData().ShouldBeOfType<PlayerData>();
+    _player.RestoreSaveData(
+      new PlayerData(
+        Transform3D.Identity,
+        Vector3.Zero,
+        new PlayerLogic.State.Idle()
+      )
+    );
   }
 }

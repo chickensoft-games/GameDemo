@@ -17,7 +17,8 @@ public class PlayerLogicStateAliveTest : TestClass {
   private PlayerLogic.State.Alive _state = default!;
 
   public PlayerLogicStateAliveTest(Node testScene) :
-    base(testScene) { }
+    base(testScene) {
+  }
 
   [Setup]
   public void Setup() {
@@ -39,11 +40,11 @@ public class PlayerLogicStateAliveTest : TestClass {
 
   [Test]
   public void Dies() {
-    _appRepo.Setup(repo => repo.OnGameEnded(GameOverReason.PlayerDied));
+    _gameRepo.Setup(repo => repo.OnGameEnded(GameOverReason.Lost));
 
     var next = _state.On(new PlayerLogic.Input.Killed());
 
-    _appRepo.VerifyAll();
+    _gameRepo.VerifyAll();
     next.ShouldBeOfType<PlayerLogic.State.Dead>();
   }
 

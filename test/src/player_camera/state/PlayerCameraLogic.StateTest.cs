@@ -10,7 +10,6 @@ using Shouldly;
 public class PlayerCameraLogicStateTest : TestClass {
   private Mock<IPlayerCamera> _camera = default!;
   private PlayerCameraSettings _settings = default!;
-  private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private PlayerCameraLogic.Data _data = default!;
   private IFakeContext _context = default!;
@@ -22,7 +21,6 @@ public class PlayerCameraLogicStateTest : TestClass {
   public void Setup() {
     _camera = new();
     _settings = new();
-    _appRepo = new();
     _gameRepo = new();
     _data = new();
     _state = new();
@@ -32,7 +30,6 @@ public class PlayerCameraLogicStateTest : TestClass {
     // of everything the state needs.
     _context.Set(_camera.Object);
     _context.Set(_settings);
-    _context.Set(_appRepo.Object);
     _context.Set(_gameRepo.Object);
     _context.Set(_data);
   }
@@ -42,14 +39,14 @@ public class PlayerCameraLogicStateTest : TestClass {
     var isMouseCaptured = new Mock<IAutoProp<bool>>();
     var playerGlobalPosition = new Mock<IAutoProp<Vector3>>();
 
-    _appRepo.Setup(repo => repo.IsMouseCaptured)
+    _gameRepo.Setup(repo => repo.IsMouseCaptured)
       .Returns(isMouseCaptured.Object);
     _gameRepo.Setup(repo => repo.PlayerGlobalPosition)
       .Returns(playerGlobalPosition.Object);
 
     _state.Attach(_context);
 
-    _appRepo
+    _gameRepo
       .VerifyAdd(repo => repo.IsMouseCaptured.Sync += _state.OnMouseCaptured);
     _gameRepo
       .VerifyAdd(repo =>
@@ -58,8 +55,9 @@ public class PlayerCameraLogicStateTest : TestClass {
 
     _state.Detach();
 
-    _appRepo
-      .VerifyRemove(repo => repo.IsMouseCaptured.Sync -= _state.OnMouseCaptured);
+    _gameRepo
+      .VerifyRemove(repo =>
+        repo.IsMouseCaptured.Sync -= _state.OnMouseCaptured);
     _gameRepo
       .VerifyRemove(repo =>
         repo.PlayerGlobalPosition.Sync -= _state.OnPlayerGlobalPositionChanged
@@ -134,12 +132,11 @@ public class PlayerCameraLogicStateTest : TestClass {
 
     _state.ShouldBeSameAs(nextState);
 
-    _context.Outputs.ShouldBeOfTypes(new[] {
+    _context.Outputs.ShouldBeOfTypes(
       typeof(PlayerCameraLogic.Output.GimbalRotationChanged),
       typeof(PlayerCameraLogic.Output.GlobalTransformChanged),
       typeof(PlayerCameraLogic.Output.CameraLocalPositionChanged),
-      typeof(PlayerCameraLogic.Output.CameraOffsetChanged),
-    });
+      typeof(PlayerCameraLogic.Output.CameraOffsetChanged));
 
     _camera.VerifyAll();
   }

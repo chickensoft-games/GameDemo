@@ -14,17 +14,18 @@ public partial class PlayerCameraLogic :
   public PlayerCameraLogic(
     IPlayerCamera camera,
     PlayerCameraSettings settings,
-    IAppRepo appRepo,
     IGameRepo gameRepo
   ) {
     Set(camera);
     Set(settings);
-    Set(appRepo);
     Set(gameRepo);
 
     Set(
       new Data {
-        TargetPosition = Vector3.Zero, TargetAngleHorizontal = 0f, TargetAngleVertical = 0f, TargetOffset = Vector3.Zero
+        TargetPosition = Vector3.Zero,
+        TargetAngleHorizontal = 0f,
+        TargetAngleVertical = 0f,
+        TargetOffset = Vector3.Zero
       }
     );
   }

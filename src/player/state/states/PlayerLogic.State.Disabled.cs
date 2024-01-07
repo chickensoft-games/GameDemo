@@ -8,13 +8,13 @@ public partial class PlayerLogic {
           previous => Context.Output(new Output.Animations.Idle())
         );
 
-        OnAttach(() => Get<IAppRepo>().GameEntered += OnGameAboutToStart);
-        OnDetach(() => Get<IAppRepo>().GameEntered -= OnGameAboutToStart);
+        OnAttach(() => Get<IAppRepo>().GameEntered += OnGameEntered);
+        OnDetach(() => Get<IAppRepo>().GameEntered -= OnGameEntered);
       }
 
       public IState On(Input.Enable input) => new Idle();
     }
 
-    public void OnGameAboutToStart() => Context.Input(new Input.Enable());
+    public void OnGameEntered() => Context.Input(new Input.Enable());
   }
 }

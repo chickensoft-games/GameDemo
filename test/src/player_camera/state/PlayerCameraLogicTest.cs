@@ -8,7 +8,6 @@ using Shouldly;
 public class PlayerCameraLogicTest : TestClass {
   private Mock<IPlayerCamera> _camera = default!;
   private PlayerCameraSettings _settings = default!;
-  private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private PlayerCameraLogic _logic = default!;
 
@@ -17,10 +16,9 @@ public class PlayerCameraLogicTest : TestClass {
   [Setup]
   public void Setup() {
     _camera = new();
-    _appRepo = new();
     _gameRepo = new();
     _settings = new();
-    _logic = new(_camera.Object, _settings, _appRepo.Object, _gameRepo.Object);
+    _logic = new(_camera.Object, _settings, _gameRepo.Object);
   }
 
   [Test]
