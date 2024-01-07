@@ -3,7 +3,7 @@ namespace GameDemo;
 partial class GameLogic {
   partial record State {
     public record Paused : State,
-      IGet<Input.PauseButtonPressed>, IGet<Input.GoToMainMenu>, IGet<Input.GameSaveRequested> {
+      IGet<Input.PauseButtonPressed>, IGet<Input.GoToMainMenu>, IGet<Input.SaveRequested> {
       public Paused() {
         OnEnter<Paused>(
           _ => {
@@ -23,7 +23,7 @@ partial class GameLogic {
       public virtual IState On(Input.PauseButtonPressed input)
         => new Resuming();
 
-      public IState On(Input.GameSaveRequested input) => new Saving();
+      public IState On(Input.SaveRequested input) => new Saving();
 
       public IState On(Input.GoToMainMenu input) => new Quit();
     }

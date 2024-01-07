@@ -2,10 +2,10 @@ namespace GameDemo;
 
 partial class GameLogic {
   partial record State {
-    public record Saving : Paused, IGet<Input.GameSaveCompleted> {
+    public record Saving : Paused, IGet<Input.SaveCompleted> {
       public Saving() {
-        OnAttach(() => Get<IGameRepo>().SaveCompleted += OnGameSaveCompleted);
-        OnDetach(() => Get<IGameRepo>().SaveCompleted -= OnGameSaveCompleted);
+        OnAttach(() => Get<IGameRepo>().SaveCompleted += OnSaveCompleted);
+        OnDetach(() => Get<IGameRepo>().SaveCompleted -= OnSaveCompleted);
 
         OnEnter<Saving>(
           previous => {
@@ -19,10 +19,10 @@ partial class GameLogic {
         );
       }
 
-      private void OnGameSaveCompleted() =>
-        Context.Input(new Input.GameSaveCompleted());
+      public void OnSaveCompleted() =>
+        Context.Input(new Input.SaveCompleted());
 
-      public IState On(Input.GameSaveCompleted input)
+      public IState On(Input.SaveCompleted input)
         => new Paused();
 
       // Make it impossible to leave the pause menu while saving

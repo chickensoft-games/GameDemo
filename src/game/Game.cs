@@ -147,7 +147,7 @@ public partial class Game : Node3D, IGame {
     GameLogic.Input(new GameLogic.Input.PauseButtonPressed());
 
   public void OnStart() =>
-    GameLogic.Input(new GameLogic.Input.StartGame());
+    GameLogic.Input(new GameLogic.Input.Start());
 
   public void OnWinMenuTransitioned() =>
     GameLogic.Input(new GameLogic.Input.WinMenuTransitioned());
@@ -156,7 +156,7 @@ public partial class Game : Node3D, IGame {
     GameLogic.Input(new GameLogic.Input.PauseMenuTransitioned());
 
   public void OnPauseMenuSaveRequested() =>
-    GameLogic.Input(new GameLogic.Input.GameSaveRequested());
+    GameLogic.Input(new GameLogic.Input.SaveRequested());
 
   public void OnDeathMenuTransitioned() =>
     GameLogic.Input(new GameLogic.Input.DeathMenuTransitioned());

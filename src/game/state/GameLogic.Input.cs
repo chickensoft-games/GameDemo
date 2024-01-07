@@ -4,7 +4,7 @@ public partial class GameLogic {
   public static class Input {
     public readonly record struct Initialize(int NumCoinsInWorld);
 
-    public readonly record struct GameOver(GameOverReason Reason);
+    public readonly record struct EndGame(GameOverReason Reason);
 
     public readonly record struct PauseButtonPressed;
 
@@ -14,12 +14,12 @@ public partial class GameLogic {
 
     public readonly record struct DeathMenuTransitioned;
 
-    public readonly record struct GameSaveRequested;
+    public readonly record struct SaveRequested;
 
-    public readonly record struct GameSaveCompleted;
+    public readonly record struct SaveCompleted;
 
     public readonly record struct GoToMainMenu;
 
-    public readonly record struct StartGame;
+    public readonly record struct Start;
   }
 }

@@ -2,7 +2,7 @@ namespace GameDemo;
 
 partial class GameLogic {
   partial record State {
-    public record Playing : State, IGet<Input.GameOver>, IGet<Input.PauseButtonPressed> {
+    public record Playing : State, IGet<Input.EndGame>, IGet<Input.PauseButtonPressed> {
       public Playing() {
         OnEnter<Playing>(
           _ => {
@@ -11,20 +11,20 @@ partial class GameLogic {
           }
         );
 
-        OnAttach(() => Get<IGameRepo>().Ended += OnGameOver);
-        OnDetach(() => Get<IGameRepo>().Ended -= OnGameOver);
+        OnAttach(() => Get<IGameRepo>().Ended += OnEnded);
+        OnDetach(() => Get<IGameRepo>().Ended -= OnEnded);
       }
 
-      public void OnGameOver(GameOverReason reason)
-        => Context.Input(new Input.GameOver(reason));
+      public void OnEnded(GameOverReason reason)
+        => Context.Input(new Input.EndGame(reason));
 
-      public IState On(Input.GameOver input) {
+      public IState On(Input.EndGame input) {
         Get<IGameRepo>().Pause();
 
         return input.Reason switch {
           GameOverReason.Won => new Won(),
           GameOverReason.Lost => new Lost(),
-          GameOverReason.Quit or _ => new Quit()
+          _ => new Quit()
         };
       }
 
