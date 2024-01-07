@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://bthdrw6580hll"]
 
-[ext_resource type="Script" path="res://src/menu/submenus/win_menu/WinMenu.cs" id="1_ephor"]
-[ext_resource type="Shader" path="res://src/menu/submenus/win_menu/fireworks.gdshader" id="1_m8kyu"]
+[ext_resource type="Script" path="res://src/win_menu/WinMenu.cs" id="1_ephor"]
+[ext_resource type="Shader" path="res://src/win_menu/fireworks.gdshader" id="1_m8kyu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6nh0u"]
 bg_color = Color(0, 0.815686, 1, 0.337255)

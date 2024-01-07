@@ -1,8 +1,8 @@
 [gd_scene load_steps=19 format=3 uid="uid://conmng5ejji6f"]
 
-[ext_resource type="Script" path="res://src/menu/submenus/pause_menu/PauseMenu.cs" id="1_6kvog"]
-[ext_resource type="Shader" path="res://src/menu/submenus/pause_menu/PauseMenu.gdshader" id="1_m43vi"]
-[ext_resource type="Texture2D" uid="uid://xwhtaovxqalw" path="res://src/menu/submenus/pause_menu/assets/spinner.png" id="3_w1cw3"]
+[ext_resource type="Script" path="res://src/pause_menu/PauseMenu.cs" id="1_6kvog"]
+[ext_resource type="Shader" path="res://src/pause_menu/PauseMenu.gdshader" id="1_m43vi"]
+[ext_resource type="Texture2D" uid="uid://xwhtaovxqalw" path="res://src/pause_menu/assets/spinner.png" id="3_w1cw3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r4f68"]
 shader = ExtResource("1_m43vi")

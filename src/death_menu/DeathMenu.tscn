@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://bn84ofaaq4o80"]
 
-[ext_resource type="Script" path="res://src/menu/submenus/death_menu/DeathMenu.cs" id="1_36ukh"]
-[ext_resource type="Shader" path="res://src/menu/submenus/death_menu/DeathMenu.gdshader" id="2_se3wr"]
+[ext_resource type="Script" path="res://src/death_menu/DeathMenu.cs" id="1_36ukh"]
+[ext_resource type="Shader" path="res://src/death_menu/DeathMenu.gdshader" id="2_se3wr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nr2f"]
 bg_color = Color(0.890805, 0.000373708, 0.0286205, 0.266667)

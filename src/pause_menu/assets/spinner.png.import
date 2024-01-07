@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvdp4mw83pl5"
-path="res://.godot/imported/chickensoft_logo.png-99685fd2b72f987222e90621f5e023b8.ctex"
+uid="uid://xwhtaovxqalw"
+path="res://.godot/imported/spinner.png-8bf564b21179831d36ed2039e2f35499.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/menu/submenus/splash/chickensoft_logo.png"
-dest_files=["res://.godot/imported/chickensoft_logo.png-99685fd2b72f987222e90621f5e023b8.ctex"]
+source_file="res://src/pause_menu/assets/spinner.png"
+dest_files=["res://.godot/imported/spinner.png-8bf564b21179831d36ed2039e2f35499.ctex"]
 
 [params]
 

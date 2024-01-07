@@ -11,6 +11,7 @@ public class DeathMenuTest : TestClass {
   private Mock<IButton> _mainMenuButton = default!;
   private Mock<IButton> _tryAgainButton = default!;
   private Mock<IAnimationPlayer> _animationPlayer = default!;
+  private Mock<IAnimationPlayer> _fadeAnimationPlayer = default!;
   private DeathMenu _menu = default!;
 
   public DeathMenuTest(Node testScene) : base(testScene) { }
@@ -20,11 +21,13 @@ public class DeathMenuTest : TestClass {
     _mainMenuButton = new Mock<IButton>();
     _tryAgainButton = new Mock<IButton>();
     _animationPlayer = new Mock<IAnimationPlayer>();
+    _fadeAnimationPlayer = new Mock<IAnimationPlayer>();
 
     _menu = new DeathMenu {
       MainMenuButton = _mainMenuButton.Object,
       TryAgainButton = _tryAgainButton.Object,
-      AnimationPlayer = _animationPlayer.Object
+      AnimationPlayer = _animationPlayer.Object,
+      FadeAnimationPlayer = _fadeAnimationPlayer.Object
     };
   }
 
@@ -71,5 +74,35 @@ public class DeathMenuTest : TestClass {
     _menu.Animate();
 
     _animationPlayer.VerifyAll();
+  }
+
+  [Test]
+  public void FadeIn() {
+    _fadeAnimationPlayer
+      .Setup(player => player.Play("fade_in", -1, 1, false));
+
+    _menu.FadeIn();
+
+    _fadeAnimationPlayer.VerifyAll();
+  }
+
+  [Test]
+  public void FadeOut() {
+    _fadeAnimationPlayer
+      .Setup(player => player.Play("fade_out", -1, 1, false));
+
+    _menu.FadeOut();
+
+    _fadeAnimationPlayer.VerifyAll();
+  }
+
+  [Test]
+  public void OnAnimationFinished() {
+    var called = false;
+    _menu.TransitionCompleted += () => called = true;
+
+    _menu.OnAnimationFinished("animation");
+
+    called.ShouldBeTrue();
   }
 }

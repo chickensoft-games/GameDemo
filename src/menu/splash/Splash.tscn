@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://7tblo640sji4"]
 
-[ext_resource type="Script" path="res://src/menu/submenus/splash/Splash.cs" id="1_3ixcl"]
-[ext_resource type="Texture2D" uid="uid://dvdp4mw83pl5" path="res://src/menu/submenus/splash/chickensoft_logo.png" id="2_t8gk7"]
-[ext_resource type="Texture2D" uid="uid://cmo4qukg2xomk" path="res://src/menu/submenus/splash/godot_logo.png" id="3_7ugse"]
+[ext_resource type="Script" path="res://src/menu/splash/Splash.cs" id="1_3ixcl"]
+[ext_resource type="Texture2D" uid="uid://dvdp4mw83pl5" path="res://src/menu/splash/chickensoft_logo.png" id="2_t8gk7"]
+[ext_resource type="Texture2D" uid="uid://cmo4qukg2xomk" path="res://src/menu/splash/godot_logo.png" id="3_7ugse"]
 
 [sub_resource type="Animation" id="Animation_phpbp"]
 length = 0.001

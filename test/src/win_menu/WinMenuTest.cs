@@ -9,6 +9,7 @@ using Shouldly;
 
 public class WinMenuTest : TestClass {
   private Mock<IButton> _mainMenuButton = default!;
+  private Mock<IAnimationPlayer> _animationPlayer = default!;
   private WinMenu _menu = default!;
 
   public WinMenuTest(Node testScene) : base(testScene) { }
@@ -16,8 +17,9 @@ public class WinMenuTest : TestClass {
   [Setup]
   public void Setup() {
     _mainMenuButton = new Mock<IButton>();
+    _animationPlayer = new Mock<IAnimationPlayer>();
     _menu = new WinMenu {
-      MainMenuButton = _mainMenuButton.Object
+      MainMenuButton = _mainMenuButton.Object, AnimationPlayer = _animationPlayer.Object
     };
   }
 
@@ -40,5 +42,27 @@ public class WinMenuTest : TestClass {
     await signal;
 
     signal.IsCompleted.ShouldBeTrue();
+  }
+
+  [Test]
+  public void FadeIn() {
+    _menu.FadeIn();
+    _animationPlayer.Verify(player => player.Play("fade_in", -1, 1, false));
+  }
+
+  [Test]
+  public void FadeOut() {
+    _menu.FadeOut();
+    _animationPlayer.Verify(player => player.Play("fade_out", -1, 1, false));
+  }
+
+  [Test]
+  public void OnAnimationFinished() {
+    var called = false;
+    _menu.TransitionCompleted += () => called = true;
+
+    _menu.OnAnimationFinished("fade_in");
+
+    called.ShouldBeTrue();
   }
 }
