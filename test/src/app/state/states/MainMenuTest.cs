@@ -24,15 +24,10 @@ public class MainMenuTest : TestClass {
 
   [Test]
   public void Enters() {
-    var parent = new AppLogic.State();
-
-    _state.Enter(parent);
+    _state.Enter();
 
     _context.Outputs.ShouldBe(
-      new object[] {
-        new AppLogic.Output.LoadGame(),
-        new AppLogic.Output.ShowMainMenu()
-      }
+      new object[] { new AppLogic.Output.LoadGame(), new AppLogic.Output.ShowMainMenu() }
     );
   }
 

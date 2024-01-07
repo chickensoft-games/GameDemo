@@ -1,7 +1,7 @@
 namespace GameDemo;
 
-public partial class AppLogic {
-  public partial record State {
+partial class AppLogic {
+  partial record State {
     public record InGame : State, IGet<Input.EndGame> {
       public InGame() {
         OnEnter<InGame>(_ => {
@@ -10,15 +10,8 @@ public partial class AppLogic {
         });
         OnExit<InGame>(_ => Context.Output(new Output.HideGame()));
 
-        OnAttach(() => {
-          var appRepo = Get<IAppRepo>();
-          appRepo.GameExited += OnGameExited;
-        });
-
-        OnDetach(() => {
-          var appRepo = Get<IAppRepo>();
-          appRepo.GameExited -= OnGameExited;
-        });
+        OnAttach(() => Get<IAppRepo>().GameExited += OnGameExited);
+        OnDetach(() => Get<IAppRepo>().GameExited -= OnGameExited);
       }
 
       public void OnRestartGameRequested() =>

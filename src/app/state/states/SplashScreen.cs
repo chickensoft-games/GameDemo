@@ -1,7 +1,7 @@
 namespace GameDemo;
 
-public partial class AppLogic {
-  public partial record State {
+partial class AppLogic {
+  partial record State {
     public record SplashScreen : State, IGet<Input.FadeOutFinished> {
       public SplashScreen() {
         OnEnter<SplashScreen>(

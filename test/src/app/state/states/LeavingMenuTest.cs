@@ -24,14 +24,10 @@ public class LeavingMenuTest : TestClass {
 
   [Test]
   public void Enters() {
-    var parent = new AppLogic.State();
-
-    _state.Enter(parent);
+    _state.Enter();
 
     _context.Outputs.ShouldBe(
-      new object[] {
-        new AppLogic.Output.FadeOut(),
-      }
+      new object[] { new AppLogic.Output.FadeToBlack() }
     );
   }
 
@@ -39,6 +35,6 @@ public class LeavingMenuTest : TestClass {
   public void StartsGame() {
     var next = _state.On(new AppLogic.Input.FadeOutFinished());
 
-    next.ShouldBeOfType<AppLogic.State.PlayingGame>();
+    next.ShouldBeOfType<AppLogic.State.InGame>();
   }
 }

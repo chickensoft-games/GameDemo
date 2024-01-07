@@ -1,6 +1,5 @@
 namespace GameDemo.Tests;
 
-using Chickensoft.GoDotCollections;
 using Chickensoft.GoDotTest;
 using Chickensoft.LogicBlocks;
 using Godot;
@@ -11,21 +10,25 @@ public class SplashScreenTest : TestClass {
   private IFakeContext _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private AppLogic.State.SplashScreen _state = default!;
-  private AutoProp<bool> _isMouseCaptured = default!;
-
   public SplashScreenTest(Node testScene) : base(testScene) { }
 
   [Setup]
   public void Setup() {
     _appRepo = new();
-    _isMouseCaptured = new(false);
-    _appRepo.Setup(repo => repo.IsMouseCaptured)
-      .Returns(_isMouseCaptured);
 
     _state = new();
     _context = _state.CreateFakeContext();
     _context.Set(_appRepo.Object);
   }
+
+  [Test]
+  public void OnEnter() {
+    _state.Enter();
+    _context.Outputs.ShouldBe(
+      new object[] { new AppLogic.Output.ShowSplashScreen() }
+    );
+  }
+
 
   [Test]
   public void Subscribes() {
