@@ -85,7 +85,7 @@ public class PlayerTest : TestClass {
   }
 
   [Test]
-  public async Task OnPhysicsProcessJumpsOnInput() {
+  public void OnPhysicsProcessJumpsOnInput() {
     Input.ActionPress(GameInputs.Jump);
 
     _player.OnPhysicsProcess(1d);
