@@ -1,8 +1,10 @@
 namespace GameDemo.Tests;
 
+using System;
 using System.Threading.Tasks;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Godot;
 using GodotTestDriver;
 using Moq;
@@ -14,21 +16,24 @@ public partial class CoinTest : TestClass {
     public void Collect(ICoin coin) { }
   }
 
-  private Mock<IAppRepo> _appRepo = default!;
+  private Mock<IGameRepo> _gameRepo = default!;
   private Mock<IAnimationPlayer> _animPlayer = default!;
   private Mock<INode3D> _coinModel = default!;
   private Mock<ICoinLogic> _logic = default!;
-  private CoinLogic.IFakeBinding _binding = default!;
+
+  private Logic<CoinLogic.IState, Func<object, CoinLogic.IState>, CoinLogic.IState,
+    Action<CoinLogic.IState?>>.IFakeBinding _binding = default!;
+
   private Coin _coin = default!;
 
   public CoinTest(Node testScene) : base(testScene) { }
 
   [Setup]
   public void Setup() {
-    _appRepo = new Mock<IAppRepo>();
-    _animPlayer = new Mock<IAnimationPlayer>();
-    _coinModel = new Mock<INode3D>();
-    _logic = new Mock<ICoinLogic>();
+    _gameRepo = new();
+    _animPlayer = new();
+    _coinModel = new();
+    _logic = new();
     _binding = CoinLogic.CreateFakeBinding();
 
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
@@ -41,12 +46,11 @@ public partial class CoinTest : TestClass {
       CoinBinding = _binding
     };
 
-    _coin.FakeDependency(_appRepo.Object);
+    _coin.FakeDependency(_gameRepo.Object);
 
     // For tests that run in the actual node tree.
     _coin.FakeNodeTree(new() {
-      ["%AnimationPlayer"] = _animPlayer.Object,
-      ["%CoinModel"] = _coinModel.Object
+      ["%AnimationPlayer"] = _animPlayer.Object, ["%CoinModel"] = _coinModel.Object
     });
   }
 
@@ -125,5 +129,14 @@ public partial class CoinTest : TestClass {
     _coin.IsQueuedForDeletion().ShouldBeTrue();
 
     await fixture.Cleanup();
+  }
+
+  [Test]
+  public void SaveData() {
+    _coin.SaveId.ShouldBeOfType<string>();
+    _coin.GetSaveData().ShouldBeOfType<CoinData>();
+    _coin.RestoreSaveData(
+      new CoinData("name", Transform3D.Identity, new CoinLogic.State.Idle())
+    );
   }
 }
