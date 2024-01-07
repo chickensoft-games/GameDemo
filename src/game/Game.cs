@@ -20,7 +20,8 @@ public partial class Game : Node3D, IGame {
   public IGameRepo GameRepo { get; set; } = default!;
   public IGameLogic GameLogic { get; set; } = default!;
 
-  public Logic<GameLogic.IState, Func<object, GameLogic.IState>, GameLogic.IState, Action<GameLogic.IState?>>.IBinding
+  public Logic<GameLogic.IState, Func<object, GameLogic.IState>, GameLogic.IState,
+      Action<GameLogic.IState?>>.IBinding
     GameBinding { get; set; } = default!;
 
   #endregion State
@@ -160,13 +161,6 @@ public partial class Game : Node3D, IGame {
 
   public void OnDeathMenuTransitioned() =>
     GameLogic.Input(new GameLogic.Input.DeathMenuTransitioned());
-
-  public void HideMenus() {
-    InGameUi.Hide();
-    DeathMenu.Hide();
-    PauseMenu.Hide();
-    WinMenu.Hide();
-  }
 
   public void OnExitTree() {
     DeathMenu.TryAgain -= OnStart;
