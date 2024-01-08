@@ -1,7 +1,7 @@
 namespace GameDemo;
 
-partial class AppLogic {
-  partial record State {
+public partial class AppLogic {
+  public partial record State {
     public record InGame : State, IGet<Input.EndGame> {
       public InGame() {
         OnEnter<InGame>(_ => {

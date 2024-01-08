@@ -1,12 +1,10 @@
 namespace GameDemo;
 
-partial class GameLogic {
-  partial record State {
+public partial class GameLogic {
+  public partial record State {
     public record MenuBackdrop : State, IGet<Input.Start>, IGet<Input.Initialize> {
       public MenuBackdrop() {
-        OnEnter<MenuBackdrop>(_ => {
-          Get<IGameRepo>().SetIsMouseCaptured(false);
-        });
+        OnEnter<MenuBackdrop>(_ => Get<IGameRepo>().SetIsMouseCaptured(false));
 
         OnAttach(() => Get<IAppRepo>().GameEntered += OnGameEntered);
         OnDetach(() => Get<IAppRepo>().GameEntered -= OnGameEntered);

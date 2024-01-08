@@ -1,7 +1,7 @@
 namespace GameDemo;
 
-partial class PlayerLogic {
-  partial record State {
+public partial class PlayerLogic {
+  public partial record State {
     public record Falling : Airborne {
       public Falling() {
         OnEnter<Falling>(

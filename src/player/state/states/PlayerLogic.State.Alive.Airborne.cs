@@ -1,7 +1,7 @@
 namespace GameDemo;
 
-partial class PlayerLogic {
-  partial record State {
+public partial class PlayerLogic {
+  public partial record State {
     public record Airborne : Alive,
       IGet<Input.HitFloor>, IGet<Input.StartedFalling> {
       public IState On(Input.HitFloor input) {

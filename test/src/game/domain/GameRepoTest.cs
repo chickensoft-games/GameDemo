@@ -96,13 +96,9 @@ public class GameRepoTest : TestClass {
     var coins = 0;
     GameOverReason gameOverReason = default!;
 
-    void gameEnded(GameOverReason reason) {
-      gameOverReason = reason;
-    }
+    void gameEnded(GameOverReason reason) => gameOverReason = reason;
 
-    void coinCollected() {
-      coins++;
-    }
+    void coinCollected() => coins++;
 
     _repo.Ended += gameEnded;
     _repo.CoinCollected += coinCollected;
@@ -127,7 +123,7 @@ public class GameRepoTest : TestClass {
 
   [Test]
   public void OnJumpInvokesEvent() {
-    Should.NotThrow(() => _repo.OnJump());
+    Should.NotThrow(_repo.OnJump);
 
     var called = false;
     _repo.Jumped += () => called = true;
@@ -139,7 +135,7 @@ public class GameRepoTest : TestClass {
 
   [Test]
   public void SaveInvokesEvents() {
-    Should.NotThrow(() => _repo.Save());
+    Should.NotThrow(_repo.Save);
 
     var called = 0;
     _repo.SaveRequested += () => called++;
@@ -184,9 +180,7 @@ public class GameRepoTest : TestClass {
   public void OnJumpshroomUsedInvokesEvent() {
     var called = 0;
 
-    void onJumpshroomUsed() {
-      called++;
-    }
+    void onJumpshroomUsed() => called++;
 
     _repo.OnJumpshroomUsed();
     _repo.JumpshroomUsed += onJumpshroomUsed;

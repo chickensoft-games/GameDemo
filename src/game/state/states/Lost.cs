@@ -5,10 +5,7 @@ public partial class GameLogic {
     public record Lost : State, IGet<Input.Start>, IGet<Input.GoToMainMenu> {
       public Lost() {
         OnEnter<Lost>(
-          _ => {
-            Context.Output(new Output.ShowLostScreen());
-          }
-        );
+          _ => Context.Output(new Output.ShowLostScreen()));
       }
 
       public IState On(Input.Start input) => new RestartingGame();

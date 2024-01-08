@@ -1,7 +1,7 @@
 namespace GameDemo;
 
-partial class GameLogic {
-  partial record State {
+public partial class GameLogic {
+  public partial record State {
     public record Paused : State,
       IGet<Input.PauseButtonPressed>, IGet<Input.GoToMainMenu>, IGet<Input.SaveRequested> {
       public Paused() {
@@ -11,12 +11,10 @@ partial class GameLogic {
             Context.Output(new Output.ShowPauseMenu());
           }
         );
+        // We don't resume on exit because we can leave this state for
+        // a menu and we want to remain paused.
         OnExit<Paused>(
-          _ => {
-            // We don't resume on exit because we can leave this state for
-            // a menu and we want to remain paused.
-            Context.Output(new Output.ExitPauseMenu());
-          }
+          _ => Context.Output(new Output.ExitPauseMenu())
         );
       }
 

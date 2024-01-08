@@ -25,9 +25,7 @@ public class AppRepoTest : TestClass {
   public void SkipSplashScreen() {
     var called = false;
 
-    void splashScreenSkipped() {
-      called = true;
-    }
+    void splashScreenSkipped() => called = true;
 
     // invoke event without handlers to cover null check
     _repo.SkipSplashScreen();
@@ -43,9 +41,7 @@ public class AppRepoTest : TestClass {
   public void OnMainMenuEnteredInvokesEvent() {
     var called = 0;
 
-    void onMainMenuEntered() {
-      called++;
-    }
+    void onMainMenuEntered() => called++;
 
     _repo.OnMainMenuEntered();
     _repo.MainMenuEntered += onMainMenuEntered;
@@ -58,9 +54,7 @@ public class AppRepoTest : TestClass {
   public void OnEnterGameInvokesEvent() {
     var called = 0;
 
-    void onEnterGame() {
-      called++;
-    }
+    void onEnterGame() => called++;
 
     _repo.OnEnterGame();
     _repo.GameEntered += onEnterGame;
@@ -88,8 +82,8 @@ public class AppRepoTest : TestClass {
 
   [Test]
   public void Disposes() {
-    Should.NotThrow(() => _repo.Dispose());
+    Should.NotThrow(_repo.Dispose);
     // Redundant dispose shouldn't do anything.
-    Should.NotThrow(() => _repo.Dispose());
+    Should.NotThrow(_repo.Dispose);
   }
 }

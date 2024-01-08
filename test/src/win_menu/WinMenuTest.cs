@@ -19,7 +19,8 @@ public class WinMenuTest : TestClass {
     _mainMenuButton = new Mock<IButton>();
     _animationPlayer = new Mock<IAnimationPlayer>();
     _menu = new WinMenu {
-      MainMenuButton = _mainMenuButton.Object, AnimationPlayer = _animationPlayer.Object
+      MainMenuButton = _mainMenuButton.Object,
+      AnimationPlayer = _animationPlayer.Object
     };
   }
 

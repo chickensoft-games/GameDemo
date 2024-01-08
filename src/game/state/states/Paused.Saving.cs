@@ -1,7 +1,7 @@
 namespace GameDemo;
 
-partial class GameLogic {
-  partial record State {
+public partial class GameLogic {
+  public partial record State {
     public record Saving : Paused, IGet<Input.SaveCompleted> {
       public Saving() {
         OnAttach(() => Get<IGameRepo>().SaveCompleted += OnSaveCompleted);
