@@ -10,16 +10,19 @@ public class PlayerLogicStateAliveAirborneJumpingTest : TestClass {
   private IFakeContext _context = default!;
   private Mock<IPlayer> _player = default!;
   private Mock<IAppRepo> _appRepo = default!;
+  private Mock<IGameRepo> _gameRepo = default!;
   private PlayerLogic.Settings _settings = default!;
   private PlayerLogic.State.Jumping _state = default!;
 
   public PlayerLogicStateAliveAirborneJumpingTest(Node testScene) :
-    base(testScene) { }
+    base(testScene) {
+  }
 
   [Setup]
   public void Setup() {
-    _player = new Mock<IPlayer>();
-    _appRepo = new Mock<IAppRepo>();
+    _player = new();
+    _appRepo = new();
+    _gameRepo = new();
     _settings = new PlayerLogic.Settings(1, 1, 1, 1, 1, 1, JumpForce: 1);
 
     _state = new();
@@ -27,6 +30,7 @@ public class PlayerLogicStateAliveAirborneJumpingTest : TestClass {
 
     _context.Set(_player.Object);
     _context.Set(_appRepo.Object);
+    _context.Set(_gameRepo.Object);
     _context.Set(_settings);
   }
 
@@ -34,7 +38,7 @@ public class PlayerLogicStateAliveAirborneJumpingTest : TestClass {
   public void Enters() {
     var parent = new PlayerLogic.State.Airborne();
 
-    _appRepo.Setup(repo => repo.Jump());
+    _gameRepo.Setup(repo => repo.OnJump());
 
     _state.Enter(parent);
 
@@ -42,7 +46,7 @@ public class PlayerLogicStateAliveAirborneJumpingTest : TestClass {
       new PlayerLogic.Output.Animations.Jump()
     });
 
-    _appRepo.VerifyAll();
+    _gameRepo.VerifyAll();
   }
 
   [Test]

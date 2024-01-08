@@ -1,12 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://deqdtimrd6526"]
+[gd_scene load_steps=8 format=3 uid="uid://deqdtimrd6526"]
 
 [ext_resource type="Script" path="res://src/app/App.cs" id="1_g7sps"]
-[ext_resource type="PackedScene" uid="uid://d3qf2po8l4dlr" path="res://src/in_game_ui/InGameUI.tscn" id="2_ypy3i"]
-[ext_resource type="PackedScene" uid="uid://bn84ofaaq4o80" path="res://src/menu/submenus/death_menu/DeathMenu.tscn" id="3_8wag6"]
-[ext_resource type="PackedScene" uid="uid://be3pehf5e67m5" path="res://src/in_game_audio/InGameAudio.tscn" id="3_po33r"]
 [ext_resource type="PackedScene" uid="uid://cwsfvhqinjpy4" path="res://src/menu/Menu.tscn" id="4_kh3vh"]
-[ext_resource type="PackedScene" uid="uid://bthdrw6580hll" path="res://src/menu/submenus/win_menu/WinMenu.tscn" id="5_rjune"]
-[ext_resource type="PackedScene" uid="uid://conmng5ejji6f" path="res://src/menu/submenus/pause_menu/PauseMenu.tscn" id="6_4w75j"]
 [ext_resource type="PackedScene" uid="uid://7tblo640sji4" path="res://src/menu/submenus/splash/Splash.tscn" id="7_eh6dj"]
 
 [sub_resource type="Animation" id="Animation_asqem"]
@@ -86,34 +81,15 @@ libraries = {
 "": SubResource("AnimationLibrary_piei0")
 }
 
-[node name="InGameUI" parent="." instance=ExtResource("2_ypy3i")]
-unique_name_in_owner = true
-visible = false
-
-[node name="SubViewport" parent="InGameUI/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/SubViewportContainer" index="0"]
-render_target_update_mode = 0
-
-[node name="InGameAudio" parent="." instance=ExtResource("3_po33r")]
-
-[node name="DeathMenu" parent="." instance=ExtResource("3_8wag6")]
-unique_name_in_owner = true
-visible = false
-
 [node name="Menu" parent="." instance=ExtResource("4_kh3vh")]
 unique_name_in_owner = true
 visible = false
-
-[node name="WinMenu" parent="." instance=ExtResource("5_rjune")]
-unique_name_in_owner = true
-visible = false
-
-[node name="PauseMenu" parent="." instance=ExtResource("6_4w75j")]
-unique_name_in_owner = true
-visible = false
+mouse_filter = 1
 
 [node name="Splash" parent="." instance=ExtResource("7_eh6dj")]
 unique_name_in_owner = true
 visible = false
+mouse_filter = 1
 
 [node name="BlankScreenControl" type="Control" parent="."]
 layout_mode = 3
@@ -133,5 +109,3 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
-
-[editable path="InGameUI"]

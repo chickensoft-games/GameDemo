@@ -1,13 +1,14 @@
 namespace GameDemo;
 
 public partial class PlayerLogic {
-  public abstract partial record State {
+  public partial record State {
     public record Airborne : Alive,
-    IGet<Input.HitFloor>, IGet<Input.StartedFalling> {
+      IGet<Input.HitFloor>, IGet<Input.StartedFalling> {
       public IState On(Input.HitFloor input) {
         if (input.IsMovingHorizontally) {
           return new Moving();
         }
+
         return new Idle();
       }
 

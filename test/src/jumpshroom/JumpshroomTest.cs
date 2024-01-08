@@ -12,8 +12,9 @@ public partial class JumpshroomTest : TestClass {
   }
 
   private JumpshroomLogic.IFakeBinding _binding = default!;
+
   private Mock<IJumpshroomLogic> _logic = default!;
-  private Mock<IAppRepo> _appRepo = default!;
+  private Mock<IGameRepo> _gameRepo = default!;
   private Mock<IAnimationPlayer> _animPlayer = default!;
   private Mock<IArea3D> _area3D = default!;
   private Mock<ITimer> _cooldownTimer = default!;
@@ -25,11 +26,11 @@ public partial class JumpshroomTest : TestClass {
   public void Setup() {
     _binding = JumpshroomLogic.CreateFakeBinding();
 
-    _logic = new Mock<IJumpshroomLogic>();
-    _appRepo = new Mock<IAppRepo>();
-    _animPlayer = new Mock<IAnimationPlayer>();
-    _area3D = new Mock<IArea3D>();
-    _cooldownTimer = new Mock<ITimer>();
+    _logic = new();
+    _gameRepo = new();
+    _animPlayer = new();
+    _area3D = new();
+    _cooldownTimer = new();
 
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
 
@@ -39,10 +40,10 @@ public partial class JumpshroomTest : TestClass {
       JumpshroomBinding = _binding,
       AnimationPlayer = _animPlayer.Object,
       Area3D = _area3D.Object,
-      CooldownTimer = _cooldownTimer.Object,
+      CooldownTimer = _cooldownTimer.Object
     };
 
-    _shroom.FakeDependency(_appRepo.Object);
+    _shroom.FakeDependency(_gameRepo.Object);
   }
 
   [Test]
@@ -54,7 +55,7 @@ public partial class JumpshroomTest : TestClass {
 
   [Test]
   public void Subscribes() {
-    _shroom.OnReady();
+    _shroom.OnResolved();
 
     _animPlayer.VerifyAdd(
       player => player.AnimationFinished += _shroom.OnAnimationFinished
@@ -125,7 +126,7 @@ public partial class JumpshroomTest : TestClass {
   public void AnimatesBounce() {
     _animPlayer.Setup(player => player.Play("bounce", -1, 1, false));
 
-    _shroom.OnReady();
+    _shroom.OnResolved();
     _binding.Output(new JumpshroomLogic.Output.Animate());
 
     _animPlayer.VerifyAll();
@@ -135,7 +136,7 @@ public partial class JumpshroomTest : TestClass {
   public void StartsCooldownTimer() {
     _cooldownTimer.Setup(timer => timer.Start(-1));
 
-    _shroom.OnReady();
+    _shroom.OnResolved();
     _binding.Output(new JumpshroomLogic.Output.StartCooldownTimer());
 
     _cooldownTimer.VerifyAll();

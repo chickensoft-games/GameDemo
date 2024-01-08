@@ -5,7 +5,6 @@ using Chickensoft.AutoInject;
 using Chickensoft.GoDotTest;
 using Godot;
 using GodotTestDriver;
-using GodotTestDriver.Input;
 using Moq;
 using Shouldly;
 
@@ -14,7 +13,9 @@ public class PlayerTest : TestClass {
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private Mock<IPlayerLogic> _logic = default!;
+
   private PlayerLogic.IFakeBinding _binding = default!;
+
   private PlayerLogic.Settings _settings = default!;
   private Player _player = default!;
 
@@ -53,9 +54,7 @@ public class PlayerTest : TestClass {
   }
 
   [Cleanup]
-  public async Task Cleanup() {
-    await _fixture.Cleanup();
-  }
+  public async Task Cleanup() => await _fixture.Cleanup();
 
   [Test]
   public void Initializes() {
@@ -82,9 +81,8 @@ public class PlayerTest : TestClass {
   }
 
   [Test]
-  public async Task OnPhysicsProcessJumpsOnInput() {
-    await _player.StartAction(GameInputs.Jump);
-    await _player.EndAction(GameInputs.Jump);
+  public void OnPhysicsProcessJumpsOnInput() {
+    Input.ActionPress(GameInputs.Jump);
 
     _player.OnPhysicsProcess(1d);
 
@@ -133,7 +131,6 @@ public class PlayerTest : TestClass {
   public void IsMovingChecks() {
     _player.Velocity = Vector3.Forward * 10;
     _player.IsMovingHorizontally().ShouldBe(true);
-    _player.IsStopped().ShouldBe(false);
   }
 
   [Test]
@@ -146,9 +143,7 @@ public class PlayerTest : TestClass {
   }
 
   [Test]
-  public void CoinCollector() {
-    _player.CenterOfMass.ShouldBeOfType<Vector3>();
-  }
+  public void CoinCollector() => _player.CenterOfMass.ShouldBeOfType<Vector3>();
 
   [Test]
   public void Dies() {

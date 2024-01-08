@@ -5,9 +5,9 @@ public partial class PlayerLogic {
     public record Jumping : Airborne, IGet<Input.Jump> {
       public Jumping() {
         OnEnter<Jumping>(
-          (previous) => {
+          previous => {
             Context.Output(new Output.Animations.Jump());
-            Get<IAppRepo>().Jump();
+            Get<IGameRepo>().OnJump();
           }
         );
       }

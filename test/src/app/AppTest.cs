@@ -1,11 +1,9 @@
 namespace GameDemo.Tests;
 
-using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
 using Godot;
-using GodotTestDriver.Input;
 using Moq;
 using Shouldly;
 
@@ -13,6 +11,7 @@ public class AppTest : TestClass {
   private App _app = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IAppLogic> _logic = default!;
+
   private AppLogic.IFakeBinding _binding = default!;
 
   private Mock<IInstantiator> _instantiator = default!;
@@ -21,10 +20,6 @@ public class AppTest : TestClass {
   private Mock<ISubViewport> _gamePreview = default!;
   private Mock<IColorRect> _blankScreen = default!;
   private Mock<IAnimationPlayer> _animationPlayer = default!;
-  private Mock<IInGameUI> _inGameUI = default!;
-  private Mock<IDeathMenu> _deathMenu = default!;
-  private Mock<IWinMenu> _winMenu = default!;
-  private Mock<IPauseMenu> _pauseMenu = default!;
   private Mock<ISplash> _splash = default!;
 
   public AppTest(Node testScene) : base(testScene) { }
@@ -42,10 +37,6 @@ public class AppTest : TestClass {
     _gamePreview = new();
     _blankScreen = new();
     _animationPlayer = new();
-    _inGameUI = new();
-    _deathMenu = new();
-    _winMenu = new();
-    _pauseMenu = new();
     _splash = new();
 
     _app = new() {
@@ -58,10 +49,6 @@ public class AppTest : TestClass {
       GamePreview = _gamePreview.Object,
       BlankScreen = _blankScreen.Object,
       AnimationPlayer = _animationPlayer.Object,
-      InGameUI = _inGameUI.Object,
-      DeathMenu = _deathMenu.Object,
-      WinMenu = _winMenu.Object,
-      PauseMenu = _pauseMenu.Object,
       Splash = _splash.Object
     };
 
@@ -82,15 +69,7 @@ public class AppTest : TestClass {
     _app.AppRepo.ShouldBeOfType<AppRepo>();
     _app.AppLogic.ShouldBeOfType<AppLogic>();
 
-    _deathMenu.VerifyAdd(menu => menu.TryAgain += _app.OnStart);
-    _deathMenu.VerifyAdd(menu => menu.MainMenu += _app.OnMainMenu);
     _menu.VerifyAdd(menu => menu.Start += _app.OnStart);
-    _winMenu.VerifyAdd(menu => menu.MainMenu += _app.OnMainMenu);
-    _pauseMenu.VerifyAdd(menu => menu.MainMenu += _app.OnMainMenu);
-    _pauseMenu.VerifyAdd(menu => menu.Resume += _app.OnResume);
-    _pauseMenu.VerifyAdd(
-      menu => menu.TransitionCompleted += _app.PauseMenuTransitioned
-    );
 
     _animationPlayer.VerifyAdd(
       player => player.AnimationFinished += _app.OnAnimationFinished
@@ -104,15 +83,7 @@ public class AppTest : TestClass {
 
     _app.OnExitTree();
 
-    _deathMenu.VerifyRemove(menu => menu.TryAgain -= _app.OnStart);
-    _deathMenu.VerifyRemove(menu => menu.MainMenu -= _app.OnMainMenu);
     _menu.VerifyRemove(menu => menu.Start -= _app.OnStart);
-    _winMenu.VerifyRemove(menu => menu.MainMenu -= _app.OnMainMenu);
-    _pauseMenu.VerifyRemove(menu => menu.MainMenu -= _app.OnMainMenu);
-    _pauseMenu.VerifyRemove(menu => menu.Resume -= _app.OnResume);
-    _pauseMenu.VerifyRemove(
-      menu => menu.TransitionCompleted -= _app.PauseMenuTransitioned
-    );
 
     _animationPlayer.VerifyRemove(
       player => player.AnimationFinished -= _app.OnAnimationFinished
@@ -206,7 +177,7 @@ public class AppTest : TestClass {
 
     _app.OnReady();
 
-    _binding.Output(new AppLogic.Output.FadeOut());
+    _binding.Output(new AppLogic.Output.FadeToBlack());
 
     VerifyFade();
   }
@@ -214,99 +185,25 @@ public class AppTest : TestClass {
   [Test]
   public void ShowsGame() {
     SetupHideMenus();
-    _inGameUI.Setup(ui => ui.Show());
+
     SetupFadeIn();
 
     _app.OnReady();
 
     _binding.Output(new AppLogic.Output.ShowGame());
 
-    _inGameUI.VerifyAll();
     VerifyFade();
   }
 
   [Test]
-  public void ShowsPlayerDied() {
-    SetupHideMenus();
-    _deathMenu.Setup(menu => menu.Show());
-    _deathMenu.Setup(menu => menu.Animate());
-    SetupFadeIn();
+  public void HidesGame() {
+    SetupFadeOut();
 
     _app.OnReady();
 
-    _binding.Output(new AppLogic.Output.ShowPlayerDied());
+    _binding.Output(new AppLogic.Output.HideGame());
 
-    _deathMenu.VerifyAll();
     VerifyFade();
-  }
-
-  [Test]
-  public void ShowsPlayerWon() {
-    SetupHideMenus();
-    _winMenu.Setup(menu => menu.Show());
-    SetupFadeIn();
-
-    _app.OnReady();
-
-    _binding.Output(new AppLogic.Output.ShowPlayerWon());
-
-    _winMenu.VerifyAll();
-    VerifyFade();
-  }
-
-  [Test]
-  public void ShowsPauseMenu() {
-    SetupHideMenus();
-    _inGameUI.Setup(ui => ui.Show());
-    _pauseMenu.Setup(menu => menu.Show());
-    _pauseMenu.Setup(menu => menu.FadeIn());
-
-    _app.OnReady();
-
-    _binding.Output(new AppLogic.Output.ShowPauseMenu());
-
-    _inGameUI.VerifyAll();
-    _pauseMenu.VerifyAll();
-    VerifyFade();
-  }
-
-  [Test]
-  public void HidesPauseMenu() {
-    _app.OnReady();
-    _pauseMenu.Setup(menu => menu.FadeOut());
-
-    _binding.Output(new AppLogic.Output.HidePauseMenu());
-
-    _pauseMenu.VerifyAll();
-  }
-
-  [Test]
-  public void DisablesPauseMenu() {
-    _app.OnReady();
-    _pauseMenu.Setup(menu => menu.Hide());
-
-    _binding.Output(new AppLogic.Output.DisablePauseMenu());
-
-    _pauseMenu.VerifyAll();
-  }
-
-  [Test]
-  public void CapturesMouse() {
-    _app.OnReady();
-
-    _binding.Output(new AppLogic.Output.CaptureMouse(true));
-    Input.MouseMode.ShouldBe(Input.MouseModeEnum.Captured);
-
-    _binding.Output(new AppLogic.Output.CaptureMouse(false));
-    Input.MouseMode.ShouldBe(Input.MouseModeEnum.Visible);
-  }
-
-  [Test]
-  public void OnMainMenuWorks() {
-    _logic.Reset();
-    _logic.Setup(logic => logic.Input(It.IsAny<AppLogic.Input.GoToMainMenu>()));
-    _app.OnMainMenu();
-    _logic.VerifyAll();
   }
 
   [Test]
@@ -314,26 +211,6 @@ public class AppTest : TestClass {
     _logic.Reset();
     _logic.Setup(logic => logic.Input(It.IsAny<AppLogic.Input.StartGame>()));
     _app.OnStart();
-    _logic.VerifyAll();
-  }
-
-  [Test]
-  public void OnResumeWorks() {
-    _logic.Reset();
-    _logic.Setup(
-      logic => logic.Input(It.IsAny<AppLogic.Input.PauseButtonPressed>())
-    );
-    _app.OnResume();
-    _logic.VerifyAll();
-  }
-
-  [Test]
-  public void PauseMenuTransitionedWorks() {
-    _logic.Reset();
-    _logic.Setup(
-      logic => logic.Input(It.IsAny<AppLogic.Input.PauseMenuTransitioned>())
-    );
-    _app.PauseMenuTransitioned();
     _logic.VerifyAll();
   }
 
@@ -361,30 +238,10 @@ public class AppTest : TestClass {
     _logic.VerifyAll();
   }
 
-  [Test]
-  public async Task PausesOnInput() {
-    _logic.Setup(
-      logic => logic.Input(It.IsAny<AppLogic.Input.PauseButtonPressed>())
-    );
-
-    TestScene.AddChild(_app);
-
-    await _app.StartAction("ui_cancel");
-    await _app.EndAction("ui_cancel");
-
-    TestScene.RemoveChild(_app);
-
-    _logic.VerifyAll();
-  }
-
   // Mocking helpers
 
   private void SetupHideMenus() {
     _menu.Setup(menu => menu.Hide());
-    _inGameUI.Setup(ui => ui.Hide());
-    _deathMenu.Setup(menu => menu.Hide());
-    _pauseMenu.Setup(menu => menu.Hide());
-    _winMenu.Setup(menu => menu.Hide());
     _splash.Setup(splash => splash.Hide());
   }
 

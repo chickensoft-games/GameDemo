@@ -1,37 +1,27 @@
 namespace GameDemo;
+
 public partial class GameLogic {
-  public interface IState : IStateLogic { }
+  public interface IState : IStateLogic {
+  }
 
-  public record State : StateLogic, IState, IGet<Input.Initialize> {
-    public State() {
-      OnAttach(
-        () => {
-          var appRepo = Context.Get<IAppRepo>();
-          appRepo.GameStarting += GameAboutToStart;
-          appRepo.GamePaused += GamePaused;
-          appRepo.GameResumed += GameResumed;
-        }
-      );
-
+  public abstract partial record State : StateLogic, IState {
+    protected State() {
+      OnAttach(() => {
+        var gameRepo = Get<IGameRepo>();
+        gameRepo.IsMouseCaptured.Sync += OnIsMouseCaptured;
+        gameRepo.IsPaused.Sync += OnIsPaused;
+      });
       OnDetach(() => {
-        var appRepo = Context.Get<IAppRepo>();
-        appRepo.GameStarting -= GameAboutToStart;
-        appRepo.GamePaused -= GamePaused;
-        appRepo.GameResumed -= GameResumed;
+        var gameRepo = Get<IGameRepo>();
+        gameRepo.IsMouseCaptured.Sync -= OnIsMouseCaptured;
+        gameRepo.IsPaused.Sync -= OnIsPaused;
       });
     }
 
-    public void GameAboutToStart() {
-      Context.Output(new Output.ChangeToThirdPersonCamera());
-    }
+    public void OnIsMouseCaptured(bool isMouseCaptured) =>
+      Context.Output(new Output.CaptureMouse(isMouseCaptured));
 
-    public void GamePaused() => Context.Output(new Output.SetPauseMode(true));
-    public void GameResumed() => Context.Output(new Output.SetPauseMode(false));
-
-    public IState On(Input.Initialize input) {
-      var appRepo = Context.Get<IAppRepo>();
-      appRepo.OnNumCoinsAtStart(input.NumCoinsInWorld);
-      return this;
-    }
+    public void OnIsPaused(bool isPaused) =>
+      Context.Output(new Output.SetPauseMode(isPaused));
   }
 }

@@ -1,5 +1,6 @@
 namespace GameDemo;
 
+using System.Runtime.CompilerServices;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.PowerUps;
@@ -9,24 +10,25 @@ using SuperNodes.Types;
 public interface IPlayer :
   ICharacterBody3D, IKillable, ICoinCollector, IPushEnabled {
   public bool IsMovingHorizontally();
-  public bool IsStopped();
 
   /// <summary>
-  /// Uses the engine to determine the input vector, relative to the global
-  /// camera direction.
+  ///   Uses the engine to determine the input vector, relative to the global
+  ///   camera direction.
   /// </summary>
   /// <param name="cameraBasis">Camera's global transform basis.</param>
   public Vector3 GetGlobalInputVector(Basis cameraBasis);
 
   /// <summary>
-  /// Gets the player's next rotation basis, based on the normalized desired
-  /// global direction, the delta time, and the rotation speed.
+  ///   Gets the player's next rotation basis, based on the normalized desired
+  ///   global direction, the delta time, and the rotation speed.
   /// </summary>
   /// <param name="direction">Normalized global direction.</param>
   /// <param name="delta">Delta time.</param>
   /// <param name="rotationSpeed">Rotation speed (quaternions?/sec).</param>
   Basis GetNextRotationBasis(
-    Vector3 direction, double delta, float rotationSpeed
+    Vector3 direction,
+    double delta,
+    float rotationSpeed
   );
 }
 
@@ -35,17 +37,23 @@ public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
   public override partial void _Notification(int what);
 
   #region Provisions
+
   IPlayerLogic IProvide<IPlayerLogic>.Value() => PlayerLogic;
+
   #endregion Provisions
 
   #region Dependencies
-  [Dependency]
+
+  [Chickensoft.AutoInject.Dependency]
   public IGameRepo GameRepo => DependOn<IGameRepo>();
-  [Dependency]
+
+  [Chickensoft.AutoInject.Dependency]
   public IAppRepo AppRepo => DependOn<IAppRepo>();
+
   #endregion Dependencies
 
   #region Exports
+
   /// <summary>Rotation speed (quaternions?/sec).</summary>
   [Export(PropertyHint.Range, "0, 100, 0.1")]
   public float RotationSpeed { get; set; } = 12.0f;
@@ -71,17 +79,21 @@ public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
   public float JumpImpulseForce { get; set; } = 12f;
 
   /// <summary>
-  /// Additional force added each physics tick while player is still pressing
-  /// jump.
+  ///   Additional force added each physics tick while player is still pressing
+  ///   jump.
   /// </summary>
   [Export(PropertyHint.Range, "0, 100, 0.1")]
   public float JumpForce { get; set; } = 4.5f;
+
   #endregion Exports
 
   #region State
+
   public IPlayerLogic PlayerLogic { get; set; } = default!;
   public PlayerLogic.Settings Settings { get; set; } = default!;
+
   public PlayerLogic.IBinding PlayerBinding { get; set; } = default!;
+
   #endregion State
 
   public void Setup() {
@@ -119,13 +131,13 @@ public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
 
     PlayerBinding
       .Handle<PlayerLogic.Output.MovementComputed>(
-        (output) => {
+        output => {
           Transform = Transform with { Basis = output.Rotation };
           Velocity = output.Velocity;
         }
       )
       .Handle<PlayerLogic.Output.VelocityChanged>(
-        (output) => Velocity = output.Velocity
+        output => Velocity = output.Velocity
       );
 
     PlayerLogic.Start();
@@ -155,7 +167,8 @@ public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
 
   public Vector3 GetGlobalInputVector(Basis cameraBasis) {
     var rawInput = Input.GetVector(
-      GameInputs.MoveLeft, GameInputs.MoveRight, GameInputs.MoveUp, GameInputs.MoveDown
+      GameInputs.MoveLeft, GameInputs.MoveRight, GameInputs.MoveUp,
+      GameInputs.MoveDown
     );
     // This is to ensure that diagonal input isn't stronger than axis aligned
     // input.
@@ -167,7 +180,9 @@ public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
   }
 
   public Basis GetNextRotationBasis(
-    Vector3 direction, double delta, float rotationSpeed
+    Vector3 direction,
+    double delta,
+    float rotationSpeed
   ) {
     var leftAxis = Vector3.Up.Cross(direction);
     // Create a rotation quaternion from a basis with the 3 axis we care about.
@@ -184,28 +199,30 @@ public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
     ).Scaled(scale);
   }
 
-  [System.Runtime.CompilerServices.MethodImpl(
-    System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining
+  [MethodImpl(
+    MethodImplOptions.AggressiveInlining
   )]
   public bool IsMovingHorizontally() => (Velocity with { Y = 0f }).Length() >
-    Settings.StoppingSpeed;
+                                        Settings.StoppingSpeed;
 
-  [System.Runtime.CompilerServices.MethodImpl(
-    System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining
-  )]
-  public bool IsStopped() => !IsMovingHorizontally();
   #endregion IPlayer
 
   #region IPushEnabled
+
   public void Push(Vector3 force) =>
     PlayerLogic.Input(new PlayerLogic.Input.Pushed(force));
+
   #endregion IPushEnabled
 
   #region ICoinCollector
+
   public Vector3 CenterOfMass => GlobalPosition + new Vector3(0f, 1f, 0f);
+
   #endregion ICoinCollector
 
   #region IKillable
+
   public void Kill() => PlayerLogic.Input(new PlayerLogic.Input.Killed());
+
   #endregion IKillable
 }

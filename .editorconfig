@@ -470,3 +470,7 @@ dotnet_diagnostic.IDE0046.severity = none
 dotnet_diagnostic.IDE0022.severity = none
 # Don't use collection shorhand.
 dotnet_diagnostic.IDE0300.severity = none
+dotnet_diagnostic.IDE0028.severity = none
+dotnet_diagnostic.IDE0305.severity = none
+# Don't make me populate a switch expression redundantly
+dotnet_diagnostic.IDE0072.severity = none

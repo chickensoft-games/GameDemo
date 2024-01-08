@@ -6,37 +6,50 @@ using Chickensoft.PowerUps;
 using Godot;
 using SuperNodes.Types;
 
-public interface ICoin : INode3D { }
+public interface ICoin : INode3D;
 
 [SuperNode(typeof(AutoNode), typeof(Dependent))]
 public partial class Coin : Node3D, ICoin {
   public override partial void _Notification(int what);
 
   #region Dependencies
-  [Dependency]
-  public IAppRepo AppRepo => DependOn<IAppRepo>();
+
+  [Dependency] public IGameRepo GameRepo => DependOn<IGameRepo>();
+
   #endregion Dependencies
 
   #region Nodes
-  [Node("%AnimationPlayer")]
-  public IAnimationPlayer AnimationPlayer = default!;
-  [Node("%CoinModel")]
-  public INode3D CoinModel = default!;
+
+  [Node("%AnimationPlayer")] public IAnimationPlayer AnimationPlayer = default!;
+  [Node("%CoinModel")] public INode3D CoinModel = default!;
+
   #endregion Nodes
 
   #region Exports
+
   public double CollectionTimeInSeconds { get; set; } = 1.0f;
+
   #endregion Exports
 
   #region State
+
   public ICoinLogic CoinLogic { get; set; } = default!;
   public CoinLogic.Settings Settings { get; set; } = default!;
+
   public CoinLogic.IBinding CoinBinding { get; set; } = default!;
+
   #endregion State
+
+  #region PackedScenes
+
+  public static PackedScene CollectorDetector =>
+    GD.Load<PackedScene>("res://src/coin/CollectorDetector.tscn");
+
+  #endregion PackedScenes
 
   public void Setup() {
     Settings = new CoinLogic.Settings(CollectionTimeInSeconds);
-    CoinLogic = new CoinLogic(this, Settings, AppRepo);
+    CoinLogic = new CoinLogic(this, Settings, GameRepo);
   }
 
   public void OnReady() {
@@ -47,10 +60,7 @@ public partial class Coin : Node3D, ICoin {
     // looks at the biggest collision shape inside a node, recursively, even
     // though it shouldn't. And this isn't a collision shape for physics, it's
     // just a collision shape for area detection :P
-
-    var collectorDetector = GD
-      .Load<PackedScene>("res://src/coin/CollectorDetector.tscn")
-      .Instantiate<Area3D>();
+    var collectorDetector = CollectorDetector.Instantiate<Area3D>();
 
     collectorDetector.BodyEntered += OnCollectorDetectorBodyEntered;
     AddChild(collectorDetector);
@@ -60,7 +70,7 @@ public partial class Coin : Node3D, ICoin {
     CoinBinding = CoinLogic.Bind();
 
     CoinBinding
-      .When<CoinLogic.State.ICollecting>().Call((state) => {
+      .When<CoinLogic.State.ICollecting>().Call(state => {
         // We want to start receiving physics ticks so we can orient ourselves
         // toward the entity that's collecting us.
         SetPhysicsProcess(true);
@@ -71,12 +81,12 @@ public partial class Coin : Node3D, ICoin {
 
     CoinBinding
       .Handle<CoinLogic.Output.Move>(
-        (output) => GlobalPosition = output.GlobalPosition
+        output => GlobalPosition = output.GlobalPosition
       )
       .Handle<CoinLogic.Output.SelfDestruct>(
         // We're done being collected, so we can remove ourselves from the
         // scene tree.
-        (output) => QueueFree()
+        output => QueueFree()
       );
   }
 

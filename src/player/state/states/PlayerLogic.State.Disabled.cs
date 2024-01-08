@@ -5,16 +5,16 @@ public partial class PlayerLogic {
     public record Disabled : State, IGet<Input.Enable> {
       public Disabled() {
         OnEnter<Disabled>(
-          (previous) => Context.Output(new Output.Animations.Idle())
+          previous => Context.Output(new Output.Animations.Idle())
         );
 
-        OnAttach(() => Get<IAppRepo>().GameStarting += OnGameAboutToStart);
-        OnDetach(() => Get<IAppRepo>().GameStarting -= OnGameAboutToStart);
+        OnAttach(() => Get<IAppRepo>().GameEntered += OnGameEntered);
+        OnDetach(() => Get<IAppRepo>().GameEntered -= OnGameEntered);
       }
 
       public IState On(Input.Enable input) => new Idle();
     }
 
-    public void OnGameAboutToStart() => Context.Input(new Input.Enable());
+    public void OnGameEntered() => Context.Input(new Input.Enable());
   }
 }

@@ -2,7 +2,8 @@ namespace GameDemo;
 
 public partial class CoinLogic {
   public partial record State {
-    public interface ICollecting : IState { }
+    public interface ICollecting : IState {
+    }
 
     public record Collecting : State, ICollecting, IGet<Input.PhysicsProcess> {
       public ICoinCollector Target { get; }
@@ -12,7 +13,7 @@ public partial class CoinLogic {
         Target = target;
 
         OnEnter<Collecting>(
-          (previous) => Get<IAppRepo>().StartCoinCollection(Get<ICoin>())
+          previous => Get<IGameRepo>().StartCoinCollection(Get<ICoin>())
         );
       }
 
@@ -26,9 +27,9 @@ public partial class CoinLogic {
           Context.Output(new Output.SelfDestruct());
 
           var coin = Context.Get<ICoin>();
-          var appRepo = Context.Get<IAppRepo>();
+          var gameRepo = Context.Get<IGameRepo>();
 
-          appRepo.OnFinishCoinCollection(coin);
+          gameRepo.OnFinishCoinCollection(coin);
         }
 
         var nextPosition = input.GlobalPosition.Lerp(

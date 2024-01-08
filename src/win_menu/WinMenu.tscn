@@ -1,0 +1,186 @@
+[gd_scene load_steps=15 format=3 uid="uid://bthdrw6580hll"]
+
+[ext_resource type="Script" path="res://src/win_menu/WinMenu.cs" id="1_ephor"]
+[ext_resource type="Shader" path="res://src/win_menu/fireworks.gdshader" id="1_m8kyu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6nh0u"]
+bg_color = Color(0, 0.815686, 1, 0.337255)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_beapk"]
+bg_color = Color(0, 0.483995, 0.598094, 0.337255)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="SystemFont" id="SystemFont_tfmt8"]
+subpixel_positioning = 0
+
+[sub_resource type="Theme" id="Theme_r7rsr"]
+default_font = SubResource("SystemFont_tfmt8")
+default_font_size = 24
+Button/styles/focus = SubResource("StyleBoxFlat_6nh0u")
+Button/styles/normal = SubResource("StyleBoxFlat_6nh0u")
+Button/styles/pressed = SubResource("StyleBoxFlat_beapk")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p6kuv"]
+shader = ExtResource("1_m8kyu")
+shader_parameter/TWOPI = 6.28319
+shader_parameter/NUM_EXPLOSIONS = 2.0
+shader_parameter/NUM_PARTICLES = 70.0
+shader_parameter/MOD3 = Vector3(0.1031, 0.11369, 0.13787)
+
+[sub_resource type="FontVariation" id="FontVariation_ps6b3"]
+variation_embolden = 0.54
+
+[sub_resource type="LabelSettings" id="LabelSettings_3oq1d"]
+font = SubResource("FontVariation_ps6b3")
+font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_1cpnb"]
+font_size = 36
+
+[sub_resource type="Animation" id="Animation_qq1c3"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_0rl87"]
+resource_name = "fade_in"
+length = 0.33
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33),
+"transitions": PackedFloat32Array(2.63902, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.33),
+"transitions": PackedFloat32Array(3.4822, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_lgj8v"]
+resource_name = "fade_out"
+length = 0.33
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33),
+"transitions": PackedFloat32Array(0.203063, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.33),
+"transitions": PackedFloat32Array(0.196146, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kxx0w"]
+_data = {
+"RESET": SubResource("Animation_qq1c3"),
+"fade_in": SubResource("Animation_0rl87"),
+"fade_out": SubResource("Animation_lgj8v")
+}
+
+[node name="WinMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_r7rsr")
+script = ExtResource("1_ephor")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_p6kuv")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 80
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 24
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "You won!"
+label_settings = SubResource("LabelSettings_3oq1d")
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "No more coins!"
+label_settings = SubResource("LabelSettings_1cpnb")
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 48
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="MainMenuButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Main Menu"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_kxx0w")
+}

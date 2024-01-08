@@ -5,9 +5,9 @@ public partial class AppLogic {
     public record MainMenu : State, IGet<Input.StartGame> {
       public MainMenu() {
         OnEnter<MainMenu>(
-          (previous) => {
-            Get<IAppRepo>().OnMainMenuEntered();
+          previous => {
             Context.Output(new Output.LoadGame());
+            Get<IAppRepo>().OnMainMenuEntered();
             Context.Output(new Output.ShowMainMenu());
           }
         );

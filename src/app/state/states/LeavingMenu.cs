@@ -5,12 +5,12 @@ public partial class AppLogic {
     public record LeavingMenu : State, IGet<Input.FadeOutFinished> {
       public LeavingMenu() {
         OnEnter<LeavingMenu>(
-          (previous) => Context.Output(new Output.FadeOut())
+          previous => Context.Output(new Output.FadeToBlack())
         );
       }
 
       public IState On(Input.FadeOutFinished input) =>
-        new PlayingGame();
+        new InGame();
     }
   }
 }

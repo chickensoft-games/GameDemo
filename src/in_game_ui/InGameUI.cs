@@ -15,45 +15,50 @@ public partial class InGameUI : Control, IInGameUI {
   public override partial void _Notification(int what);
 
   #region Dependencies
-  [Dependency]
-  public IAppRepo AppRepo => DependOn<IAppRepo>();
+
+  [Dependency] public IAppRepo AppRepo => DependOn<IAppRepo>();
+  [Dependency] public IGameRepo GameRepo => DependOn<IGameRepo>();
+
   #endregion Dependencies
 
   #region Nodes
-  [Node]
-  public ILabel CoinsLabel { get; set; } = default!;
+
+  [Node] public ILabel CoinsLabel { get; set; } = default!;
+
   #endregion Nodes
 
   #region State
+
   public IInGameUILogic InGameUILogic { get; set; } = default!;
+
   public InGameUILogic.IBinding InGameUIBinding { get; set; } = default!;
+
   #endregion State
 
-  public void Setup() {
-    InGameUILogic = new InGameUILogic(this, AppRepo);
-  }
+  public void Setup() =>
+    InGameUILogic = new InGameUILogic(this, AppRepo, GameRepo);
 
   public void OnResolved() {
     InGameUIBinding = InGameUILogic.Bind();
 
+    // TODO: Move the access to the game repo to the state machine.
+
     InGameUIBinding
       .Handle<InGameUILogic.Output.NumCoinsCollectedChanged>(
-        (output) => SetCoinsLabel(
-          output.NumCoinsCollected, AppRepo.NumCoinsAtStart.Value
+        output => SetCoinsLabel(
+          output.NumCoinsCollected, GameRepo.NumCoinsAtStart.Value
         )
       )
       .Handle<InGameUILogic.Output.NumCoinsAtStartChanged>(
-        (output) => SetCoinsLabel(
-          AppRepo.NumCoinsCollected.Value, output.NumCoinsAtStart
+        output => SetCoinsLabel(
+          GameRepo.NumCoinsCollected.Value, output.NumCoinsAtStart
         )
       );
 
     InGameUILogic.Start();
   }
 
-  public void SetCoinsLabel(int coins, int totalCoins) {
-    CoinsLabel.Text = $"{coins}/{totalCoins}";
-  }
+  public void SetCoinsLabel(int coins, int totalCoins) => CoinsLabel.Text = $"{coins}/{totalCoins}";
 
   public void OnExitTree() {
     InGameUILogic.Stop();

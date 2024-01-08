@@ -9,9 +9,11 @@ using Shouldly;
 
 public class InGameUITest : TestClass {
   private Mock<IAppRepo> _appRepo = default!;
+  private Mock<IGameRepo> _gameRepo = default!;
   private Mock<ILabel> _coinsLabel = default!;
   private Mock<IInGameUILogic> _logic = default!;
   private InGameUILogic.IFakeBinding _binding = default!;
+
   private InGameUI _ui = default!;
 
   public InGameUITest(Node testScene) : base(testScene) { }
@@ -19,6 +21,7 @@ public class InGameUITest : TestClass {
   [Setup]
   public void Setup() {
     _appRepo = new();
+    _gameRepo = new();
     _coinsLabel = new();
     _logic = new();
 
@@ -33,6 +36,7 @@ public class InGameUITest : TestClass {
     };
 
     _ui.FakeDependency(_appRepo.Object);
+    _ui.FakeDependency(_gameRepo.Object);
   }
 
   [Test]
@@ -58,7 +62,7 @@ public class InGameUITest : TestClass {
     _ui.OnResolved();
 
     var numCoinsAtStart = new AutoProp<int>(2);
-    _appRepo.Setup(repo => repo.NumCoinsAtStart).Returns(numCoinsAtStart);
+    _gameRepo.Setup(repo => repo.NumCoinsAtStart).Returns(numCoinsAtStart);
 
     _coinsLabel.SetupSet(label => label.Text = "1/2");
 
@@ -74,7 +78,7 @@ public class InGameUITest : TestClass {
     _ui.OnResolved();
 
     var numCoinsCollected = new AutoProp<int>(1);
-    _appRepo.Setup(repo => repo.NumCoinsCollected).Returns(numCoinsCollected);
+    _gameRepo.Setup(repo => repo.NumCoinsCollected).Returns(numCoinsCollected);
 
     _coinsLabel.SetupSet(label => label.Text = "1/2");
 

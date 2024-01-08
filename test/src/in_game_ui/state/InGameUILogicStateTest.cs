@@ -11,6 +11,7 @@ public class InGameUILogicStateTest : TestClass {
   private IFakeContext _context = default!;
   private Mock<IInGameUI> _inGameUi = default!;
   private Mock<IAppRepo> _appRepo = default!;
+  private Mock<IGameRepo> _gameRepo = default!;
   private InGameUILogic.State _state = default!;
 
   public InGameUILogicStateTest(Node testScene) : base(testScene) { }
@@ -19,36 +20,39 @@ public class InGameUILogicStateTest : TestClass {
   public void Setup() {
     _inGameUi = new Mock<IInGameUI>();
     _appRepo = new Mock<IAppRepo>();
+    _gameRepo = new Mock<IGameRepo>();
 
     _state = new InGameUILogic.State();
     _context = _state.CreateFakeContext();
 
     _context.Set(_inGameUi.Object);
     _context.Set(_appRepo.Object);
+    _context.Set(_gameRepo.Object);
   }
 
   [Test]
-  public void EntersAndExits() {
+  public void Subscribes() {
     var numCoinsCollected = new Mock<IAutoProp<int>>();
     var numCoinsAtStart = new Mock<IAutoProp<int>>();
 
-    _appRepo.Setup(repo => repo.NumCoinsCollected)
+    _gameRepo.Setup(repo => repo.NumCoinsCollected)
       .Returns(numCoinsCollected.Object);
-    _appRepo.Setup(repo => repo.NumCoinsAtStart)
+    _gameRepo.Setup(repo => repo.NumCoinsAtStart)
       .Returns(numCoinsAtStart.Object);
 
     _state.Attach(_context);
 
-    _appRepo
+    _gameRepo
       .VerifyAdd(x => x.NumCoinsCollected.Sync += _state.OnNumCoinsCollected);
-    _appRepo
+    _gameRepo
       .VerifyAdd(x => x.NumCoinsAtStart.Sync += _state.OnNumCoinsAtStart);
 
     _state.Detach();
 
-    _appRepo
-      .VerifyRemove(x => x.NumCoinsCollected.Sync -= _state.OnNumCoinsCollected);
-    _appRepo
+    _gameRepo
+      .VerifyRemove(x =>
+        x.NumCoinsCollected.Sync -= _state.OnNumCoinsCollected);
+    _gameRepo
       .VerifyRemove(x => x.NumCoinsAtStart.Sync -= _state.OnNumCoinsAtStart);
   }
 
