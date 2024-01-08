@@ -135,7 +135,6 @@ public class PlayerTest : TestClass {
   public void IsMovingChecks() {
     _player.Velocity = Vector3.Forward * 10;
     _player.IsMovingHorizontally().ShouldBe(true);
-    _player.IsStopped().ShouldBe(false);
   }
 
   [Test]
@@ -179,18 +178,5 @@ public class PlayerTest : TestClass {
     );
 
     _player.Velocity.ShouldBe(Vector3.Forward);
-  }
-
-  [Test]
-  public void SaveData() {
-    _player.SaveId.ShouldBeOfType<string>();
-    _player.GetSaveData().ShouldBeOfType<PlayerData>();
-    _player.RestoreSaveData(
-      new PlayerData(
-        Transform3D.Identity,
-        Vector3.Zero,
-        new PlayerLogic.State.Idle()
-      )
-    );
   }
 }

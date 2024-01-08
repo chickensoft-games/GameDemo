@@ -21,8 +21,9 @@ public partial class CoinTest : TestClass {
   private Mock<INode3D> _coinModel = default!;
   private Mock<ICoinLogic> _logic = default!;
 
-  private Logic<CoinLogic.IState, Func<object, CoinLogic.IState>, CoinLogic.IState,
-    Action<CoinLogic.IState?>>.IFakeBinding _binding = default!;
+  private Logic<CoinLogic.IState, Func<object, CoinLogic.IState>,
+    CoinLogic.IState, Action<CoinLogic.IState?>>.IFakeBinding _binding =
+    default!;
 
   private Coin _coin = default!;
 
@@ -50,7 +51,8 @@ public partial class CoinTest : TestClass {
 
     // For tests that run in the actual node tree.
     _coin.FakeNodeTree(new() {
-      ["%AnimationPlayer"] = _animPlayer.Object, ["%CoinModel"] = _coinModel.Object
+      ["%AnimationPlayer"] = _animPlayer.Object,
+      ["%CoinModel"] = _coinModel.Object
     });
   }
 
@@ -129,14 +131,5 @@ public partial class CoinTest : TestClass {
     _coin.IsQueuedForDeletion().ShouldBeTrue();
 
     await fixture.Cleanup();
-  }
-
-  [Test]
-  public void SaveData() {
-    _coin.SaveId.ShouldBeOfType<string>();
-    _coin.GetSaveData().ShouldBeOfType<CoinData>();
-    _coin.RestoreSaveData(
-      new CoinData("name", Transform3D.Identity, new CoinLogic.State.Idle())
-    );
   }
 }

@@ -16,8 +16,9 @@ public class GameTest : TestClass {
   private Mock<IGameRepo> _gameRepo = default!;
   private Mock<IGameLogic> _logic = default!;
 
-  private Logic<GameLogic.IState, Func<object, GameLogic.IState>, GameLogic.IState,
-    Action<GameLogic.IState?>>.IFakeBinding _binding = default!;
+  private Logic<GameLogic.IState, Func<object, GameLogic.IState>,
+    GameLogic.IState, Action<GameLogic.IState?>>.IFakeBinding _binding =
+    default!;
 
   private Mock<IPlayerCamera> _playerCam = default!;
   private Mock<IPlayer> _player = default!;
@@ -89,7 +90,6 @@ public class GameTest : TestClass {
     // Make sure the game provided its dependencies.
     _game.ProviderState.IsInitialized.ShouldBeTrue();
     ((IProvide<IGameRepo>)_game).Value().ShouldNotBeNull();
-    ((IProvide<IGameSaveSystem>)_game).Value().ShouldNotBeNull();
   }
 
   [Test]

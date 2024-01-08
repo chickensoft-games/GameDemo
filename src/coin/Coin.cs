@@ -8,7 +8,7 @@ using Chickensoft.PowerUps;
 using Godot;
 using SuperNodes.Types;
 
-public interface ICoin : INode3D, ISave<CoinData> {
+public interface ICoin : INode3D {
 }
 
 [SuperNode(typeof(AutoNode), typeof(Dependent))]
@@ -39,21 +39,11 @@ public partial class Coin : Node3D, ICoin {
   public ICoinLogic CoinLogic { get; set; } = default!;
   public CoinLogic.Settings Settings { get; set; } = default!;
 
-  public Logic<CoinLogic.IState, Func<object, CoinLogic.IState>, CoinLogic.IState, Action<CoinLogic.IState?>>.IBinding
+  public Logic<CoinLogic.IState, Func<object, CoinLogic.IState>,
+      CoinLogic.IState, Action<CoinLogic.IState?>>.IBinding
     CoinBinding { get; set; } = default!;
 
   #endregion State
-
-  #region Save
-
-  // Name is unique and stable among all coin siblings, so we can use it as the
-  // save id.
-  public string SaveId => Name;
-  public CoinData GetSaveData() => new(Name, GlobalTransform, CoinLogic.Value);
-  public void RestoreSaveData(CoinData data) => GlobalTransform = data.Transform;
-  // Todo: restore state
-
-  #endregion Save
 
   #region PackedScenes
 

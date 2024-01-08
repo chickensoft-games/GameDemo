@@ -8,8 +8,7 @@ using Chickensoft.PowerUps;
 using Godot;
 using SuperNodes.Types;
 
-public interface IGame :
-  INode3D, IProvide<IGameRepo>, IProvide<IGameSaveSystem>;
+public interface IGame : INode3D, IProvide<IGameRepo>;
 
 [SuperNode(typeof(Provider), typeof(Dependent), typeof(AutoNode))]
 public partial class Game : Node3D, IGame {
@@ -20,8 +19,8 @@ public partial class Game : Node3D, IGame {
   public IGameRepo GameRepo { get; set; } = default!;
   public IGameLogic GameLogic { get; set; } = default!;
 
-  public Logic<GameLogic.IState, Func<object, GameLogic.IState>, GameLogic.IState,
-      Action<GameLogic.IState?>>.IBinding
+  public Logic<GameLogic.IState, Func<object, GameLogic.IState>,
+      GameLogic.IState, Action<GameLogic.IState?>>.IBinding
     GameBinding { get; set; } = default!;
 
   #endregion State
@@ -43,16 +42,8 @@ public partial class Game : Node3D, IGame {
   #region Provisions
 
   IGameRepo IProvide<IGameRepo>.Value() => GameRepo;
-  IGameSaveSystem IProvide<IGameSaveSystem>.Value() => GameSaveSystem;
 
   #endregion Provisions
-
-  #region Save
-
-  public IGameSaveSerializer GameSaveSerializer { get; set; } = default!;
-  public IGameSaveSystem GameSaveSystem { get; set; } = default!;
-
-  #endregion Save
 
   #region Dependencies
 
@@ -63,8 +54,6 @@ public partial class Game : Node3D, IGame {
   public void Setup() {
     GameRepo = new GameRepo();
     GameLogic = new GameLogic(GameRepo, AppRepo);
-    GameSaveSerializer = new GameSaveSerializer();
-    GameSaveSystem = new GameSaveSystem(GameSaveSerializer);
 
     DeathMenu.TryAgain += OnStart;
     DeathMenu.MainMenu += OnMainMenu;
@@ -142,7 +131,8 @@ public partial class Game : Node3D, IGame {
     }
   }
 
-  public void OnMainMenu() => GameLogic.Input(new GameLogic.Input.GoToMainMenu());
+  public void OnMainMenu() =>
+    GameLogic.Input(new GameLogic.Input.GoToMainMenu());
 
   public void OnResume() =>
     GameLogic.Input(new GameLogic.Input.PauseButtonPressed());
