@@ -91,6 +91,10 @@ Since we're using [LogicBlocks], here's some of the more interesting state diagr
 
 ![Application State Diagram](docs/app.png)
 
+### Game State
+
+![Game State Diagram](docs/game.png)
+
 ### Player State
 
 ![Player State Diagram](docs/player.png)
@@ -102,10 +106,6 @@ Since we're using [LogicBlocks], here's some of the more interesting state diagr
 ### Jumpshroom State
 
 ![Jumpshroom State Diagram](docs/jumpshroom.png)
-
-### Game State
-
-![Game State Diagram](docs/game.png)
 
 ---
 
