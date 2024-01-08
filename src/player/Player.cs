@@ -1,10 +1,8 @@
 namespace GameDemo;
 
-using System;
 using System.Runtime.CompilerServices;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.LogicBlocks;
 using Chickensoft.PowerUps;
 using Godot;
 using SuperNodes.Types;
@@ -94,11 +92,7 @@ public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
   public IPlayerLogic PlayerLogic { get; set; } = default!;
   public PlayerLogic.Settings Settings { get; set; } = default!;
 
-  public Logic<PlayerLogic.IState, Func<object, PlayerLogic.IState>,
-    PlayerLogic.IState, Action<PlayerLogic.IState?>>.IBinding PlayerBinding {
-    get;
-    set;
-  } = default!;
+  public PlayerLogic.IBinding PlayerBinding { get; set; } = default!;
 
   #endregion State
 

@@ -1,10 +1,8 @@
 namespace GameDemo.Tests;
 
-using System;
 using System.Threading.Tasks;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
-using Chickensoft.LogicBlocks;
 using Godot;
 using GodotTestDriver;
 using Moq;
@@ -21,9 +19,7 @@ public partial class CoinTest : TestClass {
   private Mock<INode3D> _coinModel = default!;
   private Mock<ICoinLogic> _logic = default!;
 
-  private Logic<CoinLogic.IState, Func<object, CoinLogic.IState>,
-    CoinLogic.IState, Action<CoinLogic.IState?>>.IFakeBinding _binding =
-    default!;
+  private CoinLogic.IFakeBinding _binding = default!;
 
   private Coin _coin = default!;
 

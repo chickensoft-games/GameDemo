@@ -1,10 +1,8 @@
 namespace GameDemo.Tests;
 
-using System;
 using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.GoDotTest;
-using Chickensoft.LogicBlocks;
 using Godot;
 using GodotTestDriver;
 using Moq;
@@ -16,9 +14,7 @@ public class GameTest : TestClass {
   private Mock<IGameRepo> _gameRepo = default!;
   private Mock<IGameLogic> _logic = default!;
 
-  private Logic<GameLogic.IState, Func<object, GameLogic.IState>,
-    GameLogic.IState, Action<GameLogic.IState?>>.IFakeBinding _binding =
-    default!;
+  private GameLogic.IFakeBinding _binding = default!;
 
   private Mock<IPlayerCamera> _playerCam = default!;
   private Mock<IPlayer> _player = default!;

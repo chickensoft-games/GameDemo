@@ -1,9 +1,7 @@
 namespace GameDemo;
 
-using System;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.LogicBlocks;
 using Chickensoft.PowerUps;
 using Godot;
 using SuperNodes.Types;
@@ -35,8 +33,7 @@ public partial class InGameAudio : Node {
 
   public IInGameAudioLogic InGameAudioLogic { get; set; } = default!;
 
-  public Logic<InGameAudioLogic.IState, Func<object, InGameAudioLogic.IState>, InGameAudioLogic.IState,
-    Action<InGameAudioLogic.IState?>>.IBinding InGameAudioBinding { get; set; } = default!;
+  public InGameAudioLogic.IBinding InGameAudioBinding { get; set; } = default!;
 
   #endregion State
 

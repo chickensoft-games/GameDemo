@@ -1,10 +1,8 @@
 namespace GameDemo.Tests;
 
-using System;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
@@ -14,9 +12,7 @@ public class AppTest : TestClass {
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IAppLogic> _logic = default!;
 
-  private Logic<AppLogic.IState, Func<object, AppLogic.IState>, AppLogic.IState,
-      Action<AppLogic.IState?>>.IFakeBinding
-    _binding = default!;
+  private AppLogic.IFakeBinding _binding = default!;
 
   private Mock<IInstantiator> _instantiator = default!;
   private Mock<IGame> _game = default!;

@@ -1,10 +1,8 @@
 namespace GameDemo.Tests;
 
-using System;
 using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.GoDotTest;
-using Chickensoft.LogicBlocks;
 using Godot;
 using GodotTestDriver;
 using Moq;
@@ -16,9 +14,7 @@ public class PlayerTest : TestClass {
   private Mock<IGameRepo> _gameRepo = default!;
   private Mock<IPlayerLogic> _logic = default!;
 
-  private Logic<PlayerLogic.IState, Func<object, PlayerLogic.IState>,
-    PlayerLogic.IState, Action<PlayerLogic.IState?>>.IFakeBinding _binding =
-    default!;
+  private PlayerLogic.IFakeBinding _binding = default!;
 
   private PlayerLogic.Settings _settings = default!;
   private Player _player = default!;

@@ -1,9 +1,7 @@
 namespace GameDemo;
 
-using System;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.LogicBlocks;
 using Chickensoft.PowerUps;
 using Godot;
 using SuperNodes.Types;
@@ -69,12 +67,7 @@ public partial class PlayerCamera : Node3D, IPlayerCamera {
 
   public IPlayerCameraLogic CameraLogic { get; set; } = default!;
 
-  public Logic<PlayerCameraLogic.IState, Func<object, PlayerCameraLogic.IState>,
-      PlayerCameraLogic.IState, Action<PlayerCameraLogic.IState?>>.IBinding
-    CameraBinding {
-    get;
-    set;
-  } = default!;
+  public PlayerCameraLogic.IBinding CameraBinding { get; set; } = default!;
 
   #endregion State
 

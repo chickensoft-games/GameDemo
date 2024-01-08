@@ -1,9 +1,7 @@
 namespace GameDemo;
 
-using System;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.LogicBlocks;
 using Chickensoft.PowerUps;
 using Godot;
 using SuperNodes.Types;
@@ -38,9 +36,7 @@ public partial class App : CanvasLayer, IApp {
   public IAppRepo AppRepo { get; set; } = default!;
   public IAppLogic AppLogic { get; set; } = default!;
 
-  public Logic<AppLogic.IState, Func<object, AppLogic.IState>, AppLogic.IState,
-      Action<AppLogic.IState?>>.IBinding
-    AppBinding { get; set; } = default!;
+  public AppLogic.IBinding AppBinding { get; set; } = default!;
 
   #endregion State
 
@@ -105,9 +101,7 @@ public partial class App : CanvasLayer, IApp {
         HideMenus();
         FadeInFromBlack();
       })
-      .Handle<AppLogic.Output.HideGame>(_ => {
-        FadeToBlack();
-      });
+      .Handle<AppLogic.Output.HideGame>(_ => FadeToBlack());
 
     // Enter the first state to kick off the binding side effects.
     AppLogic.Start();

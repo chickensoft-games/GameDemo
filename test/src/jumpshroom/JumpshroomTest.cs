@@ -1,9 +1,7 @@
 namespace GameDemo.Tests;
 
-using System;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
@@ -13,9 +11,7 @@ public partial class JumpshroomTest : TestClass {
     public void Push(Vector3 force) { }
   }
 
-  private Logic<JumpshroomLogic.IState, Func<object, JumpshroomLogic.IState>,
-      JumpshroomLogic.IState, Action<JumpshroomLogic.IState?>>.IFakeBinding
-    _binding = default!;
+  private JumpshroomLogic.IFakeBinding _binding = default!;
 
   private Mock<IJumpshroomLogic> _logic = default!;
   private Mock<IGameRepo> _gameRepo = default!;

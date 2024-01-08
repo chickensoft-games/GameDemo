@@ -1,15 +1,12 @@
 namespace GameDemo;
 
-using System;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.LogicBlocks;
 using Chickensoft.PowerUps;
 using Godot;
 using SuperNodes.Types;
 
-public interface ICoin : INode3D {
-}
+public interface ICoin : INode3D;
 
 [SuperNode(typeof(AutoNode), typeof(Dependent))]
 public partial class Coin : Node3D, ICoin {
@@ -39,9 +36,7 @@ public partial class Coin : Node3D, ICoin {
   public ICoinLogic CoinLogic { get; set; } = default!;
   public CoinLogic.Settings Settings { get; set; } = default!;
 
-  public Logic<CoinLogic.IState, Func<object, CoinLogic.IState>,
-      CoinLogic.IState, Action<CoinLogic.IState?>>.IBinding
-    CoinBinding { get; set; } = default!;
+  public CoinLogic.IBinding CoinBinding { get; set; } = default!;
 
   #endregion State
 

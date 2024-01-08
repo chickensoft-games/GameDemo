@@ -1,9 +1,7 @@
 namespace GameDemo;
 
-using System;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.LogicBlocks;
 using Chickensoft.PowerUps;
 using Godot;
 using SuperNodes.Types;
@@ -30,8 +28,7 @@ public partial class Jumpshroom : Node3D {
 
   public IJumpshroomLogic JumpshroomLogic { get; set; } = default!;
 
-  public Logic<JumpshroomLogic.IState, Func<object, JumpshroomLogic.IState>, JumpshroomLogic.IState,
-    Action<JumpshroomLogic.IState?>>.IBinding JumpshroomBinding { get; set; }
+  public JumpshroomLogic.IBinding JumpshroomBinding { get; set; }
     = default!;
 
   [Export(PropertyHint.Range, "1,100,0.5")]

@@ -1,9 +1,7 @@
 namespace GameDemo.Tests;
 
-using System;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
@@ -13,9 +11,7 @@ public class InGameAudioTest : TestClass {
   private Mock<IGameRepo> _gameRepo = default!;
   private Mock<IInGameAudioLogic> _logic = default!;
 
-  private Logic<InGameAudioLogic.IState, Func<object, InGameAudioLogic.IState>,
-      InGameAudioLogic.IState, Action<InGameAudioLogic.IState?>>.IFakeBinding
-    _binding = default!;
+  private InGameAudioLogic.IFakeBinding _binding = default!;
 
   private Mock<IAudioStreamPlayer> _coinCollected = default!;
   private Mock<IAudioStreamPlayer> _bounce = default!;

@@ -1,9 +1,7 @@
 namespace GameDemo;
 
-using System;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.LogicBlocks;
 using Chickensoft.PowerUps;
 using Godot;
 using SuperNodes.Types;
@@ -19,9 +17,7 @@ public partial class Game : Node3D, IGame {
   public IGameRepo GameRepo { get; set; } = default!;
   public IGameLogic GameLogic { get; set; } = default!;
 
-  public Logic<GameLogic.IState, Func<object, GameLogic.IState>,
-      GameLogic.IState, Action<GameLogic.IState?>>.IBinding
-    GameBinding { get; set; } = default!;
+  public GameLogic.IBinding GameBinding { get; set; } = default!;
 
   #endregion State
 
@@ -95,9 +91,7 @@ public partial class Game : Node3D, IGame {
         DeathMenu.FadeIn();
         DeathMenu.Animate();
       })
-      .Handle<GameLogic.Output.ExitLostScreen>(_ => {
-        DeathMenu.FadeOut();
-      })
+      .Handle<GameLogic.Output.ExitLostScreen>(_ => DeathMenu.FadeOut())
       .Handle<GameLogic.Output.ShowPauseMenu>(_ => {
         PauseMenu.Show();
         PauseMenu.FadeIn();

@@ -1,10 +1,8 @@
 namespace GameDemo.Tests;
 
-using System;
 using Chickensoft.GoDotCollections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
@@ -14,10 +12,7 @@ public class InGameUITest : TestClass {
   private Mock<IGameRepo> _gameRepo = default!;
   private Mock<ILabel> _coinsLabel = default!;
   private Mock<IInGameUILogic> _logic = default!;
-
-  private Logic<InGameUILogic.IState, Func<object, InGameUILogic.IState>,
-    InGameUILogic.IState, Action<InGameUILogic.IState?>>.IFakeBinding _binding =
-    default!;
+  private InGameUILogic.IFakeBinding _binding = default!;
 
   private InGameUI _ui = default!;
 
@@ -36,7 +31,8 @@ public class InGameUITest : TestClass {
     _logic.Setup(logic => logic.Start());
 
     _ui = new() {
-      CoinsLabel = _coinsLabel.Object, InGameUILogic = _logic.Object
+      CoinsLabel = _coinsLabel.Object,
+      InGameUILogic = _logic.Object
     };
 
     _ui.FakeDependency(_appRepo.Object);

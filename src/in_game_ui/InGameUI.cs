@@ -1,9 +1,7 @@
 namespace GameDemo;
 
-using System;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.LogicBlocks;
 using Chickensoft.PowerUps;
 using Godot;
 using SuperNodes.Types;
@@ -33,8 +31,7 @@ public partial class InGameUI : Control, IInGameUI {
 
   public IInGameUILogic InGameUILogic { get; set; } = default!;
 
-  public Logic<InGameUILogic.IState, Func<object, InGameUILogic.IState>, InGameUILogic.IState,
-    Action<InGameUILogic.IState?>>.IBinding InGameUIBinding { get; set; } = default!;
+  public InGameUILogic.IBinding InGameUIBinding { get; set; } = default!;
 
   #endregion State
 
