@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.GoDotTest;
 using Godot;
-using GodotTestDriver;
+using Chickensoft.GodotTestDriver;
 using Moq;
 using Shouldly;
 

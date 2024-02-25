@@ -1,11 +1,12 @@
 namespace GameDemo;
 
-using System.Runtime.CompilerServices;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.PowerUps;
 using Godot;
 using SuperNodes.Types;
+
+using Compiler = System.Runtime.CompilerServices;
 
 public interface IPlayer :
   ICharacterBody3D, IKillable, ICoinCollector, IPushEnabled {
@@ -44,10 +45,10 @@ public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
 
   #region Dependencies
 
-  [Chickensoft.AutoInject.Dependency]
+  [Dependency]
   public IGameRepo GameRepo => DependOn<IGameRepo>();
 
-  [Chickensoft.AutoInject.Dependency]
+  [Dependency]
   public IAppRepo AppRepo => DependOn<IAppRepo>();
 
   #endregion Dependencies
@@ -199,9 +200,7 @@ public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
     ).Scaled(scale);
   }
 
-  [MethodImpl(
-    MethodImplOptions.AggressiveInlining
-  )]
+  [Compiler.MethodImpl(Compiler.MethodImplOptions.AggressiveInlining)]
   public bool IsMovingHorizontally() => (Velocity with { Y = 0f }).Length() >
                                         Settings.StoppingSpeed;
 

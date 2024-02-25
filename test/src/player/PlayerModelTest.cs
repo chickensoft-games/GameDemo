@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
 using Godot;
-using GodotTestDriver;
-using GodotTestDriver.Util;
+using Chickensoft.GodotTestDriver;
+using Chickensoft.GodotTestDriver.Util;
 using Moq;
 using Shouldly;
 
