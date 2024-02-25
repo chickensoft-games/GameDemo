@@ -3,8 +3,8 @@ namespace GameDemo.Tests;
 using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.GoDotTest;
+using Chickensoft.GodotTestDriver;
 using Godot;
-using GodotTestDriver;
 using Moq;
 using Shouldly;
 

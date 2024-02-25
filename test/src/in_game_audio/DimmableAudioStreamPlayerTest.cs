@@ -2,8 +2,8 @@ namespace GameDemo.Tests;
 
 using System.Threading.Tasks;
 using Chickensoft.GoDotTest;
+using Chickensoft.GodotTestDriver;
 using Godot;
-using GodotTestDriver;
 using Shouldly;
 
 public class DimmableAudioStreamPlayerTest : TestClass {
