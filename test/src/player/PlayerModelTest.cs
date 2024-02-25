@@ -3,9 +3,9 @@ namespace GameDemo.Tests;
 using System.Threading.Tasks;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
-using Godot;
 using Chickensoft.GodotTestDriver;
 using Chickensoft.GodotTestDriver.Util;
+using Godot;
 using Moq;
 using Shouldly;
 
