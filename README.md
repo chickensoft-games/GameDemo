@@ -4,6 +4,9 @@
 
 The Chickensoft Game Demo — a fully tested, third-person 3D game built with Godot and C#.
 
+> [!IMPORTANT]
+> Be sure to run [`git lfs pull`][lfs] to resolve the binary files.
+
 ---
 
 <p align="center">
@@ -138,3 +141,4 @@ Since we're using [LogicBlocks], here's some of the more interesting state diagr
 [GoDotCollections]: https://github.com/chickensoft-games/GoDotCollections
 [EditorConfig]: https://github.com/chickensoft-games/EditorConfig
 [game-arch]: https://chickensoft.games/blog/game-architecture
+[lfs]: https://git-lfs.com/
