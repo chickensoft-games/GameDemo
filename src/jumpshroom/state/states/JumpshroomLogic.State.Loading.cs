@@ -10,15 +10,14 @@ public partial class JumpshroomLogic : LogicBlock<JumpshroomLogic.IState> {
       public Loading(IPushEnabled target) {
         Target = target;
 
-        OnEnter<Loading>(previous => {
+        this.OnEnter(() => {
           Get<IGameRepo>().OnJumpshroomUsed();
-          Context.Output(new Output.Animate());
+          Output(new Output.Animate());
         });
       }
 
       // Springy top is fully compressed, so it is ready to launch.
-      public IState On(Input.Launch input) =>
-        new Launching(Target);
+      public IState On(in Input.Launch input) => new Launching(Target);
     }
   }
 }

@@ -12,12 +12,12 @@ public partial class JumpshroomLogic : LogicBlock<JumpshroomLogic.IState> {
 
         // We are colliding with something we can push at the moment of
         // launch, so push it.
-        OnEnter<Launching>(
-          (previous) => Target.Push(Vector3.Up * Get<Data>().ImpulseStrength)
+        this.OnEnter(
+          () => Target.Push(Vector3.Up * Get<Data>().ImpulseStrength)
         );
       }
 
-      public IState On(Input.LaunchCompleted input) => new Cooldown();
+      public IState On(in Input.LaunchCompleted input) => new Cooldown();
     }
   }
 }

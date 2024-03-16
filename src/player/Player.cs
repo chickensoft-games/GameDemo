@@ -131,14 +131,12 @@ public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
     GameRepo.SetPlayerGlobalPosition(GlobalPosition);
 
     PlayerBinding
-      .Handle<PlayerLogic.Output.MovementComputed>(
-        output => {
-          Transform = Transform with { Basis = output.Rotation };
-          Velocity = output.Velocity;
-        }
-      )
-      .Handle<PlayerLogic.Output.VelocityChanged>(
-        output => Velocity = output.Velocity
+      .Handle((in PlayerLogic.Output.MovementComputed output) => {
+        Transform = Transform with { Basis = output.Rotation };
+        Velocity = output.Velocity;
+      })
+      .Handle((in PlayerLogic.Output.VelocityChanged output) =>
+        Velocity = output.Velocity
       );
 
     PlayerLogic.Start();

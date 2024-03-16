@@ -64,11 +64,13 @@ public partial class Jumpshroom : Node3D {
     CooldownTimer.Timeout += OnCooldownTimeout;
 
     JumpshroomBinding
-      .Handle<JumpshroomLogic.Output.Animate>(
-        output => AnimationPlayer.Play("bounce")
+      .Handle(
+        (in JumpshroomLogic.Output.Animate output) =>
+          AnimationPlayer.Play("bounce")
       )
-      .Handle<JumpshroomLogic.Output.StartCooldownTimer>(
-        output => CooldownTimer.Start()
+      .Handle(
+        (in JumpshroomLogic.Output.StartCooldownTimer output) =>
+          CooldownTimer.Start()
       );
   }
 

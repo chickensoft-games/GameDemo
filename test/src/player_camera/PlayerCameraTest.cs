@@ -67,7 +67,9 @@ public class PlayerCameraTest : TestClass {
     _logic.Reset();
 
     _logic.Setup(
-      logic => logic.Input(It.IsAny<PlayerCameraLogic.Input.PhysicsTicked>())
+      logic => logic.Input(
+        in It.Ref<PlayerCameraLogic.Input.PhysicsTicked>.IsAny
+      )
     );
     _playerCam.OnPhysicsProcess(1d);
 
@@ -81,7 +83,7 @@ public class PlayerCameraTest : TestClass {
     var motion = new InputEventMouseMotion();
     _logic.Setup(
       logic => logic.Input(
-        It.IsAny<PlayerCameraLogic.Input.MouseInputOccurred>()
+        in It.Ref<PlayerCameraLogic.Input.MouseInputOccurred>.IsAny
       )
     );
 

@@ -5,7 +5,7 @@ using Chickensoft.LogicBlocks.Generator;
 
 public interface IInGameAudioLogic : ILogicBlock<InGameAudioLogic.IState>;
 
-[StateMachine]
+[StateDiagram(typeof(State))]
 public partial class InGameAudioLogic :
   LogicBlock<InGameAudioLogic.IState>, IInGameAudioLogic {
   public override IState GetInitialState() => new State();

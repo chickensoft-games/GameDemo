@@ -1,5 +1,7 @@
 namespace GameDemo;
 
+using Chickensoft.LogicBlocks;
+
 public partial class CoinLogic {
   public partial record State {
     public interface ICollecting : IState {
@@ -12,22 +14,20 @@ public partial class CoinLogic {
       public Collecting(ICoinCollector target) {
         Target = target;
 
-        OnEnter<Collecting>(
-          previous => Get<IGameRepo>().StartCoinCollection(Get<ICoin>())
-        );
+        this.OnEnter(() => Get<IGameRepo>().StartCoinCollection(Get<ICoin>()));
       }
 
-      public IState On(Input.PhysicsProcess input) {
-        var settings = Context.Get<Settings>();
+      public IState On(in Input.PhysicsProcess input) {
+        var settings = Get<Settings>();
         var collectionTime = settings.CollectionTimeInSeconds;
 
         _elapsedTime += (float)input.Delta;
 
         if (_elapsedTime >= collectionTime) {
-          Context.Output(new Output.SelfDestruct());
+          Output(new Output.SelfDestruct());
 
-          var coin = Context.Get<ICoin>();
-          var gameRepo = Context.Get<IGameRepo>();
+          var coin = Get<ICoin>();
+          var gameRepo = Get<IGameRepo>();
 
           gameRepo.OnFinishCoinCollection(coin);
         }
@@ -36,7 +36,7 @@ public partial class CoinLogic {
           Target.CenterOfMass, (float)(_elapsedTime / collectionTime)
         );
 
-        Context.Output(new Output.Move(nextPosition));
+        Output(new Output.Move(nextPosition));
         return this;
       }
     }

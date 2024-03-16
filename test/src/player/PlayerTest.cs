@@ -86,17 +86,19 @@ public class PlayerTest : TestClass {
 
     _player.OnPhysicsProcess(1d);
 
-    _logic.Verify(logic => logic.Input(It.IsAny<PlayerLogic.Input.Jump>()));
+    _logic.Verify(
+      logic => logic.Input(in It.Ref<PlayerLogic.Input.Jump>.IsAny)
+    );
   }
 
   [Test]
   public void OnPhysicsProcess() {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(It.IsAny<PlayerLogic.Input.PhysicsTick>())
+      logic => logic.Input(in It.Ref<PlayerLogic.Input.PhysicsTick>.IsAny)
     );
     _logic.Setup(
-      logic => logic.Input(It.IsAny<PlayerLogic.Input.Moved>())
+      logic => logic.Input(in It.Ref<PlayerLogic.Input.Moved>.IsAny)
     );
 
     _player.OnPhysicsProcess(1d);
@@ -136,7 +138,9 @@ public class PlayerTest : TestClass {
   [Test]
   public void Pushed() {
     _logic.Reset();
-    _logic.Setup(logic => logic.Input(It.IsAny<PlayerLogic.Input.Pushed>()));
+    _logic.Setup(
+      logic => logic.Input(in It.Ref<PlayerLogic.Input.Pushed>.IsAny)
+    );
 
     _player.Push(Vector3.Forward);
     _logic.VerifyAll();
@@ -148,7 +152,9 @@ public class PlayerTest : TestClass {
   [Test]
   public void Dies() {
     _logic.Reset();
-    _logic.Setup(logic => logic.Input(It.IsAny<PlayerLogic.Input.Killed>()));
+    _logic.Setup(
+      logic => logic.Input(in It.Ref<PlayerLogic.Input.Killed>.IsAny)
+    );
     _player.Kill();
     _logic.VerifyAll();
   }

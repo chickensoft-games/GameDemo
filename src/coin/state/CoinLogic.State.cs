@@ -1,7 +1,9 @@
 namespace GameDemo;
 
-public partial class CoinLogic {
-  public interface IState : IStateLogic { }
+using Chickensoft.LogicBlocks;
 
-  public abstract partial record State : StateLogic, IState;
+public partial class CoinLogic {
+  public interface IState : IStateLogic<IState>;
+
+  public abstract partial record State : StateLogic<IState>, IState;
 }

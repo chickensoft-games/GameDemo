@@ -119,17 +119,19 @@ public partial class PlayerCamera : Node3D, IPlayerCamera {
   public void OnResolved() {
     CameraBinding = CameraLogic.Bind();
     CameraBinding
-      .Handle<PlayerCameraLogic.Output.GimbalRotationChanged>(
-        output => {
-          GimbalHorizontalNode.Rotation = output.GimbalRotationHorizontal;
-          GimbalVerticalNode.Rotation = output.GimbalRotationVertical;
-        }
-      ).Handle<PlayerCameraLogic.Output.GlobalTransformChanged>(
-        output => GlobalTransform = output.GlobalTransform
-      ).Handle<PlayerCameraLogic.Output.CameraLocalPositionChanged>(
-        output => CameraNode.Position = output.CameraLocalPosition
-      ).Handle<PlayerCameraLogic.Output.CameraOffsetChanged>(
-        output => OffsetNode.Position = output.Offset
+      .Handle((in PlayerCameraLogic.Output.GimbalRotationChanged output) => {
+        GimbalHorizontalNode.Rotation = output.GimbalRotationHorizontal;
+        GimbalVerticalNode.Rotation = output.GimbalRotationVertical;
+      })
+      .Handle((in PlayerCameraLogic.Output.GlobalTransformChanged output) =>
+        GlobalTransform = output.GlobalTransform
+      )
+      .Handle(
+        (in PlayerCameraLogic.Output.CameraLocalPositionChanged output) =>
+          CameraNode.Position = output.CameraLocalPosition
+      )
+      .Handle((in PlayerCameraLogic.Output.CameraOffsetChanged output) =>
+        OffsetNode.Position = output.Offset
       );
 
     CameraLogic.Start();

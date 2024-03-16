@@ -1,11 +1,13 @@
 namespace GameDemo;
 
+using Chickensoft.LogicBlocks;
+
 public partial class GameLogic {
   public partial record State {
     public record Quit : State {
       public Quit() {
-        OnEnter<Quit>(
-          _ => Get<IAppRepo>().OnExitGame(PostGameAction.GoToMainMenu)
+        this.OnEnter(
+          () => Get<IAppRepo>().OnExitGame(PostGameAction.GoToMainMenu)
         );
       }
     }

@@ -3,7 +3,7 @@ namespace GameDemo;
 using Godot;
 
 public partial class PlayerLogic {
-  public partial record State : StateLogic, IState {
+  public partial record State {
     public record Alive : State,
       IGet<Input.PhysicsTick>,
       IGet<Input.Moved>,
@@ -16,18 +16,18 @@ public partial class PlayerLogic {
       // a MoveEnabled substate and extend it for states where movement is
       // allowed.
 
-      public virtual IState On(Input.Killed input) {
+      public virtual IState On(in Input.Killed input) {
         Get<IGameRepo>().OnGameEnded(GameOverReason.Lost);
 
         return new Dead();
       }
 
-      public virtual IState On(Input.PhysicsTick input) {
+      public virtual IState On(in Input.PhysicsTick input) {
         var delta = input.Delta;
-        var player = Context.Get<IPlayer>();
-        var settings = Context.Get<Settings>();
-        var gameRepo = Context.Get<IGameRepo>();
-        var data = Context.Get<Data>();
+        var player = Get<IPlayer>();
+        var settings = Get<Settings>();
+        var gameRepo = Get<IGameRepo>();
+        var data = Get<Data>();
 
         var moveDirection =
           player.GetGlobalInputVector(gameRepo.CameraBasis.Value);
@@ -60,18 +60,18 @@ public partial class PlayerLogic {
         // Add gravity.
         velocity.Y += settings.Gravity * (float)delta;
 
-        Context.Output(
+        Output(
           new Output.MovementComputed(nextRotationBasis, velocity)
         );
 
         return this;
       }
 
-      public virtual IState On(Input.Moved input) {
-        var player = Context.Get<IPlayer>();
-        var settings = Context.Get<Settings>();
-        var gameRepo = Context.Get<IGameRepo>();
-        var data = Context.Get<Data>();
+      public virtual IState On(in Input.Moved input) {
+        var player = Get<IPlayer>();
+        var settings = Get<Settings>();
+        var gameRepo = Get<IGameRepo>();
+        var data = Get<Data>();
 
         // Tell the game the player has moved.
         // Anything that subscribes to our position (like the camera) will
@@ -116,39 +116,39 @@ public partial class PlayerLogic {
         data.LastVelocity = player.Velocity;
 
         if (justHitFloor) {
-          Context.Input(
+          Input(
             new Input.HitFloor(IsMovingHorizontally: isMovingHorizontally)
           );
         }
         else if (justLeftFloor) {
-          Context.Input(
+          Input(
             new Input.LeftFloor(IsFalling: hasNegativeYVelocity)
           );
         }
         else if (justStartedFalling) {
-          Context.Input(new Input.StartedFalling());
+          Input(new Input.StartedFalling());
         }
 
         // Grounded status hasn't changed. Check for changes in horizontal
         // movement.
 
         if (justStartedMovingHorizontally) {
-          Context.Input(new Input.StartedMovingHorizontally());
+          Input(new Input.StartedMovingHorizontally());
         }
         else if (justStoppedMovingHorizontally) {
-          Context.Input(new Input.StoppedMovingHorizontally());
+          Input(new Input.StoppedMovingHorizontally());
         }
 
         return this;
       }
 
-      public IState On(Input.Pushed input) {
-        var player = Context.Get<IPlayer>();
+      public IState On(in Input.Pushed input) {
+        var player = Get<IPlayer>();
         var velocity = player.Velocity;
 
         // Apply force
         velocity += input.GlobalForceImpulseVector;
-        Context.Output(new Output.VelocityChanged(velocity));
+        Output(new Output.VelocityChanged(velocity));
 
         // Remain in current state. Next physics tick will end up applying the
         // force which will make us re-evaluate our state in On(Input.Moved)

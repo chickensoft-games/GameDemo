@@ -70,7 +70,7 @@ public partial class Coin : Node3D, ICoin {
     CoinBinding = CoinLogic.Bind();
 
     CoinBinding
-      .When<CoinLogic.State.ICollecting>().Call(state => {
+      .When<CoinLogic.State.ICollecting>(state => {
         // We want to start receiving physics ticks so we can orient ourselves
         // toward the entity that's collecting us.
         SetPhysicsProcess(true);
@@ -80,13 +80,14 @@ public partial class Coin : Node3D, ICoin {
       });
 
     CoinBinding
-      .Handle<CoinLogic.Output.Move>(
-        output => GlobalPosition = output.GlobalPosition
+      .Handle(
+        (in CoinLogic.Output.Move output) =>
+          GlobalPosition = output.GlobalPosition
       )
-      .Handle<CoinLogic.Output.SelfDestruct>(
+      .Handle(
         // We're done being collected, so we can remove ourselves from the
         // scene tree.
-        output => QueueFree()
+        (in CoinLogic.Output.SelfDestruct output) => QueueFree()
       );
   }
 

@@ -6,7 +6,7 @@ using Chickensoft.PowerUps;
 using Godot;
 using SuperNodes.Types;
 
-public interface ISplash : IControl { }
+public interface ISplash : IControl;
 
 [SuperNode(typeof(AutoNode), typeof(Dependent))]
 public partial class Splash : Control, ISplash {

@@ -44,13 +44,13 @@ public partial class InGameUI : Control, IInGameUI {
     // TODO: Move the access to the game repo to the state machine.
 
     InGameUIBinding
-      .Handle<InGameUILogic.Output.NumCoinsCollectedChanged>(
-        output => SetCoinsLabel(
+      .Handle((in InGameUILogic.Output.NumCoinsCollectedChanged output) =>
+        SetCoinsLabel(
           output.NumCoinsCollected, GameRepo.NumCoinsAtStart.Value
         )
       )
-      .Handle<InGameUILogic.Output.NumCoinsAtStartChanged>(
-        output => SetCoinsLabel(
+      .Handle((in InGameUILogic.Output.NumCoinsAtStartChanged output) =>
+        SetCoinsLabel(
           GameRepo.NumCoinsCollected.Value, output.NumCoinsAtStart
         )
       );
@@ -58,7 +58,8 @@ public partial class InGameUI : Control, IInGameUI {
     InGameUILogic.Start();
   }
 
-  public void SetCoinsLabel(int coins, int totalCoins) => CoinsLabel.Text = $"{coins}/{totalCoins}";
+  public void SetCoinsLabel(int coins, int totalCoins) =>
+    CoinsLabel.Text = $"{coins}/{totalCoins}";
 
   public void OnExitTree() {
     InGameUILogic.Stop();

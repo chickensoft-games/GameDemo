@@ -105,7 +105,7 @@ public partial class JumpshroomTest : TestClass {
     _logic.Reset();
     var target = new FakePushEnabled();
     _logic.Setup(
-      logic => logic.Input(It.IsAny<JumpshroomLogic.Input.Hit>())
+      logic => logic.Input(in It.Ref<JumpshroomLogic.Input.Hit>.IsAny)
     );
     _shroom.OnAreaBodyEntered(target);
 
@@ -116,7 +116,9 @@ public partial class JumpshroomTest : TestClass {
   public void OnCooldownTimeoutCompletesCooldown() {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(It.IsAny<JumpshroomLogic.Input.CooldownCompleted>())
+      logic => logic.Input(
+        in It.Ref<JumpshroomLogic.Input.CooldownCompleted>.IsAny
+      )
     );
     _shroom.OnCooldownTimeout();
     _logic.VerifyAll();

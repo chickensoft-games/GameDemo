@@ -73,41 +73,43 @@ public partial class Game : Node3D, IGame {
   public void OnResolved() {
     GameBinding = GameLogic.Bind();
     GameBinding
-      .Handle<GameLogic.Output.StartGame>(
-        _ => {
+      .Handle(
+        (in GameLogic.Output.StartGame _) => {
           PlayerCamera.UsePlayerCamera();
           InGameUi.Show();
         })
-      .Handle<GameLogic.Output.SetPauseMode>(
-        output => GetTree().Paused = output.IsPaused
+      .Handle(
+        (in GameLogic.Output.SetPauseMode output) =>
+          GetTree().Paused = output.IsPaused
       )
-      .Handle<GameLogic.Output.CaptureMouse>(
-        output => Input.MouseMode = output.IsMouseCaptured
-          ? Input.MouseModeEnum.Captured
-          : Input.MouseModeEnum.Visible
+      .Handle(
+        (in GameLogic.Output.CaptureMouse output) =>
+          Input.MouseMode = output.IsMouseCaptured
+            ? Input.MouseModeEnum.Captured
+            : Input.MouseModeEnum.Visible
       )
-      .Handle<GameLogic.Output.ShowLostScreen>(_ => {
+      .Handle((in GameLogic.Output.ShowLostScreen _) => {
         DeathMenu.Show();
         DeathMenu.FadeIn();
         DeathMenu.Animate();
       })
-      .Handle<GameLogic.Output.ExitLostScreen>(_ => DeathMenu.FadeOut())
-      .Handle<GameLogic.Output.ShowPauseMenu>(_ => {
+      .Handle((in GameLogic.Output.ExitLostScreen _) => DeathMenu.FadeOut())
+      .Handle((in GameLogic.Output.ShowPauseMenu _) => {
         PauseMenu.Show();
         PauseMenu.FadeIn();
       })
-      .Handle<GameLogic.Output.ShowWonScreen>(_ => {
+      .Handle((in GameLogic.Output.ShowWonScreen _) => {
         WinMenu.Show();
         WinMenu.FadeIn();
       })
-      .Handle<GameLogic.Output.ExitWonScreen>(_ => WinMenu.FadeOut())
-      .Handle<GameLogic.Output.ExitPauseMenu>(_ => PauseMenu.FadeOut())
-      .Handle<GameLogic.Output.HidePauseMenu>(_ => PauseMenu.Hide())
-      .Handle<GameLogic.Output.ShowPauseSaveOverlay>(
-        _ => PauseMenu.OnSaveStarted()
+      .Handle((in GameLogic.Output.ExitWonScreen _) => WinMenu.FadeOut())
+      .Handle((in GameLogic.Output.ExitPauseMenu _) => PauseMenu.FadeOut())
+      .Handle((in GameLogic.Output.HidePauseMenu _) => PauseMenu.Hide())
+      .Handle((in GameLogic.Output.ShowPauseSaveOverlay _) =>
+        PauseMenu.OnSaveStarted()
       )
-      .Handle<GameLogic.Output.HidePauseSaveOverlay>(
-        _ => PauseMenu.OnSaveFinished()
+      .Handle((in GameLogic.Output.HidePauseSaveOverlay _) =>
+        PauseMenu.OnSaveFinished()
       );
 
     // Trigger the first state's OnEnter callbacks so our bindings run.

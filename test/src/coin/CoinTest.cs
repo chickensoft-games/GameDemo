@@ -64,7 +64,7 @@ public partial class CoinTest : TestClass {
   public void OnPhysicsProcess() {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(It.IsAny<CoinLogic.Input.PhysicsProcess>())
+      logic => logic.Input(in It.Ref<CoinLogic.Input.PhysicsProcess>.IsAny)
     );
 
     _coin.OnPhysicsProcess(1f);
@@ -76,7 +76,7 @@ public partial class CoinTest : TestClass {
   public void OnCollectorDetectorBodyEntered() {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(It.IsAny<CoinLogic.Input.StartCollection>())
+      logic => logic.Input(in It.Ref<CoinLogic.Input.StartCollection>.IsAny)
     );
     var collector = new FakeCoinCollector();
 

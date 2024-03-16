@@ -1,11 +1,13 @@
 namespace GameDemo;
 
+using Chickensoft.LogicBlocks;
+
 public partial class GameLogic {
   public partial record State {
     public record RestartingGame : State {
       public RestartingGame() {
-        OnEnter<RestartingGame>(
-          _ => Get<IAppRepo>().OnExitGame(PostGameAction.RestartGame));
+        this.OnEnter(
+          () => Get<IAppRepo>().OnExitGame(PostGameAction.RestartGame));
       }
     }
   }

@@ -1,10 +1,12 @@
 namespace GameDemo;
 
+using Chickensoft.LogicBlocks;
+
 public partial class GameLogic {
-  public interface IState : IStateLogic {
+  public interface IState : IStateLogic<IState> {
   }
 
-  public abstract partial record State : StateLogic, IState {
+  public abstract partial record State : StateLogic<IState>, IState {
     protected State() {
       OnAttach(() => {
         var gameRepo = Get<IGameRepo>();
@@ -19,9 +21,9 @@ public partial class GameLogic {
     }
 
     public void OnIsMouseCaptured(bool isMouseCaptured) =>
-      Context.Output(new Output.CaptureMouse(isMouseCaptured));
+      Output(new Output.CaptureMouse(isMouseCaptured));
 
     public void OnIsPaused(bool isPaused) =>
-      Context.Output(new Output.SetPauseMode(isPaused));
+      Output(new Output.SetPauseMode(isPaused));
   }
 }

@@ -6,7 +6,7 @@ using Godot;
 
 public interface IPlayerCameraLogic : ILogicBlock<PlayerCameraLogic.IState>;
 
-[StateMachine]
+[StateDiagram(typeof(State))]
 public partial class PlayerCameraLogic :
   LogicBlock<PlayerCameraLogic.IState>, IPlayerCameraLogic {
   public override IState GetInitialState() => new State.InputDisabled();

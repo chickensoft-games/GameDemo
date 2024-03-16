@@ -4,7 +4,7 @@ public partial class PlayerLogic {
   public partial record State {
     public record Airborne : Alive,
       IGet<Input.HitFloor>, IGet<Input.StartedFalling> {
-      public IState On(Input.HitFloor input) {
+      public IState On(in Input.HitFloor input) {
         if (input.IsMovingHorizontally) {
           return new Moving();
         }
@@ -12,7 +12,7 @@ public partial class PlayerLogic {
         return new Idle();
       }
 
-      public IState On(Input.StartedFalling input) => new Falling();
+      public IState On(in Input.StartedFalling input) => new Falling();
     }
   }
 }

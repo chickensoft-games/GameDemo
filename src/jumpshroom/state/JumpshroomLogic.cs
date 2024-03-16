@@ -6,7 +6,7 @@ using Chickensoft.LogicBlocks.Generator;
 public interface IJumpshroomLogic : ILogicBlock<JumpshroomLogic.IState> {
 }
 
-[StateMachine]
+[StateDiagram(typeof(State))]
 public partial class JumpshroomLogic : LogicBlock<JumpshroomLogic.IState>, IJumpshroomLogic {
   public override State GetInitialState() => new State.Idle();
 

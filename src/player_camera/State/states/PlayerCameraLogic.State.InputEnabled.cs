@@ -7,11 +7,11 @@ public partial class PlayerCameraLogic {
     /// <summary>The state of the player camera.</summary>
     public record InputEnabled : State,
     IGet<Input.DisableInput>, IGet<Input.MouseInputOccurred> {
-      public IState On(Input.DisableInput input) => new InputDisabled();
+      public IState On(in Input.DisableInput input) => new InputDisabled();
 
-      public IState On(Input.MouseInputOccurred input) {
-        var settings = Context.Get<PlayerCameraSettings>();
-        var data = Context.Get<Data>();
+      public IState On(in Input.MouseInputOccurred input) {
+        var settings = Get<PlayerCameraSettings>();
+        var data = Get<Data>();
 
         var targetAngleHorizontal = data.TargetAngleHorizontal +
           (-input.Motion.Relative.X * settings.MouseSensitivity);

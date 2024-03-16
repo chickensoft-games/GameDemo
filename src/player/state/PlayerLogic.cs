@@ -5,7 +5,7 @@ using Chickensoft.LogicBlocks.Generator;
 
 public interface IPlayerLogic : ILogicBlock<PlayerLogic.IState> { }
 
-[StateMachine]
+[StateDiagram(typeof(State))]
 public partial class PlayerLogic : LogicBlock<PlayerLogic.IState>, IPlayerLogic {
   public override IState GetInitialState() => new State.Disabled();
 

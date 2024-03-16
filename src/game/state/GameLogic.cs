@@ -6,7 +6,7 @@ using Chickensoft.LogicBlocks.Generator;
 public interface IGameLogic : ILogicBlock<GameLogic.IState> {
 }
 
-[StateMachine]
+[StateDiagram(typeof(State))]
 public partial class GameLogic : LogicBlock<GameLogic.IState>, IGameLogic {
   public override IState GetInitialState() => new State.MenuBackdrop();
 

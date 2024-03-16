@@ -43,26 +43,22 @@ public partial class InGameAudio : Node {
     InGameAudioBinding = InGameAudioLogic.Bind();
 
     InGameAudioBinding
-      .Handle<InGameAudioLogic.Output.PlayCoinCollected>(
-        _ => CoinCollected.Play()
+      .Handle((in InGameAudioLogic.Output.PlayCoinCollected _) =>
+        CoinCollected.Play()
       )
-      .Handle<InGameAudioLogic.Output.PlayBounce>(
-        _ => Bounce.Play()
+      .Handle((in InGameAudioLogic.Output.PlayBounce _) => Bounce.Play()
       )
-      .Handle<InGameAudioLogic.Output.PlayPlayerDied>(
-        _ => PlayerDied.Play()
+      .Handle((in InGameAudioLogic.Output.PlayPlayerDied _) => PlayerDied.Play()
       )
-      .Handle<InGameAudioLogic.Output.PlayJump>(
-        _ => PlayerJumped.Play()
+      .Handle((in InGameAudioLogic.Output.PlayJump _) =>
+        PlayerJumped.Play()
       )
-      .Handle<InGameAudioLogic.Output.PlayMainMenuMusic>(
-        _ => StartMainMenuMusic()
+      .Handle((in InGameAudioLogic.Output.PlayMainMenuMusic _) =>
+        StartMainMenuMusic()
       )
-      .Handle<InGameAudioLogic.Output.PlayGameMusic>(
-        _ => StartGameMusic()
-      )
-      .Handle<InGameAudioLogic.Output.StopGameMusic>(
-        _ => GameMusic.FadeOut()
+      .Handle((in InGameAudioLogic.Output.PlayGameMusic _) => StartGameMusic())
+      .Handle((in InGameAudioLogic.Output.StopGameMusic _) =>
+        GameMusic.FadeOut()
       );
 
     InGameAudioLogic.Start();

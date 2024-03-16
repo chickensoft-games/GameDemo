@@ -1,5 +1,7 @@
 namespace GameDemo;
 
+using Chickensoft.LogicBlocks;
+
 public partial class PlayerLogic {
   public abstract partial record State {
     /// <summary>
@@ -10,9 +12,7 @@ public partial class PlayerLogic {
     /// </summary>
     public record Liftoff : Airborne {
       public Liftoff() {
-        OnEnter<Jumping>(
-          (previous) => Context.Output(new Output.Animations.Jump())
-        );
+        this.OnEnter(() => Output(new Output.Animations.Jump()));
       }
     }
   }

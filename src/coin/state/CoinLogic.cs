@@ -6,7 +6,7 @@ using Chickensoft.LogicBlocks.Generator;
 public interface ICoinLogic : ILogicBlock<CoinLogic.IState> {
 }
 
-[StateMachine]
+[StateDiagram(typeof(State))]
 public partial class CoinLogic : LogicBlock<CoinLogic.IState>, ICoinLogic {
   public override IState GetInitialState() => new State.Idle();
 
