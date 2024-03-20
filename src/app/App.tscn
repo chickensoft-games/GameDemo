@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/app/App.cs" id="1_g7sps"]
 [ext_resource type="PackedScene" uid="uid://cwsfvhqinjpy4" path="res://src/menu/Menu.tscn" id="4_kh3vh"]
-[ext_resource type="PackedScene" uid="uid://7tblo640sji4" path="res://src/menu/submenus/splash/Splash.tscn" id="7_eh6dj"]
+[ext_resource type="PackedScene" uid="uid://7tblo640sji4" path="res://src/menu/splash/Splash.tscn" id="7_eh6dj"]
 
 [sub_resource type="Animation" id="Animation_asqem"]
 length = 0.001
