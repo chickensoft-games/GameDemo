@@ -63,4 +63,38 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass {
     _data.TargetAngleHorizontal.ShouldNotBe(targetAngleHorizontal);
     _data.TargetAngleVertical.ShouldNotBe(targetAngleVertical);
   }
+
+  [Test]
+  public void UpdatesTargetAnglesWhenJoypadInputOccurs() {
+    var targetAngleHorizontal = _data.TargetAngleHorizontal;
+    var targetAngleVertical = _data.TargetAngleVertical;
+
+    var motion = new InputEventJoypadMotion {
+      Axis = JoyAxis.RightX,
+      AxisValue = 3,
+      Device = 0
+    };
+
+    var nextState = _state.On(
+      new PlayerCameraLogic.Input.JoyPadInputOccurred(motion)
+    );
+
+    _state.ShouldBeSameAs(nextState);
+
+    var motion2 = new InputEventJoypadMotion {
+      Axis = JoyAxis.RightY,
+      AxisValue = 3,
+      Device = 0
+    };
+
+    var nextState2 = _state.On(
+      new PlayerCameraLogic.Input.JoyPadInputOccurred(motion2)
+    );
+
+    _state.ShouldBeSameAs(nextState2);
+
+    _data.TargetAngleHorizontal.ShouldNotBe(targetAngleHorizontal);
+    _data.TargetAngleVertical.ShouldNotBe(targetAngleVertical);
+  }
+
 }
