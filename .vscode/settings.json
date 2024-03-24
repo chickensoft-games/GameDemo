@@ -7,7 +7,8 @@
     },
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
-    "editor.formatOnType": false
+    "editor.formatOnType": false,
+    "editor.rulers": [80]
   },
   "csharp.semanticHighlighting.enabled": true,
   "dotnet.completion.showCompletionItemsFromUnimportedNamespaces": true,

@@ -21,7 +21,8 @@ public partial class PlayerCameraLogic {
           settings.VerticalMax
         );
 
-        data.TargetAngleHorizontal += -input.Motion.Relative.X * settings.MouseSensitivity;
+        data.TargetAngleHorizontal +=
+          -input.Motion.Relative.X * settings.MouseSensitivity;
         data.TargetAngleVertical = targetAngleVertical;
 
         return this;
@@ -32,7 +33,8 @@ public partial class PlayerCameraLogic {
         var data = Context.Get<Data>();
 
         if (input.Motion.Axis == JoyAxis.RightX) {
-          data.TargetAngleHorizontal += -input.Motion.AxisValue * settings.JoypadSensitivity;
+          data.TargetAngleHorizontal +=
+           -input.Motion.AxisValue * settings.JoypadSensitivity;
         }
 
         if (input.Motion.Axis == JoyAxis.RightY) {

@@ -136,12 +136,18 @@ public partial class PlayerCamera : Node3D, IPlayerCamera {
   }
 
   public void OnPhysicsProcess(double delta) {
-    var xMotion = InputExtensions.GetJoyPadActionPressedMotion("camera_left", "camera_right", JoyAxis.RightX);
+    var xMotion = InputUtilities.GetJoyPadActionPressedMotion(
+      "camera_left", "camera_right", JoyAxis.RightX
+    );
+
     if (xMotion is not null) {
       CameraLogic.Input(new PlayerCameraLogic.Input.JoyPadInputOccurred(xMotion));
     }
 
-    var yMotion = InputExtensions.GetJoyPadActionPressedMotion("camera_up", "camera_down", JoyAxis.RightY);
+    var yMotion = InputUtilities.GetJoyPadActionPressedMotion(
+      "camera_up", "camera_down", JoyAxis.RightY
+    );
+
     if (yMotion is not null) {
       CameraLogic.Input(new PlayerCameraLogic.Input.JoyPadInputOccurred(yMotion));
     }
