@@ -22,7 +22,7 @@ public abstract class InputUtilities {
     var isInDeadZone =
       Math.Abs(axisValue) < InputMap.ActionGetDeadzone(negativeAction) ||
       Math.Abs(axisValue) < InputMap.ActionGetDeadzone(positiveAction);
-    if (isInDeadZone) {
+    if (isInDeadZone && axisValue != 0) {
       return default;
     }
 
@@ -36,6 +36,7 @@ public abstract class InputUtilities {
 
       return motion;
     }
-    return default;
+
+    return null;
   }
 }

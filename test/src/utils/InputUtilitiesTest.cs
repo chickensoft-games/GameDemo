@@ -15,13 +15,30 @@ public class InputUtilitiesTest : TestClass {
   [Setup]
   public void Setup() {
     _deadZoneX = InputMap.ActionGetDeadzone("camera_right");
-    _deadZoneY = InputMap.ActionGetDeadzone("camera_up");
+    _deadZoneY = InputMap.ActionGetDeadzone("camera_down");
+  }
+
+  [Test]
+  public void NotTriggerJoyPadWhenAxisIsNotPressed() {
+    Input.UseAccumulatedInput = false;
+    var xMotion = InputUtilities.GetJoyPadActionPressedMotion(
+      "camera_left", "camera_right", JoyAxis.RightX
+    );
+
+    var yMotion = InputUtilities.GetJoyPadActionPressedMotion(
+      "camera_up", "camera_down", JoyAxis.RightY
+    );
+
+    xMotion.ShouldBeNull();
+    yMotion.ShouldBeNull();
   }
 
   [Test]
   public void TriggerJoyPadWhenAxisIsPressed() {
     //Strength by default is 1!
     Input.ActionPress("camera_right");
+    Input.ActionPress("camera_down");
+    Input.ActionPress("camera_left");
     Input.ActionPress("camera_up");
 
     var xMotion = InputUtilities.GetJoyPadActionPressedMotion(
@@ -33,13 +50,13 @@ public class InputUtilitiesTest : TestClass {
     );
 
     xMotion!.AxisValue.ShouldBe(1);
-    yMotion!.AxisValue.ShouldBe(-1);
+    yMotion!.AxisValue.ShouldBe(1);
   }
 
   [Test]
   public void NotTriggerJoyPadWhenAxisIsPressedInDeadZone() {
     Input.ActionPress("camera_right", _deadZoneX - 0.05f);
-    Input.ActionPress("camera_up", _deadZoneY - 0.05f);
+    Input.ActionPress("camera_up", _deadZoneY + 0.05f);
 
     var xMotion = InputUtilities.GetJoyPadActionPressedMotion(
       "camera_left", "camera_right", JoyAxis.RightX
@@ -52,4 +69,6 @@ public class InputUtilitiesTest : TestClass {
     xMotion.ShouldBeNull();
     yMotion.ShouldBeNull();
   }
+
+
 }
