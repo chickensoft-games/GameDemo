@@ -1,41 +1,22 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.GoDotTest;
-using Chickensoft.LogicBlocks;
 using Godot;
-using Moq;
 using Shouldly;
 
 public class InputUtilitiesTest : TestClass {
 
-  private IFakeContext _context = default!;
   private float _deadZoneX = default!;
   private float _deadZoneY = default!;
-  private PlayerCameraSettings _settings = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
-  private PlayerCameraLogic.State.InputEnabled _state = default!;
 
   public InputUtilitiesTest(Node testScene) :
   base(testScene) { }
 
   [Setup]
   public void Setup() {
-    _state = new();
-    _context = _state.CreateFakeContext();
-    _settings = new();
-    _gameRepo = new();
-
-    // Automatically mock the logic block context to provide mock versions
-    // of everything the state needs.
-    _context.Set(_settings);
-    _context.Set(_gameRepo.Object);
-
     _deadZoneX = InputMap.ActionGetDeadzone("camera_right");
     _deadZoneY = InputMap.ActionGetDeadzone("camera_up");
   }
-
-  [CleanupAll]
-  public void CleanupAll() => _settings.Dispose();
 
   [Test]
   public void TriggerJoyPadWhenAxisIsPressed() {
