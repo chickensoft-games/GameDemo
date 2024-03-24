@@ -10,6 +10,7 @@ GameDemo_PlayerCameraLogic_State --> GameDemo_PlayerCameraLogic_State : TargetOf
 GameDemo_PlayerCameraLogic_State --> GameDemo_PlayerCameraLogic_State : TargetPositionChanged
 GameDemo_PlayerCameraLogic_State_InputDisabled --> GameDemo_PlayerCameraLogic_State_InputEnabled : EnableInput
 GameDemo_PlayerCameraLogic_State_InputEnabled --> GameDemo_PlayerCameraLogic_State_InputDisabled : DisableInput
+GameDemo_PlayerCameraLogic_State_InputEnabled --> GameDemo_PlayerCameraLogic_State_InputEnabled : JoyPadInputOccurred
 GameDemo_PlayerCameraLogic_State_InputEnabled --> GameDemo_PlayerCameraLogic_State_InputEnabled : MouseInputOccurred
 
 [*] --> GameDemo_PlayerCameraLogic_State_InputDisabled
