@@ -6,6 +6,9 @@ public partial class PlayerCameraSettings : Resource {
   [Export(PropertyHint.Range, "0, 10, 0.01")]
   public float MouseSensitivity { get; set; } = 0.2f;
 
+  [Export(PropertyHint.Range, "0, 10, 0.01")]
+  public float JoypadSensitivity { get; set; } = 5;
+
   /// <summary>
   /// Vertical gimbal angle maximum constraint (in degrees).
   /// </summary>

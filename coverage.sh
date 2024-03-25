@@ -33,7 +33,7 @@ coverlet \
   --exclude-by-file "**/test/**/*.cs" \
   --exclude-by-file "**/*Microsoft.NET.Test.Sdk.Program.cs" \
   --exclude-by-file "**/Godot.SourceGenerators/**/*.cs" \
-  --exclude-by-file "**/Chickensoft.Magic.*/**/*.cs" \
+  --exclude-by-file "**/Chickensoft.*/**/*.cs" \
   --exclude-by-file "**/*.g.cs" \
   --exclude-assemblies-without-sources "missingall" \
   --skipautoprops

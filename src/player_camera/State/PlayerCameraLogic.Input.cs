@@ -8,6 +8,9 @@ public partial class PlayerCameraLogic {
     public readonly record struct MouseInputOccurred(
       InputEventMouseMotion Motion
     );
+    public readonly record struct JoyPadInputOccurred(
+      InputEventJoypadMotion Motion
+    );
     public readonly record struct TargetPositionChanged(Vector3 TargetPosition);
     public readonly record struct EnableInput;
     public readonly record struct DisableInput;
