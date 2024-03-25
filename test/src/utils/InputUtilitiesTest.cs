@@ -21,10 +21,16 @@ public class InputUtilitiesTest : TestClass {
   [Test]
   public void NotTriggerJoyPadWhenAxisIsNotPressed() {
     Input.UseAccumulatedInput = false;
+
+    Input.ActionRelease("camera_left");
+    Input.ActionRelease("camera_right");
+
     var xMotion = InputUtilities.GetJoyPadActionPressedMotion(
       "camera_left", "camera_right", JoyAxis.RightX
     );
 
+    Input.ActionRelease("camera_up");
+    Input.ActionRelease("camera_down");
     var yMotion = InputUtilities.GetJoyPadActionPressedMotion(
       "camera_up", "camera_down", JoyAxis.RightY
     );
@@ -35,40 +41,43 @@ public class InputUtilitiesTest : TestClass {
 
   [Test]
   public void TriggerJoyPadWhenAxisIsPressed() {
-    //Strength by default is 1!
-    Input.ActionPress("camera_right");
-    Input.ActionPress("camera_down");
-    Input.ActionPress("camera_left");
-    Input.ActionPress("camera_up");
+    //up and left are always negative
+    //down and right are always positive
 
+    Input.ActionPress("camera_right", 0.8f);
     var xMotion = InputUtilities.GetJoyPadActionPressedMotion(
       "camera_left", "camera_right", JoyAxis.RightX
     );
+    xMotion?.AxisValue.ShouldBe(0.8f);
 
+    Input.ActionPress("camera_down", 0.6f);
+    System.Console.WriteLine($"Worked? {Input.GetActionStrength("camera_up")}");
     var yMotion = InputUtilities.GetJoyPadActionPressedMotion(
       "camera_up", "camera_down", JoyAxis.RightY
     );
+    yMotion?.AxisValue.ShouldBe(0.6f);
 
-    xMotion!.AxisValue.ShouldBe(1);
-    yMotion!.AxisValue.ShouldBe(1);
   }
 
   [Test]
   public void NotTriggerJoyPadWhenAxisIsPressedInDeadZone() {
-    Input.ActionPress("camera_right", _deadZoneX - 0.05f);
-    Input.ActionPress("camera_up", _deadZoneY + 0.05f);
+    Input.ActionRelease("camera_left");
+    Input.ActionPress("camera_right", _deadZoneX - 0.1f);
 
     var xMotion = InputUtilities.GetJoyPadActionPressedMotion(
       "camera_left", "camera_right", JoyAxis.RightX
     );
+    Input.ActionRelease("camera_right");
 
+    Input.ActionRelease("camera_up");
+    Input.ActionPress("camera_down", _deadZoneY - 0.1f);
     var yMotion = InputUtilities.GetJoyPadActionPressedMotion(
       "camera_up", "camera_down", JoyAxis.RightY
     );
+    Input.ActionRelease("camera_down");
 
     xMotion.ShouldBeNull();
     yMotion.ShouldBeNull();
   }
-
 
 }

@@ -136,9 +136,7 @@
     // Allow html in markdown.
     "MD033": false
   },
-  "markdownlint.ignore": [
-    "**/LICENSE"
-  ],
+  "markdownlint.ignore": ["**/LICENSE"],
   "omnisharp.enableEditorConfigSupport": true,
   "omnisharp.enableMsBuildLoadProjectsOnDemand": false,
   "omnisharp.enableRoslynAnalyzers": true,
@@ -163,5 +161,6 @@
       "icon": "terminal-powershell",
       "source": "PowerShell"
     }
-  }
+  },
+  "godotTools.editorPath.godot4": "T:\\Downloads\\Godot_v4.2.1-stable_mono_win64\\Godot_v4.2.1-stable_mono_win64.exe"
 }

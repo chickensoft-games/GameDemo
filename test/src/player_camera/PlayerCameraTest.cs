@@ -66,10 +66,10 @@ public class PlayerCameraTest : TestClass {
   public void OnPhysicsProcess() {
     _logic.Reset();
 
-    Input.ActionPress("camera_left");
-    Input.ActionPress("camera_up");
-    Input.ActionPress("camera_right");
-    Input.ActionPress("camera_down");
+    Input.ActionPress("camera_left", 0.8f);
+    Input.ActionPress("camera_up", 0.8f);
+    Input.ActionPress("camera_right", 0f);
+    Input.ActionPress("camera_down", 0f);
 
     _logic.Setup(
       logic => logic.Input(It.IsAny<PlayerCameraLogic.Input.PhysicsTicked>())
