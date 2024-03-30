@@ -1,28 +1,27 @@
-[gd_scene load_steps=19 format=3 uid="uid://conmng5ejji6f"]
+[gd_scene load_steps=19 format=3 uid="uid://7ddc0bwhupgl"]
 
 [ext_resource type="Script" path="res://src/pause_menu/PauseMenu.cs" id="1_6kvog"]
 [ext_resource type="Shader" path="res://src/pause_menu/PauseMenu.gdshader" id="1_m43vi"]
-[ext_resource type="Texture2D" uid="uid://xwhtaovxqalw" path="res://src/pause_menu/assets/spinner.png" id="3_w1cw3"]
+[ext_resource type="Texture2D" uid="uid://xwhtaovxqalw" path="res://src/pause_menu/assets/spinner.png" id="2_18iql"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_r4f68"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2dp0l"]
 shader = ExtResource("1_m43vi")
-shader_parameter/opacity = 0.0
+shader_parameter/opacity = 0.6
 
-[sub_resource type="FontVariation" id="FontVariation_ps6b3"]
-variation_embolden = 0.54
+[sub_resource type="FontVariation" id="FontVariation_h7fbu"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_57jok"]
-font = SubResource("FontVariation_ps6b3")
+[sub_resource type="LabelSettings" id="LabelSettings_ehta0"]
+font = SubResource("FontVariation_h7fbu")
 font_size = 48
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg3p1"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3tyjf"]
 bg_color = Color(0, 0, 0, 0.87451)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="LabelSettings" id="LabelSettings_dourt"]
+[sub_resource type="LabelSettings" id="LabelSettings_ge31n"]
 font_size = 32
 
 [sub_resource type="Animation" id="Animation_xporw"]
@@ -204,19 +203,16 @@ _data = {
 }
 
 [node name="PauseMenu" type="Control"]
-process_mode = 3
-modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
 script = ExtResource("1_6kvog")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_r4f68")
+material = SubResource("ShaderMaterial_2dp0l")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -244,17 +240,15 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
 layout_mode = 2
-alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_bottom = 24
 
 [node name="Title" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 mouse_filter = 1
 text = "Paused"
-label_settings = SubResource("LabelSettings_57jok")
+label_settings = SubResource("LabelSettings_ehta0")
 horizontal_alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
@@ -303,7 +297,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(512, 512)
 layout_mode = 2
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_bg3p1")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3tyjf")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/SaveOverlay/Panel"]
 layout_mode = 1
@@ -326,7 +320,7 @@ layout_mode = 2
 layout_mode = 2
 mouse_filter = 1
 text = "Saving Game"
-label_settings = SubResource("LabelSettings_dourt")
+label_settings = SubResource("LabelSettings_ge31n")
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer/CenterContainer/SaveOverlay/Panel"]
 layout_mode = 1
@@ -341,7 +335,7 @@ layout_mode = 2
 mouse_filter = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="MarginContainer/CenterContainer/SaveOverlay/Panel/CenterContainer/Control"]
-texture = ExtResource("3_w1cw3")
+texture = ExtResource("2_18iql")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MarginContainer/CenterContainer/SaveOverlay/Panel/CenterContainer/Control"]
 libraries = {
