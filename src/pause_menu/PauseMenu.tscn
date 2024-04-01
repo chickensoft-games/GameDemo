@@ -1,8 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://7ddc0bwhupgl"]
+[gd_scene load_steps=21 format=3 uid="uid://7ddc0bwhupgl"]
 
 [ext_resource type="Script" path="res://src/pause_menu/PauseMenu.cs" id="1_6kvog"]
 [ext_resource type="Shader" path="res://src/pause_menu/PauseMenu.gdshader" id="1_m43vi"]
 [ext_resource type="Texture2D" uid="uid://xwhtaovxqalw" path="res://src/pause_menu/assets/spinner.png" id="2_18iql"]
+[ext_resource type="StyleBox" uid="uid://bfhcoswkfm7f2" path="res://src/pause_menu/focusedButton.stylebox" id="3_5d46t"]
+[ext_resource type="PackedScene" uid="uid://ncism3bv7hm3" path="res://src/shared_ui/legend.tscn" id="5_i0ymo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2dp0l"]
 shader = ExtResource("1_m43vi")
@@ -209,6 +211,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 2
 script = ExtResource("1_6kvog")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -234,6 +237,11 @@ theme_override_constants/margin_left = 80
 theme_override_constants/margin_top = 80
 theme_override_constants/margin_right = 80
 theme_override_constants/margin_bottom = 80
+
+[node name="Legend" parent="MarginContainer" instance=ExtResource("5_i0ymo")]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -265,7 +273,10 @@ custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+focus_next = NodePath("../SaveButton")
+focus_previous = NodePath("../MainMenuButton")
 mouse_filter = 1
+theme_override_styles/focus = ExtResource("3_5d46t")
 text = "Resume"
 
 [node name="SaveButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
@@ -274,7 +285,10 @@ custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+focus_next = NodePath("../MainMenuButton")
+focus_previous = NodePath("../ResumeButton")
 mouse_filter = 1
+theme_override_styles/focus = ExtResource("3_5d46t")
 text = "Save Game"
 expand_icon = true
 
@@ -284,7 +298,10 @@ custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+focus_next = NodePath("../ResumeButton")
+focus_previous = NodePath("../SaveButton")
 mouse_filter = 1
+theme_override_styles/focus = ExtResource("3_5d46t")
 text = "Main Menu"
 
 [node name="SaveOverlay" type="VBoxContainer" parent="MarginContainer/CenterContainer"]

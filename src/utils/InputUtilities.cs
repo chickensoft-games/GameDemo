@@ -3,7 +3,7 @@
 using System;
 using Godot;
 
-public abstract class InputUtilities {
+public static class InputUtilities {
 
   /// <summary>
   /// Get axis pressed input by specifying two actions,
@@ -42,4 +42,16 @@ public abstract class InputUtilities {
 
     return null;
   }
+
+  public static InputEvent? ValidInput(InputEvent @event) {
+    if (@event is InputEventJoypadMotion input && input.AxisValue > 0.2) {
+      return @event;
+    }
+    else if (@event is not InputEventJoypadMotion) {
+      return @event;
+    }
+    return null;
+  }
+
 }
+

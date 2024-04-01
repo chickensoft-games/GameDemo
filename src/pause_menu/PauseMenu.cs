@@ -56,6 +56,11 @@ public partial class PauseMenu : Control, IPauseMenu {
     AnimationPlayer.AnimationFinished += OnAnimationFinished;
   }
 
+  public override void _Draw() {
+    base._Draw();
+    ResumeButton.GrabFocus();
+  }
+
   public void OnExitTree() {
     MainMenuButton.Pressed -= OnMainMenuPressed;
     ResumeButton.Pressed -= OnResumePressed;
