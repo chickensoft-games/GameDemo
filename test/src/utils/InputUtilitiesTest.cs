@@ -80,4 +80,31 @@ public class InputUtilitiesTest : TestClass {
     yMotion.ShouldBeNull();
   }
 
+  [Test]
+  public void LowStrengthJoyPadInputsShouldBeIgnored() {
+    var input = InputUtilities.ValidInput(
+      new InputEventJoypadMotion() { AxisValue = 0.1f }
+    );
+
+    input.ShouldBeNull();
+  }
+
+  [Test]
+  public void LowStrengthJoyPadInputsShouldNotBeIgnored() {
+    var input = InputUtilities.ValidInput(
+      new InputEventJoypadMotion() { AxisValue = 0.3f }
+    );
+
+    input.ShouldNotBeNull();
+  }
+
+  [Test]
+  public void NonJoyPadInputsShouldNotBeIgnored() {
+    var input = InputUtilities.ValidInput(
+      new InputEventKey() { Keycode = Key.W }
+    );
+
+    input.ShouldNotBeNull();
+  }
+
 }

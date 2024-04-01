@@ -32,6 +32,12 @@ public class DeathMenuTest : TestClass {
   }
 
   [Test]
+  public void Draw() {
+    _menu._Draw();
+    _mainMenuButton.Object.HasFocus().ShouldBeTrue();
+  }
+
+  [Test]
   public void Subscribes() {
     _menu.OnReady();
     _mainMenuButton.VerifyAdd(menu => menu.Pressed += _menu.OnMainMenuPressed);

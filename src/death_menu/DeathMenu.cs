@@ -44,6 +44,11 @@ public partial class DeathMenu : Control, IDeathMenu {
     FadeAnimationPlayer.AnimationFinished += OnAnimationFinished;
   }
 
+  public override void _Draw() {
+    base._Draw();
+    TryAgainButton.GrabFocus();
+  }
+
   public void OnExitTree() {
     TryAgainButton.Pressed -= OnTryAgainPressed;
     MainMenuButton.Pressed -= OnMainMenuPressed;
