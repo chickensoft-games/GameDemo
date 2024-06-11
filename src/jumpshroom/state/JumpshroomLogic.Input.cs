@@ -1,8 +1,6 @@
 namespace GameDemo;
 
-using Chickensoft.LogicBlocks;
-
-public partial class JumpshroomLogic : LogicBlock<JumpshroomLogic.IState> {
+public partial class JumpshroomLogic {
   public static class Input {
     public readonly record struct Hit(IPushEnabled Target);
     public readonly record struct Launch();

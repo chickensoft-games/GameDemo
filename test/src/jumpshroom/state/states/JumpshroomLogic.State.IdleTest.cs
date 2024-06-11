@@ -27,7 +27,7 @@ public class JumpshroomLogicStateIdleTest : TestClass {
     var target = new Mock<IPushEnabled>();
     var next = _state.On(new JumpshroomLogic.Input.Hit(target.Object));
 
-    var loading = next.ShouldBeOfType<JumpshroomLogic.State.Loading>();
+    var loading = next.State.ShouldBeOfType<JumpshroomLogic.State.Loading>();
     loading.Target.ShouldBe(target.Object);
 
     _appRepo.VerifyAll();

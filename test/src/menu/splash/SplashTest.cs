@@ -1,5 +1,6 @@
 namespace GameDemo.Tests;
 
+using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
 using Godot;
@@ -21,6 +22,8 @@ public class SplashTest : TestClass {
     };
 
     _splash.FakeDependency(_appRepo.Object);
+
+    _splash._Notification(-1);
   }
 
   [Test]

@@ -11,16 +11,18 @@ public class InGameTest : TestClass {
   private IFakeContext _context = default!;
   private AppLogic.State.InGame _state = default!;
   private Mock<IAppRepo> _appRepo = default!;
+  private AppLogic.Data _data = default!;
 
   public InGameTest(Node testScene) : base(testScene) { }
 
   [Setup]
   public void Setup() {
-    _state = new AppLogic.State.InGame();
+    _state = new();
+    _appRepo = new();
+    _data = new();
     _context = _state.CreateFakeContext();
-
-    _appRepo = new Mock<IAppRepo>();
     _context.Set(_appRepo.Object);
+    _context.Set(_data);
   }
 
   [Test]
@@ -31,6 +33,13 @@ public class InGameTest : TestClass {
 
     _appRepo.VerifyAll();
     _context.Outputs.First().ShouldBeOfType<AppLogic.Output.ShowGame>();
+  }
+
+  [Test]
+  public void OnExit() {
+    _state.Exit();
+
+    _context.Outputs.First().ShouldBeOfType<AppLogic.Output.HideGame>();
   }
 
   [Test]
@@ -66,8 +75,11 @@ public class InGameTest : TestClass {
 
   [Test]
   public void OnEndGame() {
+    _context.Set(new AppLogic.State.LeavingGame());
+
     var result =
       _state.On(new AppLogic.Input.EndGame(PostGameAction.RestartGame));
-    result.ShouldBeOfType<AppLogic.State.LeavingGame>();
+
+    result.State.ShouldBeOfType<AppLogic.State.LeavingGame>();
   }
 }

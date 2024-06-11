@@ -1,5 +1,6 @@
 namespace GameDemo.Tests;
 
+using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
 using Godot;
@@ -35,7 +36,6 @@ public partial class JumpshroomTest : TestClass {
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
 
     _shroom = new Jumpshroom {
-      IsTesting = true,
       JumpshroomLogic = _logic.Object,
       JumpshroomBinding = _binding,
       AnimationPlayer = _animPlayer.Object,
@@ -43,7 +43,11 @@ public partial class JumpshroomTest : TestClass {
       CooldownTimer = _cooldownTimer.Object
     };
 
+    (_shroom as IAutoInit).IsTesting = true;
+
     _shroom.FakeDependency(_gameRepo.Object);
+
+    _shroom._Notification(-1);
   }
 
   [Test]
@@ -105,7 +109,7 @@ public partial class JumpshroomTest : TestClass {
     _logic.Reset();
     var target = new FakePushEnabled();
     _logic.Setup(
-      logic => logic.Input(It.IsAny<JumpshroomLogic.Input.Hit>())
+      logic => logic.Input(in It.Ref<JumpshroomLogic.Input.Hit>.IsAny)
     );
     _shroom.OnAreaBodyEntered(target);
 
@@ -116,7 +120,9 @@ public partial class JumpshroomTest : TestClass {
   public void OnCooldownTimeoutCompletesCooldown() {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(It.IsAny<JumpshroomLogic.Input.CooldownCompleted>())
+      logic => logic.Input(
+        in It.Ref<JumpshroomLogic.Input.CooldownCompleted>.IsAny
+      )
     );
     _shroom.OnCooldownTimeout();
     _logic.VerifyAll();

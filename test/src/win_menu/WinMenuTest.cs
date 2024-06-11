@@ -22,6 +22,8 @@ public class WinMenuTest : TestClass {
       MainMenuButton = _mainMenuButton.Object,
       AnimationPlayer = _animationPlayer.Object
     };
+
+    _menu._Notification(-1);
   }
 
   [Test]

@@ -1,15 +1,18 @@
 namespace GameDemo;
 
 using Chickensoft.AutoInject;
+using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.PowerUps;
+using Chickensoft.SaveFileBuilder;
 using Godot;
-using SuperNodes.Types;
+using Chickensoft.Introspection;
 
 using Compiler = System.Runtime.CompilerServices;
 
 public interface IPlayer :
   ICharacterBody3D, IKillable, ICoinCollector, IPushEnabled {
+  IPlayerLogic PlayerLogic { get; }
+
   public bool IsMovingHorizontally();
 
   /// <summary>
@@ -33,9 +36,18 @@ public interface IPlayer :
   );
 }
 
-[SuperNode(typeof(Provider), typeof(Dependent), typeof(AutoNode))]
+[Meta(typeof(IAutoNode))]
 public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
-  public override partial void _Notification(int what);
+  public override void _Notification(int what) => this.Notify(what);
+
+  #region Save
+
+  [Dependency]
+  public EntityTable EntityTable => this.DependOn<EntityTable>();
+  [Dependency]
+  public ISaveChunk<GameData> GameChunk => this.DependOn<ISaveChunk<GameData>>();
+  public ISaveChunk<PlayerData> PlayerChunk { get; set; } = default!;
+  #endregion Save
 
   #region Provisions
 
@@ -46,10 +58,10 @@ public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
   #region Dependencies
 
   [Dependency]
-  public IGameRepo GameRepo => DependOn<IGameRepo>();
+  public IGameRepo GameRepo => this.DependOn<IGameRepo>();
 
   [Dependency]
-  public IAppRepo AppRepo => DependOn<IAppRepo>();
+  public IAppRepo AppRepo => this.DependOn<IAppRepo>();
 
   #endregion Dependencies
 
@@ -108,39 +120,61 @@ public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
       JumpForce
     );
 
-    PlayerLogic = new PlayerLogic(
-      player: this,
-      settings: Settings,
-      appRepo: AppRepo,
-      gameRepo: GameRepo
+    PlayerLogic = new PlayerLogic();
+
+    PlayerLogic.Set(this as IPlayer);
+    PlayerLogic.Set(Settings);
+    PlayerLogic.Set(AppRepo);
+    PlayerLogic.Set(GameRepo);
+    PlayerLogic.Save(() => new PlayerLogic.Data());
+
+    PlayerChunk = new SaveChunk<PlayerData>(
+      onSave: (chunk) => new PlayerData() {
+        GlobalTransform = GlobalTransform,
+        StateMachine = (PlayerLogic)PlayerLogic,
+        Velocity = Velocity
+      },
+      onLoad: (chunk, data) => {
+        GlobalTransform = data.GlobalTransform;
+        Velocity = data.Velocity;
+        PlayerLogic.RestoreFrom(data.StateMachine);
+        PlayerLogic.Start();
+      }
     );
   }
 
   public void OnReady() => SetPhysicsProcess(true);
 
   public void OnExitTree() {
+    EntityTable.Remove(Name);
     PlayerLogic.Stop();
     PlayerBinding.Dispose();
   }
 
   public void OnResolved() {
-    Provide();
+    // Add a child to our parent save chunk (the game chunk) so that it can
+    // look up the player chunk when loading and saving the game.
+    GameChunk.AddChunk(PlayerChunk);
+
+    EntityTable.Set(Name, this);
 
     PlayerBinding = PlayerLogic.Bind();
 
     GameRepo.SetPlayerGlobalPosition(GlobalPosition);
 
     PlayerBinding
-      .Handle<PlayerLogic.Output.MovementComputed>(
-        output => {
-          Transform = Transform with { Basis = output.Rotation };
-          Velocity = output.Velocity;
-        }
-      )
-      .Handle<PlayerLogic.Output.VelocityChanged>(
-        output => Velocity = output.Velocity
+      .Handle((in PlayerLogic.Output.MovementComputed output) => {
+        Transform = Transform with { Basis = output.Rotation };
+        Velocity = output.Velocity;
+      })
+      .Handle((in PlayerLogic.Output.VelocityChanged output) =>
+        Velocity = output.Velocity
       );
 
+    // Allow the player model to lookup our state machine and bind to it.
+    this.Provide();
+
+    // Start the player state machine last.
     PlayerLogic.Start();
   }
 
@@ -201,8 +235,8 @@ public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
   }
 
   [Compiler.MethodImpl(Compiler.MethodImplOptions.AggressiveInlining)]
-  public bool IsMovingHorizontally() => (Velocity with { Y = 0f }).Length() >
-                                        Settings.StoppingSpeed;
+  public bool IsMovingHorizontally() =>
+    (Velocity with { Y = 0f }).Length() > Settings.StoppingSpeed;
 
   #endregion IPlayer
 

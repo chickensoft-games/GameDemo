@@ -414,6 +414,8 @@ dotnet_naming_symbols.unspecified.applicable_accessibilities = *
 # Chickensoft Rule Overrides
 ##########################################
 
+roslyn_correctness.assembly_reference_validation = relaxed
+
 # Allow using keywords as names
 # dotnet_diagnostic.CA1716.severity = none
 # Don't require culture info for ToString()
@@ -474,3 +476,5 @@ dotnet_diagnostic.IDE0028.severity = none
 dotnet_diagnostic.IDE0305.severity = none
 # Don't make me populate a switch expression redundantly
 dotnet_diagnostic.IDE0072.severity = none
+# Leave me alone about primary constructors
+dotnet_diagnostic.IDE0290.severity = none

@@ -1,20 +1,14 @@
 namespace GameDemo;
 
+using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
-using Chickensoft.LogicBlocks.Generator;
 
-public interface ICoinLogic : ILogicBlock<CoinLogic.IState> {
-}
+public interface ICoinLogic : ILogicBlock<CoinLogic.State>;
 
-[StateMachine]
-public partial class CoinLogic : LogicBlock<CoinLogic.IState>, ICoinLogic {
-  public override IState GetInitialState() => new State.Idle();
+[Meta, Id("coin_logic")]
+[LogicBlock(typeof(State), Diagram = true)]
+public partial class CoinLogic : LogicBlock<CoinLogic.State>, ICoinLogic {
+  public override Transition GetInitialState() => To<State.Idle>();
 
   public record Settings(double CollectionTimeInSeconds);
-
-  public CoinLogic(ICoin coin, Settings settings, IGameRepo gameRepo) {
-    Set(coin);
-    Set(settings);
-    Set(gameRepo);
-  }
 }

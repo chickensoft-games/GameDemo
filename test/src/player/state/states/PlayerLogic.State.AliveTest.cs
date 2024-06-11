@@ -2,12 +2,16 @@ namespace GameDemo.Tests;
 
 using Chickensoft.GoDotCollections;
 using Chickensoft.GoDotTest;
+using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
-public class PlayerLogicStateAliveTest : TestClass {
+public partial class PlayerLogicStateAliveTest : TestClass {
+  [Meta, TestState]
+  public partial record TestPlayerState : PlayerLogic.State.Alive;
+
   private IFakeContext _context = default!;
   private PlayerLogic.Data _data = default!;
   private Mock<IPlayer> _player = default!;
@@ -28,7 +32,7 @@ public class PlayerLogicStateAliveTest : TestClass {
     _gameRepo = new Mock<IGameRepo>();
     _appRepo = new Mock<IAppRepo>();
 
-    _state = new();
+    _state = new TestPlayerState();
     _context = _state.CreateFakeContext();
 
     _context.Set(_data);
@@ -45,7 +49,7 @@ public class PlayerLogicStateAliveTest : TestClass {
     var next = _state.On(new PlayerLogic.Input.Killed());
 
     _gameRepo.VerifyAll();
-    next.ShouldBeOfType<PlayerLogic.State.Dead>();
+    next.State.ShouldBeOfType<PlayerLogic.State.Dead>();
   }
 
   [Test]

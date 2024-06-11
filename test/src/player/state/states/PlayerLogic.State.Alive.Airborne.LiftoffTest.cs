@@ -20,9 +20,7 @@ public class PlayerLogicStateAliveAirborneLiftoffTest : TestClass {
 
   [Test]
   public void Enters() {
-    var parent = new PlayerLogic.State.Airborne();
-
-    _state.Enter(parent);
+    _state.Enter<PlayerLogic.State.Airborne>();
 
     _context.Outputs.ShouldBe(new object[] {
       new PlayerLogic.Output.Animations.Jump()

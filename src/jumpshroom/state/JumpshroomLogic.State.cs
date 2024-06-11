@@ -1,9 +1,10 @@
 namespace GameDemo;
 
+using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class JumpshroomLogic : LogicBlock<JumpshroomLogic.IState> {
-  public interface IState : IStateLogic { }
+public partial class JumpshroomLogic {
+  [Meta]
 
-  public abstract partial record State : StateLogic, IState;
+  public abstract partial record State : StateLogic<State>;
 }

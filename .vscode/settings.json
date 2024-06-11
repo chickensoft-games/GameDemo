@@ -8,7 +8,9 @@
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
     "editor.formatOnType": false,
-    "editor.rulers": [80]
+    "editor.rulers": [
+      80
+    ]
   },
   "csharp.semanticHighlighting.enabled": true,
   "dotnet.completion.showCompletionItemsFromUnimportedNamespaces": true,
@@ -135,16 +137,18 @@
     "MD024": false,
     // Allow html in markdown.
     "MD033": false
-  },  
+  },
   "markdownlint.ignore": [
     "**/LICENSE"
   ],
   "omnisharp.enableEditorConfigSupport": true,
   "omnisharp.enableMsBuildLoadProjectsOnDemand": false,
   "omnisharp.enableRoslynAnalyzers": true,
-  "omnisharp.maxFindSymbolsItems": 3000,
   "omnisharp.organizeImportsOnFormat": true,
   "omnisharp.useModernNet": true,
+  "dotnet.server.useOmnisharp": false,
+  // TODO: until https://github.com/dotnet/vscode-csharp/issues/3970 is solved.
+  "omnisharp.sdkVersion": "8.0.204",
   // Remove these if you're happy with your terminal profiles.
   "terminal.integrated.defaultProfile.windows": "Git Bash",
   "terminal.integrated.profiles.windows": {

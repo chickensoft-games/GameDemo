@@ -22,7 +22,12 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass {
     _state = new();
     _context = _state.CreateFakeContext();
     _settings = new();
-    _data = new();
+    _data = new() {
+      TargetPosition = Vector3.Zero,
+      TargetAngleHorizontal = 0,
+      TargetAngleVertical = 0,
+      TargetOffset = Vector3.Zero
+    };
 
     _appRepo = new();
     _gameRepo = new();
@@ -40,9 +45,9 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass {
 
   [Test]
   public void GoesToInputDisabled() {
-    var nextState = _state.On(new PlayerCameraLogic.Input.DisableInput());
+    var next = _state.On(new PlayerCameraLogic.Input.DisableInput());
 
-    nextState.ShouldBeOfType<PlayerCameraLogic.State.InputDisabled>();
+    next.State.ShouldBeOfType<PlayerCameraLogic.State.InputDisabled>();
   }
 
   [Test]
@@ -54,11 +59,11 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass {
       Relative = Vector2.One
     };
 
-    var nextState = _state.On(
+    var next = _state.On(
       new PlayerCameraLogic.Input.MouseInputOccurred(motion)
     );
 
-    _state.ShouldBeSameAs(nextState);
+    _state.ShouldBeSameAs(next.State);
 
     _data.TargetAngleHorizontal.ShouldNotBe(targetAngleHorizontal);
     _data.TargetAngleVertical.ShouldNotBe(targetAngleVertical);
@@ -75,11 +80,11 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass {
       Device = 0
     };
 
-    var nextState = _state.On(
+    var next = _state.On(
       new PlayerCameraLogic.Input.JoyPadInputOccurred(motion)
     );
 
-    _state.ShouldBeSameAs(nextState);
+    _state.ShouldBeSameAs(next.State);
 
     var motion2 = new InputEventJoypadMotion {
       Axis = JoyAxis.RightY,
@@ -87,14 +92,13 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass {
       Device = 0
     };
 
-    var nextState2 = _state.On(
+    var next2 = _state.On(
       new PlayerCameraLogic.Input.JoyPadInputOccurred(motion2)
     );
 
-    _state.ShouldBeSameAs(nextState2);
+    _state.ShouldBeSameAs(next2.State);
 
     _data.TargetAngleHorizontal.ShouldNotBe(targetAngleHorizontal);
     _data.TargetAngleVertical.ShouldNotBe(targetAngleVertical);
   }
-
 }

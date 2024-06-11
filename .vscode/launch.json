@@ -14,6 +14,7 @@
       "args": [],
       "cwd": "${workspaceFolder}",
       "stopAtEntry": false,
+      // "console": "integratedTerminal"
     },
     // Debug the scene that matches the name of the currently open *.cs file
     // (if there's a scene with the same name in the same directory).

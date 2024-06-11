@@ -10,7 +10,6 @@ public class LostTest : TestClass {
   private IFakeContext _context = default!;
   private GameLogic.State.Lost _state = default!;
 
-
   public LostTest(Node testScene) : base(testScene) { }
 
   [Setup]
@@ -28,12 +27,12 @@ public class LostTest : TestClass {
   [Test]
   public void OnStartGame() {
     var result = _state.On(new GameLogic.Input.Start());
-    result.ShouldBeOfType<GameLogic.State.RestartingGame>();
+    result.State.ShouldBeOfType<GameLogic.State.RestartingGame>();
   }
 
   [Test]
   public void OnGoToMainMenu() {
     var result = _state.On(new GameLogic.Input.GoToMainMenu());
-    result.ShouldBeOfType<GameLogic.State.Quit>();
+    result.State.ShouldBeOfType<GameLogic.State.Quit>();
   }
 }

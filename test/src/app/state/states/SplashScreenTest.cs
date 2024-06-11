@@ -10,15 +10,18 @@ public class SplashScreenTest : TestClass {
   private IFakeContext _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private AppLogic.State.SplashScreen _state = default!;
+  private AppLogic.Data _data = default!;
+
   public SplashScreenTest(Node testScene) : base(testScene) { }
 
   [Setup]
   public void Setup() {
-    _appRepo = new();
-
     _state = new();
+    _appRepo = new();
+    _data = new();
     _context = _state.CreateFakeContext();
     _context.Set(_appRepo.Object);
+    _context.Set(_data);
   }
 
   [Test]
@@ -28,7 +31,6 @@ public class SplashScreenTest : TestClass {
       new object[] { new AppLogic.Output.ShowSplashScreen() }
     );
   }
-
 
   [Test]
   public void Subscribes() {
@@ -52,7 +54,7 @@ public class SplashScreenTest : TestClass {
   public void RespondsToFadeOutFinished() {
     var next = _state.On(new AppLogic.Input.FadeOutFinished());
 
-    next.ShouldBeOfType<AppLogic.State.MainMenu>();
+    next.State.ShouldBeOfType<AppLogic.State.MainMenu>();
   }
 
   [Test]

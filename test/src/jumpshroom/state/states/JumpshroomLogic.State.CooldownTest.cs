@@ -30,6 +30,6 @@ public class JumpshroomLogicStateCooldownTest : TestClass {
   public void CooldownCompletedGoesToIdle() {
     var next = _state.On(new JumpshroomLogic.Input.CooldownCompleted());
 
-    next.ShouldBeOfType<JumpshroomLogic.State.Idle>();
+    next.State.ShouldBeOfType<JumpshroomLogic.State.Idle>();
   }
 }

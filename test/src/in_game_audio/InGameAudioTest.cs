@@ -1,5 +1,6 @@
 namespace GameDemo.Tests;
 
+using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
 using Godot;
@@ -39,7 +40,6 @@ public class InGameAudioTest : TestClass {
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
 
     _audio = new InGameAudio {
-      IsTesting = true,
       InGameAudioLogic = _logic.Object,
       CoinCollected = _coinCollected.Object,
       Bounce = _bounce.Object,
@@ -49,8 +49,12 @@ public class InGameAudioTest : TestClass {
       GameMusic = _gameMusic.Object
     };
 
+    (_audio as IAutoInit).IsTesting = true;
+
     _audio.FakeDependency(_appRepo.Object);
     _audio.FakeDependency(_gameRepo.Object);
+
+    _audio._Notification(-1);
   }
 
   [Test]

@@ -48,7 +48,7 @@ public class PlayerLogicStateDisabledTest : TestClass {
   public void IdlesOnEnable() {
     var next = _state.On(new PlayerLogic.Input.Enable());
 
-    next.ShouldBeAssignableTo<PlayerLogic.State.Idle>();
+    next.State.ShouldBeAssignableTo<PlayerLogic.State.Idle>();
   }
 
   [Test]

@@ -64,7 +64,7 @@ public class MenuBackdropTest : TestClass {
   [Test]
   public void OnStartGame() {
     var result = _state.On(new GameLogic.Input.Start());
-    result.ShouldBeOfType<GameLogic.State.Playing>();
+    result.State.ShouldBeOfType<GameLogic.State.Playing>();
   }
 
   [Test]
@@ -75,7 +75,7 @@ public class MenuBackdropTest : TestClass {
 
     var result = _state.On(new GameLogic.Input.Initialize(numCoins));
 
-    result.ShouldBe(_state);
+    result.State.ShouldBe(_state);
     _gameRepo.VerifyAll();
   }
 }

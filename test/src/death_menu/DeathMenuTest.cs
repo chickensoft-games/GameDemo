@@ -29,6 +29,8 @@ public class DeathMenuTest : TestClass {
       AnimationPlayer = _animationPlayer.Object,
       FadeAnimationPlayer = _fadeAnimationPlayer.Object
     };
+
+    _menu._Notification(-1);
   }
 
   [Test]

@@ -1,32 +1,13 @@
 namespace GameDemo;
 
+using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
-using Chickensoft.LogicBlocks.Generator;
-using Godot;
 
-public interface IPlayerCameraLogic : ILogicBlock<PlayerCameraLogic.IState>;
+public interface IPlayerCameraLogic : ILogicBlock<PlayerCameraLogic.State>;
 
-[StateMachine]
+[Meta, Id("player_camera_logic")]
+[LogicBlock(typeof(State), Diagram = true)]
 public partial class PlayerCameraLogic :
-  LogicBlock<PlayerCameraLogic.IState>, IPlayerCameraLogic {
-  public override IState GetInitialState() => new State.InputDisabled();
-
-  public PlayerCameraLogic(
-    IPlayerCamera camera,
-    PlayerCameraSettings settings,
-    IGameRepo gameRepo
-  ) {
-    Set(camera);
-    Set(settings);
-    Set(gameRepo);
-
-    Set(
-      new Data {
-        TargetPosition = Vector3.Zero,
-        TargetAngleHorizontal = 0f,
-        TargetAngleVertical = 0f,
-        TargetOffset = Vector3.Zero
-      }
-    );
-  }
+  LogicBlock<PlayerCameraLogic.State>, IPlayerCameraLogic {
+  public override Transition GetInitialState() => To<State.InputDisabled>();
 }

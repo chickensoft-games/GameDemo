@@ -40,7 +40,6 @@ public class AppTest : TestClass {
     _splash = new();
 
     _app = new() {
-      IsTesting = true,
       AppRepo = _appRepo.Object,
       AppLogic = _logic.Object,
       Game = _game.Object,
@@ -51,6 +50,8 @@ public class AppTest : TestClass {
       AnimationPlayer = _animationPlayer.Object,
       Splash = _splash.Object
     };
+
+    (_app as IAutoInit).IsTesting = true;
 
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
     _logic.Setup(logic => logic.Start());
@@ -69,25 +70,27 @@ public class AppTest : TestClass {
     _app.AppRepo.ShouldBeOfType<AppRepo>();
     _app.AppLogic.ShouldBeOfType<AppLogic>();
 
-    _menu.VerifyAdd(menu => menu.Start += _app.OnStart);
+    _menu.VerifyAdd(menu => menu.NewGame += _app.OnNewGame);
 
     _animationPlayer.VerifyAdd(
       player => player.AnimationFinished += _app.OnAnimationFinished
     );
 
     // Make sure the app provides dependency values to its descendants.
-    _app.ProviderState.IsInitialized.ShouldBeTrue();
+    (_app as IProvider).ProviderState.IsInitialized.ShouldBeTrue();
     (_app as IProvide<IAppRepo>).Value().ShouldBe(_app.AppRepo);
 
     // Make sure it cleans everything up.
 
     _app.OnExitTree();
 
-    _menu.VerifyRemove(menu => menu.Start -= _app.OnStart);
+    _menu.VerifyRemove(menu => menu.NewGame -= _app.OnNewGame);
 
     _animationPlayer.VerifyRemove(
       player => player.AnimationFinished -= _app.OnAnimationFinished
     );
+
+    _app._Notification(-1);
   }
 
   [Test]
@@ -148,7 +151,7 @@ public class AppTest : TestClass {
 
     _app.OnReady();
 
-    _binding.Output(new AppLogic.Output.LoadGame());
+    _binding.Output(new AppLogic.Output.SetupGameScene());
 
     _instantiator.VerifyAll();
     _gamePreview.VerifyAll();
@@ -207,10 +210,28 @@ public class AppTest : TestClass {
   }
 
   [Test]
-  public void OnStartWorks() {
+  public void StartsLoadingSaveFile() {
+    _app.OnReady();
+
+    _binding.Output(new AppLogic.Output.StartLoadingSaveFile());
+
+    _game.VerifyAdd(game => game.SaveFileLoaded += _app.OnSaveFileLoaded);
+    _game.Verify(game => game.LoadExistingGame());
+  }
+
+  [Test]
+  public void OnNewGameWorks() {
     _logic.Reset();
-    _logic.Setup(logic => logic.Input(It.IsAny<AppLogic.Input.StartGame>()));
-    _app.OnStart();
+    _logic.Setup(logic => logic.Input(It.IsAny<AppLogic.Input.NewGame>()));
+    _app.OnNewGame();
+    _logic.VerifyAll();
+  }
+
+  [Test]
+  public void OnLoadGameWorks() {
+    _logic.Reset();
+    _logic.Setup(logic => logic.Input(It.IsAny<AppLogic.Input.LoadGame>()));
+    _app.OnLoadGame();
     _logic.VerifyAll();
   }
 
@@ -236,6 +257,16 @@ public class AppTest : TestClass {
     _app.OnAnimationFinished("fade_out");
 
     _logic.VerifyAll();
+  }
+
+  [Test]
+  public void OnSaveFileLoaded() {
+
+    _app.OnSaveFileLoaded();
+
+    _logic.Verify(logic => logic.Input(It.IsAny<AppLogic.Input.SaveFileLoaded>()));
+
+    _game.VerifyRemove(game => game.SaveFileLoaded -= _app.OnSaveFileLoaded);
   }
 
   // Mocking helpers

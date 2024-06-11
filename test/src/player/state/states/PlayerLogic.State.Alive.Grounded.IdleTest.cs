@@ -20,9 +20,7 @@ public class PlayerLogicStateAliveGroundedIdleTest : TestClass {
 
   [Test]
   public void Enters() {
-    var parent =
-      new PlayerLogic.State.Grounded();
-    _state.Enter(parent);
+    _state.Enter<PlayerLogic.State.Grounded>();
 
     _context.Outputs.ShouldBe(new object[] {
       new PlayerLogic.Output.Animations.Idle()
@@ -33,6 +31,6 @@ public class PlayerLogicStateAliveGroundedIdleTest : TestClass {
   public void OnStartedMovingHorizontallyGoesToMoving() {
     var next = _state.On(new PlayerLogic.Input.StartedMovingHorizontally());
 
-    next.ShouldBeAssignableTo<PlayerLogic.State.Moving>();
+    next.State.ShouldBeAssignableTo<PlayerLogic.State.Moving>();
   }
 }

@@ -1,18 +1,16 @@
 namespace GameDemo;
 
+using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class InGameAudioLogic :
-  LogicBlock<InGameAudioLogic.IState>, IInGameAudioLogic {
-  public interface IState : IStateLogic {
-  }
-
-  public record State : StateLogic, IState {
+public partial class InGameAudioLogic {
+  [Meta]
+  public partial record State : StateLogic<State> {
     public State() {
       OnAttach(() => {
-        var appRepo = Context.Get<IAppRepo>();
-        var gameRepo = Context.Get<IGameRepo>();
-        gameRepo.CoinCollected += OnCoinCollected;
+        var appRepo = Get<IAppRepo>();
+        var gameRepo = Get<IGameRepo>();
+        gameRepo.CoinCollectionStarted += OnCoinCollectionStarted;
         gameRepo.JumpshroomUsed += OnJumpshroomUsed;
         gameRepo.Ended += OnGameEnded;
         gameRepo.Jumped += OnJumped;
@@ -21,9 +19,9 @@ public partial class InGameAudioLogic :
       });
 
       OnDetach(() => {
-        var appRepo = Context.Get<IAppRepo>();
-        var gameRepo = Context.Get<IGameRepo>();
-        gameRepo.CoinCollected -= OnCoinCollected;
+        var appRepo = Get<IAppRepo>();
+        var gameRepo = Get<IGameRepo>();
+        gameRepo.CoinCollectionStarted -= OnCoinCollectionStarted;
         gameRepo.JumpshroomUsed -= OnJumpshroomUsed;
         gameRepo.Ended -= OnGameEnded;
         gameRepo.Jumped -= OnJumped;
@@ -32,26 +30,28 @@ public partial class InGameAudioLogic :
       });
     }
 
-    public void OnCoinCollected() => Context.Output(new Output.PlayCoinCollected());
+    public void OnCoinCollectionStarted(ICoin _) =>
+      Output(new Output.PlayCoinCollected());
 
-    public void OnJumpshroomUsed() => Context.Output(new Output.PlayBounce());
+    public void OnJumpshroomUsed() => Output(new Output.PlayBounce());
 
     public void OnGameEnded(GameOverReason reason) {
-      Context.Output(new Output.StopGameMusic());
+      Output(new Output.StopGameMusic());
 
       if (reason is not GameOverReason.Lost) {
         return;
       }
 
-      Context.Output(new Output.PlayPlayerDied());
+      Output(new Output.PlayPlayerDied());
     }
 
-    public void OnJumped() => Context.Output(new Output.PlayJump());
+    public void OnJumped() => Output(new Output.PlayJump());
 
     // TODO: Use a different sound system for menu sounds.
 
-    public void OnMainMenuEntered() => Context.Output(new Output.PlayMainMenuMusic());
+    public void OnMainMenuEntered() =>
+      Output(new Output.PlayMainMenuMusic());
 
-    public void OnGameEntered() => Context.Output(new Output.PlayGameMusic());
+    public void OnGameEntered() => Output(new Output.PlayGameMusic());
   }
 }

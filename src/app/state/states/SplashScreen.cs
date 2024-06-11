@@ -1,12 +1,14 @@
 namespace GameDemo;
 
+using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
+
 public partial class AppLogic {
   public partial record State {
-    public record SplashScreen : State, IGet<Input.FadeOutFinished> {
+    [Meta]
+    public partial record SplashScreen : State, IGet<Input.FadeOutFinished> {
       public SplashScreen() {
-        OnEnter<SplashScreen>(
-          (previous) => Context.Output(new Output.ShowSplashScreen())
-        );
+        this.OnEnter(() => Output(new Output.ShowSplashScreen()));
 
         OnAttach(
           () => Get<IAppRepo>().SplashScreenSkipped += OnSplashScreenSkipped
@@ -17,10 +19,10 @@ public partial class AppLogic {
         );
       }
 
-      public IState On(Input.FadeOutFinished input) => new MainMenu();
+      public Transition On(in Input.FadeOutFinished input) => To<MainMenu>();
 
       public void OnSplashScreenSkipped() =>
-        Context.Output(new Output.HideSplashScreen());
+        Output(new Output.HideSplashScreen());
     }
   }
 }

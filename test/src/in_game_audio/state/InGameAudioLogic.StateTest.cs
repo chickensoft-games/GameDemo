@@ -30,7 +30,7 @@ public class InGameAudioLogicStateTest : TestClass {
     _state.Attach(_context);
 
     _gameRepo.VerifyAdd(
-      repo => repo.CoinCollected += _state.OnCoinCollected
+      repo => repo.CoinCollectionStarted += _state.OnCoinCollectionStarted
     );
     _gameRepo.VerifyAdd(
       repo => repo.JumpshroomUsed += _state.OnJumpshroomUsed
@@ -51,7 +51,7 @@ public class InGameAudioLogicStateTest : TestClass {
     _state.Detach();
 
     _gameRepo.VerifyRemove(
-      repo => repo.CoinCollected -= _state.OnCoinCollected
+      repo => repo.CoinCollectionStarted -= _state.OnCoinCollectionStarted
     );
     _gameRepo.VerifyRemove(
       repo => repo.JumpshroomUsed -= _state.OnJumpshroomUsed
@@ -71,8 +71,8 @@ public class InGameAudioLogicStateTest : TestClass {
   }
 
   [Test]
-  public void OnCoinCollected() {
-    _state.OnCoinCollected();
+  public void OnCoinCollectionStarted() {
+    _state.OnCoinCollectionStarted(new Mock<ICoin>().Object);
 
     _context.Outputs.ShouldBe(new object[] {
       new InGameAudioLogic.Output.PlayCoinCollected()

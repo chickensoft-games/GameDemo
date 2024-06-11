@@ -1,9 +1,9 @@
 namespace GameDemo;
 
-public partial class AppLogic {
-  public interface IState : IStateLogic {
-  }
+using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 
-  public abstract partial record State : StateLogic, IState {
-  }
+public partial class AppLogic {
+  [Meta]
+  public abstract partial record State : StateLogic<State>;
 }

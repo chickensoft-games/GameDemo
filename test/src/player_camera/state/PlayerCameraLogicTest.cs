@@ -2,43 +2,36 @@ namespace GameDemo.Tests;
 
 using Chickensoft.GoDotTest;
 using Godot;
-using Moq;
 using Shouldly;
 
 public class PlayerCameraLogicTest : TestClass {
-  private Mock<IPlayerCamera> _camera = default!;
-  private PlayerCameraSettings _settings = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
   private PlayerCameraLogic _logic = default!;
 
   public PlayerCameraLogicTest(Node testScene) : base(testScene) { }
 
   [Setup]
   public void Setup() {
-    _camera = new();
-    _gameRepo = new();
-    _settings = new();
-    _logic = new(_camera.Object, _settings, _gameRepo.Object);
+    _logic = new();
   }
 
   [Test]
   public void Initializes() {
     // Make sure the camera logic block sets up the blackboard with
     // everything the states will need to use.
-    var data = new PlayerCameraLogic.Data();
+    var data = new PlayerCameraLogic.Data() {
+      TargetPosition = Vector3.Zero,
+      TargetAngleHorizontal = 0,
+      TargetAngleVertical = 0,
+      TargetOffset = Vector3.Zero
+    };
 
     data.TargetPosition.ShouldBe(Vector3.Zero);
     data.TargetAngleHorizontal.ShouldBe(0f);
     data.TargetAngleVertical.ShouldBe(0f);
     data.TargetOffset.ShouldBe(Vector3.Zero);
 
-    _logic.Get<IPlayerCamera>().ShouldBe(_camera.Object);
-    _logic.Get<PlayerCameraSettings>().ShouldBe(_settings);
-    _logic.Get<IGameRepo>().ShouldBe(_gameRepo.Object);
-    _logic.Get<PlayerCameraLogic.Data>().ShouldNotBeNull();
-
     _logic
-      .GetInitialState()
+      .GetInitialState().State
       .ShouldBeOfType<PlayerCameraLogic.State.InputDisabled>();
 
     // Test outputs

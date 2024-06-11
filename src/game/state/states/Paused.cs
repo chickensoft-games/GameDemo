@@ -1,29 +1,34 @@
 namespace GameDemo;
 
+using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
+
 public partial class GameLogic {
   public partial record State {
-    public record Paused : State,
-      IGet<Input.PauseButtonPressed>, IGet<Input.GoToMainMenu>, IGet<Input.SaveRequested> {
+    [Meta]
+    public partial record Paused : State,
+      IGet<Input.PauseButtonPressed>,
+      IGet<Input.GoToMainMenu>,
+      IGet<Input.SaveRequested> {
       public Paused() {
-        OnEnter<Paused>(
-          _ => {
+        this.OnEnter(
+          () => {
             Get<IGameRepo>().Pause();
-            Context.Output(new Output.ShowPauseMenu());
+            Output(new Output.ShowPauseMenu());
           }
         );
+
         // We don't resume on exit because we can leave this state for
         // a menu and we want to remain paused.
-        OnExit<Paused>(
-          _ => Context.Output(new Output.ExitPauseMenu())
-        );
+        this.OnExit(() => Output(new Output.ExitPauseMenu()));
       }
 
-      public virtual IState On(Input.PauseButtonPressed input)
-        => new Resuming();
+      public virtual Transition On(in Input.PauseButtonPressed input)
+        => To<Resuming>();
 
-      public IState On(Input.SaveRequested input) => new Saving();
+      public Transition On(in Input.SaveRequested input) => To<Saving>();
 
-      public IState On(Input.GoToMainMenu input) => new Quit();
+      public Transition On(in Input.GoToMainMenu input) => To<Quit>();
     }
   }
 }

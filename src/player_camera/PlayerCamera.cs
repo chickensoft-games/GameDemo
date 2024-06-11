@@ -2,9 +2,9 @@ namespace GameDemo;
 
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.PowerUps;
+using Chickensoft.SaveFileBuilder;
 using Godot;
-using SuperNodes.Types;
+using Chickensoft.Introspection;
 
 /// <summary>
 ///   Camera interface. This is how the camera node is exposed to its logic block,
@@ -13,6 +13,8 @@ using SuperNodes.Types;
 ///   allowing the camera logic block to be unit-tested.
 /// </summary>
 public interface IPlayerCamera : INode3D {
+  IPlayerCameraLogic CameraLogic { get; }
+
   /// <summary>
   ///   Camera system's overall offset that doesn't change during
   ///   runtime. The camera's position is determined by the target offset
@@ -53,17 +55,19 @@ public interface IPlayerCamera : INode3D {
   void UsePlayerCamera();
 }
 
-[SuperNode(typeof(Dependent), typeof(AutoNode))]
+[Meta(typeof(IAutoNode))]
 public partial class PlayerCamera : Node3D, IPlayerCamera {
-  public override partial void _Notification(int what);
+  public override void _Notification(int what) => this.Notify(what);
 
-  #region Dependencies
+  #region Save
 
-  [Dependency] public IGameRepo GameRepo => DependOn<IGameRepo>();
-
-  #endregion Dependencies
+  [Dependency]
+  public ISaveChunk<GameData> GameChunk => this.DependOn<ISaveChunk<GameData>>();
+  public ISaveChunk<PlayerCameraData> PlayerCameraChunk { get; set; } = default!;
+  #endregion Save
 
   #region State
+  [Dependency] public IGameRepo GameRepo => this.DependOn<IGameRepo>();
 
   public IPlayerCameraLogic CameraLogic { get; set; } = default!;
 
@@ -112,24 +116,59 @@ public partial class PlayerCamera : Node3D, IPlayerCamera {
   #endregion Computed
 
   public void Setup() {
-    CameraLogic = new PlayerCameraLogic(this, Settings, GameRepo);
+    CameraLogic = new PlayerCameraLogic();
+
+    CameraLogic.Set(this as IPlayerCamera);
+    CameraLogic.Set(Settings);
+    CameraLogic.Set(GameRepo);
+
+    CameraLogic.Save(
+      () => new PlayerCameraLogic.Data {
+        TargetPosition = Vector3.Zero,
+        TargetAngleHorizontal = 0f,
+        TargetAngleVertical = 0f,
+        TargetOffset = Vector3.Zero
+      }
+    );
+
+    PlayerCameraChunk = new SaveChunk<PlayerCameraData>(
+      onSave: (chunk) => new PlayerCameraData() {
+        StateMachine = (PlayerCameraLogic)CameraLogic,
+        GlobalTransform = GlobalTransform,
+        LocalPosition = CameraNode.Position,
+        OffsetPosition = OffsetNode.Position,
+      },
+      onLoad: (chunk, data) => {
+        CameraLogic.RestoreFrom(data.StateMachine);
+        GlobalTransform = data.GlobalTransform;
+        CameraNode.Position = data.LocalPosition;
+        OffsetNode.Position = data.OffsetPosition;
+
+        CameraLogic.Input(new PlayerCameraLogic.Input.PhysicsTicked(0d));
+      }
+    );
+
     SetPhysicsProcess(true);
   }
 
   public void OnResolved() {
+    GameChunk.AddChunk(PlayerCameraChunk);
+
     CameraBinding = CameraLogic.Bind();
     CameraBinding
-      .Handle<PlayerCameraLogic.Output.GimbalRotationChanged>(
-        output => {
-          GimbalHorizontalNode.Rotation = output.GimbalRotationHorizontal;
-          GimbalVerticalNode.Rotation = output.GimbalRotationVertical;
-        }
-      ).Handle<PlayerCameraLogic.Output.GlobalTransformChanged>(
-        output => GlobalTransform = output.GlobalTransform
-      ).Handle<PlayerCameraLogic.Output.CameraLocalPositionChanged>(
-        output => CameraNode.Position = output.CameraLocalPosition
-      ).Handle<PlayerCameraLogic.Output.CameraOffsetChanged>(
-        output => OffsetNode.Position = output.Offset
+      .Handle((in PlayerCameraLogic.Output.GimbalRotationChanged output) => {
+        GimbalHorizontalNode.Rotation = output.GimbalRotationHorizontal;
+        GimbalVerticalNode.Rotation = output.GimbalRotationVertical;
+      })
+      .Handle((in PlayerCameraLogic.Output.GlobalTransformChanged output) =>
+        GlobalTransform = output.GlobalTransform
+      )
+      .Handle(
+        (in PlayerCameraLogic.Output.CameraLocalPositionChanged output) =>
+          CameraNode.Position = output.CameraLocalPosition
+      )
+      .Handle((in PlayerCameraLogic.Output.CameraOffsetChanged output) =>
+        OffsetNode.Position = output.Offset
       );
 
     CameraLogic.Start();

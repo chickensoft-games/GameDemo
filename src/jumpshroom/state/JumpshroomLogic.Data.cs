@@ -1,7 +1,5 @@
 namespace GameDemo;
 
-using Chickensoft.LogicBlocks;
-
-public partial class JumpshroomLogic : LogicBlock<JumpshroomLogic.IState> {
+public partial class JumpshroomLogic {
   public record Data(float ImpulseStrength);
 }

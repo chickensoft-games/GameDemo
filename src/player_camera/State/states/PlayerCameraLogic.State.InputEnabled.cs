@@ -1,18 +1,21 @@
 namespace GameDemo;
 
+using Chickensoft.Introspection;
 using Godot;
 
 public partial class PlayerCameraLogic {
   public partial record State {
     /// <summary>The state of the player camera.</summary>
-    public record InputEnabled : State,
-    IGet<Input.DisableInput>, IGet<Input.MouseInputOccurred>
-      , IGet<Input.JoyPadInputOccurred> {
-      public IState On(Input.DisableInput input) => new InputDisabled();
+    [Meta, Id("player_camera_logic_state_input_enabled")]
+    public partial record InputEnabled : State,
+    IGet<Input.DisableInput>,
+    IGet<Input.MouseInputOccurred>,
+    IGet<Input.JoyPadInputOccurred> {
+      public Transition On(in Input.DisableInput input) => To<InputDisabled>();
 
-      public IState On(Input.MouseInputOccurred input) {
-        var settings = Context.Get<PlayerCameraSettings>();
-        var data = Context.Get<Data>();
+      public Transition On(in Input.MouseInputOccurred input) {
+        var settings = Get<PlayerCameraSettings>();
+        var data = Get<Data>();
 
         var targetAngleVertical = Mathf.Clamp(
           data.TargetAngleVertical +
@@ -25,12 +28,12 @@ public partial class PlayerCameraLogic {
           -input.Motion.Relative.X * settings.MouseSensitivity;
         data.TargetAngleVertical = targetAngleVertical;
 
-        return this;
+        return ToSelf();
       }
 
-      public IState On(Input.JoyPadInputOccurred input) {
-        var settings = Context.Get<PlayerCameraSettings>();
-        var data = Context.Get<Data>();
+      public Transition On(in Input.JoyPadInputOccurred input) {
+        var settings = Get<PlayerCameraSettings>();
+        var data = Get<Data>();
 
         if (input.Motion.Axis == JoyAxis.RightX) {
           data.TargetAngleHorizontal +=
@@ -38,15 +41,14 @@ public partial class PlayerCameraLogic {
         }
 
         if (input.Motion.Axis == JoyAxis.RightY) {
-          var targetAngleVertical = Mathf.Clamp(
+          data.TargetAngleVertical = (float)Mathf.Clamp(
              data.TargetAngleVertical +
              (-input.Motion.AxisValue * settings.JoypadSensitivity),
              settings.VerticalMin,
              settings.VerticalMax
            );
-          data.TargetAngleVertical = targetAngleVertical;
         }
-        return this;
+        return ToSelf();
       }
     }
   }

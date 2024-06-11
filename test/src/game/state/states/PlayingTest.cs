@@ -54,7 +54,7 @@ public class PlayingTest : TestClass {
 
   [Test]
   public void OnPauseButtonPressed() =>
-    _state.On(new GameLogic.Input.PauseButtonPressed())
+    _state.On(new GameLogic.Input.PauseButtonPressed()).State
       .ShouldBeOfType<GameLogic.State.Paused>();
 
   [Test]
@@ -67,20 +67,20 @@ public class PlayingTest : TestClass {
   public void OnEndGameWins() {
     var result = _state.On(new GameLogic.Input.EndGame(GameOverReason.Won));
     _gameRepo.Verify(repo => repo.Pause());
-    result.ShouldBeOfType<GameLogic.State.Won>();
+    result.State.ShouldBeOfType<GameLogic.State.Won>();
   }
 
   [Test]
   public void OnEndGameLoses() {
     var result = _state.On(new GameLogic.Input.EndGame(GameOverReason.Lost));
     _gameRepo.Verify(repo => repo.Pause());
-    result.ShouldBeOfType<GameLogic.State.Lost>();
+    result.State.ShouldBeOfType<GameLogic.State.Lost>();
   }
 
   [Test]
   public void OnEndGameQuits() {
     var result = _state.On(new GameLogic.Input.EndGame(GameOverReason.Quit));
     _gameRepo.Verify(repo => repo.Pause());
-    result.ShouldBeOfType<GameLogic.State.Quit>();
+    result.State.ShouldBeOfType<GameLogic.State.Quit>();
   }
 }

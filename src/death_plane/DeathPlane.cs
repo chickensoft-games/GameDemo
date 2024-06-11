@@ -1,11 +1,12 @@
 namespace GameDemo;
 
 using Godot;
-using SuperNodes.Types;
+using Chickensoft.Introspection;
+using Chickensoft.AutoInject;
 
-[SuperNode]
+[Meta(typeof(IAutoNode))]
 public partial class DeathPlane : Area3D {
-  public override partial void _Notification(int what);
+  public override void _Notification(int what) => this.Notify(what);
 
   public void OnReady() => BodyEntered += OnBodyEntered;
 

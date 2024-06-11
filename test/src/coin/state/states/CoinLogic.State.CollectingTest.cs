@@ -1,5 +1,6 @@
 namespace GameDemo.Tests;
 
+using Chickensoft.Collections;
 using Chickensoft.GoDotTest;
 using Chickensoft.LogicBlocks;
 using Godot;
@@ -13,22 +14,31 @@ public class CoinLogicStateCollectingTest : TestClass {
   private Mock<ICoin> _coin = default!;
   private Mock<ICoinCollector> _target = default!;
   private CoinLogic.State.Collecting _state = default!;
+  private CoinLogic.Data _data = default!;
+  private EntityTable _entityTable = default!;
 
   public CoinLogicStateCollectingTest(Node testScene) : base(testScene) { }
 
   [Setup]
   public void Setup() {
+    _state = new();
     _gameRepo = new();
     _settings = new(1.0f);
     _coin = new();
     _target = new();
+    _data = new() { Target = "target_id" };
+    _entityTable = new();
 
-    _state = new(_target.Object);
     _context = _state.CreateFakeContext();
 
-    _context.Set(_settings);
+    _entityTable.Set("target_id", _target.Object);
+
     _context.Set(_gameRepo.Object);
+    _context.Set(_settings);
     _context.Set(_coin.Object);
+    _context.Set(_target.Object);
+    _context.Set(_data);
+    _context.Set(_entityTable);
   }
 
   [Test]
@@ -50,9 +60,11 @@ public class CoinLogicStateCollectingTest : TestClass {
     _gameRepo.Setup(repo => repo.OnFinishCoinCollection(_coin.Object));
     _target.Setup(target => target.CenterOfMass).Returns(Vector3.One);
 
-    _state.On(input).ShouldBe(_state);
+    _state.On(input).State.ShouldBe(_state);
 
-    _context.Outputs.ShouldBeOfTypes(typeof(CoinLogic.Output.SelfDestruct),
-      typeof(CoinLogic.Output.Move));
+    _context.Outputs.ShouldBeOfTypes(
+      typeof(CoinLogic.Output.SelfDestruct),
+      typeof(CoinLogic.Output.Move)
+    );
   }
 }

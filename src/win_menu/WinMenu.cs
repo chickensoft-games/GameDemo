@@ -1,9 +1,9 @@
 namespace GameDemo;
 
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.PowerUps;
+using Chickensoft.AutoInject;
 using Godot;
-using SuperNodes.Types;
+using Chickensoft.Introspection;
 
 public interface IWinMenu : IControl {
   event WinMenu.MainMenuEventHandler MainMenu;
@@ -14,9 +14,9 @@ public interface IWinMenu : IControl {
   void FadeOut();
 }
 
-[SuperNode(typeof(AutoNode))]
+[Meta(typeof(IAutoNode))]
 public partial class WinMenu : Control, IWinMenu {
-  public override partial void _Notification(int what);
+  public override void _Notification(int what) => this.Notify(what);
 
   #region Nodes
 

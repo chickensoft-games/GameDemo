@@ -2,15 +2,14 @@ namespace GameDemo;
 
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.PowerUps;
 using Godot;
-using SuperNodes.Types;
+using Chickensoft.Introspection;
 
 public interface IApp : ICanvasLayer, IProvide<IAppRepo>;
 
-[SuperNode(typeof(AutoSetup), typeof(AutoNode), typeof(Provider))]
+[Meta(typeof(IAutoNode))]
 public partial class App : CanvasLayer, IApp {
-  public override partial void _Notification(int what);
+  public override void _Notification(int what) => this.Notify(what);
 
   #region Constants
 
@@ -53,42 +52,45 @@ public partial class App : CanvasLayer, IApp {
   public void Setup() {
     Instantiator = new Instantiator(GetTree());
     AppRepo = new AppRepo();
-    AppLogic = new AppLogic(AppRepo);
+    AppLogic = new AppLogic();
+    AppLogic.Set(AppRepo);
+    AppLogic.Set(new AppLogic.Data());
 
     // Listen for various menu signals. Each of these just translate to an input
     // for the overall app's state machine.
-    Menu.Start += OnStart;
+    Menu.NewGame += OnNewGame;
+    Menu.LoadGame += OnLoadGame;
 
     AnimationPlayer.AnimationFinished += OnAnimationFinished;
 
-    Provide();
+    this.Provide();
   }
 
   public void OnReady() {
     AppBinding = AppLogic.Bind();
 
     AppBinding
-      .Handle<AppLogic.Output.ShowSplashScreen>(_ => {
+      .Handle((in AppLogic.Output.ShowSplashScreen _) => {
         HideMenus();
         BlankScreen.Hide();
         Splash.Show();
       })
-      .Handle<AppLogic.Output.HideSplashScreen>(_ => {
+      .Handle((in AppLogic.Output.HideSplashScreen _) => {
         BlankScreen.Show();
         FadeToBlack();
       })
-      .Handle<AppLogic.Output.RemoveExistingGame>(_ => {
+      .Handle((in AppLogic.Output.RemoveExistingGame _) => {
         GamePreview.RemoveChildEx(Game);
         Game.QueueFree();
         Game = default!;
       })
-      .Handle<AppLogic.Output.LoadGame>(_ => {
+      .Handle((in AppLogic.Output.SetupGameScene _) => {
         Game = Instantiator.LoadAndInstantiate<Game>(GAME_SCENE_PATH);
         GamePreview.AddChildEx(Game);
 
         Instantiator.SceneTree.Paused = false;
       })
-      .Handle<AppLogic.Output.ShowMainMenu>(_ => {
+      .Handle((in AppLogic.Output.ShowMainMenu _) => {
         // Load everything while we're showing a black screen, then fade in.
         HideMenus();
         Menu.Show();
@@ -96,18 +98,26 @@ public partial class App : CanvasLayer, IApp {
 
         FadeInFromBlack();
       })
-      .Handle<AppLogic.Output.FadeToBlack>(_ => FadeToBlack())
-      .Handle<AppLogic.Output.ShowGame>(_ => {
+      .Handle((in AppLogic.Output.FadeToBlack _) => FadeToBlack())
+      .Handle((in AppLogic.Output.ShowGame _) => {
         HideMenus();
         FadeInFromBlack();
       })
-      .Handle<AppLogic.Output.HideGame>(_ => FadeToBlack());
+      .Handle((in AppLogic.Output.HideGame _) => FadeToBlack())
+      .Handle(
+        (in AppLogic.Output.StartLoadingSaveFile _) => {
+          Game.SaveFileLoaded += OnSaveFileLoaded;
+          Game.LoadExistingGame();
+        }
+      );
 
     // Enter the first state to kick off the binding side effects.
     AppLogic.Start();
   }
 
-  public void OnStart() => AppLogic.Input(new AppLogic.Input.StartGame());
+  public void OnNewGame() => AppLogic.Input(new AppLogic.Input.NewGame());
+
+  public void OnLoadGame() => AppLogic.Input(new AppLogic.Input.LoadGame());
 
   public void OnAnimationFinished(StringName animation) {
     // There's only two animations :)
@@ -144,8 +154,13 @@ public partial class App : CanvasLayer, IApp {
     AppBinding.Dispose();
     AppRepo.Dispose();
 
-    Menu.Start -= OnStart;
+    Menu.NewGame -= OnNewGame;
 
     AnimationPlayer.AnimationFinished -= OnAnimationFinished;
+  }
+
+  public void OnSaveFileLoaded() {
+    Game.SaveFileLoaded -= OnSaveFileLoaded;
+    AppLogic.Input(new AppLogic.Input.SaveFileLoaded());
   }
 }

@@ -2,13 +2,15 @@ namespace GameDemo.Tests;
 
 using Chickensoft.GoDotCollections;
 using Chickensoft.GoDotTest;
+using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
-public class GameLogicStateTest : TestClass {
-  public record TestGameState : GameLogic.State;
+public partial class GameLogicStateTest : TestClass {
+  [Meta]
+  public partial record TestGameState : GameLogic.State;
 
   private IFakeContext _context = default!;
   private Mock<IGameRepo> _gameRepo = default!;

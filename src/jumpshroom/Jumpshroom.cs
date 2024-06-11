@@ -2,9 +2,8 @@ namespace GameDemo;
 
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.PowerUps;
 using Godot;
-using SuperNodes.Types;
+using Chickensoft.Introspection;
 
 public interface IJumpshroom {
   /// <summary>
@@ -13,9 +12,9 @@ public interface IJumpshroom {
   public void Hit();
 }
 
-[SuperNode(typeof(AutoNode), typeof(Dependent))]
+[Meta(typeof(IAutoNode))]
 public partial class Jumpshroom : Node3D {
-  public override partial void _Notification(int what);
+  public override void _Notification(int what) => this.Notify(what);
 
   #region Signals
 
@@ -46,16 +45,18 @@ public partial class Jumpshroom : Node3D {
 
   #region Dependencies
 
-  [Dependency] public IGameRepo GameRepo => DependOn<IGameRepo>();
+  [Dependency] public IGameRepo GameRepo => this.DependOn<IGameRepo>();
 
   #endregion Dependencies
 
-  public void Setup() =>
-    JumpshroomLogic = new JumpshroomLogic(
-      new JumpshroomLogic.Data(ImpulseStrength), GameRepo
-    );
+  public void Setup() {
+    JumpshroomLogic = new JumpshroomLogic();
+    JumpshroomLogic.Set(new JumpshroomLogic.Data(ImpulseStrength));
+  }
 
   public void OnResolved() {
+    JumpshroomLogic.Set(GameRepo);
+
     JumpshroomBinding = JumpshroomLogic.Bind();
 
     ShroomLoaded += OnShroomLoaded;
@@ -64,11 +65,13 @@ public partial class Jumpshroom : Node3D {
     CooldownTimer.Timeout += OnCooldownTimeout;
 
     JumpshroomBinding
-      .Handle<JumpshroomLogic.Output.Animate>(
-        output => AnimationPlayer.Play("bounce")
+      .Handle(
+        (in JumpshroomLogic.Output.Animate output) =>
+          AnimationPlayer.Play("bounce")
       )
-      .Handle<JumpshroomLogic.Output.StartCooldownTimer>(
-        output => CooldownTimer.Start()
+      .Handle(
+        (in JumpshroomLogic.Output.StartCooldownTimer output) =>
+          CooldownTimer.Start()
       );
   }
 
