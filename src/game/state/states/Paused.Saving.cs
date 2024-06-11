@@ -1,32 +1,28 @@
 namespace GameDemo;
 
+using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
+
 public partial class GameLogic {
   public partial record State {
-    public record Saving : Paused, IGet<Input.SaveCompleted> {
+    [Meta]
+    public partial record Saving : Paused, IGet<Input.SaveCompleted> {
       public Saving() {
-        OnAttach(() => Get<IGameRepo>().SaveCompleted += OnSaveCompleted);
-        OnDetach(() => Get<IGameRepo>().SaveCompleted -= OnSaveCompleted);
-
-        OnEnter<Saving>(
-          previous => {
-            Context.Output(new Output.ShowPauseSaveOverlay());
-            Get<IGameRepo>().Save();
+        this.OnEnter(
+          () => {
+            Output(new Output.ShowPauseSaveOverlay());
+            Output(new Output.StartSaving());
           }
         );
 
-        OnExit<Saving>(
-          next => Context.Output(new Output.HidePauseSaveOverlay())
-        );
+        this.OnExit(() => Output(new Output.HidePauseSaveOverlay()));
       }
 
-      public void OnSaveCompleted() =>
-        Context.Input(new Input.SaveCompleted());
-
-      public IState On(Input.SaveCompleted input)
-        => new Paused();
+      public Transition On(in Input.SaveCompleted input) => To<Paused>();
 
       // Make it impossible to leave the pause menu while saving
-      public override IState On(Input.PauseButtonPressed input) => this;
+      public override Transition On(in Input.PauseButtonPressed input) =>
+        ToSelf();
     }
   }
 }

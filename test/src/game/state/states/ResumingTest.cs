@@ -39,6 +39,6 @@ public class ResumingTest : TestClass {
   [Test]
   public void OnPauseMenuTransitioned() {
     var result = _state.On(new GameLogic.Input.PauseMenuTransitioned());
-    result.ShouldBeOfType<GameLogic.State.Playing>();
+    result.State.ShouldBeOfType<GameLogic.State.Playing>();
   }
 }

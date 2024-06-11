@@ -10,7 +10,6 @@ public class QuitTest : TestClass {
   private GameLogic.State.Quit _state = default!;
   private Mock<IAppRepo> _appRepo = default!;
 
-
   public QuitTest(Node testScene) : base(testScene) { }
 
   [Setup]

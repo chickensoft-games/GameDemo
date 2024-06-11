@@ -1,8 +1,6 @@
 namespace GameDemo;
 
-using Chickensoft.LogicBlocks;
-
-public partial class JumpshroomLogic : LogicBlock<JumpshroomLogic.IState> {
+public partial class JumpshroomLogic {
   public static class Output {
     public readonly record struct Animate;
     public readonly record struct StartCooldownTimer;

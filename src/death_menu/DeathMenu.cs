@@ -1,9 +1,9 @@
 namespace GameDemo;
 
+using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.PowerUps;
 using Godot;
-using SuperNodes.Types;
+using Chickensoft.Introspection;
 
 public interface IDeathMenu : IControl {
   event DeathMenu.TryAgainEventHandler TryAgain;
@@ -16,9 +16,9 @@ public interface IDeathMenu : IControl {
   void FadeOut();
 }
 
-[SuperNode(typeof(AutoNode))]
+[Meta(typeof(IAutoNode))]
 public partial class DeathMenu : Control, IDeathMenu {
-  public override partial void _Notification(int what);
+  public override void _Notification(int what) => this.Notify(what);
 
   [Signal]
   public delegate void TryAgainEventHandler();

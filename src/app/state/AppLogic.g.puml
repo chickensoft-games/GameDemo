@@ -1,30 +1,31 @@
 @startuml AppLogic
 state "AppLogic State" as GameDemo_AppLogic_State {
-  state "InGame" as GameDemo_AppLogic_State_InGame {
-    GameDemo_AppLogic_State_InGame : OnEnter → ShowGame
-    GameDemo_AppLogic_State_InGame : OnExit → HideGame
-  }
-  state "LeavingGame" as GameDemo_AppLogic_State_LeavingGame {
-    GameDemo_AppLogic_State_LeavingGame : OnFadeOutFinished → LoadGame, RemoveExistingGame
-  }
-  state "LeavingMenu" as GameDemo_AppLogic_State_LeavingMenu {
-    GameDemo_AppLogic_State_LeavingMenu : OnEnter → FadeToBlack
-  }
-  state "MainMenu" as GameDemo_AppLogic_State_MainMenu {
-    GameDemo_AppLogic_State_MainMenu : OnEnter → LoadGame, ShowMainMenu
-  }
-  state "SplashScreen" as GameDemo_AppLogic_State_SplashScreen {
-    GameDemo_AppLogic_State_SplashScreen : OnEnter → ShowSplashScreen
-    GameDemo_AppLogic_State_SplashScreen : OnSplashScreenSkipped() → HideSplashScreen
-  }
+  state "InGame" as GameDemo_AppLogic_State_InGame
+  state "LeavingGame" as GameDemo_AppLogic_State_LeavingGame
+  state "LeavingMenu" as GameDemo_AppLogic_State_LeavingMenu
+  state "LoadingSaveFile" as GameDemo_AppLogic_State_LoadingSaveFile
+  state "MainMenu" as GameDemo_AppLogic_State_MainMenu
+  state "SplashScreen" as GameDemo_AppLogic_State_SplashScreen
 }
 
 GameDemo_AppLogic_State_InGame --> GameDemo_AppLogic_State_LeavingGame : EndGame
 GameDemo_AppLogic_State_LeavingGame --> GameDemo_AppLogic_State_InGame : FadeOutFinished
 GameDemo_AppLogic_State_LeavingGame --> GameDemo_AppLogic_State_MainMenu : FadeOutFinished
 GameDemo_AppLogic_State_LeavingMenu --> GameDemo_AppLogic_State_InGame : FadeOutFinished
-GameDemo_AppLogic_State_MainMenu --> GameDemo_AppLogic_State_LeavingMenu : StartGame
+GameDemo_AppLogic_State_LeavingMenu --> GameDemo_AppLogic_State_LoadingSaveFile : FadeOutFinished
+GameDemo_AppLogic_State_LoadingSaveFile --> GameDemo_AppLogic_State_InGame : SaveFileLoaded
+GameDemo_AppLogic_State_MainMenu --> GameDemo_AppLogic_State_LeavingMenu : LoadGame
+GameDemo_AppLogic_State_MainMenu --> GameDemo_AppLogic_State_LeavingMenu : NewGame
 GameDemo_AppLogic_State_SplashScreen --> GameDemo_AppLogic_State_MainMenu : FadeOutFinished
+
+GameDemo_AppLogic_State_InGame : OnEnter → ShowGame
+GameDemo_AppLogic_State_InGame : OnExit → HideGame
+GameDemo_AppLogic_State_LeavingGame : OnFadeOutFinished → RemoveExistingGame, SetupGameScene
+GameDemo_AppLogic_State_LeavingMenu : OnEnter → FadeToBlack
+GameDemo_AppLogic_State_LoadingSaveFile : OnEnter → StartLoadingSaveFile
+GameDemo_AppLogic_State_MainMenu : OnEnter → SetupGameScene, ShowMainMenu
+GameDemo_AppLogic_State_SplashScreen : OnEnter → ShowSplashScreen
+GameDemo_AppLogic_State_SplashScreen : OnSplashScreenSkipped() → HideSplashScreen
 
 [*] --> GameDemo_AppLogic_State_SplashScreen
 @enduml

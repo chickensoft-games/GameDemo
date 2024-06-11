@@ -2,13 +2,12 @@ namespace GameDemo;
 
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.PowerUps;
 using Godot;
-using SuperNodes.Types;
+using Chickensoft.Introspection;
 
-[SuperNode(typeof(AutoNode), typeof(Dependent))]
+[Meta(typeof(IAutoNode))]
 public partial class InGameAudio : Node {
-  public override partial void _Notification(int what);
+  public override void _Notification(int what) => this.Notify(what);
 
   #region Nodes
 
@@ -23,9 +22,9 @@ public partial class InGameAudio : Node {
 
   #region Dependencies
 
-  [Dependency] public IAppRepo AppRepo => DependOn<IAppRepo>();
+  [Dependency] public IAppRepo AppRepo => this.DependOn<IAppRepo>();
 
-  [Dependency] public IGameRepo GameRepo => DependOn<IGameRepo>();
+  [Dependency] public IGameRepo GameRepo => this.DependOn<IGameRepo>();
 
   #endregion Dependencies
 
@@ -37,32 +36,33 @@ public partial class InGameAudio : Node {
 
   #endregion State
 
-  public void Setup() => InGameAudioLogic = new InGameAudioLogic(AppRepo, GameRepo);
+  public void Setup() {
+    InGameAudioLogic = new InGameAudioLogic();
+  }
 
   public void OnResolved() {
+    InGameAudioLogic.Set(AppRepo);
+    InGameAudioLogic.Set(GameRepo);
+
     InGameAudioBinding = InGameAudioLogic.Bind();
 
     InGameAudioBinding
-      .Handle<InGameAudioLogic.Output.PlayCoinCollected>(
-        _ => CoinCollected.Play()
+      .Handle((in InGameAudioLogic.Output.PlayCoinCollected _) =>
+        CoinCollected.Play()
       )
-      .Handle<InGameAudioLogic.Output.PlayBounce>(
-        _ => Bounce.Play()
+      .Handle((in InGameAudioLogic.Output.PlayBounce _) => Bounce.Play()
       )
-      .Handle<InGameAudioLogic.Output.PlayPlayerDied>(
-        _ => PlayerDied.Play()
+      .Handle((in InGameAudioLogic.Output.PlayPlayerDied _) => PlayerDied.Play()
       )
-      .Handle<InGameAudioLogic.Output.PlayJump>(
-        _ => PlayerJumped.Play()
+      .Handle((in InGameAudioLogic.Output.PlayJump _) =>
+        PlayerJumped.Play()
       )
-      .Handle<InGameAudioLogic.Output.PlayMainMenuMusic>(
-        _ => StartMainMenuMusic()
+      .Handle((in InGameAudioLogic.Output.PlayMainMenuMusic _) =>
+        StartMainMenuMusic()
       )
-      .Handle<InGameAudioLogic.Output.PlayGameMusic>(
-        _ => StartGameMusic()
-      )
-      .Handle<InGameAudioLogic.Output.StopGameMusic>(
-        _ => GameMusic.FadeOut()
+      .Handle((in InGameAudioLogic.Output.PlayGameMusic _) => StartGameMusic())
+      .Handle((in InGameAudioLogic.Output.StopGameMusic _) =>
+        GameMusic.FadeOut()
       );
 
     InGameAudioLogic.Start();

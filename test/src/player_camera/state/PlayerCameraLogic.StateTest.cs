@@ -22,8 +22,13 @@ public class PlayerCameraLogicStateTest : TestClass {
     _camera = new();
     _settings = new();
     _gameRepo = new();
-    _data = new();
-    _state = new();
+    _data = new() {
+      TargetPosition = Vector3.Zero,
+      TargetAngleHorizontal = 0,
+      TargetAngleVertical = 0,
+      TargetOffset = Vector3.Zero
+    };
+    _state = new PlayerCameraLogic.State.InputEnabled();
     _context = _state.CreateFakeContext();
 
     // Automatically mock the logic block context to provide mock versions
@@ -128,9 +133,9 @@ public class PlayerCameraLogicStateTest : TestClass {
 
     _gameRepo.Setup(repo => repo.SetCameraBasis(It.IsAny<Basis>()));
 
-    var nextState = _state.On(new PlayerCameraLogic.Input.PhysicsTicked(1d));
+    var next = _state.On(new PlayerCameraLogic.Input.PhysicsTicked(1d));
 
-    _state.ShouldBeSameAs(nextState);
+    _state.ShouldBeSameAs(next.State);
 
     _context.Outputs.ShouldBeOfTypes(
       typeof(PlayerCameraLogic.Output.GimbalRotationChanged),

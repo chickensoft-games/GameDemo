@@ -19,7 +19,7 @@ public class JumpshroomLogicStateLaunchingTest : TestClass {
     _target = new Mock<IPushEnabled>();
     _data = new(1.0f);
 
-    _state = new(_target.Object);
+    _state = new() { Target = _target.Object };
     _context = _state.CreateFakeContext();
 
     _context.Set(_data);
@@ -38,6 +38,6 @@ public class JumpshroomLogicStateLaunchingTest : TestClass {
   public void LaunchCompletedGoesToCooldown() {
     var next = _state.On(new JumpshroomLogic.Input.LaunchCompleted());
 
-    next.ShouldBeOfType<JumpshroomLogic.State.Cooldown>();
+    next.State.ShouldBeOfType<JumpshroomLogic.State.Cooldown>();
   }
 }

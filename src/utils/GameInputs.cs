@@ -7,4 +7,4 @@ using Godot;
 /// Allows us to access our input constants in a type-safe way.
 /// </summary>
 [InputMap]
-public partial class GameInputs { }
+public partial class GameInputs;

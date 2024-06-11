@@ -1,5 +1,6 @@
 namespace GameDemo.Tests;
 
+using Chickensoft.AutoInject;
 using Chickensoft.GoDotCollections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
@@ -37,6 +38,8 @@ public class InGameUITest : TestClass {
 
     _ui.FakeDependency(_appRepo.Object);
     _ui.FakeDependency(_gameRepo.Object);
+
+    _ui._Notification(-1);
   }
 
   [Test]

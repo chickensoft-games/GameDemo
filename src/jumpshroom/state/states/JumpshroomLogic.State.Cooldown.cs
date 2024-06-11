@@ -1,17 +1,17 @@
 namespace GameDemo;
 
+using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class JumpshroomLogic : LogicBlock<JumpshroomLogic.IState> {
+public partial class JumpshroomLogic {
   public partial record State {
-    public record Cooldown : State, IGet<Input.CooldownCompleted> {
+    [Meta]
+    public partial record Cooldown : State, IGet<Input.CooldownCompleted> {
       public Cooldown() {
-        OnEnter<Cooldown>(
-          (previous) => Context.Output(new Output.StartCooldownTimer())
-        );
+        this.OnEnter(() => Output(new Output.StartCooldownTimer()));
       }
 
-      public IState On(Input.CooldownCompleted input) => new Idle();
+      public Transition On(in Input.CooldownCompleted input) => To<Idle>();
     }
   }
 }

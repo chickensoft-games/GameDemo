@@ -2,15 +2,14 @@ namespace GameDemo;
 
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.PowerUps;
 using Godot;
-using SuperNodes.Types;
+using Chickensoft.Introspection;
 
-public interface ISplash : IControl { }
+public interface ISplash : IControl;
 
-[SuperNode(typeof(AutoNode), typeof(Dependent))]
+[Meta(typeof(IAutoNode))]
 public partial class Splash : Control, ISplash {
-  public override partial void _Notification(int what);
+  public override void _Notification(int what) => this.Notify(what);
 
   #region Nodes
   [Node]
@@ -19,16 +18,14 @@ public partial class Splash : Control, ISplash {
 
   #region Dependencies
   [Dependency]
-  public IAppRepo AppRepo => DependOn<IAppRepo>();
+  public IAppRepo AppRepo => this.DependOn<IAppRepo>();
   #endregion Dependencies
 
-  public void OnReady() {
+  public void OnReady() =>
     AnimationPlayer.AnimationFinished += OnAnimationFinished;
-  }
 
-  public void OnExitTree() {
-    AnimationPlayer.AnimationFinished -= OnAnimationFinished;
-  }
+  public void OnExitTree()
+    => AnimationPlayer.AnimationFinished -= OnAnimationFinished;
 
   public void OnAnimationFinished(StringName name)
     => AppRepo.SkipSplashScreen();

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="DisableSlowAnalyzers" Description="Disables slow analyzers" ToolsVersion="14.0">
+  <Rules AnalyzerId="Microsoft.CodeAnalysis.CSharp" RuleNamespace="Microsoft.CodeAnalysis.CSharp">
+    <Rule Id="RS1022" Action="None" />
+    <Rule Id="CA2252" Action="None" />
+  </Rules>
+</RuleSet>

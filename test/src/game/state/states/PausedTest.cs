@@ -40,18 +40,18 @@ public class PausedTest : TestClass {
   [Test]
   public void OnPauseButtonPressed() {
     var result = _state.On(new GameLogic.Input.PauseButtonPressed());
-    result.ShouldBeOfType<GameLogic.State.Resuming>();
+    result.State.ShouldBeOfType<GameLogic.State.Resuming>();
   }
 
   [Test]
   public void OnGameSaveRequested() {
     var result = _state.On(new GameLogic.Input.SaveRequested());
-    result.ShouldBeOfType<GameLogic.State.Saving>();
+    result.State.ShouldBeOfType<GameLogic.State.Saving>();
   }
 
   [Test]
   public void OnGoToMainMenu() {
     var result = _state.On(new GameLogic.Input.GoToMainMenu());
-    result.ShouldBeOfType<GameLogic.State.Quit>();
+    result.State.ShouldBeOfType<GameLogic.State.Quit>();
   }
 }

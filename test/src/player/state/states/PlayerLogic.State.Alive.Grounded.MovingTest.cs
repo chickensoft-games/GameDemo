@@ -25,8 +25,7 @@ public class PlayerLogicStateAliveGroundedMovingTest : TestClass {
 
   [Test]
   public void Enters() {
-    var parent = new PlayerLogic.State.Grounded();
-    _state.Enter(parent);
+    _state.Enter<PlayerLogic.State.Grounded>();
 
     _context.Outputs.ShouldBe(new object[] {
       new PlayerLogic.Output.Animations.Move()
@@ -37,6 +36,6 @@ public class PlayerLogicStateAliveGroundedMovingTest : TestClass {
   public void OnStoppedMovingHorizontallyIdles() {
     var next = _state.On(new PlayerLogic.Input.StoppedMovingHorizontally());
 
-    next.ShouldBeAssignableTo<PlayerLogic.State.Idle>();
+    next.State.ShouldBeAssignableTo<PlayerLogic.State.Idle>();
   }
 }

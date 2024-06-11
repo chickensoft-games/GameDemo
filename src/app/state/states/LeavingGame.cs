@@ -1,26 +1,25 @@
 namespace GameDemo;
 
+using Chickensoft.Introspection;
+
 public partial class AppLogic {
   public partial record State {
-    public record LeavingGame : State, IGet<Input.FadeOutFinished> {
-      public PostGameAction PostGameAction { get; }
+    [Meta]
+    public partial record LeavingGame : State, IGet<Input.FadeOutFinished> {
+      public PostGameAction PostGameAction { get; set; } = PostGameAction.RestartGame;
 
-      public LeavingGame(PostGameAction postGameAction) {
-        PostGameAction = postGameAction;
-      }
-
-      public IState On(Input.FadeOutFinished input) {
+      public Transition On(in Input.FadeOutFinished input) {
         // We are either supposed to restart the game or go back to the main
         // menu. More complex games might have more post-game destinations,
         // but it's pretty simple for us.
-        Context.Output(new Output.RemoveExistingGame());
+        Output(new Output.RemoveExistingGame());
 
         if (PostGameAction is not PostGameAction.RestartGame) {
-          return new MainMenu();
+          return To<MainMenu>();
         }
 
-        Context.Output(new Output.LoadGame());
-        return new InGame();
+        Output(new Output.SetupGameScene());
+        return To<InGame>();
       }
     }
   }

@@ -21,7 +21,7 @@ public class JumpshroomLogicStateLoadingTest : TestClass {
     _gameRepo = new();
     _data = new(1.0f);
 
-    _state = new(_target.Object);
+    _state = new() { Target = _target.Object };
     _context = _state.CreateFakeContext();
 
     _context.Set(_gameRepo.Object);
@@ -45,6 +45,6 @@ public class JumpshroomLogicStateLoadingTest : TestClass {
   public void LaunchGoesToLaunching() {
     var next = _state.On(new JumpshroomLogic.Input.Launch());
 
-    next.ShouldBeOfType<JumpshroomLogic.State.Launching>();
+    next.State.ShouldBeOfType<JumpshroomLogic.State.Launching>();
   }
 }

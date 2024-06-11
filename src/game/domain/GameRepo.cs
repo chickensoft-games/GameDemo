@@ -9,19 +9,14 @@ public interface IGameRepo : IDisposable {
   event Action<GameOverReason>? Ended;
 
   /// <summary>Event invoked when a coin is collected.</summary>
-  event Action? CoinCollected;
+  event Action<ICoin>? CoinCollectionStarted;
+  event Action<ICoin>? CoinCollectionCompleted;
 
   /// <summary>Event invoked when a jumpshroom is used to bounce.</summary>
   event Action? JumpshroomUsed;
 
   /// <summary>Event invoked whenever the player jumps.</summary>
   event Action? Jumped;
-
-  /// <summary>Event invoked when the game should be saved.</summary>
-  event Action? SaveRequested;
-
-  /// <summary>Event invoked when the game save is completed.</summary>
-  event Action? SaveCompleted;
 
   /// <summary>Mouse captured status.</summary>
   IAutoProp<bool> IsMouseCaptured { get; }
@@ -59,7 +54,12 @@ public interface IGameRepo : IDisposable {
   /// <param name="numCoinsAtStart">Initial number of coins.</param>
   void SetNumCoinsAtStart(int numCoinsAtStart);
 
+  /// <summary>Tells the game how many coins the player has collected.</summary>
+  /// <param name="numCoinsCollected">Number of coins collected.</param>
+  void SetNumCoinsCollected(int numCoinsCollected);
+
   /// <summary>Inform the game that the game ended.</summary>
+  /// <param name="reason">Game over reason.</param>
   void OnGameEnded(GameOverReason reason);
 
   /// <summary>Pauses the game and releases the mouse.</summary>
@@ -70,9 +70,6 @@ public interface IGameRepo : IDisposable {
 
   /// <summary>Tells the game that the player jumped.</summary>
   void OnJump();
-
-  /// <summary>Starts the saving process.</summary>
-  void Save();
 
   /// <summary>Changes whether the mouse is captured or not.</summary>
   /// <param name="isMouseCaptured">
@@ -113,11 +110,10 @@ public class GameRepo : IGameRepo {
   private readonly AutoProp<int> _numCoinsCollected;
   public IAutoProp<int> NumCoinsAtStart => _numCoinsAtStart;
   private readonly AutoProp<int> _numCoinsAtStart;
-  public event Action? CoinCollected;
+  public event Action<ICoin>? CoinCollectionCompleted;
+  public event Action<ICoin>? CoinCollectionStarted;
   public event Action? JumpshroomUsed;
   public event Action<GameOverReason>? Ended;
-  public event Action? SaveRequested;
-  public event Action? SaveCompleted;
   public event Action? Jumped;
 
   private int _coinsBeingCollected;
@@ -160,11 +156,12 @@ public class GameRepo : IGameRepo {
   public void StartCoinCollection(ICoin coin) {
     _coinsBeingCollected++;
     _numCoinsCollected.OnNext(_numCoinsCollected.Value + 1);
-    CoinCollected?.Invoke();
+    CoinCollectionStarted?.Invoke(coin);
   }
 
   public void OnFinishCoinCollection(ICoin coin) {
     _coinsBeingCollected--;
+    CoinCollectionCompleted?.Invoke(coin);
 
     if (
       _coinsBeingCollected == 0 &&
@@ -175,12 +172,6 @@ public class GameRepo : IGameRepo {
   }
 
   public void OnJump() => Jumped?.Invoke();
-
-  public void Save() {
-    SaveRequested?.Invoke();
-    // TODO: Remove this later
-    SaveCompleted?.Invoke();
-  }
 
   public void OnGameEnded(GameOverReason reason) {
     _isMouseCaptured.OnNext(false);
@@ -202,6 +193,9 @@ public class GameRepo : IGameRepo {
 
   public void SetNumCoinsAtStart(int numCoinsAtStart) =>
     _numCoinsAtStart.OnNext(numCoinsAtStart);
+
+  public void SetNumCoinsCollected(int numCoinsCollected) =>
+    _numCoinsCollected.OnNext(numCoinsCollected);
 
   #region Internals
 

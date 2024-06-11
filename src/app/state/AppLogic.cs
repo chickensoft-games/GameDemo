@@ -1,15 +1,12 @@
 namespace GameDemo;
 
+using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
-using Chickensoft.LogicBlocks.Generator;
 
-public interface IAppLogic : ILogicBlock<AppLogic.IState> { }
+public interface IAppLogic : ILogicBlock<AppLogic.State>;
 
-[StateMachine]
-public partial class AppLogic : LogicBlock<AppLogic.IState>, IAppLogic {
-  public override IState GetInitialState() => new State.SplashScreen();
-
-  public AppLogic(IAppRepo appRepo) {
-    Set(appRepo);
-  }
+[Meta]
+[LogicBlock(typeof(State), Diagram = true)]
+public partial class AppLogic : LogicBlock<AppLogic.State>, IAppLogic {
+  public override Transition GetInitialState() => To<State.SplashScreen>();
 }

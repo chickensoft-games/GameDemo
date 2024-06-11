@@ -10,16 +10,19 @@ public class MainMenuTest : TestClass {
   private IFakeContext _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private AppLogic.State.MainMenu _state = default!;
+  private AppLogic.Data _data = default!;
+
 
   public MainMenuTest(Node testScene) : base(testScene) { }
 
   [Setup]
   public void Setup() {
-    _appRepo = new();
-
     _state = new();
+    _appRepo = new();
+    _data = new();
     _context = _state.CreateFakeContext();
     _context.Set(_appRepo.Object);
+    _context.Set(_data);
   }
 
   [Test]
@@ -27,14 +30,26 @@ public class MainMenuTest : TestClass {
     _state.Enter();
 
     _context.Outputs.ShouldBe(
-      new object[] { new AppLogic.Output.LoadGame(), new AppLogic.Output.ShowMainMenu() }
+      new object[] {
+        new AppLogic.Output.SetupGameScene(),
+        new AppLogic.Output.ShowMainMenu()
+      }
     );
   }
 
   [Test]
   public void StartsGame() {
-    var next = _state.On(new AppLogic.Input.StartGame());
+    var next = _state.On(new AppLogic.Input.NewGame());
 
-    next.ShouldBeOfType<AppLogic.State.LeavingMenu>();
+    next.State.ShouldBeOfType<AppLogic.State.LeavingMenu>();
+  }
+
+  [Test]
+  public void LeavesMenuOnLoadGame() {
+    var next = _state.On(new AppLogic.Input.LoadGame());
+
+    next.State.ShouldBeOfType<AppLogic.State.LeavingMenu>();
+
+    _data.ShouldLoadExistingGame.ShouldBeTrue();
   }
 }

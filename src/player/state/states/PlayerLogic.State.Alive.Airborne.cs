@@ -1,18 +1,16 @@
 namespace GameDemo;
 
+using Chickensoft.Introspection;
+
 public partial class PlayerLogic {
   public partial record State {
-    public record Airborne : Alive,
+    [Meta]
+    public abstract partial record Airborne : Alive,
       IGet<Input.HitFloor>, IGet<Input.StartedFalling> {
-      public IState On(Input.HitFloor input) {
-        if (input.IsMovingHorizontally) {
-          return new Moving();
-        }
+      public Transition On(in Input.HitFloor input) =>
+        input.IsMovingHorizontally ? To<Moving>() : To<Idle>();
 
-        return new Idle();
-      }
-
-      public IState On(Input.StartedFalling input) => new Falling();
+      public Transition On(in Input.StartedFalling input) => To<Falling>();
     }
   }
 }

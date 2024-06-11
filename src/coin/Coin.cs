@@ -1,27 +1,23 @@
 namespace GameDemo;
 
 using Chickensoft.AutoInject;
+using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.PowerUps;
 using Godot;
-using SuperNodes.Types;
+using Chickensoft.Introspection;
 
-public interface ICoin : INode3D;
+public interface ICoin : INode3D {
+  public ICoinLogic CoinLogic { get; }
+}
 
-[SuperNode(typeof(AutoNode), typeof(Dependent))]
+[Meta(typeof(IAutoNode))]
 public partial class Coin : Node3D, ICoin {
-  public override partial void _Notification(int what);
-
-  #region Dependencies
-
-  [Dependency] public IGameRepo GameRepo => DependOn<IGameRepo>();
-
-  #endregion Dependencies
+  public override void _Notification(int what) => this.Notify(what);
 
   #region Nodes
 
-  [Node("%AnimationPlayer")] public IAnimationPlayer AnimationPlayer = default!;
-  [Node("%CoinModel")] public INode3D CoinModel = default!;
+  [Node("%AnimationPlayer")] public IAnimationPlayer AnimationPlayer { get; set; } = default!;
+  [Node("%CoinModel")] public INode3D CoinModel { get; set; } = default!;
 
   #endregion Nodes
 
@@ -32,6 +28,8 @@ public partial class Coin : Node3D, ICoin {
   #endregion Exports
 
   #region State
+  [Dependency] public EntityTable EntityTable => this.DependOn<EntityTable>();
+  [Dependency] public IGameRepo GameRepo => this.DependOn<IGameRepo>();
 
   public ICoinLogic CoinLogic { get; set; } = default!;
   public CoinLogic.Settings Settings { get; set; } = default!;
@@ -49,7 +47,13 @@ public partial class Coin : Node3D, ICoin {
 
   public void Setup() {
     Settings = new CoinLogic.Settings(CollectionTimeInSeconds);
-    CoinLogic = new CoinLogic(this, Settings, GameRepo);
+    CoinLogic = new CoinLogic();
+
+    CoinLogic.Set(this as ICoin);
+    CoinLogic.Set(Settings);
+    CoinLogic.Set(GameRepo);
+    CoinLogic.Save(() => new CoinLogic.Data());
+    CoinLogic.Set(EntityTable);
   }
 
   public void OnReady() {
@@ -67,27 +71,29 @@ public partial class Coin : Node3D, ICoin {
   }
 
   public void OnResolved() {
+    EntityTable.Set(Name, this);
     CoinBinding = CoinLogic.Bind();
 
     CoinBinding
-      .When<CoinLogic.State.ICollecting>().Call(state => {
+      .When<CoinLogic.State.Collecting>(_ => {
         // We want to start receiving physics ticks so we can orient ourselves
         // toward the entity that's collecting us.
         SetPhysicsProcess(true);
         // We basically turn ourselves into a static body once we're in the
         // process of being collected.
         AnimationPlayer.Play("collect");
-      });
-
-    CoinBinding
-      .Handle<CoinLogic.Output.Move>(
-        output => GlobalPosition = output.GlobalPosition
+      })
+      .Handle(
+        (in CoinLogic.Output.Move output) =>
+          GlobalPosition = output.GlobalPosition
       )
-      .Handle<CoinLogic.Output.SelfDestruct>(
+      .Handle(
         // We're done being collected, so we can remove ourselves from the
         // scene tree.
-        output => QueueFree()
+        (in CoinLogic.Output.SelfDestruct output) => QueueFree()
       );
+
+    CoinLogic.Start();
   }
 
   // This doesn't get called unless we're in the Collecting state, since that's
@@ -106,5 +112,6 @@ public partial class Coin : Node3D, ICoin {
   public void OnExitTree() {
     CoinLogic.Stop();
     CoinBinding.Dispose();
+    EntityTable.Remove(Name);
   }
 }

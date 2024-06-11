@@ -36,6 +36,6 @@ public class WonTest : TestClass {
     var result = _state.On(new GameLogic.Input.GoToMainMenu());
 
     _appRepo.VerifyAll();
-    result.ShouldBe(_state);
+    result.State.ShouldBe(_state);
   }
 }

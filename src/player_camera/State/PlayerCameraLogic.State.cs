@@ -1,20 +1,19 @@
 namespace GameDemo;
 
+using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 using Godot;
 
 public partial class PlayerCameraLogic {
-  public interface IState : IStateLogic {
-  }
-
   /// <summary>
   ///   Overall player camera state. This would be abstract, but it's helpful to
   ///   be able to instantiate it by itself for easier testing.
   /// </summary>
-  public partial record State
-    : StateLogic, IState,
-      IGet<Input.PhysicsTicked>,
-      IGet<Input.TargetPositionChanged>,
-      IGet<Input.TargetOffsetChanged> {
+  [Meta]
+  public abstract partial record State : StateLogic<State>,
+    IGet<Input.PhysicsTicked>,
+    IGet<Input.TargetPositionChanged>,
+    IGet<Input.TargetOffsetChanged> {
     public State() {
       OnAttach(
         () => {
@@ -35,24 +34,24 @@ public partial class PlayerCameraLogic {
 
     internal void OnMouseCaptured(bool isMouseCaptured) {
       if (isMouseCaptured) {
-        Context.Input(new Input.EnableInput());
+        Input(new Input.EnableInput());
         return;
       }
 
-      Context.Input(new Input.DisableInput());
+      Input(new Input.DisableInput());
     }
 
     internal void OnPlayerGlobalPositionChanged(Vector3 position) =>
-      Context.Input(new Input.TargetPositionChanged(position));
+      Input(new Input.TargetPositionChanged(position));
 
     internal void OnCameraTargetOffsetChanged(Vector3 targetOffset) =>
-      Context.Input(new Input.TargetOffsetChanged(targetOffset));
+      Input(new Input.TargetOffsetChanged(targetOffset));
 
-    public IState On(Input.PhysicsTicked input) {
-      var camera = Context.Get<IPlayerCamera>();
-      var gameRepo = Context.Get<IGameRepo>();
-      var settings = Context.Get<PlayerCameraSettings>();
-      var data = Context.Get<Data>();
+    public Transition On(in Input.PhysicsTicked input) {
+      var camera = Get<IPlayerCamera>();
+      var gameRepo = Get<IGameRepo>();
+      var settings = Get<PlayerCameraSettings>();
+      var data = Get<Data>();
 
       // Lerp to the desired horizontal angle.
       var rotationHorizontal = camera.GimbalRotationHorizontal;
@@ -75,7 +74,7 @@ public partial class PlayerCameraLogic {
       // This triggers the camera to update its gimbal nodes.
       // This keeps us from having to know about the camera's implementation
       // details.
-      Context.Output(new Output.GimbalRotationChanged(
+      Output(new Output.GimbalRotationChanged(
         rotationHorizontal, rotationVertical
       ));
 
@@ -89,7 +88,7 @@ public partial class PlayerCameraLogic {
         transform, (float)input.Delta * settings.FollowSpeed
       ).Orthonormalized();
 
-      Context.Output(new Output.GlobalTransformChanged(globalTransform));
+      Output(new Output.GlobalTransformChanged(globalTransform));
 
       // Lerp camera inside system to spring arm target position
       var springArmTargetPosition = camera.SpringArmTargetPosition;
@@ -98,7 +97,7 @@ public partial class PlayerCameraLogic {
         springArmTargetPosition, (float)input.Delta * settings.SpringArmAdjSpeed
       );
 
-      Context.Output(
+      Output(
         new Output.CameraLocalPositionChanged(springArmTargetPositionLerp)
       );
 
@@ -107,21 +106,21 @@ public partial class PlayerCameraLogic {
         data.TargetOffset, (float)input.Delta * settings.OffsetAdjSpeed
       );
 
-      Context.Output(new Output.CameraOffsetChanged(offset));
+      Output(new Output.CameraOffsetChanged(offset));
 
-      return this;
+      return ToSelf();
     }
 
-    public IState On(Input.TargetPositionChanged input) {
-      var data = Context.Get<Data>();
+    public Transition On(in Input.TargetPositionChanged input) {
+      var data = Get<Data>();
       data.TargetPosition = input.TargetPosition;
-      return this;
+      return ToSelf();
     }
 
-    public IState On(Input.TargetOffsetChanged input) {
-      var data = Context.Get<Data>();
+    public Transition On(in Input.TargetOffsetChanged input) {
+      var data = Get<Data>();
       data.TargetOffset = input.TargetOffset;
-      return this;
+      return ToSelf();
     }
   }
 }

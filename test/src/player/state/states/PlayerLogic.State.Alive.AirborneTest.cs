@@ -1,38 +1,44 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.GoDotTest;
+using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 using Godot;
 using Shouldly;
 
-public class PlayerLogicStateAliveAirborneTest : TestClass {
-  private PlayerLogic.State.Falling _state = default!;
+public partial class PlayerLogicStateAliveAirborneTest : TestClass {
+  [Meta, TestState]
+  public partial record TestPlayerState : PlayerLogic.State.Airborne;
+
+  private PlayerLogic.State.Airborne _state = default!;
 
   public PlayerLogicStateAliveAirborneTest(Node testScene) :
     base(testScene) { }
 
   [Setup]
   public void Setup() {
-    _state = new();
+    _state = new TestPlayerState();
+    _state.CreateFakeContext();
   }
 
   [Test]
   public void HitFloorGoesToMoving() {
     var next = _state.On(new PlayerLogic.Input.HitFloor(true));
 
-    next.ShouldBeOfType<PlayerLogic.State.Moving>();
+    next.State.ShouldBeOfType<PlayerLogic.State.Moving>();
   }
 
   [Test]
   public void HitFloorGoesToIdle() {
     var next = _state.On(new PlayerLogic.Input.HitFloor(false));
 
-    next.ShouldBeOfType<PlayerLogic.State.Idle>();
+    next.State.ShouldBeOfType<PlayerLogic.State.Idle>();
   }
 
   [Test]
   public void StartedFallingGoesToFalling() {
     var next = _state.On(new PlayerLogic.Input.StartedFalling());
 
-    next.ShouldBeOfType<PlayerLogic.State.Falling>();
+    next.State.ShouldBeOfType<PlayerLogic.State.Falling>();
   }
 }

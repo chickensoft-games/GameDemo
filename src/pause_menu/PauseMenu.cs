@@ -1,9 +1,9 @@
 namespace GameDemo;
 
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.PowerUps;
 using Godot;
-using SuperNodes.Types;
+using Chickensoft.AutoInject;
+using Chickensoft.Introspection;
 
 public interface IPauseMenu : IControl {
   event PauseMenu.MainMenuEventHandler MainMenu;
@@ -15,12 +15,12 @@ public interface IPauseMenu : IControl {
   void FadeOut();
 
   void OnSaveStarted();
-  void OnSaveFinished();
+  void OnSaveCompleted();
 }
 
-[SuperNode(typeof(AutoNode))]
+[Meta(typeof(IAutoNode))]
 public partial class PauseMenu : Control, IPauseMenu {
-  public override partial void _Notification(int what);
+  public override void _Notification(int what) => this.Notify(what);
 
   #region Nodes
 
@@ -74,6 +74,11 @@ public partial class PauseMenu : Control, IPauseMenu {
 
   public void FadeOut() => AnimationPlayer.Play("fade_out");
 
-  public void OnSaveStarted() => SaveOverlayAnimationPlayer.Play("save_fade_in");
-  public void OnSaveFinished() => SaveOverlayAnimationPlayer.Play("save_fade_out");
+  public void OnSaveStarted() => CallDeferred(nameof(Animate), "save_fade_in");
+  public void OnSaveCompleted() =>
+    CallDeferred(nameof(Animate), "save_fade_out");
+
+  private void Animate(string animation) {
+    SaveOverlayAnimationPlayer.Play(animation);
+  }
 }

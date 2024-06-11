@@ -8,34 +8,51 @@ using Moq;
 using Shouldly;
 
 public class MenuTest : TestClass {
-  private Mock<IButton> _startButton = default!;
+  private Mock<IButton> _newGameButton = default!;
+  private Mock<IButton> _loadGameButton = default!;
   private Menu _menu = default!;
 
   public MenuTest(Node testScene) : base(testScene) { }
 
   [Setup]
   public void Setup() {
-    _startButton = new Mock<IButton>();
+    _newGameButton = new Mock<IButton>();
+    _loadGameButton = new Mock<IButton>();
+
     _menu = new Menu {
-      StartButton = _startButton.Object
+      NewGameButton = _newGameButton.Object,
+      LoadGameButton = _loadGameButton.Object
     };
+
+    _menu._Notification(-1);
   }
 
   [Test]
   public void Subscribes() {
     _menu.OnReady();
-    _startButton.VerifyAdd(menu => menu.Pressed += _menu.OnStartPressed);
+    _newGameButton.VerifyAdd(menu => menu.Pressed += _menu.OnNewGamePressed);
 
     _menu.OnExitTree();
-    _startButton
-      .VerifyRemove(menu => menu.Pressed -= _menu.OnStartPressed);
+    _newGameButton
+      .VerifyRemove(menu => menu.Pressed -= _menu.OnNewGamePressed);
   }
 
   [Test]
-  public async Task SignalsStartButtonPressed() {
-    var signal = _menu.ToSignal(_menu, Menu.SignalName.Start);
+  public async Task SignalsNewGameButtonPressed() {
+    var signal = _menu.ToSignal(_menu, Menu.SignalName.NewGame);
 
-    _menu.OnStartPressed();
+    _menu.OnNewGamePressed();
+
+    await signal;
+
+    signal.IsCompleted.ShouldBeTrue();
+  }
+
+  [Test]
+  public async Task SignalLoadGameButtonPressed() {
+    var signal = _menu.ToSignal(_menu, Menu.SignalName.LoadGame);
+
+    _menu.OnLoadGamePressed();
 
     await signal;
 

@@ -2,22 +2,21 @@ namespace GameDemo;
 
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.PowerUps;
 using Godot;
-using SuperNodes.Types;
+using Chickensoft.Introspection;
 
 public interface IInGameUI : IControl {
   void SetCoinsLabel(int coins, int totalCoins);
 }
 
-[SuperNode(typeof(AutoNode), typeof(Dependent))]
+[Meta(typeof(IAutoNode))]
 public partial class InGameUI : Control, IInGameUI {
-  public override partial void _Notification(int what);
+  public override void _Notification(int what) => this.Notify(what);
 
   #region Dependencies
 
-  [Dependency] public IAppRepo AppRepo => DependOn<IAppRepo>();
-  [Dependency] public IGameRepo GameRepo => DependOn<IGameRepo>();
+  [Dependency] public IAppRepo AppRepo => this.DependOn<IAppRepo>();
+  [Dependency] public IGameRepo GameRepo => this.DependOn<IGameRepo>();
 
   #endregion Dependencies
 
@@ -35,22 +34,27 @@ public partial class InGameUI : Control, IInGameUI {
 
   #endregion State
 
-  public void Setup() =>
-    InGameUILogic = new InGameUILogic(this, AppRepo, GameRepo);
+  public void Setup() {
+    InGameUILogic = new InGameUILogic();
+  }
 
   public void OnResolved() {
+    InGameUILogic.Set(this);
+    InGameUILogic.Set(AppRepo);
+    InGameUILogic.Set(GameRepo);
+
     InGameUIBinding = InGameUILogic.Bind();
 
     // TODO: Move the access to the game repo to the state machine.
 
     InGameUIBinding
-      .Handle<InGameUILogic.Output.NumCoinsCollectedChanged>(
-        output => SetCoinsLabel(
+      .Handle((in InGameUILogic.Output.NumCoinsCollectedChanged output) =>
+        SetCoinsLabel(
           output.NumCoinsCollected, GameRepo.NumCoinsAtStart.Value
         )
       )
-      .Handle<InGameUILogic.Output.NumCoinsAtStartChanged>(
-        output => SetCoinsLabel(
+      .Handle((in InGameUILogic.Output.NumCoinsAtStartChanged output) =>
+        SetCoinsLabel(
           GameRepo.NumCoinsCollected.Value, output.NumCoinsAtStart
         )
       );
@@ -58,7 +62,8 @@ public partial class InGameUI : Control, IInGameUI {
     InGameUILogic.Start();
   }
 
-  public void SetCoinsLabel(int coins, int totalCoins) => CoinsLabel.Text = $"{coins}/{totalCoins}";
+  public void SetCoinsLabel(int coins, int totalCoins) =>
+    CoinsLabel.Text = $"{coins}/{totalCoins}";
 
   public void OnExitTree() {
     InGameUILogic.Stop();

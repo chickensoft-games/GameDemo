@@ -38,7 +38,7 @@ Here's a high-level overview of Chickensoft's opinionated architecture:
 
 - ✅ Testing with [GoDotTest]. GoDotTest is designed for use with CI/CD, as well as local testing and compatibility with VSCode's debug launch profiles, allowing us to easily hook into and debug tests during development.
 
-- ✅ Node mixins using [SuperNodes]: we can add additional code to node scripts at build time using C# source generation, which makes up for the lack of mixin support in C#.
+- ✅ Node mixins using [Introspection]: we can add additional code to node scripts at build time using C# source generation, which makes up for the lack of mixin support in C#.
 
   Using mixins is a [data-driven technique][mixins-ecs]. By combining data-driven techniques with object-oriented programming, we can leverage the best of both worlds to make that code is exceptionally clean and easy to maintain.
 
@@ -134,7 +134,7 @@ Since we're using [LogicBlocks], here's some of the more interesting state diagr
 [FreePD]: https://freepd.com/
 [AutoInject]: https://github.com/chickensoft-games/AutoInject
 [mixins-ecs]: https://en.wikipedia.org/wiki/Entity_component_system#Is_ECS_a_useful_concept?
-[SuperNodes]: https://github.com/chickensoft-games/SuperNodes
+[Introspection]: https://github.com/chickensoft-games/Introspection
 [PowerUps]: https://github.com/chickensoft-games/PowerUps
 [GodotNodeInterfaces]: https://github.com/chickensoft-games/GodotNodeInterfaces
 [LogicBlocks]: https://github.com/chickensoft-games/LogicBlocks

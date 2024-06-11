@@ -1,19 +1,15 @@
 namespace GameDemo;
 
+using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
-using Chickensoft.LogicBlocks.Generator;
 
-public interface IInGameAudioLogic : ILogicBlock<InGameAudioLogic.IState>;
+public interface IInGameAudioLogic : ILogicBlock<InGameAudioLogic.State>;
 
-[StateMachine]
+[Meta]
+[LogicBlock(typeof(State))]
 public partial class InGameAudioLogic :
-  LogicBlock<InGameAudioLogic.IState>, IInGameAudioLogic {
-  public override IState GetInitialState() => new State();
-
-  public InGameAudioLogic(IAppRepo appRepo, IGameRepo gameRepo) {
-    Set(appRepo);
-    Set(gameRepo);
-  }
+  LogicBlock<InGameAudioLogic.State>, IInGameAudioLogic {
+  public override Transition GetInitialState() => To<State>();
 
   public static class Output {
     public readonly record struct PlayCoinCollected;

@@ -2,19 +2,18 @@ namespace GameDemo;
 
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.PowerUps;
 using Godot;
-using SuperNodes.Types;
+using Chickensoft.Introspection;
 
-public interface IPlayerModel { }
+public interface IPlayerModel;
 
-[SuperNode(typeof(Dependent), typeof(AutoNode))]
+[Meta(typeof(IAutoNode))]
 public partial class PlayerModel : Node3D {
-  public override partial void _Notification(int what);
+  public override void _Notification(int what) => this.Notify(what);
 
   #region Dependencies
   [Dependency]
-  public IPlayerLogic PlayerLogic => DependOn<IPlayerLogic>();
+  public IPlayerLogic PlayerLogic => this.DependOn<IPlayerLogic>();
   #endregion Dependencies
 
   public PlayerLogic.IBinding PlayerBinding { get; set; } =
@@ -39,26 +38,24 @@ public partial class PlayerModel : Node3D {
     PlayerBinding = PlayerLogic.Bind();
 
     PlayerBinding
-      .Handle<PlayerLogic.Output.Animations.Idle>(
-        (output) => AnimationStateMachine.Travel("idle")
+      .Handle((in PlayerLogic.Output.Animations.Idle output) =>
+        AnimationStateMachine.Travel("idle")
       )
-      .Handle<PlayerLogic.Output.Animations.Move>(
-        (output) => AnimationStateMachine.Travel("move")
+      .Handle((in PlayerLogic.Output.Animations.Move output) =>
+        AnimationStateMachine.Travel("move")
       )
-      .Handle<PlayerLogic.Output.Animations.Jump>(
-        (output) => AnimationStateMachine.Travel("jump")
+      .Handle((in PlayerLogic.Output.Animations.Jump output) =>
+        AnimationStateMachine.Travel("jump")
       )
-      .Handle<PlayerLogic.Output.Animations.Fall>(
-        (output) => AnimationStateMachine.Travel("fall")
+      .Handle((in PlayerLogic.Output.Animations.Fall output) =>
+        AnimationStateMachine.Travel("fall")
       )
-      .Handle<PlayerLogic.Output.MoveSpeedChanged>(
-        (output) => AnimationTree.Set(
+      .Handle((in PlayerLogic.Output.MoveSpeedChanged output) =>
+        AnimationTree.Set(
           "parameters/main_animations/move/blend_position", output.Speed
         )
       );
   }
 
-  public void OnExitTree() {
-    PlayerBinding.Dispose();
-  }
+  public void OnExitTree() => PlayerBinding.Dispose();
 }

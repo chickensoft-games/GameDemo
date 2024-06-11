@@ -23,9 +23,7 @@ public class DimmableAudioStreamPlayerTest : TestClass {
   }
 
   [Cleanup]
-  public async Task Cleanup() {
-    await _fixture.Cleanup();
-  }
+  public async Task Cleanup() => await _fixture.Cleanup();
 
   [Test]
   public void Initializes() {

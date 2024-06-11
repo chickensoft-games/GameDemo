@@ -1,17 +1,12 @@
 namespace GameDemo;
 
+using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
-using Chickensoft.LogicBlocks.Generator;
 
-public interface IJumpshroomLogic : ILogicBlock<JumpshroomLogic.IState> {
-}
+public interface IJumpshroomLogic : ILogicBlock<JumpshroomLogic.State>;
 
-[StateMachine]
-public partial class JumpshroomLogic : LogicBlock<JumpshroomLogic.IState>, IJumpshroomLogic {
-  public override State GetInitialState() => new State.Idle();
-
-  public JumpshroomLogic(Data data, IGameRepo gameRepo) {
-    Set(data);
-    Set(gameRepo);
-  }
+[Meta]
+[LogicBlock(typeof(State), Diagram = true)]
+public partial class JumpshroomLogic : LogicBlock<JumpshroomLogic.State>, IJumpshroomLogic {
+  public override Transition GetInitialState() => To<State.Idle>();
 }

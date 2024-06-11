@@ -1,9 +1,11 @@
 namespace GameDemo.Tests;
 
 using System.Threading.Tasks;
+using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
 using Chickensoft.GodotTestDriver;
+using Chickensoft.SaveFileBuilder;
 using Godot;
 using Moq;
 using Shouldly;
@@ -15,6 +17,7 @@ public class PlayerCameraTest : TestClass {
   private PlayerCameraSettings _settings = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private Mock<IAppRepo> _appRepo = default!;
+  private Mock<ISaveChunk<GameData>> _gameChunk = default!;
 
   private Mock<INode3D> _offsetNode = default!;
   private Mock<INode3D> _gimbalHorizontal = default!;
@@ -32,6 +35,7 @@ public class PlayerCameraTest : TestClass {
     _settings = new();
     _gameRepo = new();
     _appRepo = new();
+    _gameChunk = new();
 
     _offsetNode = new();
     _gimbalHorizontal = new();
@@ -40,7 +44,6 @@ public class PlayerCameraTest : TestClass {
     _springArmTarget = new();
 
     _playerCam = new() {
-      IsTesting = true,
       OffsetNode = _offsetNode.Object,
       GimbalHorizontalNode = _gimbalHorizontal.Object,
       GimbalVerticalNode = _gimbalVertical.Object,
@@ -50,8 +53,11 @@ public class PlayerCameraTest : TestClass {
       Settings = _settings
     };
 
+    (_playerCam as IAutoInit).IsTesting = true;
+
     _playerCam.FakeDependency(_gameRepo.Object);
     _playerCam.FakeDependency(_appRepo.Object);
+    _playerCam.FakeDependency(_gameChunk.Object);
 
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
   }
@@ -72,7 +78,9 @@ public class PlayerCameraTest : TestClass {
     Input.ActionPress("camera_down", 0f);
 
     _logic.Setup(
-      logic => logic.Input(It.IsAny<PlayerCameraLogic.Input.PhysicsTicked>())
+      logic => logic.Input(
+        in It.Ref<PlayerCameraLogic.Input.PhysicsTicked>.IsAny
+      )
     );
     _playerCam.OnPhysicsProcess(1d);
 
@@ -86,7 +94,7 @@ public class PlayerCameraTest : TestClass {
     var motion = new InputEventMouseMotion();
     _logic.Setup(
       logic => logic.Input(
-        It.IsAny<PlayerCameraLogic.Input.MouseInputOccurred>()
+        in It.Ref<PlayerCameraLogic.Input.MouseInputOccurred>.IsAny
       )
     );
 
@@ -188,5 +196,42 @@ public class PlayerCameraTest : TestClass {
     _playerCam.UsePlayerCamera();
 
     _cameraNode.VerifyAll();
+  }
+
+  [Test]
+  public void Saves() {
+    _playerCam.Setup();
+
+    var chunk = new Mock<ISaveChunk<PlayerCameraData>>();
+
+    var data = _playerCam.PlayerCameraChunk.OnSave(chunk.Object);
+
+    data.GlobalTransform.ShouldBe(_playerCam.GlobalTransform);
+    data.StateMachine.ShouldBe(_playerCam.CameraLogic);
+    data.LocalPosition.ShouldBe(_playerCam.CameraNode.Position);
+    data.OffsetPosition.ShouldBe(_playerCam.OffsetNode.Position);
+  }
+
+  [Test]
+  public void Loads() {
+    _playerCam.Setup();
+
+    var chunk = new Mock<ISaveChunk<PlayerCameraData>>();
+
+    var logic = new PlayerCameraLogic();
+    logic.Start();
+
+    var data = new PlayerCameraData {
+      StateMachine = logic,
+      GlobalTransform = Transform3D.Identity,
+      LocalPosition = Vector3.Zero,
+      OffsetPosition = Vector3.Zero
+    };
+
+    _playerCam.PlayerCameraChunk.OnLoad(chunk.Object, data);
+
+    _playerCam.GlobalTransform.ShouldBe(Transform3D.Identity);
+    _playerCam.CameraNode.Position.ShouldBe(Vector3.Zero);
+    _playerCam.OffsetNode.Position.ShouldBe(Vector3.Zero);
   }
 }

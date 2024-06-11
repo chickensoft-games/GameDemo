@@ -72,7 +72,7 @@ public class GameRepoTest : TestClass {
     var coin = new Mock<ICoin>();
     var called = false;
 
-    _repo.CoinCollected += () => called = true;
+    _repo.CoinCollectionStarted += (_) => called = true;
 
     _repo.StartCoinCollection(coin.Object);
 
@@ -98,10 +98,10 @@ public class GameRepoTest : TestClass {
 
     void gameEnded(GameOverReason reason) => gameOverReason = reason;
 
-    void coinCollected() => coins++;
+    void coinCollected(ICoin _) => coins++;
 
     _repo.Ended += gameEnded;
-    _repo.CoinCollected += coinCollected;
+    _repo.CoinCollectionStarted += coinCollected;
     _repo.StartCoinCollection(coin.Object);
 
     _repo.NumCoinsCollected.Value.ShouldBe(1);
@@ -112,13 +112,30 @@ public class GameRepoTest : TestClass {
     gameOverReason.ShouldBe(GameOverReason.Won);
 
     _repo.Ended -= gameEnded;
-    _repo.CoinCollected -= coinCollected;
+    _repo.CoinCollectionStarted -= coinCollected;
   }
 
   [Test]
   public void OnFinishCoinCollectionDoesNothingIfNonZeroAmountOfCoins() {
     var coin = new Mock<ICoin>();
     Should.NotThrow(() => _repo.OnFinishCoinCollection(coin.Object));
+  }
+
+  [Test]
+  public void OnFinishCoinCollectionInvokes() {
+    var called = false;
+
+    void finished(ICoin _) => called = true;
+
+    var coin = new Mock<ICoin>();
+
+    _repo.CoinCollectionCompleted += finished;
+
+    _repo.OnFinishCoinCollection(coin.Object);
+
+    _repo.CoinCollectionCompleted -= finished;
+
+    called.ShouldBeTrue();
   }
 
   [Test]
@@ -131,19 +148,6 @@ public class GameRepoTest : TestClass {
     _repo.OnJump();
 
     called.ShouldBeTrue();
-  }
-
-  [Test]
-  public void SaveInvokesEvents() {
-    Should.NotThrow(_repo.Save);
-
-    var called = 0;
-    _repo.SaveRequested += () => called++;
-    _repo.SaveCompleted += () => called++;
-
-    _repo.Save();
-
-    called.ShouldBe(2);
   }
 
   [Test]
@@ -194,6 +198,13 @@ public class GameRepoTest : TestClass {
     _repo.SetNumCoinsAtStart(5);
 
     _repo.NumCoinsAtStart.Value.ShouldBe(5);
+  }
+
+  [Test]
+  public void SetNumCoinsCollected() {
+    _repo.SetNumCoinsCollected(5);
+
+    _repo.NumCoinsCollected.Value.ShouldBe(5);
   }
 
   [Test]

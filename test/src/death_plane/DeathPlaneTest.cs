@@ -11,15 +11,14 @@ public partial class DeathPlaneTest : TestClass {
   public DeathPlaneTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() { _plane = new(); }
+  public void Setup() => _plane = new();
 
   [Test]
-  public void InitializesAndCleansUp() {
-    Should.NotThrow(() => {
-      _plane.OnReady();
-      _plane.OnExitTree();
-    });
-  }
+  public void InitializesAndCleansUp() => Should.NotThrow(() => {
+    _plane.OnReady();
+    _plane.OnExitTree();
+    _plane._Notification(-1);
+  });
 
   [Test]
   public void KillsKillableObjects() {

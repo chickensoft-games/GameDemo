@@ -1,12 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://pjmfnaiwwwed"]
+[gd_scene load_steps=5 format=3 uid="uid://pjmfnaiwwwed"]
 
 [ext_resource type="Script" path="res://src/player_camera/PlayerCamera.cs" id="1_gmpa3"]
+[ext_resource type="Script" path="res://src/player_camera/PlayerCameraSettings.cs" id="2_xh3xu"]
+
+[sub_resource type="Resource" id="Resource_qx47m"]
+script = ExtResource("2_xh3xu")
+MouseSensitivity = 0.2
+VerticalMax = 45.0
+VerticalMin = -45.0
+FollowSpeed = 15.0
+SpringArmAdjSpeed = 15.0
+OffsetAdjSpeed = 2.0
+VerticalRotationAcceleration = 6.0
+HorizontalRotationAcceleration = 6.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_las6s"]
 custom_solver_bias = 0.164
 
 [node name="PlayerCamera" type="Node3D"]
 script = ExtResource("1_gmpa3")
+Settings = SubResource("Resource_qx47m")
 
 [node name="GimbalHorizontal" type="Node3D" parent="."]
 unique_name_in_owner = true

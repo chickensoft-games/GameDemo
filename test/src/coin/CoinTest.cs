@@ -1,6 +1,8 @@
 namespace GameDemo.Tests;
 
 using System.Threading.Tasks;
+using Chickensoft.AutoInject;
+using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
 using Chickensoft.GodotTestDriver;
@@ -18,6 +20,7 @@ public partial class CoinTest : TestClass {
   private Mock<IAnimationPlayer> _animPlayer = default!;
   private Mock<INode3D> _coinModel = default!;
   private Mock<ICoinLogic> _logic = default!;
+  private EntityTable _entityTable = default!;
 
   private CoinLogic.IFakeBinding _binding = default!;
 
@@ -32,18 +35,21 @@ public partial class CoinTest : TestClass {
     _coinModel = new();
     _logic = new();
     _binding = CoinLogic.CreateFakeBinding();
+    _entityTable = new EntityTable();
 
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
 
     _coin = new Coin {
-      IsTesting = true,
       AnimationPlayer = _animPlayer.Object,
       CoinModel = _coinModel.Object,
       CoinLogic = _logic.Object,
       CoinBinding = _binding
     };
 
+    (_coin as IAutoInit).IsTesting = true;
+
     _coin.FakeDependency(_gameRepo.Object);
+    _coin.FakeDependency(_entityTable);
 
     // For tests that run in the actual node tree.
     _coin.FakeNodeTree(new() {
@@ -64,7 +70,7 @@ public partial class CoinTest : TestClass {
   public void OnPhysicsProcess() {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(It.IsAny<CoinLogic.Input.PhysicsProcess>())
+      logic => logic.Input(in It.Ref<CoinLogic.Input.PhysicsProcess>.IsAny)
     );
 
     _coin.OnPhysicsProcess(1f);
@@ -76,7 +82,7 @@ public partial class CoinTest : TestClass {
   public void OnCollectorDetectorBodyEntered() {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(It.IsAny<CoinLogic.Input.StartCollection>())
+      logic => logic.Input(in It.Ref<CoinLogic.Input.StartCollection>.IsAny)
     );
     var collector = new FakeCoinCollector();
 
@@ -88,7 +94,7 @@ public partial class CoinTest : TestClass {
   [Test]
   public void StartsCollectionProcess() {
     _coin.OnResolved();
-    var state = new Mock<CoinLogic.State.ICollecting>();
+    var state = new Mock<CoinLogic.State.Collecting>();
     _animPlayer.Setup(player => player.Play("collect", -1, 1, false));
 
     _binding.SetState(state.Object);

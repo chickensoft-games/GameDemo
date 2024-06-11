@@ -1,12 +1,17 @@
 namespace GameDemo;
 
+using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
+
 public partial class GameLogic {
   public partial record State {
-    public record Playing : State, IGet<Input.EndGame>, IGet<Input.PauseButtonPressed> {
+    [Meta]
+    public partial record Playing : State,
+    IGet<Input.EndGame>, IGet<Input.PauseButtonPressed> {
       public Playing() {
-        OnEnter<Playing>(
-          _ => {
-            Context.Output(new Output.StartGame());
+        this.OnEnter(
+          () => {
+            Output(new Output.StartGame());
             Get<IGameRepo>().SetIsMouseCaptured(true);
           }
         );
@@ -16,19 +21,19 @@ public partial class GameLogic {
       }
 
       public void OnEnded(GameOverReason reason)
-        => Context.Input(new Input.EndGame(reason));
+        => Input(new Input.EndGame(reason));
 
-      public IState On(Input.EndGame input) {
+      public Transition On(in Input.EndGame input) {
         Get<IGameRepo>().Pause();
 
         return input.Reason switch {
-          GameOverReason.Won => new Won(),
-          GameOverReason.Lost => new Lost(),
-          _ => new Quit()
+          GameOverReason.Won => To<Won>(),
+          GameOverReason.Lost => To<Lost>(),
+          _ => To<Quit>()
         };
       }
 
-      public IState On(Input.PauseButtonPressed input) => new Paused();
+      public Transition On(in Input.PauseButtonPressed input) => To<Paused>();
     }
   }
 }

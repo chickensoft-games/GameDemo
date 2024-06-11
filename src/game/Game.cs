@@ -1,16 +1,42 @@
 namespace GameDemo;
 
+using System;
+using System.IO.Abstractions;
+using System.Text.Json;
 using Chickensoft.AutoInject;
+using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.PowerUps;
+using Chickensoft.Serialization.Godot;
+using Chickensoft.SaveFileBuilder;
+using Chickensoft.Serialization;
 using Godot;
-using SuperNodes.Types;
+using Chickensoft.Introspection;
 
-public interface IGame : INode3D, IProvide<IGameRepo>;
+public interface IGame : INode3D,
+IProvide<IGameRepo>, IProvide<ISaveChunk<GameData>>, IProvide<EntityTable> {
+  void LoadExistingGame();
 
-[SuperNode(typeof(Provider), typeof(Dependent), typeof(AutoNode))]
+  event Game.SaveFileLoadedEventHandler? SaveFileLoaded;
+}
+
+[Meta(typeof(IAutoNode))]
 public partial class Game : Node3D, IGame {
-  public override partial void _Notification(int what);
+  public override void _Notification(int what) => this.Notify(what);
+
+  #region Save
+  [Signal]
+  public delegate void SaveFileLoadedEventHandler();
+  public JsonSerializerOptions JsonOptions { get; set; } = default!;
+  public const string SAVE_FILE_NAME = "game.json";
+  public IFileSystem FileSystem { get; set; } = default!;
+  public IEnvironmentProvider Environment { get; set; } = default!;
+  public string SaveFilePath { get; set; } = default!;
+  public EntityTable EntityTable { get; set; } = new();
+  EntityTable IProvide<EntityTable>.Value() => EntityTable;
+  public ISaveFile<GameData> SaveFile { get; set; } = default!;
+  public ISaveChunk<GameData> GameChunk { get; set; } = default!;
+  ISaveChunk<GameData> IProvide<ISaveChunk<GameData>>.Value() => GameChunk;
+  #endregion Save
 
   #region State
 
@@ -43,25 +69,66 @@ public partial class Game : Node3D, IGame {
 
   #region Dependencies
 
-  [Dependency] public IAppRepo AppRepo => DependOn<IAppRepo>();
+  [Dependency] public IAppRepo AppRepo => this.DependOn<IAppRepo>();
 
   #endregion Dependencies
 
   public void Setup() {
+    FileSystem = new FileSystem();
+
+    SaveFilePath = FileSystem.Path.Join(OS.GetUserDataDir(), SAVE_FILE_NAME);
+
     GameRepo = new GameRepo();
-    GameLogic = new GameLogic(GameRepo, AppRepo);
+    GameLogic = new GameLogic();
+    GameLogic.Set(GameRepo);
+    GameLogic.Set(AppRepo);
+
+    // This is how to create JsonSerializerOptions for use with LogicBlocks
+    // and the Chickensoft serialization utilities.
+    var resolver = new SerializableTypeResolver();
+    // Tell our type type resolver about the Godot-specific converters.
+    GodotSerialization.Setup();
+
+    var upgradeDependencies = new Blackboard();
+
+    // Create a standard JsonSerializerOptions with our introspective type
+    // resolver and the logic blocks converter.
+    JsonOptions = new JsonSerializerOptions {
+      Converters = {
+        new SerializableTypeConverter(upgradeDependencies)
+      },
+      TypeInfoResolver = resolver,
+      WriteIndented = true
+    };
 
     DeathMenu.TryAgain += OnStart;
     DeathMenu.MainMenu += OnMainMenu;
     DeathMenu.TransitionCompleted += OnDeathMenuTransitioned;
+
     WinMenu.MainMenu += OnMainMenu;
     WinMenu.TransitionCompleted += OnWinMenuTransitioned;
+
     PauseMenu.MainMenu += OnMainMenu;
     PauseMenu.Resume += OnResume;
     PauseMenu.TransitionCompleted += OnPauseMenuTransitioned;
     PauseMenu.Save += OnPauseMenuSaveRequested;
 
-    Provide();
+    GameChunk = new SaveChunk<GameData>(
+      (chunk) => {
+        var gameData = new GameData() {
+          MapData = chunk.GetChunkSaveData<MapData>(),
+          PlayerData = chunk.GetChunkSaveData<PlayerData>(),
+          PlayerCameraData = chunk.GetChunkSaveData<PlayerCameraData>()
+        };
+
+        return gameData;
+      },
+        onLoad: (chunk, data) => {
+          chunk.LoadChunkSaveData(data.MapData);
+          chunk.LoadChunkSaveData(data.PlayerData);
+          chunk.LoadChunkSaveData(data.PlayerCameraData);
+        }
+      );
 
     // Calling Provide() triggers the Setup/OnResolved on dependent
     // nodes who depend on the values we provide. This means that
@@ -71,43 +138,72 @@ public partial class Game : Node3D, IGame {
   }
 
   public void OnResolved() {
+    SaveFile = new SaveFile<GameData>(
+      root: GameChunk,
+      onSave: async (GameData data) => {
+        // Save the game data to disk.
+        var json = JsonSerializer.Serialize(data, JsonOptions);
+        await FileSystem.File.WriteAllTextAsync(SaveFilePath, json);
+      },
+      onLoad: async () => {
+        // Load the game data from disk.
+        if (!FileSystem.File.Exists(SaveFilePath)) {
+          GD.Print("No save file to load :'(");
+          return null;
+        }
+
+        var json = await FileSystem.File.ReadAllTextAsync(SaveFilePath);
+        return JsonSerializer.Deserialize<GameData>(json, JsonOptions);
+      }
+    );
+
     GameBinding = GameLogic.Bind();
     GameBinding
-      .Handle<GameLogic.Output.StartGame>(
-        _ => {
+      .Handle(
+        (in GameLogic.Output.StartGame _) => {
           PlayerCamera.UsePlayerCamera();
           InGameUi.Show();
         })
-      .Handle<GameLogic.Output.SetPauseMode>(
-        output => GetTree().Paused = output.IsPaused
+      .Handle(
+        (in GameLogic.Output.SetPauseMode output) =>
+          CallDeferred(nameof(SetPauseMode), output.IsPaused)
       )
-      .Handle<GameLogic.Output.CaptureMouse>(
-        output => Input.MouseMode = output.IsMouseCaptured
-          ? Input.MouseModeEnum.Captured
-          : Input.MouseModeEnum.Visible
+      .Handle(
+        (in GameLogic.Output.CaptureMouse output) =>
+          Input.MouseMode = output.IsMouseCaptured
+            ? Input.MouseModeEnum.Captured
+            : Input.MouseModeEnum.Visible
       )
-      .Handle<GameLogic.Output.ShowLostScreen>(_ => {
+      .Handle((in GameLogic.Output.ShowLostScreen _) => {
         DeathMenu.Show();
         DeathMenu.FadeIn();
         DeathMenu.Animate();
       })
-      .Handle<GameLogic.Output.ExitLostScreen>(_ => DeathMenu.FadeOut())
-      .Handle<GameLogic.Output.ShowPauseMenu>(_ => {
+      .Handle((in GameLogic.Output.ExitLostScreen _) => DeathMenu.FadeOut())
+      .Handle((in GameLogic.Output.ShowPauseMenu _) => {
         PauseMenu.Show();
         PauseMenu.FadeIn();
       })
-      .Handle<GameLogic.Output.ShowWonScreen>(_ => {
+      .Handle((in GameLogic.Output.ShowWonScreen _) => {
         WinMenu.Show();
         WinMenu.FadeIn();
       })
-      .Handle<GameLogic.Output.ExitWonScreen>(_ => WinMenu.FadeOut())
-      .Handle<GameLogic.Output.ExitPauseMenu>(_ => PauseMenu.FadeOut())
-      .Handle<GameLogic.Output.HidePauseMenu>(_ => PauseMenu.Hide())
-      .Handle<GameLogic.Output.ShowPauseSaveOverlay>(
-        _ => PauseMenu.OnSaveStarted()
+      .Handle((in GameLogic.Output.ExitWonScreen _) => WinMenu.FadeOut())
+      .Handle((in GameLogic.Output.ExitPauseMenu _) => PauseMenu.FadeOut())
+      .Handle((in GameLogic.Output.HidePauseMenu _) => PauseMenu.Hide())
+      .Handle((in GameLogic.Output.ShowPauseSaveOverlay _) =>
+        PauseMenu.OnSaveStarted()
       )
-      .Handle<GameLogic.Output.HidePauseSaveOverlay>(
-        _ => PauseMenu.OnSaveFinished()
+      .Handle((in GameLogic.Output.HidePauseSaveOverlay _) =>
+        PauseMenu.OnSaveCompleted()
+      )
+      .Handle((in GameLogic.Output.StartSaving _) =>
+        SaveFile.Save().ContinueWith(
+          // Saving is async. The game node is always around, so kicking off
+          // an async process is safe. Plus, we block input while saving, so
+          // no interruptions.
+          (task) => GameLogic.Input(new GameLogic.Input.SaveCompleted())
+        )
       );
 
     // Trigger the first state's OnEnter callbacks so our bindings run.
@@ -117,6 +213,8 @@ public partial class Game : Node3D, IGame {
     GameLogic.Input(
       new GameLogic.Input.Initialize(NumCoinsInWorld: Map.GetCoinCount())
     );
+
+    this.Provide();
   }
 
   public override void _Input(InputEvent @event) {
@@ -159,4 +257,15 @@ public partial class Game : Node3D, IGame {
     GameBinding.Dispose();
     GameRepo.Dispose();
   }
+
+  public void LoadExistingGame() {
+    SaveFile.Load()
+      .ContinueWith((_) => CallDeferred(nameof(FinishedLoadingSaveFile)));
+  }
+
+  private void FinishedLoadingSaveFile() {
+    EmitSignal(SignalName.SaveFileLoaded);
+  }
+
+  private void SetPauseMode(bool isPaused) => GetTree().Paused = isPaused;
 }

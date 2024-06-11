@@ -1,31 +1,43 @@
 namespace GameDemo;
 
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.PowerUps;
+using Chickensoft.AutoInject;
 using Godot;
-using SuperNodes.Types;
+using Chickensoft.Introspection;
 
 public interface IMenu : IControl {
-  event Menu.StartEventHandler Start;
+  event Menu.NewGameEventHandler NewGame;
+  event Menu.LoadGameEventHandler LoadGame;
 }
 
-[SuperNode(typeof(AutoNode))]
+[Meta(typeof(IAutoNode))]
 public partial class Menu : Control, IMenu {
-  public override partial void _Notification(int what);
+  public override void _Notification(int what) => this.Notify(what);
 
   #region Nodes
   [Node]
-  public IButton StartButton { get; set; } = default!;
+  public IButton NewGameButton { get; set; } = default!;
+  [Node]
+  public IButton LoadGameButton { get; set; } = default!;
   #endregion Nodes
 
   #region Signals
   [Signal]
-  public delegate void StartEventHandler();
+  public delegate void NewGameEventHandler();
+  [Signal]
+  public delegate void LoadGameEventHandler();
   #endregion Signals
 
-  public void OnReady() => StartButton.Pressed += OnStartPressed;
+  public void OnReady() {
+    NewGameButton.Pressed += OnNewGamePressed;
+    LoadGameButton.Pressed += OnLoadGamePressed;
+  }
 
-  public void OnExitTree() => StartButton.Pressed -= OnStartPressed;
+  public void OnExitTree() {
+    NewGameButton.Pressed -= OnNewGamePressed;
+    LoadGameButton.Pressed -= OnLoadGamePressed;
+  }
 
-  public void OnStartPressed() => EmitSignal(SignalName.Start);
+  public void OnNewGamePressed() => EmitSignal(SignalName.NewGame);
+  public void OnLoadGamePressed() => EmitSignal(SignalName.LoadGame);
 }

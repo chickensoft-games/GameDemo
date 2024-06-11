@@ -1,19 +1,34 @@
 namespace GameDemo;
 
+using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
+
 public partial class AppLogic {
   public partial record State {
-    public record MainMenu : State, IGet<Input.StartGame> {
+    [Meta]
+    public partial record MainMenu : State,
+    IGet<Input.NewGame>, IGet<Input.LoadGame> {
       public MainMenu() {
-        OnEnter<MainMenu>(
-          previous => {
-            Context.Output(new Output.LoadGame());
+        this.OnEnter(
+          () => {
+            Get<Data>().ShouldLoadExistingGame = false;
+
+            Output(new Output.SetupGameScene());
+
             Get<IAppRepo>().OnMainMenuEntered();
-            Context.Output(new Output.ShowMainMenu());
+
+            Output(new Output.ShowMainMenu());
           }
         );
       }
 
-      public IState On(Input.StartGame input) => new LeavingMenu();
+      public Transition On(in Input.NewGame input) => To<LeavingMenu>();
+
+      public Transition On(in Input.LoadGame input) {
+        Get<Data>().ShouldLoadExistingGame = true;
+
+        return To<LeavingMenu>();
+      }
     }
   }
 }

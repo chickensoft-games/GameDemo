@@ -18,8 +18,8 @@ public class PlayerCameraLogicStateInputDisabledTest : TestClass {
     context.Set(gameRepo.Object);
     context.Set(appRepo.Object);
 
-    var nextState = state.On(new PlayerCameraLogic.Input.EnableInput());
+    var next = state.On(new PlayerCameraLogic.Input.EnableInput());
 
-    nextState.ShouldBeOfType<PlayerCameraLogic.State.InputEnabled>();
+    next.State.ShouldBeOfType<PlayerCameraLogic.State.InputEnabled>();
   }
 }

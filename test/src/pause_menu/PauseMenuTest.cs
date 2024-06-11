@@ -3,6 +3,7 @@ namespace GameDemo.Tests;
 using System.Threading.Tasks;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
+using Chickensoft.GodotTestDriver.Util;
 using Godot;
 using Moq;
 using Shouldly;
@@ -35,6 +36,8 @@ public class PauseMenuTest : TestClass {
       SaveOverlayAnimationPlayer = _saveOverlayAnimationPlayer.Object,
       SaveOverlay = _saveOverlay.Object
     };
+
+    _menu._Notification(-1);
   }
 
   [Test]
@@ -118,18 +121,24 @@ public class PauseMenuTest : TestClass {
   }
 
   [Test]
-  public void OnSaveStarted() {
+  public async Task OnSaveStarted() {
     _saveOverlayAnimationPlayer
       .Setup(player => player.Play("save_fade_in", -1, 1, false));
     _menu.OnSaveStarted();
+
+    await TestScene.GetTree().NextFrame();
+
     _saveOverlayAnimationPlayer.VerifyAll();
   }
 
   [Test]
-  public void OnSaveFinished() {
+  public async Task OnSaveFinished() {
     _saveOverlayAnimationPlayer
       .Setup(player => player.Play("save_fade_out", -1, 1, false));
-    _menu.OnSaveFinished();
+    _menu.OnSaveCompleted();
+
+    await TestScene.GetTree().NextFrame();
+
     _saveOverlayAnimationPlayer.VerifyAll();
   }
 }

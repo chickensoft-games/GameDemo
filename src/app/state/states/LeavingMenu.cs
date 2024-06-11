@@ -1,16 +1,20 @@
 namespace GameDemo;
 
+using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
+
 public partial class AppLogic {
   public partial record State {
-    public record LeavingMenu : State, IGet<Input.FadeOutFinished> {
+    [Meta]
+    public partial record LeavingMenu : State, IGet<Input.FadeOutFinished> {
       public LeavingMenu() {
-        OnEnter<LeavingMenu>(
-          previous => Context.Output(new Output.FadeToBlack())
-        );
+        this.OnEnter(() => Output(new Output.FadeToBlack()));
       }
 
-      public IState On(Input.FadeOutFinished input) =>
-        new InGame();
+      public Transition On(in Input.FadeOutFinished input) =>
+        Get<Data>().ShouldLoadExistingGame
+          ? To<LoadingSaveFile>()
+          : To<InGame>();
     }
   }
 }

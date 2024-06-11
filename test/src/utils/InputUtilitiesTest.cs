@@ -5,7 +5,6 @@ using Godot;
 using Shouldly;
 
 public class InputUtilitiesTest : TestClass {
-
   private float _deadZoneX = default!;
   private float _deadZoneY = default!;
 
@@ -56,7 +55,6 @@ public class InputUtilitiesTest : TestClass {
       "camera_up", "camera_down", JoyAxis.RightY
     );
     yMotion?.AxisValue.ShouldBe(0.6f);
-
   }
 
   [Test]
@@ -79,5 +77,4 @@ public class InputUtilitiesTest : TestClass {
     xMotion.ShouldBeNull();
     yMotion.ShouldBeNull();
   }
-
 }
