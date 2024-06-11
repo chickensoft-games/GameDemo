@@ -2,7 +2,8 @@
 
 [![Chickensoft Badge][chickensoft-badge]][chickensoft-website] [![Discord][discord-badge]][discord] [![Read the docs][read-the-docs-badge]][docs] ![branch coverage][branch-coverage]
 
-The Chickensoft Game Demo — a fully tested, third-person 3D game built with Godot and C#.
+The Chickensoft Game Demo — a fully tested, third-person 3D game built with Godot and C#. _Now with [saving and loading][save-load], including full
+game state preservation!_
 
 > [!IMPORTANT]
 > Be sure to run [`git lfs pull`][lfs] to resolve the binary files.
@@ -80,7 +81,7 @@ I've written an entire treatise about the architecture behind this demo. You can
 
 ## 💁 Getting Help
 
-*Found something wrong or need help?* Please join us in the [Chickensoft Discord server][discord] to let us know!
+_Found something wrong or need help?_ Please join us in the [Chickensoft Discord server][discord] to let us know!
 
 > 💡 This game was generated from the [Chickensoft GodotGame Template][GodotGame]. The Godot Game Template README contains documentation about how how the tests, code coverage, CI/CD, app entrypoint, debug profiles, and versioning work.
 
@@ -142,3 +143,4 @@ Since we're using [LogicBlocks], here's some of the more interesting state diagr
 [EditorConfig]: https://github.com/chickensoft-games/EditorConfig
 [game-arch]: https://chickensoft.games/blog/game-architecture
 [lfs]: https://git-lfs.com/
+[save-load]: https://x.com/joannanyana/status/1788798551847260439
