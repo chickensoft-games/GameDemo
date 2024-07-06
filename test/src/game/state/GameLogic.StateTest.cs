@@ -1,6 +1,6 @@
 namespace GameDemo.Tests;
 
-using Chickensoft.GoDotCollections;
+using Chickensoft.Collections;
 using Chickensoft.GoDotTest;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;

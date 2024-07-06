@@ -1,7 +1,7 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.AutoInject;
-using Chickensoft.GoDotCollections;
+using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
 using Godot;

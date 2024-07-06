@@ -49,7 +49,7 @@ public partial class App : CanvasLayer, IApp {
 
   #endregion Nodes
 
-  public void Setup() {
+  public void Initialize() {
     Instantiator = new Instantiator(GetTree());
     AppRepo = new AppRepo();
     AppLogic = new AppLogic();

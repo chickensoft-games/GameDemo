@@ -64,7 +64,7 @@ public class AppTest : TestClass {
 
     _app.AppBinding = _binding;
 
-    _app.Setup();
+    _app.Initialize();
 
     _app.Instantiator.ShouldBeOfType<Instantiator>();
     _app.AppRepo.ShouldBeOfType<AppRepo>();

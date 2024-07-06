@@ -1,7 +1,7 @@
 namespace GameDemo;
 
 using System;
-using Chickensoft.GoDotCollections;
+using Chickensoft.Collections;
 using Godot;
 
 public interface IGameRepo : IDisposable {

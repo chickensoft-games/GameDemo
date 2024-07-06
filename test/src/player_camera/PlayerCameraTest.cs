@@ -2,6 +2,7 @@ namespace GameDemo.Tests;
 
 using System.Threading.Tasks;
 using Chickensoft.AutoInject;
+using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
 using Chickensoft.GodotTestDriver;
@@ -204,6 +205,8 @@ public class PlayerCameraTest : TestClass {
 
     var chunk = new Mock<ISaveChunk<PlayerCameraData>>();
 
+    _playerCam.CameraLogic.Get<PlayerCameraLogic.Data>().ShouldNotBeNull();
+
     var data = _playerCam.PlayerCameraChunk.OnSave(chunk.Object);
 
     data.GlobalTransform.ShouldBe(_playerCam.GlobalTransform);
@@ -219,6 +222,18 @@ public class PlayerCameraTest : TestClass {
     var chunk = new Mock<ISaveChunk<PlayerCameraData>>();
 
     var logic = new PlayerCameraLogic();
+    _gameRepo.Setup(g => g.IsMouseCaptured).Returns(new AutoProp<bool>(false));
+    _gameRepo.Setup(g => g.PlayerGlobalPosition)
+      .Returns(new AutoProp<Vector3>(Vector3.Zero));
+
+    logic.Set(_gameRepo.Object);
+    logic.Set(new PlayerCameraLogic.Data {
+      TargetPosition = Vector3.Zero,
+      TargetAngleHorizontal = 0f,
+      TargetAngleVertical = 0f,
+      TargetOffset = Vector3.Zero
+    });
+
     logic.Start();
 
     var data = new PlayerCameraData {
