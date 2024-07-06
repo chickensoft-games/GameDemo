@@ -1,7 +1,7 @@
 namespace GameDemo.Tests;
 
 using System.Linq;
-using Chickensoft.GoDotCollections;
+using Chickensoft.Collections;
 using Chickensoft.GoDotTest;
 using Chickensoft.LogicBlocks;
 using Godot;

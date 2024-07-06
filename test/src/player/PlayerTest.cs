@@ -211,6 +211,7 @@ public class PlayerTest : TestClass {
     var chunk = new Mock<ISaveChunk<PlayerData>>();
 
     var logic = new PlayerLogic();
+    logic.Set(_appRepo.Object);
     logic.Start();
 
     var data = new PlayerData {
