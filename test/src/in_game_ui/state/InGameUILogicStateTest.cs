@@ -58,19 +58,27 @@ public class InGameUILogicStateTest : TestClass {
 
   [Test]
   public void OnNumCoinsCollectedOutputs() {
+    var numCoinsAtStart = new AutoProp<int>(10);
+    _gameRepo.Setup(repo => repo.NumCoinsAtStart)
+      .Returns(numCoinsAtStart);
+
     _state.OnNumCoinsCollected(5);
 
     _context.Outputs.ShouldBe(new object[] {
-      new InGameUILogic.Output.NumCoinsCollectedChanged(5)
+      new InGameUILogic.Output.NumCoinsChanged(5, 10)
     });
   }
 
   [Test]
   public void OnNumCoinsAtStartOutputs() {
+    var numCoinsCollected = new AutoProp<int>(5);
+    _gameRepo.Setup(repo => repo.NumCoinsCollected)
+      .Returns(numCoinsCollected);
+
     _state.OnNumCoinsAtStart(10);
 
     _context.Outputs.ShouldBe(new object[] {
-      new InGameUILogic.Output.NumCoinsAtStartChanged(10)
+      new InGameUILogic.Output.NumCoinsChanged(5, 10)
     });
   }
 }

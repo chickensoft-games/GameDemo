@@ -21,9 +21,9 @@ public partial class InGameUILogic {
     }
 
     public void OnNumCoinsCollected(int numCoinsCollected) =>
-      Output(new Output.NumCoinsCollectedChanged(numCoinsCollected));
+      Output(new Output.NumCoinsChanged(numCoinsCollected, Get<IGameRepo>().NumCoinsAtStart.Value));
 
     public void OnNumCoinsAtStart(int numCoinsAtStart) =>
-      Output(new Output.NumCoinsAtStartChanged(numCoinsAtStart));
+      Output(new Output.NumCoinsChanged(Get<IGameRepo>().NumCoinsCollected.Value, numCoinsAtStart));
   }
 }

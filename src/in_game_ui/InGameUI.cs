@@ -45,17 +45,10 @@ public partial class InGameUI : Control, IInGameUI {
 
     InGameUIBinding = InGameUILogic.Bind();
 
-    // TODO: Move the access to the game repo to the state machine.
-
     InGameUIBinding
-      .Handle((in InGameUILogic.Output.NumCoinsCollectedChanged output) =>
+      .Handle((in InGameUILogic.Output.NumCoinsChanged output) =>
         SetCoinsLabel(
-          output.NumCoinsCollected, GameRepo.NumCoinsAtStart.Value
-        )
-      )
-      .Handle((in InGameUILogic.Output.NumCoinsAtStartChanged output) =>
-        SetCoinsLabel(
-          GameRepo.NumCoinsCollected.Value, output.NumCoinsAtStart
+          output.NumCoinsCollected, output.NumCoinsAtStart
         )
       );
 
