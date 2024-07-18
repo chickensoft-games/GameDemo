@@ -70,7 +70,7 @@ public class InGameUITest : TestClass {
     _coinsLabel.SetupSet(label => label.Text = "1/2");
 
     _binding.Output(
-      new InGameUILogic.Output.NumCoinsCollectedChanged(1)
+      new InGameUILogic.Output.NumCoinsChanged(1, 2)
     );
 
     _coinsLabel.VerifyAll();
@@ -86,7 +86,7 @@ public class InGameUITest : TestClass {
     _coinsLabel.SetupSet(label => label.Text = "1/2");
 
     _binding.Output(
-      new InGameUILogic.Output.NumCoinsAtStartChanged(2)
+      new InGameUILogic.Output.NumCoinsChanged(1, 2)
     );
 
     _coinsLabel.VerifyAll();
