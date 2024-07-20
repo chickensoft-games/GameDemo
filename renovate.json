@@ -33,7 +33,7 @@
       "matchPackagePrefixes": [
         "Chickensoft"
       ],
-      "allowedVersions": "/^(\\d+\\.\\d+\\.\\d+)(-godot(\\d+\\.)+\\d+(-.*)?)?$/"
+      "allowedVersions": "/^(\\d+\\.\\d+\\.\\d+)$/"
     }
   ]
 }
