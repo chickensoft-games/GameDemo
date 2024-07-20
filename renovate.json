@@ -13,7 +13,8 @@
       ],
       "groupName": "all dependencies",
       "groupSlug": "all-deps",
-      "automerge": true
+      "automerge": true,
+      "allowedVersions": "!/preview|beta|alpha|dev|rc/"
     },
     {
       "matchPackagePrefixes": [
