@@ -35,7 +35,7 @@ jobs:
           submodules: 'recursive'
 
       - name: 💽 Setup .NET SDK
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           # Use the .NET SDK from global.json in the root of the repository.
           global-json-file: global.json
@@ -55,7 +55,7 @@ jobs:
           version: 1.0
 
       - name: 🤖 Setup Godot
-        uses: chickensoft-games/setup-godot@v1
+        uses: chickensoft-games/setup-godot@v2
         with:
           # Version must include major, minor, and patch, and be >= 4.0.0
           # Pre-release label is optional.
