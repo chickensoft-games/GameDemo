@@ -12,14 +12,21 @@
         "*"
       ],
       "groupName": "all dependencies",
-      "groupSlug": "all-deps"
+      "groupSlug": "all-deps",
+      "automerge": true
+    },
+    {
+      "matchPackagePrefixes": [
+        "dotnet-sdk"
+      ],
+      "allowedVersions": "!/preview/"
     },
     {
       "matchPackagePrefixes": [
         "GodotSharp",
         "Godot.NET.Sdk"
       ],
-      "allowedVersions": "/^(\\d+\\.\\d+\\.\\d+)(-(beta|rc)\\.(\\d+)(\\.\\d+)*)?$/"
+      "allowedVersions": "/^$/"
     },
     {
       "matchPackagePrefixes": [
