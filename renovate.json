@@ -19,7 +19,7 @@
       "matchPackagePrefixes": [
         "dotnet-sdk"
       ],
-      "allowedVersions": "!/preview/"
+      "allowedVersions": "!/preview|beta|alpha|dev|rc/"
     },
     {
       "matchPackagePrefixes": [
