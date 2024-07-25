@@ -7,7 +7,7 @@ using Godot;
 [Meta, Id("player_camera_data")]
 public partial record PlayerCameraData {
   [Save("state_machine")]
-  public required PlayerCameraLogic StateMachine { get; init; }
+  public required IPlayerCameraLogic StateMachine { get; init; }
 
   [Save("global_transform")]
   public required Transform3D GlobalTransform { get; init; }

@@ -133,7 +133,7 @@ public partial class PlayerCamera : Node3D, IPlayerCamera {
 
     PlayerCameraChunk = new SaveChunk<PlayerCameraData>(
       onSave: (chunk) => new PlayerCameraData() {
-        StateMachine = (PlayerCameraLogic)CameraLogic,
+        StateMachine = CameraLogic,
         GlobalTransform = GlobalTransform,
         LocalPosition = CameraNode.Position,
         OffsetPosition = OffsetNode.Position,

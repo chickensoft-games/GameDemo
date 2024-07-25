@@ -9,7 +9,7 @@ public partial record PlayerData {
   [Save("global_transform")]
   public required Transform3D GlobalTransform { get; init; }
   [Save("state_machine")]
-  public required PlayerLogic StateMachine { get; init; }
+  public required IPlayerLogic StateMachine { get; init; }
   [Save("velocity")]
   public required Vector3 Velocity { get; init; }
 }

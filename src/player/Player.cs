@@ -131,7 +131,7 @@ public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
     PlayerChunk = new SaveChunk<PlayerData>(
       onSave: (chunk) => new PlayerData() {
         GlobalTransform = GlobalTransform,
-        StateMachine = (PlayerLogic)PlayerLogic,
+        StateMachine = PlayerLogic,
         Velocity = Velocity
       },
       onLoad: (chunk, data) => {
