@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Production dependencies go here! -->
-    <PackageReference Include="System.IO.Abstractions" Version="21.0.26" />
+    <PackageReference Include="System.IO.Abstractions" Version="21.0.29" />
     <PackageReference Include="EnvironmentAbstractions" Version="4.0.0" />
     <PackageReference Include="GodotSharp.SourceGenerators" Version="2.1.1" PrivateAssets="all" OutputItemType="analyzer" />
     <PackageReference Include="Chickensoft.SaveFileBuilder" Version="1.1.0" />
