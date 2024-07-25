@@ -56,6 +56,14 @@ public class PlayerCameraTest : TestClass {
 
     (_playerCam as IAutoInit).IsTesting = true;
 
+    _playerCam.FakeNodeTree(new() {
+      ["%Offset"] = _offsetNode.Object,
+      ["%GimbalHorizontal"] = _gimbalHorizontal.Object,
+      ["%GimbalVertical"] = _gimbalVertical.Object,
+      ["%Camera3D"] = _cameraNode.Object,
+      ["%SpringArmTarget"] = _springArmTarget.Object
+    });
+
     _playerCam.FakeDependency(_gameRepo.Object);
     _playerCam.FakeDependency(_appRepo.Object);
     _playerCam.FakeDependency(_gameChunk.Object);

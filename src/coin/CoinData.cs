@@ -8,7 +8,7 @@ using Godot;
 [Meta, Id("coin_data")]
 public partial record CoinData {
   [Save("state_machine")]
-  public required CoinLogic StateMachine { get; init; }
+  public required ICoinLogic StateMachine { get; init; }
   [Save("global_transform")]
   public required Transform3D GlobalTransform { get; init; }
 }
