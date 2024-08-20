@@ -33,9 +33,9 @@ Chickensoft's packages are designed to make building games easier while followin
 
 On the other hand, it does result in a little bit of boilerplate, but that's going to be true whenever you make code modular enough to be fully unit-tested. Personally, I believe the benefits outweigh the little bit of additional boilerplate, especially for studios that have more than one person contributing to the codebase.
 
-This project is a result of two and a half years of learning, [the other 14 open source Chickensoft packages][chickensoft-website], and a ton of help and support I've received from the Godot community.
+This project is a result of two and a half years of learning, [the other dozen or so open source Chickensoft packages][chickensoft-website], and a ton of help and support I've received from the Godot community.
 
-Here's a high-level overview of Chickensoft's opinionated architecture:
+- ✅ Saving and loading using [Serialization], [Serialization.Godot], and [SaveFileBuilder]. You can read all about how to implement a save system like this one over at [Serialization for C# Games](https://chickensoft.games/blog/serialization-for-csharp-games).
 
 - ✅ Testing with [GoDotTest]. GoDotTest is designed for use with CI/CD, as well as local testing and compatibility with VSCode's debug launch profiles, allowing us to easily hook into and debug tests during development.
 
@@ -49,15 +49,15 @@ Here's a high-level overview of Chickensoft's opinionated architecture:
   
   Finally, AutoInject provides mechanisms for faking dependencies easily in unit tests.
 
-- ✅ Two-phase initialization, accomplished with [AutoSetup][Powerups].
+- ✅ Two-phase initialization, accomplished with AutoInject's [Enhanced Lifecycles].
 
   Splitting a node's initialization up into two steps make it easier to write testable node scripts. The first phase allows the node to create the values it wants to use, and the second phase allows it to consume those values for initial setup.
   
-  AutoSetup adds a property to each node script it's used on, `IsTesting`, that allows it to discern whether or not it's running in-game or in a test environment, skipping the first phase during testing so that mock or fake objects can be used instead.
+  AutoInject adds a property to each node script it's used on, `IsTesting`, that allows it to discern whether or not it's running in-game or in a test environment, skipping the first phase during testing so that mock or fake objects can be used instead.
 
 - ✅ Faking node trees during unit tests using [GodotNodeInterfaces].
   
-  GodotNodeInterfaces provides generated interfaces and adapters for every object in GodotSharp that extends `GodotObject`, allowing us to access these objects in a way that makes it easy to mock for unit tests.
+  GodotNodeInterfaces provides generated interfaces and adapters for every object in GodotSharp that extends `GodotObject`, allowing us to access these objects in a way that makes it easy to mock for unit tests. Note that AutoInject requires that we add GodotNodeInterfaces to our project, even if we don't actually use it (and most games won't ever need to use it — this game just happens to be fully unit tested).
   
   GodotNodeInterfaces also provides alternative methods for manipulating a node's children that accept interfaces rather than concrete node types, allowing us to use a fake scene tree during unit tests for nodes that need to be attached to the scene tree during testing.
 
@@ -71,7 +71,7 @@ Here's a high-level overview of Chickensoft's opinionated architecture:
 
   Additionally, following domain-driven design means our logic blocks can share and use domain repository objects and react to changes in the domain model, keeping all the active logic blocks synchronized to changes occurring across the entire game, similar to an event-bus model.
 
-- ✅ Simplified reactive utilities to power domain-driven modeling using [GoDotCollections].
+- ✅ Simplified reactive utilities to power domain-driven modeling using Chickensoft's [Collections] package.
 
   To accomplish reactive, easy to maintain game domain models, we use some super simplified rx-style observable objects. The API is similar to an observable, but with a few tweaks for ergonomics and a simplified implementation to keep it lightweight using C#'s vanilla events.
 
@@ -134,13 +134,16 @@ Since we're using [LogicBlocks], here's some of the more interesting state diagr
 [ThirdPersonController]: https://www.gdquest.com/news/2022/12/godot-4-third-person-controller/
 [FreePD]: https://freepd.com/
 [AutoInject]: https://github.com/chickensoft-games/AutoInject
+[Enhanced Lifecycles]: https://github.com/chickensoft-games/AutoInject?tab=readme-ov-file#-enhanced-lifecycle
 [mixins-ecs]: https://en.wikipedia.org/wiki/Entity_component_system#Is_ECS_a_useful_concept?
 [Introspection]: https://github.com/chickensoft-games/Introspection
-[PowerUps]: https://github.com/chickensoft-games/PowerUps
 [GodotNodeInterfaces]: https://github.com/chickensoft-games/GodotNodeInterfaces
 [LogicBlocks]: https://github.com/chickensoft-games/LogicBlocks
-[GoDotCollections]: https://github.com/chickensoft-games/GoDotCollections
 [EditorConfig]: https://github.com/chickensoft-games/EditorConfig
 [game-arch]: https://chickensoft.games/blog/game-architecture
 [lfs]: https://git-lfs.com/
 [save-load]: https://x.com/joannanyana/status/1788798551847260439
+[Serialization]: https://github.com/chickensoft-games/Serialization
+[Serialization.Godot]: https://github.com/chickensoft-games/Serialization.Godot
+[Collections]: https://github.com/chickensoft-games/Collections
+[SaveFileBuilder]: https://github.com/chickensoft-games/SaveFileBuilder
