@@ -118,3 +118,10 @@ pause={
 [physics]
 
 3d/default_gravity=16.0
+
+[rendering]
+
+global_illumination/gi/use_half_resolution=true
+environment/ssao/quality=0
+environment/ssil/quality=0
+environment/volumetric_fog/use_filter=0

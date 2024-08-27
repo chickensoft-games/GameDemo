@@ -3,21 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cy2mpbqsp3tgb"
-path.bptc="res://.godot/imported/fence_bridge_planks_albedo.png-85739552e4e3dad16ddbcece0359a291.bptc.ctex"
+path="res://.godot/imported/fence_bridge_planks_albedo.png-85739552e4e3dad16ddbcece0359a291.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={}
 
 [deps]
 
 source_file="res://src/map/fence/fence_bridge_planks_albedo.png"
-dest_files=["res://.godot/imported/fence_bridge_planks_albedo.png-85739552e4e3dad16ddbcece0359a291.bptc.ctex"]
+dest_files=["res://.godot/imported/fence_bridge_planks_albedo.png-85739552e4e3dad16ddbcece0359a291.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1
