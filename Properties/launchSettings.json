@@ -4,13 +4,13 @@
       "commandName": "Executable",
       "executablePath": "%GODOT%",
       "workingDirectory": "$(SolutionDir)",
-      "commandLineArgs": "--path \"$(ProjectDir)\""
+      "commandLineArgs": "--path \"./\""
     },
     "🧪 Debug Tests": {
       "commandName": "Executable",
       "executablePath": "%GODOT%",
       "workingDirectory": "$(SolutionDir)",
-      "commandLineArgs": "--path \"$(ProjectDir)\" --run-tests --quit-on-finish"
+      "commandLineArgs": "--path \"./\" --run-tests --quit-on-finish"
     }
   }
 }
