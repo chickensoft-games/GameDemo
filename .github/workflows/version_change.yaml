@@ -21,7 +21,7 @@ jobs:
           version: ${{ github.event.inputs.version }}
 
       - name: '⤴️ Create Pull Request'
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: version/${{ github.event.inputs.version }}
