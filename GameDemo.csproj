@@ -46,13 +46,13 @@
     <PackageReference Include="GodotSharp.SourceGenerators" Version="2.1.1" PrivateAssets="all" OutputItemType="analyzer" />
     <PackageReference Include="Chickensoft.SaveFileBuilder" Version="1.1.0" />
     <PackageReference Include="Chickensoft.AutoInject" Version="2.3.0" PrivateAssets="all" />
-    <PackageReference Include="Chickensoft.Collections" Version="1.8.7" />
+    <PackageReference Include="Chickensoft.Collections" Version="1.8.8" />
     <PackageReference Include="Chickensoft.GodotNodeInterfaces" Version="2.2.22" />
     <PackageReference Include="Chickensoft.Introspection" Version="1.7.0" />
     <PackageReference Include="Chickensoft.Introspection.Generator" Version="1.7.0" PrivateAssets="all" OutputItemType="analyzer" />
     <PackageReference Include="Chickensoft.Serialization" Version="1.5.0" />
     <PackageReference Include="Chickensoft.Serialization.Godot" Version="0.4.0" />
-    <PackageReference Include="Chickensoft.LogicBlocks" Version="5.5.0" />
-    <PackageReference Include="Chickensoft.LogicBlocks.DiagramGenerator" Version="5.5.0" PrivateAssets="all" OutputItemType="analyzer" />
+    <PackageReference Include="Chickensoft.LogicBlocks" Version="5.6.0" />
+    <PackageReference Include="Chickensoft.LogicBlocks.DiagramGenerator" Version="5.6.0" PrivateAssets="all" OutputItemType="analyzer" />
   </ItemGroup>
 </Project>
