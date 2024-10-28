@@ -6,6 +6,48 @@
     // the following to your .zshrc, .bashrc, or .bash_profile file:
     // export GODOT="/Applications/Godot.app/Contents/MacOS/Godot"
     {
+      "name": "🕹 Debug Game (VSCodium)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "",
+      "internalConsoleOptions": "openOnSessionStart",
+      "pipeTransport": {
+        "debuggerPath": "${extensionInstallFolder:muhammad-sammy.csharp}/.debugger/netcoredbg/netcoredbg",
+        "pipeCwd": "${workspaceFolder}",
+        "pipeProgram": "${env:GODOT}",
+        "pipeArgs": [
+          "--debug"
+        ]
+      },
+      "osx": {
+        "pipeTransport": {
+          // netcoredbg for Apple Silicon isn't included with the VSCodium C#
+          // extension. You must clone it, build it, and setup the path to it.
+          // You'll need homebrew, cmake, and clang installed.
+          //
+          // --------------------------------------------------------------- //
+          //
+          //   git clone https://github.com/Samsung/netcoredbg.git
+          //   cd netcoredbg
+          //   mkdir build
+          //   cd build
+          //   CC=clang CXX=clang++ cmake .. -DCMAKE_INSTALL_PREFIX=$PWD/../bin
+          //
+          // In your ~/.zshrc file, add the following line and adjust the path:
+          //
+          //   export NETCOREDBG="/path/to/netcoredbg/bin/netcoredbg"
+          //
+          "debuggerPath": "${env:NETCOREDBG}",
+          "pipeCwd": "${workspaceFolder}",
+          "pipeProgram": "${env:GODOT}",
+          "pipeArgs": [
+            "--debug"
+          ]
+        }
+      },
+    },
+    {
       "name": "🕹 Debug Game",
       "type": "coreclr",
       "request": "launch",
