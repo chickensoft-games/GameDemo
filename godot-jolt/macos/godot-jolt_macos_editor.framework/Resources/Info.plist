@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleExecutable</key>
+	<string>godot-jolt_macos_editor</string>
+	<key>CFBundleName</key>
+	<string>Godot Jolt</string>
+	<key>CFBundleDisplayName</key>
+	<string>Godot Jolt</string>
+	<key>CFBundleIdentifier</key>
+	<string>org.godot-jolt.godot-jolt</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright (c) Mikael Hermansson and Godot Jolt contributors.</string>
+	<key>CFBundleVersion</key>
+	<string>0.14.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.14.0</string>
+	<key>CFBundlePackageType</key>
+	<string>FMWK</string>
+	<key>CFBundleSupportedPlatforms</key>
+	<array>
+		<string>MacOSX</string>
+	</array>
+	<key>CSResourcesFileMapped</key>
+	<true/>
+	<key>DTPlatformName</key>
+	<string>macosx</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>10.12</string>
+</dict>
+</plist>

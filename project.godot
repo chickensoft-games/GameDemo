@@ -117,11 +117,18 @@ pause={
 
 [physics]
 
+3d/physics_engine="JoltPhysics3D"
 3d/default_gravity=16.0
 
 [rendering]
 
+lights_and_shadows/directional_shadow/size=1024
+lights_and_shadows/directional_shadow/size.mobile=512
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality=0
+lights_and_shadows/positional_shadow/soft_shadow_filter_quality=0
 global_illumination/gi/use_half_resolution=true
 environment/ssao/quality=0
 environment/ssil/quality=0
+environment/glow/upscale_mode=0
+environment/subsurface_scattering/subsurface_scattering_quality=0
 environment/volumetric_fog/use_filter=0
