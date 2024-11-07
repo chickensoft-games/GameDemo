@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ndll0y08l4t5"]
+[gd_scene load_steps=7 format=3 uid="uid://ndll0y08l4t5"]
 
 [ext_resource type="PackedScene" uid="uid://d3jgve1g030hy" path="res://src/map/mushroom/mushroom.glb" id="1_g3eif"]
+[ext_resource type="Texture2D" uid="uid://bn2dckxcyjlje" path="res://src/map/mushroom/mushroom_mushroom_albedo.png" id="2_w1uti"]
+[ext_resource type="Texture2D" uid="uid://bc8j1qgoetjdi" path="res://src/map/mushroom/mushroom_mushroom_normal.png" id="3_ux8m5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e0lf1"]
 transparency = 1
@@ -9,6 +11,17 @@ albedo_color = Color(0.117647, 0.870588, 0, 0.172549)
 emission_enabled = true
 emission = Color(0.611765, 1, 0.647059, 1)
 emission_energy_multiplier = 2.58
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hy5cr"]
+resource_name = "mushroom_mat"
+cull_mode = 2
+albedo_texture = ExtResource("2_w1uti")
+roughness = 0.65
+emission_enabled = true
+emission = Color(0.15, 1, 0, 1)
+emission_energy_multiplier = 3.02
+normal_enabled = true
+normal_texture = ExtResource("3_ux8m5")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_d33n5"]
 radius = 0.774741
@@ -19,6 +32,7 @@ radius = 0.774741
 
 [node name="Mushroom" parent="mushroom" index="0"]
 material_overlay = SubResource("StandardMaterial3D_e0lf1")
+surface_material_override/0 = SubResource("StandardMaterial3D_hy5cr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.846024, 0)
