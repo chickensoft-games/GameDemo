@@ -1,0 +1,7 @@
+{
+  "name": "game_demo",
+  "version": "1.0.0",
+  "devDependencies": {
+    "cspell": "^8.15.7"
+  }
+}

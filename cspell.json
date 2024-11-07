@@ -18,7 +18,7 @@
     "**/*.tres",
     "**/*.res",
     "project.godot",
-    "addons/**/*.*"
+    "godot-jolt/**/*.*"
   ],
   "words": [
     "assemblyfilters",
