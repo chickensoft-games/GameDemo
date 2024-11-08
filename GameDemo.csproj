@@ -41,12 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Production dependencies go here! -->
-    <PackageReference Include="System.IO.Abstractions" Version="21.1.1" />
+    <PackageReference Include="System.IO.Abstractions" Version="21.1.2" />
     <PackageReference Include="EnvironmentAbstractions" Version="5.0.0" />
     <PackageReference Include="GodotSharp.SourceGenerators" Version="2.1.1" PrivateAssets="all" OutputItemType="analyzer" />
     <PackageReference Include="Chickensoft.SaveFileBuilder" Version="1.1.0" />
     <PackageReference Include="Chickensoft.AutoInject" Version="2.4.0" PrivateAssets="all" />
-    <PackageReference Include="Chickensoft.Collections" Version="1.12.0" />
+    <PackageReference Include="Chickensoft.Collections" Version="1.12.1" />
     <PackageReference Include="Chickensoft.GodotNodeInterfaces" Version="2.2.29" />
     <PackageReference Include="Chickensoft.Introspection" Version="2.0.0" />
     <PackageReference Include="Chickensoft.Introspection.Generator" Version="2.0.0" PrivateAssets="all" OutputItemType="analyzer" />
