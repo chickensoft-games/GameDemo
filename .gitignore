@@ -4,6 +4,7 @@ coverage/*
 !coverage/.gdignore
 
 .godot/
+!.godot/extension_list.cfg
 bin/
 obj/
 .generated/
