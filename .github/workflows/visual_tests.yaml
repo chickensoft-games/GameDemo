@@ -66,11 +66,6 @@ jobs:
           # renovatebot updates the Godot SDK version.
           version: global.json
 
-      - name: 🤓 Setup GDExtensions
-        run: |
-          touch .godot/extension_list.cfg
-          echo "res://godot-jolt/godot-jolt.gdextension" >> .godot/extension_list.cfg
-
       - name: 🧑‍🔬 Generate .NET Bindings
         run: godot --headless --build-solutions --quit || exit 0
 
