@@ -32,7 +32,7 @@ jobs:
           # are checked out properly.
           lfs: true
           # Make sure any git submodules are checked out as well.
-          submodules: 'recursive'
+          submodules: "recursive"
 
       - name: 💽 Setup .NET SDK
         uses: actions/setup-dotnet@v4
@@ -66,12 +66,17 @@ jobs:
           # renovatebot updates the Godot SDK version.
           version: global.json
 
+      - name: 🤓 Setup GDExtensions
+        run: |
+          touch .godot/extension_list.cfg
+          echo "res://godot-jolt/godot-jolt.gdextension" >> .godot/extension_list.cfg
+
       - name: 🧑‍🔬 Generate .NET Bindings
         run: godot --headless --build-solutions --quit || exit 0
 
       - name: 🌋 Run Tests in Godot
         run: |
-          xvfb-run godot --audio-driver Dummy --rendering-driver ${{ matrix.render-driver }} --run-tests --quit-on-finish --coverage
+          xvfb-run godot --audio-driver Dummy --rendering-driver ${{ matrix.render-driver }} --run-tests --quit-on-finish
 
           # The --coverage flag is used by GoDotTest to control the exit code
           # of Godot by force-exiting through C#.
