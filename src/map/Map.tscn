@@ -29,13 +29,15 @@ reflected_light_source = 1
 tonemap_mode = 2
 ssr_depth_tolerance = 51.01
 ssao_radius = 7.46
-ssil_enabled = true
 ssil_radius = 1.17
 ssil_intensity = 3.14
 ssil_normal_rejection = 0.33
 sdfgi_read_sky_light = false
 sdfgi_y_scale = 2
 glow_enabled = true
+glow_levels/3 = 0.0
+glow_levels/5 = 0.9
+glow_levels/6 = 0.56
 fog_enabled = true
 fog_light_color = Color(0.109804, 0.00784314, 0.00784314, 1)
 fog_light_energy = 0.77
@@ -580,39 +582,6 @@ transform = Transform3D(3.31823, 0, 0, 0, 3.31823, 0, 0, 0, 3.31823, -15.1897, 2
 [node name="Jumpshroom" parent="Node3D" instance=ExtResource("10_my0fm")]
 transform = Transform3D(-0.789497, 0.21846, -3.84256, 0.117067, 3.92212, 0.19893, 3.84699, -0.0745204, -0.794643, -14.9914, 25.6134, -11.2494)
 ImpulseStrength = 40.0
-
-[node name="SpotLight3D" type="SpotLight3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 0.206734, 0.978397, 0, -0.978397, 0.206734, -16.1248, 49.6258, -6.34134)
-light_color = Color(0.760784, 0.580392, 1, 1)
-light_energy = 10.58
-spot_range = 29.718
-spot_attenuation = 0.341512
-spot_angle = 11.7498
-spot_angle_attenuation = 0.0824693
-
-[node name="OmniLight3D" type="OmniLight3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.0176, 28.0955, -11.4144)
-light_color = Color(1, 0.0901961, 0.698039, 1)
-light_energy = 7.319
-omni_range = 6.21263
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="Node3D"]
-transform = Transform3D(0.832457, 0, -0.554089, 0, 1, 0, 0.554089, 0, 0.832457, -15.123, 28.0955, -18.134)
-light_color = Color(1, 0.0901961, 0.698039, 1)
-light_energy = 7.319
-omni_range = 6.21263
-
-[node name="OmniLight3D3" type="OmniLight3D" parent="Node3D"]
-transform = Transform3D(0.832457, 0, -0.554089, 0, 1, 0, 0.554089, 0, 0.832457, -21.8791, 28.0955, -12.4653)
-light_color = Color(1, 0.0901961, 0.698039, 1)
-light_energy = 7.319
-omni_range = 6.813
-
-[node name="OmniLight3D4" type="OmniLight3D" parent="Node3D"]
-transform = Transform3D(0.832457, 0, -0.554089, 0, 1, 0, 0.554089, 0, 0.832457, -15.7289, 28.0955, -6.15117)
-light_color = Color(1, 0.0901961, 0.698039, 1)
-light_energy = 7.319
-omni_range = 6.813
 
 [node name="Fence" parent="." instance=ExtResource("16_8u7gr")]
 transform = Transform3D(0.2751, 0, 0.961415, 0, 1, 0, -0.961415, 0, 0.2751, 0.166342, 5.11439, 16.0317)

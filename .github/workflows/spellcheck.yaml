@@ -1,21 +1,26 @@
-name: '🧑‍🏫 Spellcheck'
+name: "🧑‍🏫 Spellcheck"
 on:
   push:
 
 jobs:
   spellcheck:
-    name: '🧑‍🏫 Spellcheck'
+    name: "🧑‍🏫 Spellcheck"
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: '.'
+        working-directory: "."
     steps:
       - uses: actions/checkout@v4
         name: 🧾 Checkout
 
-      - uses: streetsidesoftware/cspell-action@v6
-        name: 📝 Check Spelling
+      - uses: actions/setup-node@v4
         with:
-          config: './cspell.json'
-          incremental_files_only: false
-          root: '.'
+          node-version: 22
+          cache: "npm"
+
+      - name: 📦 Install Dependencies
+        run: npm install
+
+      - name: 📝 Check Spelling
+        run: |
+          npx cspell lint -c ./cspell.json
