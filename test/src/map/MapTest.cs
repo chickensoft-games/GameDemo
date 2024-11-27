@@ -125,7 +125,7 @@ public class MapTest : TestClass {
       .Returns(coinNode2.Object);
 
     coinNode2.Setup(c => c.CoinLogic).Returns(coinLogic2.Object);
-    coinLogic2.Setup(c => c.RestoreFrom(mapData.CoinsBeingCollected["coin2"].StateMachine));
+    coinLogic2.Setup(c => c.RestoreFrom(mapData.CoinsBeingCollected["coin2"].StateMachine, true));
     coinLogic2.Setup(c => c.Start());
     coinNode2.SetupSet(c => c.GlobalTransform = mapData.CoinsBeingCollected["coin2"].GlobalTransform);
 
