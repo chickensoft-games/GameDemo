@@ -47,7 +47,7 @@
     <PackageReference Include="Chickensoft.SaveFileBuilder" Version="1.1.0" />
     <PackageReference Include="Chickensoft.AutoInject" Version="2.4.0" PrivateAssets="all" />
     <PackageReference Include="Chickensoft.Collections" Version="1.12.3" />
-    <PackageReference Include="Chickensoft.GodotNodeInterfaces" Version="2.2.30" />
+    <PackageReference Include="Chickensoft.GodotNodeInterfaces" Version="2.2.31" />
     <PackageReference Include="Chickensoft.Introspection" Version="2.0.0" />
     <PackageReference Include="Chickensoft.Introspection.Generator" Version="2.0.0" PrivateAssets="all" OutputItemType="analyzer" />
     <PackageReference Include="Chickensoft.Serialization" Version="2.0.0" />
