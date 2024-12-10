@@ -6,6 +6,7 @@
 [sub_resource type="Resource" id="Resource_qx47m"]
 script = ExtResource("2_xh3xu")
 MouseSensitivity = 0.2
+JoypadSensitivity = 5.0
 VerticalMax = 45.0
 VerticalMin = -45.0
 FollowSpeed = 15.0
