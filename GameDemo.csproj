@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
     <RootNamespace>GameDemo</RootNamespace>
+    <!-- Catch compiler-mismatch issues with the Introspection generator as early as possible -->
+    <WarningsAsErrors>CS9057</WarningsAsErrors>
     <!-- Required for some nuget packages to work -->
     <!-- godotengine/godot/issues/42271#issuecomment-751423827 -->
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
