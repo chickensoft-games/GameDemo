@@ -144,7 +144,6 @@
   "omnisharp.enableEditorConfigSupport": true,
   "omnisharp.enableMsBuildLoadProjectsOnDemand": false,
   "omnisharp.enableRoslynAnalyzers": true,
-  "omnisharp.organizeImportsOnFormat": true,
   "omnisharp.useModernNet": true,
   "dotnet.server.useOmnisharp": false,
   // TODO: until https://github.com/dotnet/vscode-csharp/issues/3970 is solved.
@@ -167,5 +166,6 @@
       "icon": "terminal-powershell",
       "source": "PowerShell"
     }
-  }
+  },
+  "dotnet.formatting.organizeImportsOnFormat": true
 }

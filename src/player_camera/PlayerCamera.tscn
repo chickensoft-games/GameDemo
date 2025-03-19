@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://pjmfnaiwwwed"]
 
-[ext_resource type="Script" path="res://src/player_camera/PlayerCamera.cs" id="1_gmpa3"]
-[ext_resource type="Script" path="res://src/player_camera/PlayerCameraSettings.cs" id="2_xh3xu"]
+[ext_resource type="Script" uid="uid://dx8tf6ofaxx62" path="res://src/player_camera/PlayerCamera.cs" id="1_gmpa3"]
+[ext_resource type="Script" uid="uid://cn0d8vnyiff4l" path="res://src/player_camera/PlayerCameraSettings.cs" id="2_xh3xu"]
 
 [sub_resource type="Resource" id="Resource_qx47m"]
 script = ExtResource("2_xh3xu")

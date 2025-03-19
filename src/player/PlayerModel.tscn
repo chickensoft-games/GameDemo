@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bks8flmin1q5l" path="res://src/player/visuals/model/gdbot.glb" id="1_d40x7"]
 [ext_resource type="Animation" uid="uid://bn3e8iqrg4bux" path="res://src/player/visuals/custom_animations/default_heartbeat.tres" id="2_cop8v"]
-[ext_resource type="Script" path="res://src/player/PlayerModel.cs" id="2_r8bun"]
+[ext_resource type="Script" uid="uid://cujxu3g3s7yf6" path="res://src/player/PlayerModel.cs" id="2_r8bun"]
 [ext_resource type="Material" uid="uid://8uvbuv5vrbdi" path="res://src/player/visuals/materials/face_mat.tres" id="2_u73wx"]
 [ext_resource type="Material" uid="uid://b1psapxmg8ohu" path="res://src/player/visuals/materials/heart_core_mat.tres" id="3_7lmxo"]
 [ext_resource type="Animation" uid="uid://b5s07v24s1tva" path="res://src/player/visuals/custom_animations/simple_blink.tres" id="3_bkcj6"]
@@ -2543,19 +2543,19 @@ tracks/50/keys = PackedFloat32Array(0, 1, 8.27181e-25, 0, 1, 1.65436e-24, 0.0333
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tj4x4"]
 _data = {
-"Idle": SubResource("Animation_5s6vb"),
-"fall": SubResource("Animation_g74d3"),
-"ground_impact": SubResource("Animation_7xsm3"),
-"jump": SubResource("Animation_ow4eh"),
-"run": SubResource("Animation_0nbfc"),
-"simple_punch": SubResource("Animation_r3g1t"),
-"walk": SubResource("Animation_ijo0b")
+&"Idle": SubResource("Animation_5s6vb"),
+&"fall": SubResource("Animation_g74d3"),
+&"ground_impact": SubResource("Animation_7xsm3"),
+&"jump": SubResource("Animation_ow4eh"),
+&"run": SubResource("Animation_0nbfc"),
+&"simple_punch": SubResource("Animation_r3g1t"),
+&"walk": SubResource("Animation_ijo0b")
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_iuqlc"]
 _data = {
-"default_heartbeat": ExtResource("2_cop8v"),
-"simple_blink": ExtResource("3_bkcj6")
+&"default_heartbeat": ExtResource("2_cop8v"),
+&"simple_blink": ExtResource("3_bkcj6")
 }
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8m26w"]

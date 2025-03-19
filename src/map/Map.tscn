@@ -1,9 +1,9 @@
 [gd_scene load_steps=26 format=3 uid="uid://dqu3oaninqabd"]
 
-[ext_resource type="Script" path="res://src/map/Map.cs" id="1_t88o4"]
+[ext_resource type="Script" uid="uid://bkebdu3non7au" path="res://src/map/Map.cs" id="1_t88o4"]
 [ext_resource type="Sky" uid="uid://jonn5eom7asv" path="res://src/map/sky/blue_sky.tres" id="1_wl8qu"]
 [ext_resource type="PackedScene" uid="uid://cnritjjpfqqyp" path="res://src/map/terrain/terrain.tscn" id="2_tq3o0"]
-[ext_resource type="Shader" path="res://src/map/water/water_shader.gdshader" id="4_l0ika"]
+[ext_resource type="Shader" uid="uid://c8psk0mj5o21i" path="res://src/map/water/water_shader.gdshader" id="4_l0ika"]
 [ext_resource type="Texture2D" uid="uid://dsj8vni6l6vih" path="res://src/map/water/textures/WaterDistortion.png" id="5_otw0l"]
 [ext_resource type="Texture2D" uid="uid://dlmp8l0e8ynm1" path="res://src/map/water/textures/PerlinNoise.png" id="6_03tr5"]
 [ext_resource type="PackedScene" uid="uid://deklo7q47fodq" path="res://src/death_plane/DeathPlane.tscn" id="6_v2vxo"]
@@ -80,8 +80,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y3fot"]
 _data = {
-"RESET": SubResource("Animation_glhrq"),
-"world_cam_spin": SubResource("Animation_g8uj4")
+&"RESET": SubResource("Animation_glhrq"),
+&"world_cam_spin": SubResource("Animation_g8uj4")
 }
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_1gely"]
@@ -91,6 +91,8 @@ polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 5), PackedInt32Arr
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8t5sk"]
 render_priority = 0
 shader = ExtResource("4_l0ika")
+shader_parameter/surfaceNoise = ExtResource("6_03tr5")
+shader_parameter/distortNoise = ExtResource("5_otw0l")
 shader_parameter/beer_factor = 0.8
 shader_parameter/foam_distance = 0.01
 shader_parameter/foam_max_distance = 1.0
@@ -104,8 +106,6 @@ shader_parameter/_DepthGradientShallow = Color(0.509804, 0.282353, 0.054902, 0.7
 shader_parameter/_DepthGradientDeep = Color(0.141176, 0.188235, 0.380392, 1)
 shader_parameter/_DepthMaxDistance = 1.0
 shader_parameter/_DepthFactor = 1.0
-shader_parameter/surfaceNoise = ExtResource("6_03tr5")
-shader_parameter/distortNoise = ExtResource("5_otw0l")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_prq5n"]
 size = Vector2(1200, 1200)

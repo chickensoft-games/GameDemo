@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cbccubify2aqk"]
 
-[ext_resource type="Shader" path="res://src/map/cloud/Cloud.gdshader" id="1_4k1u5"]
+[ext_resource type="Shader" uid="uid://gxd1egcphkic" path="res://src/map/cloud/Cloud.gdshader" id="1_4k1u5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1xikf"]
 render_priority = 0
@@ -10,8 +10,8 @@ shader_parameter/wave_speed = 0.1
 shader_parameter/upper_transparency = 0.89
 shader_parameter/global_transparency = 0.9
 shader_parameter/time_factor = Vector2(2, 3)
-shader_parameter/uv1_scale = null
-shader_parameter/uv1_offset = null
+shader_parameter/uv1_scale = Vector3(0, 0, 0)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/color1 = Color(0.870588, 0.921569, 1, 1)
 shader_parameter/color2 = Color(1, 1, 1, 1)
 

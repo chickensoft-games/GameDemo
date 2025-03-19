@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://bthdrw6580hll"]
 
-[ext_resource type="Script" path="res://src/win_menu/WinMenu.cs" id="1_ephor"]
-[ext_resource type="Shader" path="res://src/win_menu/fireworks.gdshader" id="1_m8kyu"]
+[ext_resource type="Script" uid="uid://d1lxcluhtvwtq" path="res://src/win_menu/WinMenu.cs" id="1_ephor"]
+[ext_resource type="Shader" uid="uid://c847n11uwaagb" path="res://src/win_menu/fireworks.gdshader" id="1_m8kyu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6nh0u"]
 bg_color = Color(0, 0.815686, 1, 0.337255)
@@ -105,9 +105,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kxx0w"]
 _data = {
-"RESET": SubResource("Animation_qq1c3"),
-"fade_in": SubResource("Animation_0rl87"),
-"fade_out": SubResource("Animation_lgj8v")
+&"RESET": SubResource("Animation_qq1c3"),
+&"fade_in": SubResource("Animation_0rl87"),
+&"fade_out": SubResource("Animation_lgj8v")
 }
 
 [node name="WinMenu" type="Control"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://d3qf2po8l4dlr"]
 
-[ext_resource type="Script" path="res://src/in_game_ui/InGameUI.cs" id="1_00v78"]
+[ext_resource type="Script" uid="uid://cnrc67a62ktoi" path="res://src/in_game_ui/InGameUI.cs" id="1_00v78"]
 [ext_resource type="PackedScene" uid="uid://c7cbqvc78fb07" path="res://src/in_game_ui/coin_scene/CoinScene.tscn" id="1_eo2h2"]
 
 [sub_resource type="Environment" id="Environment_ugqbc"]

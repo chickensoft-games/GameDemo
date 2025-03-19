@@ -12,7 +12,7 @@ config_version=5
 
 config/name="GameDemo"
 run/main_scene="res://src/Main.tscn"
-config/features=PackedStringArray("4.3", "C#", "Mobile")
+config/features=PackedStringArray("4.4", "C#", "Mobile")
 config/icon="res://icon.png"
 
 [debug]
