@@ -129,7 +129,7 @@ transform = Transform3D(1.35, 0, 0, 0, 1.35, 0, 0, 0, 1.35, 0, 0, 0)
 [node name="CameraAnimationPlayer" type="AnimationPlayer" parent="World"]
 deterministic = true
 libraries = {
-"": SubResource("AnimationLibrary_y3fot")
+&"": SubResource("AnimationLibrary_y3fot")
 }
 autoplay = "world_cam_spin"
 

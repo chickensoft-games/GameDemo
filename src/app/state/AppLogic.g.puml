@@ -1,11 +1,11 @@
 @startuml AppLogic
 state "AppLogic State" as GameDemo_AppLogic_State {
-  state "LoadingSaveFile" as GameDemo_AppLogic_State_LoadingSaveFile
-  state "SplashScreen" as GameDemo_AppLogic_State_SplashScreen
-  state "MainMenu" as GameDemo_AppLogic_State_MainMenu
-  state "LeavingGame" as GameDemo_AppLogic_State_LeavingGame
   state "InGame" as GameDemo_AppLogic_State_InGame
+  state "LeavingGame" as GameDemo_AppLogic_State_LeavingGame
   state "LeavingMenu" as GameDemo_AppLogic_State_LeavingMenu
+  state "LoadingSaveFile" as GameDemo_AppLogic_State_LoadingSaveFile
+  state "MainMenu" as GameDemo_AppLogic_State_MainMenu
+  state "SplashScreen" as GameDemo_AppLogic_State_SplashScreen
 }
 
 GameDemo_AppLogic_State_InGame --> GameDemo_AppLogic_State_LeavingGame : EndGame

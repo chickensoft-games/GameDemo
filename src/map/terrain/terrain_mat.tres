@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=13 format=3 uid="uid://c5trc4hy86utg"]
 
-[ext_resource type="Shader" path="res://src/map/terrain/terrain_shader.gdshader" id="1_tmq40"]
+[ext_resource type="Shader" uid="uid://dw58ou8ihinq1" path="res://src/map/terrain/terrain_shader.gdshader" id="1_tmq40"]
 [ext_resource type="Texture2D" uid="uid://ccle3gd0lgtig" path="res://src/map/terrain/visuals/voronoi_rock_cliff/voronoi_rock_cliff_albedo.png" id="2_ais5s"]
 [ext_resource type="Texture2D" uid="uid://cqs4w0fnrsnda" path="res://src/map/terrain/visuals/voronoi_rock_cliff/voronoi_rock_cliff_normal.png" id="3_mrld1"]
 [ext_resource type="Texture2D" uid="uid://c5t0wkqsdvy0a" path="res://src/map/terrain/visuals/voronoi_rock_cliff/voronoi_rock_cliff_orm.png" id="4_d0u70"]
@@ -22,8 +22,6 @@ noise = SubResource("FastNoiseLite_dkxv0")
 [resource]
 render_priority = 0
 shader = ExtResource("1_tmq40")
-shader_parameter/wall_edge_offset = 1.25
-shader_parameter/cliff_scale = 0.35
 shader_parameter/grass_patch_pattern_sampler = SubResource("NoiseTexture2D_jhgfj")
 shader_parameter/wall_mask_sampler = ExtResource("10_5ouax")
 shader_parameter/cliff_albedo_sampler = ExtResource("2_ais5s")
@@ -35,6 +33,8 @@ shader_parameter/dirt_orm_sampler = ExtResource("7_7kb77")
 shader_parameter/cliff_normal_sampler = ExtResource("3_mrld1")
 shader_parameter/grass_normal_sampler = ExtResource("9_fafy5")
 shader_parameter/dirt_normal_sampler = ExtResource("6_f0qiq")
+shader_parameter/wall_edge_offset = 1.25
+shader_parameter/cliff_scale = 0.35
 shader_parameter/triplanar_scale = Vector3(0.3, 0.3, 0.3)
 shader_parameter/triplanar_offset = Vector3(0, 0, 0)
 shader_parameter/triplanar_sharpness = 4.0
