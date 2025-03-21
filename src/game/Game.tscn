@@ -1,14 +1,14 @@
 [gd_scene load_steps=10 format=3 uid="uid://cywpu6lxdjhuu"]
 
-[ext_resource type="Script" path="res://src/game/Game.cs" id="1_17mmo"]
+[ext_resource type="Script" uid="uid://d3gnuv1uga3om" path="res://src/game/Game.cs" id="1_17mmo"]
 [ext_resource type="PackedScene" uid="uid://pjmfnaiwwwed" path="res://src/player_camera/PlayerCamera.tscn" id="2_g21k4"]
 [ext_resource type="PackedScene" uid="uid://dqu3oaninqabd" path="res://src/map/Map.tscn" id="3_cpkwg"]
 [ext_resource type="PackedScene" uid="uid://bwbxe1hh3doh" path="res://src/player/Player.tscn" id="4_smjqx"]
 [ext_resource type="PackedScene" uid="uid://d3qf2po8l4dlr" path="res://src/in_game_ui/InGameUI.tscn" id="5_w4lns"]
 [ext_resource type="PackedScene" uid="uid://be3pehf5e67m5" path="res://src/in_game_audio/InGameAudio.tscn" id="6_wnbqg"]
-[ext_resource type="PackedScene" uid="uid://bn84ofaaq4o80" path="res://src/menu/submenus/death_menu/DeathMenu.tscn" id="7_35ldn"]
-[ext_resource type="PackedScene" uid="uid://bthdrw6580hll" path="res://src/menu/submenus/win_menu/WinMenu.tscn" id="8_ovoi6"]
-[ext_resource type="PackedScene" uid="uid://conmng5ejji6f" path="res://src/menu/submenus/pause_menu/PauseMenu.tscn" id="9_yxma7"]
+[ext_resource type="PackedScene" uid="uid://bn84ofaaq4o80" path="res://src/death_menu/DeathMenu.tscn" id="7_35ldn"]
+[ext_resource type="PackedScene" uid="uid://bthdrw6580hll" path="res://src/win_menu/WinMenu.tscn" id="8_ovoi6"]
+[ext_resource type="PackedScene" uid="uid://conmng5ejji6f" path="res://src/pause_menu/PauseMenu.tscn" id="9_yxma7"]
 
 [node name="Game" type="Node3D"]
 process_mode = 3

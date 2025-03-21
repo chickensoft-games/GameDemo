@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://ovciasxou830"]
 
-[ext_resource type="Shader" path="res://src/map/grass/grass.gdshader" id="1_21fji"]
+[ext_resource type="Shader" uid="uid://bar8h8vg44smj" path="res://src/map/grass/grass.gdshader" id="1_21fji"]
 
 [sub_resource type="Gradient" id="Gradient_og0wy"]
 colors = PackedColorArray(0.11908, 0.387024, 0.176702, 1, 0.278388, 0.581803, 0.267947, 1)

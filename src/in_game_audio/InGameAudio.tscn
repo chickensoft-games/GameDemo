@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://be3pehf5e67m5"]
 
 [ext_resource type="AudioStream" uid="uid://c1gemc28v25c0" path="res://src/in_game_audio/sounds/coin.wav" id="1_681yd"]
-[ext_resource type="Script" path="res://src/in_game_audio/InGameAudio.cs" id="1_hobj4"]
+[ext_resource type="Script" uid="uid://c2g7mpfm4y61b" path="res://src/in_game_audio/InGameAudio.cs" id="1_hobj4"]
 [ext_resource type="AudioStream" uid="uid://c1m1yd2inwdhb" path="res://src/in_game_audio/sounds/bounce.wav" id="3_xxu3m"]
 [ext_resource type="AudioStream" uid="uid://8t7ph3h3w2by" path="res://src/in_game_audio/sounds/death.wav" id="4_s1k52"]
 [ext_resource type="AudioStream" uid="uid://bak7d1i0xjrqc" path="res://src/in_game_audio/sounds/jump.wav" id="5_t7dvy"]

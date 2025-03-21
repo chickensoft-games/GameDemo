@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://7j15r0ej4fwx"]
 
-[ext_resource type="Script" path="res://src/jumpshroom/Jumpshroom.cs" id="1_56b1h"]
+[ext_resource type="Script" uid="uid://cmvnsibkpkfs1" path="res://src/jumpshroom/Jumpshroom.cs" id="1_56b1h"]
 [ext_resource type="PackedScene" uid="uid://d3jgve1g030hy" path="res://src/map/mushroom/mushroom.glb" id="2_6y1uq"]
 [ext_resource type="Texture2D" uid="uid://bn2dckxcyjlje" path="res://src/map/mushroom/mushroom_mushroom_albedo.png" id="3_vnmb8"]
 [ext_resource type="Texture2D" uid="uid://bc8j1qgoetjdi" path="res://src/map/mushroom/mushroom_mushroom_normal.png" id="4_tb2gk"]
@@ -101,8 +101,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n2mwr"]
 _data = {
-"RESET": SubResource("Animation_enulr"),
-"bounce": SubResource("Animation_3f7se")
+&"RESET": SubResource("Animation_enulr"),
+&"bounce": SubResource("Animation_3f7se")
 }
 
 [node name="Jumpshroom" type="Node3D"]

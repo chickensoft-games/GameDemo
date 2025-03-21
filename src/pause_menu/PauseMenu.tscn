@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://conmng5ejji6f"]
 
-[ext_resource type="Script" path="res://src/pause_menu/PauseMenu.cs" id="1_6kvog"]
-[ext_resource type="Shader" path="res://src/pause_menu/PauseMenu.gdshader" id="1_m43vi"]
+[ext_resource type="Script" uid="uid://cfjst4n7fctli" path="res://src/pause_menu/PauseMenu.cs" id="1_6kvog"]
+[ext_resource type="Shader" uid="uid://b3evm7o6dacv" path="res://src/pause_menu/PauseMenu.gdshader" id="1_m43vi"]
 [ext_resource type="Texture2D" uid="uid://xwhtaovxqalw" path="res://src/pause_menu/assets/spinner.png" id="3_w1cw3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r4f68"]
@@ -58,8 +58,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_80o4u"]
 _data = {
-"RESET": SubResource("Animation_xporw"),
-"spin": SubResource("Animation_focl7")
+&"RESET": SubResource("Animation_xporw"),
+&"spin": SubResource("Animation_focl7")
 }
 
 [sub_resource type="Animation" id="Animation_xhe6j"]
@@ -135,9 +135,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7stnf"]
 _data = {
-"RESET": SubResource("Animation_xhe6j"),
-"fade_in": SubResource("Animation_hmby5"),
-"fade_out": SubResource("Animation_evq4b")
+&"RESET": SubResource("Animation_xhe6j"),
+&"fade_in": SubResource("Animation_hmby5"),
+&"fade_out": SubResource("Animation_evq4b")
 }
 
 [sub_resource type="Animation" id="Animation_f7ku7"]
@@ -198,9 +198,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u45i6"]
 _data = {
-"RESET": SubResource("Animation_xhe6j"),
-"save_fade_in": SubResource("Animation_f7ku7"),
-"save_fade_out": SubResource("Animation_ipon8")
+&"RESET": SubResource("Animation_xhe6j"),
+&"save_fade_in": SubResource("Animation_f7ku7"),
+&"save_fade_out": SubResource("Animation_ipon8")
 }
 
 [node name="PauseMenu" type="Control"]

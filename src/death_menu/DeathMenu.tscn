@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://bn84ofaaq4o80"]
 
-[ext_resource type="Script" path="res://src/death_menu/DeathMenu.cs" id="1_36ukh"]
-[ext_resource type="Shader" path="res://src/death_menu/DeathMenu.gdshader" id="2_se3wr"]
+[ext_resource type="Script" uid="uid://cykbrmprff4vl" path="res://src/death_menu/DeathMenu.cs" id="1_36ukh"]
+[ext_resource type="Shader" uid="uid://bh4tiocxcks02" path="res://src/death_menu/DeathMenu.gdshader" id="2_se3wr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nr2f"]
 bg_color = Color(0.890805, 0.000373708, 0.0286205, 0.266667)
@@ -41,12 +41,12 @@ noise = SubResource("FastNoiseLite_ov0hh")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h8lr8"]
 shader = ExtResource("2_se3wr")
+shader_parameter/color_gradient = SubResource("GradientTexture1D_52wi4")
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_wqqyk")
 shader_parameter/speed = 0.0
 shader_parameter/variation = 0.0
 shader_parameter/width = 0.302
 shader_parameter/opacity = 0.0
-shader_parameter/color_gradient = SubResource("GradientTexture1D_52wi4")
-shader_parameter/noiseTexture = SubResource("NoiseTexture2D_wqqyk")
 
 [sub_resource type="FontVariation" id="FontVariation_ps6b3"]
 variation_embolden = 0.54
@@ -93,8 +93,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5xdmp"]
 _data = {
-"RESET": SubResource("Animation_ifg22"),
-"splotch": SubResource("Animation_mkl5g")
+&"RESET": SubResource("Animation_ifg22"),
+&"splotch": SubResource("Animation_mkl5g")
 }
 
 [sub_resource type="Animation" id="Animation_qq1c3"]
@@ -158,9 +158,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kxx0w"]
 _data = {
-"RESET": SubResource("Animation_qq1c3"),
-"fade_in": SubResource("Animation_0rl87"),
-"fade_out": SubResource("Animation_lgj8v")
+&"RESET": SubResource("Animation_qq1c3"),
+&"fade_in": SubResource("Animation_0rl87"),
+&"fade_out": SubResource("Animation_lgj8v")
 }
 
 [node name="DeathMenu" type="Control"]
