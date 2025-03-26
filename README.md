@@ -11,21 +11,17 @@ game state preservation!_
 ---
 
 <p align="center">
-<img alt="Cardboard Box with Chickensoft Logo" src="docs/preview.jpg" width="100%">
+<img alt="Cardboard Box with Chickensoft Logo" src="docs/preview.png" width="100%">
 </p>
 
 ## ⏯️ Gameplay
 
-<https://github.com/chickensoft-games/GameDemo/assets/16472250/44012436-bec2-4bdf-b2c1-faa2ced0f3ca>
+<https://github.com/user-attachments/assets/2b9f55bc-e5c7-45b4-8e93-eb05945f1890>
 
 > Most 3D assets are from the fine folks at [GDQuest] — go check out their stuff and support them! You'll notice that this project is loosely inspired by GDQuest's [ThirdPersonController], but completely rewritten using Chickensoft's best practice recommendations in C# (and with state machines)!
 >
 > Music from [FreePD] — go check them out, too!
 > Other sound effects are licensed under CC0.
-
-## 💾 Saving and Loading
-
-<https://github.com/user-attachments/assets/e49f96d7-b899-44ff-9c14-ee5657d8721c>
 
 ## 🎮 How to Play
 
@@ -148,7 +144,7 @@ Since we're using [LogicBlocks], here's some of the more interesting state diagr
 [EditorConfig]: https://github.com/chickensoft-games/EditorConfig
 [game-arch]: https://chickensoft.games/blog/game-architecture
 [lfs]: https://git-lfs.com/
-[save-load]: https://x.com/joannanyana/status/1788798551847260439
+[save-load]: https://chickensoft.games/blog/serialization-for-csharp-games
 [Serialization]: https://github.com/chickensoft-games/Serialization
 [Serialization.Godot]: https://github.com/chickensoft-games/Serialization.Godot
 [Collections]: https://github.com/chickensoft-games/Collections
