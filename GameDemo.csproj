@@ -1,4 +1,4 @@
-<Project Sdk="Godot.NET.Sdk/4.4.0">
+<Project Sdk="Godot.NET.Sdk/4.4.1">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
@@ -53,7 +53,7 @@
     <PackageReference Include="Chickensoft.Introspection" Version="2.2.0" />
     <PackageReference Include="Chickensoft.Introspection.Generator" Version="2.2.0" PrivateAssets="all" OutputItemType="analyzer" />
     <PackageReference Include="Chickensoft.Serialization" Version="2.2.0" />
-    <PackageReference Include="Chickensoft.Serialization.Godot" Version="0.7.9" />
+    <PackageReference Include="Chickensoft.Serialization.Godot" Version="0.7.10" />
     <PackageReference Include="Chickensoft.LogicBlocks" Version="5.16.0" />
     <PackageReference Include="Chickensoft.LogicBlocks.DiagramGenerator" Version="5.16.0" PrivateAssets="all" OutputItemType="analyzer" />
   </ItemGroup>
