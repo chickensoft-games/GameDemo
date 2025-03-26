@@ -46,11 +46,15 @@ indent_style = space
 indent_size = 2
 insert_final_newline = true
 trim_trailing_whitespace = true
-end_of_line = lf
 
 ##########################################
 # File Extension Settings
 ##########################################
+
+# GDScript Files
+[*.gd]
+indent_style = tab
+indent_size = 2
 
 # Visual Studio Solution Files
 [*.sln]
@@ -92,7 +96,7 @@ end_of_line = lf
 [Makefile]
 indent_style = tab
 
-[{*_Generated.cs, *.g.cs, *.generated.cs}]
+[*{_Generated.cs,.g.cs,.generated.cs}]
 # Ignore a lack of documentation for generated code. Doesn't apply to builds,
 # just to viewing generation output.
 dotnet_diagnostic.CS1591.severity = none
@@ -101,7 +105,7 @@ dotnet_diagnostic.CS1591.severity = none
 # Default .NET Code Style Severities
 ##########################################
 
-[*.{cs,csx,cake,vb,vbx}]
+[*.cs]
 # Default Severity for all .NET Code Style rules below
 dotnet_analyzer_diagnostic.severity = warning
 
@@ -110,7 +114,6 @@ dotnet_analyzer_diagnostic.severity = warning
 ##########################################
 
 # .NET Style Rules
-[*.{cs,csx,cake,vb,vbx}]
 
 # "this." and "Me." qualifiers
 dotnet_style_qualification_for_field = false
@@ -123,7 +126,7 @@ dotnet_style_predefined_type_for_locals_parameters_members = true:warning
 dotnet_style_predefined_type_for_member_access = true:warning
 
 # Modifier preferences
-dotnet_style_require_accessibility_modifiers = always:warning
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:warning
 csharp_preferred_modifier_order = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async:warning
 visual_basic_preferred_modifier_order = Partial,Default,Private,Protected,Public,Friend,NotOverridable,Overridable,MustOverride,Overloads,Overrides,MustInherit,NotInheritable,Static,Shared,Shadows,ReadOnly,WriteOnly,Dim,Const,WithEvents,Widening,Narrowing,Custom,Async:warning
 dotnet_style_readonly_field = true:warning
@@ -156,7 +159,7 @@ dotnet_style_prefer_is_null_check_over_reference_equality_method = true:warning
 
 # File header preferences
 # Keep operators at end of line when wrapping.
-dotnet_style_operator_placement_when_wrapping = end_of_line:warning
+dotnet_style_operator_placement_when_wrapping = end_of_line
 csharp_style_prefer_null_check_over_type_check = true:warning
 
 # Code block preferences
@@ -165,7 +168,7 @@ csharp_prefer_simple_using_statement = true:suggestion
 dotnet_diagnostic.IDE0063.severity = suggestion
 
 # C# Style Rules
-[*.{cs,csx,cake}]
+
 # 'var' preferences
 csharp_style_var_for_built_in_types = true:warning
 csharp_style_var_when_type_is_apparent = true:warning
@@ -196,10 +199,6 @@ csharp_style_implicit_object_creation_when_type_is_apparent = true:warning
 # "Null" checking preferences
 csharp_style_throw_expression = true:warning
 csharp_style_conditional_delegate_call = true:warning
-# Code block preferences
-csharp_prefer_braces = true:warning
-csharp_prefer_simple_using_statement = true:suggestion
-dotnet_diagnostic.IDE0063.severity = suggestion
 # 'using' directive preferences
 csharp_using_directive_placement = inside_namespace:warning
 # Modifier preferences
@@ -213,14 +212,12 @@ dotnet_code_quality.CA1822.api_surface = private
 ##########################################
 
 # .NET Unnecessary code rules
-[*.{cs,csx,cake,vb,vbx}]
 
 dotnet_code_quality_unused_parameters = non_public:suggestion
 dotnet_remove_unnecessary_suppression_exclusions = none
 dotnet_diagnostic.IDE0079.severity = warning
 
 # C# Unnecessary code rules
-[*.{cs,csx,cake}]
 
 # Chickensoft Unused Code Additions
 #
@@ -245,7 +242,6 @@ dotnet_diagnostic.RCS1213.severity = none
 csharp_style_unused_value_expression_statement_preference = discard_variable
 
 # .NET formatting rules
-[*.{cs,csx,cake,vb,vbx}]
 
 # Organize using directives
 dotnet_sort_system_directives_first = true
@@ -260,7 +256,6 @@ dotnet_style_namespace_match_folder = false
 dotnet_diagnostic.IDE0130.severity = none
 
 # C# formatting rules
-[*.{cs,csx,cake}]
 
 # Newline options
 csharp_new_line_before_open_brace = none
@@ -313,7 +308,6 @@ csharp_style_namespace_declarations = file_scoped:warning
 ##########################################
 # .NET Naming Rules
 ##########################################
-[*.{cs,csx,cake,vb,vbx}]
 
 ##########################################
 # Chickensoft Naming Conventions & Styles
@@ -415,10 +409,6 @@ dotnet_naming_symbols.unspecified.applicable_accessibilities = *
 # Chickensoft Rule Overrides
 ##########################################
 
-roslyn_correctness.assembly_reference_validation = relaxed
-
-# Allow using keywords as names
-# dotnet_diagnostic.CA1716.severity = none
 # Don't require culture info for ToString()
 dotnet_diagnostic.CA1304.severity = none
 # Don't require a string comparison for comparing strings.
@@ -436,9 +426,9 @@ dotnet_diagnostic.IDE0059.severity = none
 # Switch/case should always have a default clause. Tell that to Roslynator.
 dotnet_diagnostic.RCS1070.severity = none
 # Tell roslynator not to eat unused parameters.
-dotnet_diagnostic.RCS1163.severity = none
+dotnet_diagnostic.RCS1163.severity = suggestion
 # Tell dotnet not to remove unused parameters.
-dotnet_diagnostic.IDE0060.severity = none
+dotnet_diagnostic.IDE0060.severity = suggestion
 # Tell roslynator not to remove `partial` modifiers.
 dotnet_diagnostic.RCS1043.severity = none
 # Tell roslynator not to make classes static so aggressively.
@@ -449,16 +439,14 @@ dotnet_diagnostic.RCS1170.severity = none
 # Allow expression values to go unused, even without discard variable.
 # Otherwise, using Moq would be way too verbose.
 dotnet_diagnostic.IDE0058.severity = none
-# Don't let roslynator turn every local variable into a const.
-# If we did, we'd have to specify the types of local variables far more often,
-# and this style prefers type inference.
-dotnet_diagnostic.RCS1118.severity = none
 # Enums don't need to declare explicit values. Everyone knows they start at 0.
 dotnet_diagnostic.RCS1161.severity = none
 # Allow unconstrained type parameter to be checked for null.
 dotnet_diagnostic.RCS1165.severity = none
 # Allow keyword-based names so that parameter names like `@event` can be used.
 dotnet_diagnostic.CA1716.severity = none
+# Let me put comments where I like
+dotnet_diagnostic.RCS1181.severity = none
 # Allow me to use the word Collection if I want.
 dotnet_diagnostic.CA1711.severity = none
 # Not disposing of objects in a test is normal within Godot because of scene tree stuff.
@@ -467,14 +455,18 @@ dotnet_diagnostic.CA1001.severity = none
 dotnet_diagnostic.IDE0290.severity = none
 # Let me comment where I like
 dotnet_diagnostic.RCS1181.severity = none
-# Let me write dumb if checks, keeps it readable
+# Let me write dumb if statements for readability.
 dotnet_diagnostic.IDE0046.severity = none
 # Don't make me use expression bodies for methods
 dotnet_diagnostic.IDE0022.severity = none
-# Don't use collection shorhand.
-dotnet_diagnostic.IDE0300.severity = none
-dotnet_diagnostic.IDE0028.severity = none
-dotnet_diagnostic.IDE0305.severity = none
+# DO make me populate a *switch expression*
+dotnet_diagnostic.IDE0072.severity = warning
+# Don't make me populate a *switch statement*
+dotnet_diagnostic.IDE0010.severity = none
+# Make local functions static
+dotnet_diagnostic.IDE0062.severity = warning
+# Don't make me use properties if I don't want to.
+dotnet_diagnostic.IDE0032.severity = none
 # Don't make me populate a switch expression redundantly
 dotnet_diagnostic.IDE0072.severity = none
 # Leave me alone about primary constructors

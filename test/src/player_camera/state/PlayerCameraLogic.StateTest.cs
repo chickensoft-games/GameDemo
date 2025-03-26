@@ -74,18 +74,18 @@ public class PlayerCameraLogicStateTest : TestClass {
     // Make sure it enables input when mouse is captured.
     _state.OnMouseCaptured(true);
 
-    _context.Inputs.ShouldBe(new object[] {
+    _context.Inputs.ShouldBe([
       new PlayerCameraLogic.Input.EnableInput()
-    });
+    ]);
 
     _context.Reset();
 
     // Make sure it disables input when mouse is not captured.
     _state.OnMouseCaptured(false);
 
-    _context.Inputs.ShouldBe(new object[] {
+    _context.Inputs.ShouldBe([
       new PlayerCameraLogic.Input.DisableInput()
-    });
+    ]);
   }
 
   [Test]
@@ -93,9 +93,9 @@ public class PlayerCameraLogicStateTest : TestClass {
     // Make sure it updates the camera position when the player moves.
     _state.OnPlayerGlobalPositionChanged(Vector3.Zero);
 
-    _context.Inputs.ShouldBe(new object[] {
+    _context.Inputs.ShouldBe([
       new PlayerCameraLogic.Input.TargetPositionChanged(Vector3.Zero)
-    });
+    ]);
   }
 
   [Test]
@@ -103,9 +103,9 @@ public class PlayerCameraLogicStateTest : TestClass {
     // Make sure it updates the camera offset when the player moves.
     _state.OnCameraTargetOffsetChanged(Vector3.Zero);
 
-    _context.Inputs.ShouldBe(new object[] {
+    _context.Inputs.ShouldBe([
       new PlayerCameraLogic.Input.TargetOffsetChanged(Vector3.Zero)
-    });
+    ]);
   }
 
   [Test]

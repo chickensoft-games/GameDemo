@@ -26,7 +26,7 @@ dotnet build --no-restore
 
 coverlet \
   "./.godot/mono/temp/bin/Debug" --verbosity detailed \
-  --target $GODOT \
+  --target "$GODOT" \
   --targetargs "--run-tests --coverage --quit-on-finish" \
   --format "opencover" \
   --output "./coverage/coverage.xml" \

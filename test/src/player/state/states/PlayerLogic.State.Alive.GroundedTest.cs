@@ -42,9 +42,9 @@ public partial class PlayerLogicStateAliveGroundedTest : TestClass {
 
     next.State.ShouldBeAssignableTo<PlayerLogic.State.Jumping>();
 
-    _context.Outputs.ShouldBeOfTypes(new[] {
+    _context.Outputs.ShouldBeOfTypes([
       typeof(PlayerLogic.Output.VelocityChanged)
-    });
+    ]);
   }
 
   [Test]

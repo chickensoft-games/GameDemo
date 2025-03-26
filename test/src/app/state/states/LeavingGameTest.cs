@@ -35,7 +35,7 @@ public class LeavingGameTest : TestClass {
 
     result.State.ShouldBeOfType<AppLogic.State.MainMenu>();
     context.Outputs
-      .ShouldBe(new object[] { new AppLogic.Output.RemoveExistingGame() });
+      .ShouldBe([new AppLogic.Output.RemoveExistingGame()]);
   }
 
   [Test]
@@ -48,9 +48,9 @@ public class LeavingGameTest : TestClass {
     var result = state.On(new AppLogic.Input.FadeOutFinished());
 
     result.State.ShouldBeOfType<AppLogic.State.InGame>();
-    context.Outputs.ShouldBe(new object[] {
+    context.Outputs.ShouldBe([
       new AppLogic.Output.RemoveExistingGame(),
       new AppLogic.Output.SetupGameScene()
-    });
+    ]);
   }
 }

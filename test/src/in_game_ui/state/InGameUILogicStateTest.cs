@@ -64,9 +64,9 @@ public class InGameUILogicStateTest : TestClass {
 
     _state.OnNumCoinsCollected(5);
 
-    _context.Outputs.ShouldBe(new object[] {
+    _context.Outputs.ShouldBe([
       new InGameUILogic.Output.NumCoinsChanged(5, 10)
-    });
+    ]);
   }
 
   [Test]
@@ -77,8 +77,8 @@ public class InGameUILogicStateTest : TestClass {
 
     _state.OnNumCoinsAtStart(10);
 
-    _context.Outputs.ShouldBe(new object[] {
+    _context.Outputs.ShouldBe([
       new InGameUILogic.Output.NumCoinsChanged(5, 10)
-    });
+    ]);
   }
 }

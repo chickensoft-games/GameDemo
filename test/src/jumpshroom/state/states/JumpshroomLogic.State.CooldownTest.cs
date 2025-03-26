@@ -21,9 +21,9 @@ public class JumpshroomLogicStateCooldownTest : TestClass {
   public void Enters() {
     _state.Enter();
 
-    _context.Outputs.ShouldBe(new object[] {
+    _context.Outputs.ShouldBe([
       new JumpshroomLogic.Output.StartCooldownTimer()
-    });
+    ]);
   }
 
   [Test]

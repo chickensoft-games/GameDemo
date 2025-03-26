@@ -2,14 +2,14 @@ namespace GameDemo;
 
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Godot;
 using Chickensoft.Introspection;
+using Godot;
 
 public interface IJumpshroom {
   /// <summary>
   ///   Calling this informs the jumpshroom that something hit it.
   /// </summary>
-  public void Hit();
+  void Hit();
 }
 
 [Meta(typeof(IAutoNode))]

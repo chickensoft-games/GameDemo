@@ -7,7 +7,7 @@ using Godot;
 /// </summary>
 public interface IInstantiator {
   /// <summary>Scene tree.</summary>
-  public SceneTree SceneTree { get; }
+  SceneTree SceneTree { get; }
 
   /// <summary>
   /// Loads and instantiates the given scene.

@@ -3,11 +3,11 @@ namespace GameDemo;
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
-using Godot;
 using Chickensoft.Introspection;
+using Godot;
 
 public interface ICoin : INode3D {
-  public ICoinLogic CoinLogic { get; }
+  ICoinLogic CoinLogic { get; }
 }
 
 [Meta(typeof(IAutoNode))]

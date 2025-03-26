@@ -6,11 +6,11 @@ using System.Text.Json;
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.Serialization.Godot;
+using Chickensoft.Introspection;
 using Chickensoft.SaveFileBuilder;
 using Chickensoft.Serialization;
+using Chickensoft.Serialization.Godot;
 using Godot;
-using Chickensoft.Introspection;
 
 public interface IGame : INode3D,
 IProvide<IGameRepo>, IProvide<ISaveChunk<GameData>>, IProvide<EntityTable> {
@@ -140,7 +140,7 @@ public partial class Game : Node3D, IGame {
   public void OnResolved() {
     SaveFile = new SaveFile<GameData>(
       root: GameChunk,
-      onSave: async (GameData data) => {
+      onSave: async data => {
         // Save the game data to disk.
         var json = JsonSerializer.Serialize(data, JsonOptions);
         await FileSystem.File.WriteAllTextAsync(SaveFilePath, json);

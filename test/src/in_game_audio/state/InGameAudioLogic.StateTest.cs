@@ -74,63 +74,63 @@ public class InGameAudioLogicStateTest : TestClass {
   public void OnCoinCollectionStarted() {
     _state.OnCoinCollectionStarted(new Mock<ICoin>().Object);
 
-    _context.Outputs.ShouldBe(new object[] {
+    _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.PlayCoinCollected()
-    });
+    ]);
   }
 
   [Test]
   public void OnJumpshroomUsed() {
     _state.OnJumpshroomUsed();
 
-    _context.Outputs.ShouldBe(new object[] {
+    _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.PlayBounce()
-    });
+    ]);
   }
 
   [Test]
   public void OnGameEndedLost() {
     _state.OnGameEnded(GameOverReason.Lost);
 
-    _context.Outputs.ShouldBe(new object[] {
+    _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.StopGameMusic(),
       new InGameAudioLogic.Output.PlayPlayerDied()
-    });
+    ]);
   }
 
   [Test]
   public void OnGameEndedOther() {
     _state.OnGameEnded(GameOverReason.Quit);
 
-    _context.Outputs.ShouldBe(new object[] {
+    _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.StopGameMusic()
-    });
+    ]);
   }
 
   [Test]
   public void OnJumped() {
     _state.OnJumped();
 
-    _context.Outputs.ShouldBe(new object[] {
+    _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.PlayJump()
-    });
+    ]);
   }
 
   [Test]
   public void OnMainMenuEntered() {
     _state.OnMainMenuEntered();
 
-    _context.Outputs.ShouldBe(new object[] {
+    _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.PlayMainMenuMusic()
-    });
+    ]);
   }
 
   [Test]
   public void OnGameEntered() {
     _state.OnGameEntered();
 
-    _context.Outputs.ShouldBe(new object[] {
+    _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.PlayGameMusic()
-    });
+    ]);
   }
 }

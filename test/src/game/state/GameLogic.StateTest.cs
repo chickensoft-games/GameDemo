@@ -64,7 +64,7 @@ public partial class GameLogicStateTest : TestClass {
     _state.OnIsMouseCaptured(true);
 
     _context.Outputs
-      .ShouldBe(new object[] { new GameLogic.Output.CaptureMouse(true) });
+      .ShouldBe([new GameLogic.Output.CaptureMouse(true)]);
   }
 
   [Test]
@@ -72,6 +72,6 @@ public partial class GameLogicStateTest : TestClass {
     _state.OnIsPaused(true);
 
     _context.Outputs
-      .ShouldBe(new object[] { new GameLogic.Output.SetPauseMode(true) });
+      .ShouldBe([new GameLogic.Output.SetPauseMode(true)]);
   }
 }

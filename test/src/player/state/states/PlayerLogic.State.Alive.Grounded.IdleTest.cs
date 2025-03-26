@@ -22,9 +22,9 @@ public class PlayerLogicStateAliveGroundedIdleTest : TestClass {
   public void Enters() {
     _state.Enter<PlayerLogic.State.Grounded>();
 
-    _context.Outputs.ShouldBe(new object[] {
+    _context.Outputs.ShouldBe([
       new PlayerLogic.Output.Animations.Idle()
-    });
+    ]);
   }
 
   [Test]

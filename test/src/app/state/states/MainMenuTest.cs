@@ -29,12 +29,10 @@ public class MainMenuTest : TestClass {
   public void Enters() {
     _state.Enter();
 
-    _context.Outputs.ShouldBe(
-      new object[] {
-        new AppLogic.Output.SetupGameScene(),
-        new AppLogic.Output.ShowMainMenu()
-      }
-    );
+    _context.Outputs.ShouldBe([
+      new AppLogic.Output.SetupGameScene(),
+      new AppLogic.Output.ShowMainMenu()
+    ]);
   }
 
   [Test]

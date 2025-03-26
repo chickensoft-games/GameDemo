@@ -34,9 +34,9 @@ public class JumpshroomLogicStateLoadingTest : TestClass {
 
     _state.Enter();
 
-    _context.Outputs.ShouldBe(new object[] {
+    _context.Outputs.ShouldBe([
       new JumpshroomLogic.Output.Animate()
-    });
+    ]);
 
     _gameRepo.VerifyAll();
   }

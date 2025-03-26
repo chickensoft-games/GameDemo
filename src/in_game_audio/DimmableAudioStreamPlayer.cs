@@ -5,9 +5,9 @@ using Godot;
 
 public interface IDimmableAudioStreamPlayer : IAudioStreamPlayer {
   /// <summary>Fade this dimmable audio stream track in.</summary>
-  public void FadeIn();
+  void FadeIn();
   /// <summary>Fade this dimmable audio stream track out.</summary>
-  public void FadeOut();
+  void FadeOut();
 }
 
 public partial class DimmableAudioStreamPlayer :

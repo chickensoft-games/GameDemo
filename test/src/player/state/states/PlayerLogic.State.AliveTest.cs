@@ -89,11 +89,11 @@ public partial class PlayerLogicStateAliveTest : TestClass {
 
     _state.On(input);
 
-    _context.Outputs.ShouldBe(new object[] {
+    _context.Outputs.ShouldBe([
       new PlayerLogic.Output.MovementComputed(
-        Basis.Identity, Vector3.Up
+        Basis.Identity, Vector3.Up, Vector2.Up, 1d
       )
-    });
+    ]);
   }
 
   [Test]
@@ -112,9 +112,9 @@ public partial class PlayerLogicStateAliveTest : TestClass {
 
     _state.On(input);
 
-    _context.Inputs.ShouldBe(new object[] {
+    _context.Inputs.ShouldBe([
       new PlayerLogic.Input.HitFloor(IsMovingHorizontally: false)
-    });
+    ]);
   }
 
   [Test]
@@ -133,9 +133,9 @@ public partial class PlayerLogicStateAliveTest : TestClass {
 
     _state.On(input);
 
-    _context.Inputs.ShouldBe(new object[] {
+    _context.Inputs.ShouldBe([
       new PlayerLogic.Input.LeftFloor(IsFalling: false)
-    });
+    ]);
   }
 
   [Test]
@@ -154,9 +154,9 @@ public partial class PlayerLogicStateAliveTest : TestClass {
 
     _state.On(input);
 
-    _context.Inputs.ShouldBe(new object[] {
+    _context.Inputs.ShouldBe([
       new PlayerLogic.Input.StartedFalling()
-    });
+    ]);
   }
 
   [Test]
@@ -175,9 +175,9 @@ public partial class PlayerLogicStateAliveTest : TestClass {
 
     _state.On(input);
 
-    _context.Inputs.ShouldBe(new object[] {
+    _context.Inputs.ShouldBe([
       new PlayerLogic.Input.StartedMovingHorizontally()
-    });
+    ]);
   }
 
   [Test]
@@ -196,9 +196,9 @@ public partial class PlayerLogicStateAliveTest : TestClass {
 
     _state.On(input);
 
-    _context.Inputs.ShouldBe(new object[] {
+    _context.Inputs.ShouldBe([
       new PlayerLogic.Input.StoppedMovingHorizontally()
-    });
+    ]);
   }
 
   [Test]
@@ -211,8 +211,8 @@ public partial class PlayerLogicStateAliveTest : TestClass {
 
     _state.On(input);
 
-    _context.Outputs.ShouldBe(new object[] {
+    _context.Outputs.ShouldBe([
       new PlayerLogic.Output.VelocityChanged(Vector3.Forward * 10)
-    });
+    ]);
   }
 }

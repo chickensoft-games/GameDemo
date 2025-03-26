@@ -5,6 +5,8 @@ using Godot;
 
 public partial class PlayerLogic {
   public partial record State {
+    private const float MOVEMENT = 0.2f;
+
     [Meta]
     public abstract partial record Alive : State,
       IGet<Input.PhysicsTick>,
@@ -31,12 +33,19 @@ public partial class PlayerLogic {
         var gameRepo = Get<IGameRepo>();
         var data = Get<Data>();
 
-        var moveDirection =
-          player.GetGlobalInputVector(gameRepo.CameraBasis.Value);
+        var cameraBasis = gameRepo.CameraBasis.Value;
+        var moveDirection = player.GetGlobalInputVector(cameraBasis);
 
-        if (moveDirection.Length() > 0.2f) {
+        var direction = new Vector2(moveDirection.X, moveDirection.Z);
+
+
+        if (moveDirection.Length() > MOVEMENT) {
           data.LastStrongDirection = moveDirection.Normalized();
         }
+        else {
+          direction = new Vector2(data.LastStrongDirection.X, data.LastStrongDirection.Z);
+        }
+        var lastDirection = data.LastStrongDirection;
 
         var nextRotationBasis = player.GetNextRotationBasis(
           data.LastStrongDirection, delta, settings.RotationSpeed
@@ -63,7 +72,9 @@ public partial class PlayerLogic {
         velocity.Y += settings.Gravity * (float)delta;
 
         Output(
-          new Output.MovementComputed(nextRotationBasis, velocity)
+          new Output.MovementComputed(
+            nextRotationBasis, velocity, direction, delta
+          )
         );
 
         return ToSelf();

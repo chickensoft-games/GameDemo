@@ -29,7 +29,7 @@ public class LeavingMenuTest : TestClass {
     _state.Enter();
 
     _context.Outputs.ShouldBe(
-      new object[] { new AppLogic.Output.FadeToBlack() }
+      [new AppLogic.Output.FadeToBlack()]
     );
   }
 

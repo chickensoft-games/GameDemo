@@ -12,7 +12,7 @@ public partial class PlayerLogic {
     }
     public readonly record struct MoveSpeedChanged(float Speed);
     public readonly record struct MovementComputed(
-      Basis Rotation, Vector3 Velocity
+      Basis Rotation, Vector3 Velocity, Vector2 Direction, double Delta
     );
     /// <summary>Output when the player has just come to a stop.</summary>
     public readonly record struct Stopped;

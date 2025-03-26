@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://8k0x7l1y4em8"]
+
+[ext_resource type="Shader" uid="uid://hs43l7q04erh" path="res://src/player/visuals/chicken/materials/chicken_shader.gdshader" id="1_qrwbj"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_qrwbj")
+shader_parameter/body_color = Color(1, 0.813333, 0.3, 1)
+shader_parameter/leg_color = Color(1, 0.506667, 0.26, 1)
+shader_parameter/comb_color = Color(1, 0.262602, 0.29691, 1)
+shader_parameter/specular = 0.6
+shader_parameter/roughness = 0.9
