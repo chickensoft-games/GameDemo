@@ -5,5 +5,5 @@ namespace GameDemo;
 /// death, so this will be called on entities that implement it.
 /// </summary>
 public interface IKillable {
-  public void Kill();
+  void Kill();
 }

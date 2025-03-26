@@ -26,9 +26,9 @@ public class PlayerLogicStateDisabledTest : TestClass {
   public void EntersAndExits() {
     _state.Enter();
 
-    _context.Outputs.ShouldBe(new object[] {
+    _context.Outputs.ShouldBe([
       new PlayerLogic.Output.Animations.Idle()
-    });
+    ]);
   }
 
   [Test]
@@ -55,6 +55,6 @@ public class PlayerLogicStateDisabledTest : TestClass {
   public void OnGameAboutToStartEnables() {
     _state.OnGameEntered();
 
-    _context.Inputs.ShouldBe(new object[] { new PlayerLogic.Input.Enable() });
+    _context.Inputs.ShouldBe([new PlayerLogic.Input.Enable()]);
   }
 }

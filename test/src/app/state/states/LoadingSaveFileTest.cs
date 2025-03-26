@@ -29,7 +29,7 @@ public class LoadingSaveFileTest : TestClass {
     _state.Enter();
 
     _context.Outputs.ShouldBe(
-      new object[] { new AppLogic.Output.StartLoadingSaveFile() }
+      [new AppLogic.Output.StartLoadingSaveFile()]
     );
   }
 

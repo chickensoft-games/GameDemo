@@ -355,8 +355,8 @@ public class GameTest : TestClass {
     _game.Setup();
 
     var mapData = new MapData() {
-      CoinsBeingCollected = new(),
-      CollectedCoinIds = new()
+      CoinsBeingCollected = [],
+      CollectedCoinIds = []
     };
 
     var playerData = new PlayerData() {
@@ -391,8 +391,8 @@ public class GameTest : TestClass {
     _game.Setup();
 
     var mapData = new MapData() {
-      CoinsBeingCollected = new(),
-      CollectedCoinIds = new()
+      CoinsBeingCollected = [],
+      CollectedCoinIds = []
     };
 
     var playerData = new PlayerData() {

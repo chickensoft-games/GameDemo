@@ -3,24 +3,23 @@ namespace GameDemo;
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
+using Chickensoft.Introspection;
 using Chickensoft.SaveFileBuilder;
 using Godot;
-using Chickensoft.Introspection;
-
 using Compiler = System.Runtime.CompilerServices;
 
 public interface IPlayer :
   ICharacterBody3D, IKillable, ICoinCollector, IPushEnabled {
   IPlayerLogic PlayerLogic { get; }
 
-  public bool IsMovingHorizontally();
+  bool IsMovingHorizontally();
 
   /// <summary>
   ///   Uses the engine to determine the input vector, relative to the global
   ///   camera direction.
   /// </summary>
   /// <param name="cameraBasis">Camera's global transform basis.</param>
-  public Vector3 GetGlobalInputVector(Basis cameraBasis);
+  Vector3 GetGlobalInputVector(Basis cameraBasis);
 
   /// <summary>
   ///   Gets the player's next rotation basis, based on the normalized desired
@@ -37,7 +36,11 @@ public interface IPlayer :
 }
 
 [Meta(typeof(IAutoNode))]
-public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
+public partial class Player :
+CharacterBody3D,
+IPlayer,
+IProvide<IPlayerLogic>,
+IProvide<PlayerLogic.Settings> {
   public override void _Notification(int what) => this.Notify(what);
 
   #region Save
@@ -52,7 +55,7 @@ public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
   #region Provisions
 
   IPlayerLogic IProvide<IPlayerLogic>.Value() => PlayerLogic;
-
+  PlayerLogic.Settings IProvide<PlayerLogic.Settings>.Value() => Settings;
   #endregion Provisions
 
   #region Dependencies
@@ -69,7 +72,7 @@ public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
 
   /// <summary>Rotation speed (quaternions?/sec).</summary>
   [Export(PropertyHint.Range, "0, 100, 0.1")]
-  public float RotationSpeed { get; set; } = 12.0f;
+  public float RotationSpeed { get; set; } = 4.0f;
 
   /// <summary>Stopping velocity (meters/sec).</summary>
   [Export(PropertyHint.Range, "0, 100, 0.1")]
@@ -163,10 +166,8 @@ public partial class Player : CharacterBody3D, IPlayer, IProvide<IPlayerLogic> {
     GameRepo.SetPlayerGlobalPosition(GlobalPosition);
 
     PlayerBinding
-      .Handle((in PlayerLogic.Output.MovementComputed output) => {
-        Transform = Transform with { Basis = output.Rotation };
-        Velocity = output.Velocity;
-      })
+      .Handle((in PlayerLogic.Output.MovementComputed output) =>
+        Velocity = output.Velocity)
       .Handle((in PlayerLogic.Output.VelocityChanged output) =>
         Velocity = output.Velocity
       );

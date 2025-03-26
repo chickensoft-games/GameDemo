@@ -41,9 +41,9 @@ public class PlayerLogicStateAliveAirborneJumpingTest : TestClass {
 
     _state.Enter<PlayerLogic.State.Airborne>();
 
-    _context.Outputs.ShouldBe(new object[] {
+    _context.Outputs.ShouldBe([
       new PlayerLogic.Output.Animations.Jump()
-    });
+    ]);
 
     _gameRepo.VerifyAll();
   }
@@ -54,8 +54,8 @@ public class PlayerLogicStateAliveAirborneJumpingTest : TestClass {
 
     _state.On(new PlayerLogic.Input.Jump(1));
 
-    _context.Outputs.ShouldBe(new object[] {
+    _context.Outputs.ShouldBe([
       new PlayerLogic.Output.VelocityChanged(Vector3.Up + Vector3.Up)
-    });
+    ]);
   }
 }

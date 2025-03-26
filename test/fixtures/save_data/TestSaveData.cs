@@ -10,8 +10,8 @@ public static class TestSaveData {
 
   static TestSaveData() {
     MapData = new MapData() {
-      CoinsBeingCollected = new(),
-      CollectedCoinIds = new()
+      CoinsBeingCollected = [],
+      CollectedCoinIds = []
     };
 
     PlayerData = new PlayerData() {

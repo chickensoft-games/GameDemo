@@ -27,9 +27,7 @@ public class SplashScreenTest : TestClass {
   [Test]
   public void OnEnter() {
     _state.Enter();
-    _context.Outputs.ShouldBe(
-      new object[] { new AppLogic.Output.ShowSplashScreen() }
-    );
+    _context.Outputs.ShouldBe([new AppLogic.Output.ShowSplashScreen()]);
   }
 
   [Test]
@@ -61,8 +59,6 @@ public class SplashScreenTest : TestClass {
   public void SkipsSplashScreen() {
     _state.OnSplashScreenSkipped();
 
-    _context.Outputs.ShouldBe(
-      new object[] { new AppLogic.Output.HideSplashScreen() }
-    );
+    _context.Outputs.ShouldBe([new AppLogic.Output.HideSplashScreen()]);
   }
 }

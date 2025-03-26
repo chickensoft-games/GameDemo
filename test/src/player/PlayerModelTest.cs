@@ -1,11 +1,9 @@
 namespace GameDemo.Tests;
 
-using System.Threading.Tasks;
+using System;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
-using Chickensoft.GodotTestDriver;
-using Chickensoft.GodotTestDriver.Util;
 using Godot;
 using Moq;
 using Shouldly;
@@ -15,7 +13,11 @@ public class PlayerModelTest : TestClass {
   private PlayerLogic.IFakeBinding _playerBinding = default!;
   private Mock<IAnimationTree> _animationTree = default!;
   private Mock<IAnimationNodeStateMachinePlayback> _animStateMachine = default!;
+  private Mock<INode3D> _visualRoot = default!;
+  private Mock<INode3D> _centerRoot = default!;
+  private Mock<ITimer> _blinkTimer = default!;
   private PlayerModel _model = default!;
+  private PlayerLogic.Settings _settings = default!;
 
   public PlayerModelTest(Node testScene) : base(testScene) { }
 
@@ -25,6 +27,18 @@ public class PlayerModelTest : TestClass {
     _playerBinding = PlayerLogic.CreateFakeBinding();
     _animationTree = new Mock<IAnimationTree>();
     _animStateMachine = new Mock<IAnimationNodeStateMachinePlayback>();
+    _visualRoot = new Mock<INode3D>();
+    _centerRoot = new Mock<INode3D>();
+    _blinkTimer = new Mock<ITimer>();
+    _settings = new PlayerLogic.Settings(
+      RotationSpeed: 1.0f,
+      StoppingSpeed: 1.0f,
+      Gravity: -1.0f,
+      MoveSpeed: 1.0f,
+      Acceleration: 1.0f,
+      JumpImpulseForce: 1.0f,
+      JumpForce: 1.0f
+    );
 
     _playerLogic.Setup(logic => logic.Bind()).Returns(_playerBinding);
 
@@ -33,45 +47,48 @@ public class PlayerModelTest : TestClass {
       AnimationStateMachine = _animStateMachine.Object
     };
 
+    (_model as IAutoInit).IsTesting = true;
+
     _model.FakeNodeTree(new() {
-      ["%AnimationTree"] = _animationTree.Object
+      ["%AnimationTree"] = _animationTree.Object,
+      ["%VisualRoot"] = _visualRoot.Object,
+      ["%CenterRoot"] = _centerRoot.Object,
+      ["%BlinkTimer"] = _blinkTimer.Object,
     });
 
     _model.FakeDependency(_playerLogic.Object);
+    _model.FakeDependency(_settings);
+
+    _model._Notification((int)Node.NotificationEnterTree);
   }
 
   [Test]
-  public async Task ReadyGetsAnimationStateMachinePlayback() {
-    // This test has to be conducted inside the scene tree so that we can
-    // ensure it loads the actual animation state machine playback
-    var tree = TestScene.GetTree();
-    var fixture = new Fixture(tree);
+  public void OnEnterTree() {
+    _model.OnEnterTree();
 
-    _animationTree.Setup(tree => tree.Get(
-      "parameters/main_animations/playback"
-    )).Returns(Variant.From(new AnimationNodeStateMachinePlayback()));
+    _blinkTimer.VerifyAdd(timer => timer.Timeout += It.IsAny<Action>());
+  }
 
-    await fixture.AddToRoot(_model);
+  [Test]
+  public void OnExitTree() {
+    _model.OnResolved();
+    _model.OnExitTree();
 
-    await tree.WaitForEvents();
-    _model.OnReady();
-
-    _model.AnimationStateMachine.ShouldNotBeNull();
-
-    await fixture.Cleanup();
+    _blinkTimer.VerifyRemove(timer => timer.Timeout -= It.IsAny<Action>());
   }
 
   [Test]
   public void Idles() {
     _animStateMachine.Setup(sm => sm.Travel("idle", true));
+
     _model.OnResolved();
     _playerBinding.Output(new PlayerLogic.Output.Animations.Idle());
     _animStateMachine.VerifyAll();
   }
 
   [Test]
-  public void Moves() {
-    _animStateMachine.Setup(sm => sm.Travel("move", true));
+  public void Runs() {
+    _animStateMachine.Setup(sm => sm.Travel("run", true));
     _model.OnResolved();
     _playerBinding.Output(new PlayerLogic.Output.Animations.Move());
     _animStateMachine.VerifyAll();
@@ -95,11 +112,61 @@ public class PlayerModelTest : TestClass {
 
   [Test]
   public void MoveSpeedChanged() {
+    _model.AnimationStateMachine = _animStateMachine.Object;
+
     _animationTree.Setup(tree => tree.Set(
       "parameters/main_animations/move/blend_position", 0.5f
     ));
     _model.OnResolved();
     _playerBinding.Output(new PlayerLogic.Output.MoveSpeedChanged(0.5f));
     _animationTree.VerifyAll();
+  }
+
+  [Test]
+  public void MovementComputedAffectsLeanWhenGrounded() {
+    _model.OnResolved();
+    _playerBinding.Output(
+      new PlayerLogic.Output.MovementComputed(
+        Basis.Identity, Vector3.Forward, Vector2.Up, 1d
+      )
+    );
+
+    _playerLogic
+      .Setup(logic => logic.Value)
+      .Returns(new PlayerLogic.State.Idle());
+
+    _animationTree.Verify(
+      tree => tree.Set(PlayerModel.LEAN_ADD, It.IsAny<Variant>())
+    );
+
+    _animationTree.Verify(
+      tree => tree.Set(PlayerModel.LEAN_DIRECTION_BLEND, It.IsAny<Variant>())
+    );
+  }
+
+  [Test]
+  public void GetTarget() {
+    PlayerModel.GetTarget(1, new PlayerLogic.State.Jumping()).ShouldBe(0);
+    PlayerModel.GetTarget(1, new PlayerLogic.State.Idle()).ShouldBe(1);
+  }
+
+  [Test]
+  public void Blinks() {
+    _model.OnBlink();
+
+    _animationTree.Verify(tree => tree.Set(PlayerModel.BLINK_REQUEST, true));
+  }
+
+  [Test]
+  public void Ready() {
+    var sm = new AnimationNodeStateMachinePlayback();
+    _animationTree
+      .Setup(tree => tree.Get(PlayerModel.ANIM_STATE_MACHINE))
+      .Returns(sm);
+
+    _model.OnReady();
+
+    _model.AnimationStateMachine
+      .GetTargetObj<AnimationNodeStateMachinePlayback>().ShouldBe(sm);
   }
 }

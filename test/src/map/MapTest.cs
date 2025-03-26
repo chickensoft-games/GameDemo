@@ -104,7 +104,7 @@ public class MapTest : TestClass {
           GlobalTransform = Transform3D.Identity
         }
       },
-      CollectedCoinIds = new HashSet<string> { "coin1" }
+      CollectedCoinIds = ["coin1"]
     };
 
     var coinNode1 = new Mock<ICoin>();

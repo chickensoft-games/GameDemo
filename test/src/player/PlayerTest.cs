@@ -47,6 +47,13 @@ public class PlayerTest : TestClass {
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
 
     _player = new() {
+      RotationSpeed = _settings.RotationSpeed,
+      StoppingSpeed = _settings.StoppingSpeed,
+      Gravity = _settings.Gravity,
+      MoveSpeed = _settings.MoveSpeed,
+      Acceleration = _settings.Acceleration,
+      JumpImpulseForce = _settings.JumpImpulseForce,
+      JumpForce = _settings.JumpForce,
       PlayerLogic = _logic.Object,
       PlayerBinding = _binding,
       Settings = _settings
@@ -72,6 +79,7 @@ public class PlayerTest : TestClass {
     _player.Settings.ShouldNotBeNull();
     _player.PlayerLogic.ShouldBeOfType<PlayerLogic>();
     ((IProvide<IPlayerLogic>)_player).Value().ShouldNotBeNull();
+    ((IProvide<PlayerLogic.Settings>)_player).Value().ShouldBe(_settings);
   }
 
   [Test]
@@ -173,7 +181,9 @@ public class PlayerTest : TestClass {
     _player.OnResolved();
 
     _binding.Output(
-      new PlayerLogic.Output.MovementComputed(Basis.Identity, Vector3.Forward)
+      new PlayerLogic.Output.MovementComputed(
+        Basis.Identity, Vector3.Forward, Vector2.Zero, 0d
+      )
     );
 
     _player.Velocity.ShouldBe(Vector3.Forward);
