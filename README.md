@@ -11,7 +11,7 @@ game state preservation!_
 ---
 
 <p align="center">
-<img alt="Cardboard Box with Chickensoft Logo" src="docs/preview.jpg" width="100%">
+<img alt="Cardboard Box with Chickensoft Logo" src="docs/preview.png" width="100%">
 </p>
 
 ## ⏯️ Gameplay
