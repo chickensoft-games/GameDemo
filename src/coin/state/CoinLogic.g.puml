@@ -1,7 +1,7 @@
 @startuml CoinLogic
 state "CoinLogic State" as GameDemo_CoinLogic_State {
-  state "Collecting" as GameDemo_CoinLogic_State_Collecting
   state "Idle" as GameDemo_CoinLogic_State_Idle
+  state "Collecting" as GameDemo_CoinLogic_State_Collecting
 }
 
 GameDemo_CoinLogic_State_Collecting --> GameDemo_CoinLogic_State_Collecting : PhysicsProcess
