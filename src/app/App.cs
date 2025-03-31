@@ -5,7 +5,7 @@ using Chickensoft.GodotNodeInterfaces;
 using Godot;
 using Chickensoft.Introspection;
 
-public interface IApp : ICanvasLayer, IProvide<IAppRepo>;
+public interface IApp : ICanvasLayer, IProvide<IAppRepo>, IProvide<INetworkingRepo>;
 
 [Meta(typeof(IAutoNode))]
 public partial class App : CanvasLayer, IApp {
@@ -28,12 +28,18 @@ public partial class App : CanvasLayer, IApp {
 
   IAppRepo IProvide<IAppRepo>.Value() => AppRepo;
 
+  INetworkingRepo IProvide<INetworkingRepo>.Value() => NetworkingRepo;
+
   #endregion Provisions
 
   #region State
 
   public IAppRepo AppRepo { get; set; } = default!;
   public IAppLogic AppLogic { get; set; } = default!;
+
+  // Networking State
+  public SteamRunner SteamRunner { get; private set; } = default!;
+  public INetworkingRepo NetworkingRepo { get; private set; } = default!;
 
   public AppLogic.IBinding AppBinding { get; set; } = default!;
 
@@ -55,6 +61,12 @@ public partial class App : CanvasLayer, IApp {
     AppLogic = new AppLogic();
     AppLogic.Set(AppRepo);
     AppLogic.Set(new AppLogic.Data());
+
+    // Setup Networking
+    var platformService = new SteamPlatformService();
+    NetworkingRepo = new NetworkingRepo(platformService);
+    SteamRunner = new SteamRunner(platformService, NetworkingRepo);
+    AddChild(SteamRunner);
 
     // Listen for various menu signals. Each of these just translate to an input
     // for the overall app's state machine.

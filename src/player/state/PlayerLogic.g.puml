@@ -1,17 +1,17 @@
 @startuml PlayerLogic
 state "PlayerLogic State" as GameDemo_PlayerLogic_State {
+  state "Dead" as GameDemo_PlayerLogic_State_Dead
   state "Alive" as GameDemo_PlayerLogic_State_Alive {
-    state "Airborne" as GameDemo_PlayerLogic_State_Airborne {
-      state "Falling" as GameDemo_PlayerLogic_State_Falling
-      state "Jumping" as GameDemo_PlayerLogic_State_Jumping
-      state "Liftoff" as GameDemo_PlayerLogic_State_Liftoff
-    }
     state "Grounded" as GameDemo_PlayerLogic_State_Grounded {
       state "Idle" as GameDemo_PlayerLogic_State_Idle
       state "Moving" as GameDemo_PlayerLogic_State_Moving
     }
+    state "Airborne" as GameDemo_PlayerLogic_State_Airborne {
+      state "Jumping" as GameDemo_PlayerLogic_State_Jumping
+      state "Liftoff" as GameDemo_PlayerLogic_State_Liftoff
+      state "Falling" as GameDemo_PlayerLogic_State_Falling
+    }
   }
-  state "Dead" as GameDemo_PlayerLogic_State_Dead
   state "Disabled" as GameDemo_PlayerLogic_State_Disabled
 }
 
