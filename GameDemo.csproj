@@ -22,15 +22,23 @@
     <Copyright>© 2024 Chickensoft Organization</Copyright>
     <Authors>Chickensoft Organization</Authors>
     <Company>Chickensoft Organization</Company>
-    <!-- Don't include unit tests in release builds. -->
-    <DefaultItemExcludes Condition="'$(Configuration)' == 'ExportRelease'">
-      $(DefaultItemExcludes);test/**/*
-    </DefaultItemExcludes>
+
     <!-- <PublishAot>true</PublishAot> -->
     <ReportAnalyzer>true</ReportAnalyzer>
     <CodeAnalysisRuleSet>CodeAnalyzers.ruleset</CodeAnalysisRuleSet>
+
+    <SkipTests Condition="'$(SKIP_TESTS)' != ''">true</SkipTests>
+    <RunTests>false</RunTests>
   </PropertyGroup>
-  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+
+  <PropertyGroup Condition="
+        ('$(Configuration)' == 'Debug' or '$(Configuration)' == 'ExportDebug')
+        and '$(SkipTests)' != 'true' ">
+    <RunTests>true</RunTests>
+    <DefineConstants>$(DefineConstants);RUN_TESTS</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(RunTests)' == 'true'">
     <!-- Test dependencies go here! -->
     <!-- Dependencies added here will not be included in release builds. -->
     <!-- Used to drive test scenes when testing visual code -->
@@ -41,6 +49,7 @@
     <PackageReference Include="Shouldly" Version="4.3.0" />
     <PackageReference Include="Moq" Version="4.20.72" />
   </ItemGroup>
+
   <ItemGroup>
     <!-- Production dependencies go here! -->
     <PackageReference Include="System.IO.Abstractions" Version="22.0.13" />
@@ -56,5 +65,11 @@
     <PackageReference Include="Chickensoft.Serialization.Godot" Version="0.7.12" />
     <PackageReference Include="Chickensoft.LogicBlocks" Version="5.17.1" />
     <PackageReference Include="Chickensoft.LogicBlocks.DiagramGenerator" Version="5.17.1" PrivateAssets="all" OutputItemType="analyzer" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(RunTests)' != 'true'">
+    <Compile          Remove="test/**/*.cs" />
+    <None             Remove="test/**/*"    />
+    <EmbeddedResource Remove="test/**/*"    />
   </ItemGroup>
 </Project>
