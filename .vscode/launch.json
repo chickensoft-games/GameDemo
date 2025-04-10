@@ -1,6 +1,17 @@
 {
   "version": "0.2.0",
   "configurations": [
+    {
+      "name": "🕹 Debug Game",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-without-tests",
+      "program": "${env:GODOT}",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      // "console": "integratedTerminal"
+    },
     // For these launch configurations to work, you need to setup a GODOT
     // environment variable. On mac or linux, this can be done by adding
     // the following to your .zshrc, .bashrc, or .bash_profile file:
@@ -9,7 +20,7 @@
       "name": "🕹 Debug Game (VSCodium)",
       "type": "coreclr",
       "request": "launch",
-      "preLaunchTask": "build",
+      "preLaunchTask": "build-without-tests",
       "program": "",
       "internalConsoleOptions": "openOnSessionStart",
       "pipeTransport": {
@@ -47,24 +58,13 @@
         }
       },
     },
-    {
-      "name": "🕹 Debug Game",
-      "type": "coreclr",
-      "request": "launch",
-      "preLaunchTask": "build",
-      "program": "${env:GODOT}",
-      "args": [],
-      "cwd": "${workspaceFolder}",
-      "stopAtEntry": false,
-      // "console": "integratedTerminal"
-    },
     // Debug the scene that matches the name of the currently open *.cs file
     // (if there's a scene with the same name in the same directory).
     {
       "name": "🎭 Debug Current Scene",
       "type": "coreclr",
       "request": "launch",
-      "preLaunchTask": "build",
+      "preLaunchTask": "build-without-tests",
       "program": "${env:GODOT}",
       "args": [
         "${fileDirname}/${fileBasenameNoExtension}.tscn"

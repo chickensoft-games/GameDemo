@@ -12,4 +12,4 @@ obj/
 .DS_Store
 
 *.translation
-node_modules/
+*.old

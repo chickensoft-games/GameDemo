@@ -2,7 +2,7 @@ namespace GameDemo;
 
 using Godot;
 
-#if DEBUG
+#if RUN_TESTS
 using System.Reflection;
 using Chickensoft.GoDotTest;
 #endif
@@ -13,12 +13,12 @@ using Chickensoft.GoDotTest;
 // Game.cs instead.
 
 public partial class Main : Node2D {
-#if DEBUG
+#if RUN_TESTS
   public TestEnvironment Environment = default!;
 #endif
 
   public override void _Ready() {
-#if DEBUG
+#if RUN_TESTS
     // If this is a debug build, use GoDotTest to examine the
     // command line arguments and determine if we should run tests.
     Environment = TestEnvironment.From(OS.GetCmdlineArgs());
@@ -35,7 +35,7 @@ public partial class Main : Node2D {
   private void StartApp() =>
     GetTree().ChangeSceneToFile("res://src/app/App.tscn");
 
-#if DEBUG
+#if RUN_TESTS
   private void RunTests()
     => _ = GoTest.RunTests(Assembly.GetExecutingAssembly(), this, Environment);
 #endif

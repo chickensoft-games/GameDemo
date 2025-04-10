@@ -19,6 +19,28 @@
       }
     },
     {
+      "label": "build-without-tests",
+      "command": "dotnet",
+      "type": "process",
+      "options": {
+        "env": {
+          "SKIP_TESTS": "1"
+        }
+      },
+      "args": [
+        "build",
+      ],
+      "problemMatcher": "$msCompile",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      }
+    },
+    {
       "label": "coverage",
       "group": "test",
       "command": "${workspaceFolder}/coverage.sh",
