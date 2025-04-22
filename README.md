@@ -48,25 +48,25 @@ This project is a result of two and a half years of learning, [the other dozen o
 - ✅ Dependency provisioning via [AutoInject]: node dependencies are resolved in a tree-based manner by looking through a node's ancestors until it finds one that provides what the dependent node is looking for.
 
   Supplying dependencies in a tree-based manner mirrors Godot's node-based  approach and solves the age-old problem of needing something higher-up in the scene tree before the parent node has had a chance to initialize it. Under the hood, AutoInject temporarily subscribes to the parent and calls the child back once the dependency is available.
-  
+
   Finally, AutoInject provides mechanisms for faking dependencies easily in unit tests.
 
 - ✅ Two-phase initialization, accomplished with AutoInject's [Enhanced Lifecycles].
 
   Splitting a node's initialization up into two steps make it easier to write testable node scripts. The first phase allows the node to create the values it wants to use, and the second phase allows it to consume those values for initial setup.
-  
+
   AutoInject adds a property to each node script it's used on, `IsTesting`, that allows it to discern whether or not it's running in-game or in a test environment, skipping the first phase during testing so that mock or fake objects can be used instead.
 
 - ✅ Faking node trees during unit tests using [GodotNodeInterfaces].
-  
+
   GodotNodeInterfaces provides generated interfaces and adapters for every object in GodotSharp that extends `GodotObject`, allowing us to access these objects in a way that makes it easy to mock for unit tests. Note that AutoInject requires that we add GodotNodeInterfaces to our project, even if we don't actually use it (and most games won't ever need to use it — this game just happens to be fully unit tested).
-  
+
   GodotNodeInterfaces also provides alternative methods for manipulating a node's children that accept interfaces rather than concrete node types, allowing us to use a fake scene tree during unit tests for nodes that need to be attached to the scene tree during testing.
 
 - ✅ A consistent approach to state management using [LogicBlocks] and domain-driven design.
 
   For nodes that require state, we separate their state from their presentation by creating a hierarchical state machine (i.e., a logic block) for the node and consuming it through a simple binding system, ensuring our view is always synchronized with its state.
-  
+
   Also, LogicBlocks also generates pictures of the state diagrams, so that's reason enough — scroll down to see the state diagrams in this project!
 
   Using LogicBlocks for all logic everywhere sometimes results in views with very simple states, but the additional effort makes it very consistent: i.e., if a node does anything more than simple visualization, you know you can find the dirty details in its logic block. Plus, separating visualization from state makes it super easy to test the logic block in isolation.
@@ -120,11 +120,11 @@ Since we're using [LogicBlocks], here's some of the more interesting state diagr
 <!-- Links -->
 
 <!-- Header -->
-[chickensoft-badge]: https://raw.githubusercontent.com/chickensoft-games/chickensoft_site/main/static/img/badges/chickensoft_badge.svg
+[chickensoft-badge]: https://chickensoft.games/img/badges/chickensoft_badge.svg
 [chickensoft-website]: https://chickensoft.games
-[discord-badge]: https://raw.githubusercontent.com/chickensoft-games/chickensoft_site/main/static/img/badges/discord_badge.svg
+[discord-badge]: https://chickensoft.games/img/badges/discord_badge.svg
 [discord]: https://discord.gg/gSjaPgMmYW
-[read-the-docs-badge]: https://raw.githubusercontent.com/chickensoft-games/chickensoft_site/main/static/img/badges/read_the_docs_badge.svg
+[read-the-docs-badge]: https://chickensoft.games/img/badges/read_the_docs_badge.svg
 [docs]: https://chickensoft.games/docs
 [branch-coverage]: badges/branch_coverage.svg
 
