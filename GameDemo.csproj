@@ -31,9 +31,7 @@
     <RunTests>false</RunTests>
   </PropertyGroup>
 
-  <PropertyGroup Condition="
-        ('$(Configuration)' == 'Debug' or '$(Configuration)' == 'ExportDebug')
-        and '$(SkipTests)' != 'true' ">
+  <PropertyGroup Condition="('$(Configuration)' == 'Debug' or '$(Configuration)' == 'ExportDebug') and '$(SkipTests)' != 'true' ">
     <RunTests>true</RunTests>
     <DefineConstants>$(DefineConstants);RUN_TESTS</DefineConstants>
   </PropertyGroup>
@@ -42,7 +40,7 @@
     <!-- Test dependencies go here! -->
     <!-- Dependencies added here will not be included in release builds. -->
     <!-- Used to drive test scenes when testing visual code -->
-    <PackageReference Include="Chickensoft.GoDotTest" Version="1.6.5" />
+    <PackageReference Include="Chickensoft.GoDotTest" Version="1.6.7" />
     <PackageReference Include="Chickensoft.GodotTestDriver" Version="3.0.2" />
     <!-- Bring your own assertion library for tests! -->
     <!-- We're using Shouldly for this example, but you can use anything. -->
@@ -52,24 +50,24 @@
 
   <ItemGroup>
     <!-- Production dependencies go here! -->
-    <PackageReference Include="System.IO.Abstractions" Version="22.0.13" />
+    <PackageReference Include="System.IO.Abstractions" Version="22.0.14" />
     <PackageReference Include="EnvironmentAbstractions" Version="5.0.0" />
     <PackageReference Include="GodotSharp.SourceGenerators" Version="2.5.0" PrivateAssets="all" OutputItemType="analyzer" />
     <PackageReference Include="Chickensoft.SaveFileBuilder" Version="1.2.0" />
-    <PackageReference Include="Chickensoft.AutoInject" Version="2.5.0" PrivateAssets="all" />
+    <PackageReference Include="Chickensoft.AutoInject" Version="2.6.0" PrivateAssets="all" />
     <PackageReference Include="Chickensoft.Collections" Version="1.13.4" />
-    <PackageReference Include="Chickensoft.GodotNodeInterfaces" Version="2.4.0" />
-    <PackageReference Include="Chickensoft.Introspection" Version="2.2.0" />
-    <PackageReference Include="Chickensoft.Introspection.Generator" Version="2.2.0" PrivateAssets="all" OutputItemType="analyzer" />
-    <PackageReference Include="Chickensoft.Serialization" Version="2.2.0" />
-    <PackageReference Include="Chickensoft.Serialization.Godot" Version="0.7.14" />
-    <PackageReference Include="Chickensoft.LogicBlocks" Version="5.17.1" />
-    <PackageReference Include="Chickensoft.LogicBlocks.DiagramGenerator" Version="5.17.1" PrivateAssets="all" OutputItemType="analyzer" />
+    <PackageReference Include="Chickensoft.GodotNodeInterfaces" Version="2.4.2" />
+    <PackageReference Include="Chickensoft.Introspection" Version="3.0.0" />
+    <PackageReference Include="Chickensoft.Introspection.Generator" Version="3.0.0" PrivateAssets="all" OutputItemType="analyzer" />
+    <PackageReference Include="Chickensoft.Serialization" Version="3.0.0" />
+    <PackageReference Include="Chickensoft.Serialization.Godot" Version="0.7.16" />
+    <PackageReference Include="Chickensoft.LogicBlocks" Version="5.18.0" />
+    <PackageReference Include="Chickensoft.LogicBlocks.DiagramGenerator" Version="5.18.0" PrivateAssets="all" OutputItemType="analyzer" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(RunTests)' != 'true'">
-    <Compile          Remove="test/**/*.cs" />
-    <None             Remove="test/**/*"    />
-    <EmbeddedResource Remove="test/**/*"    />
+    <Compile Remove="test/**/*.cs" />
+    <None Remove="test/**/*" />
+    <EmbeddedResource Remove="test/**/*" />
   </ItemGroup>
 </Project>
