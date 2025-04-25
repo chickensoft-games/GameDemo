@@ -41,7 +41,7 @@
     <!-- Dependencies added here will not be included in release builds. -->
     <!-- Used to drive test scenes when testing visual code -->
     <PackageReference Include="Chickensoft.GoDotTest" Version="1.6.7" />
-    <PackageReference Include="Chickensoft.GodotTestDriver" Version="3.0.2" />
+    <PackageReference Include="Chickensoft.GodotTestDriver" Version="3.1.1" />
     <!-- Bring your own assertion library for tests! -->
     <!-- We're using Shouldly for this example, but you can use anything. -->
     <PackageReference Include="Shouldly" Version="4.3.0" />
