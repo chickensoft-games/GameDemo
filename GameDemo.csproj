@@ -60,7 +60,7 @@
     <PackageReference Include="Chickensoft.Introspection" Version="3.0.1" />
     <PackageReference Include="Chickensoft.Introspection.Generator" Version="3.0.1" PrivateAssets="all" OutputItemType="analyzer" />
     <PackageReference Include="Chickensoft.Serialization" Version="3.0.0" />
-    <PackageReference Include="Chickensoft.Serialization.Godot" Version="0.7.20" />
+    <PackageReference Include="Chickensoft.Serialization.Godot" Version="0.7.21" />
     <PackageReference Include="Chickensoft.LogicBlocks" Version="5.18.0" />
     <PackageReference Include="Chickensoft.LogicBlocks.DiagramGenerator" Version="5.18.0" PrivateAssets="all" OutputItemType="analyzer" />
   </ItemGroup>
