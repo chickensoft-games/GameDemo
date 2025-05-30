@@ -213,7 +213,7 @@ horizontal_alignment = 1
 
 [node name="Subtitle" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "The robot is not waterproof."
+text = "The chicken cannot swim."
 label_settings = SubResource("LabelSettings_jxos6")
 horizontal_alignment = 1
 
@@ -247,11 +247,11 @@ text = "Main Menu"
 unique_name_in_owner = true
 deterministic = true
 libraries = {
-"": SubResource("AnimationLibrary_5xdmp")
+&"": SubResource("AnimationLibrary_5xdmp")
 }
 
 [node name="FadeAnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_kxx0w")
+&"": SubResource("AnimationLibrary_kxx0w")
 }
