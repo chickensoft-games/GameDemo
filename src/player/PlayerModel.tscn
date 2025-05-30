@@ -1,6 +1,6 @@
-[gd_scene load_steps=38 format=3 uid="uid://c6hf4ibwmd31r"]
+[gd_scene load_steps=34 format=3 uid="uid://c6hf4ibwmd31r"]
 
-[ext_resource type="PackedScene" uid="uid://cdoqgu6t4ny5w" path="res://src/player/visuals/chicken/chicken.tscn" id="1_02lhe"]
+[ext_resource type="PackedScene" uid="uid://20qwxeyklyrk" path="res://src/player/visuals/chicken/chicken.tscn" id="1_02lhe"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yw24n"]
 animation = &"blink"
@@ -31,42 +31,24 @@ animation = &"idle"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8po4y"]
 animation = &"jump"
 
-[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_io2kx"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kelho"]
-animation = &"custom_animations/run_footstep"
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_22dnn"]
 animation = &"run"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_hjrsp"]
 graph_offset = Vector2(-576, -14)
-nodes/Add2/node = SubResource("AnimationNodeAdd2_io2kx")
-nodes/Add2/position = Vector2(160, 140)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_22dnn")
 nodes/Animation/position = Vector2(-140, 120)
-"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_kelho")
-"nodes/Animation 2/position" = Vector2(-260, 340)
-node_connections = [&"Add2", 0, &"Animation", &"Add2", 1, &"Animation 2", &"output", 0, &"Add2"]
-
-[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_o3u5s"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_itgrv"]
-animation = &"custom_animations/walk_footstep"
+node_connections = [&"output", 0, &"Animation"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xv858"]
 animation = &"walk"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_v430u"]
-graph_offset = Vector2(-133, -18)
-nodes/Add2/node = SubResource("AnimationNodeAdd2_o3u5s")
-nodes/Add2/position = Vector2(519, 117)
+graph_offset = Vector2(-251, 48)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_xv858")
 nodes/Animation/position = Vector2(260, 110)
-"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_itgrv")
-"nodes/Animation 2/position" = Vector2(140, 310)
 nodes/output/position = Vector2(740, 140)
-node_connections = [&"Add2", 0, &"Animation", &"Add2", 1, &"Animation 2", &"output", 0, &"Add2"]
+node_connections = [&"output", 0, &"Animation"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_reib3"]
 advance_mode = 2
@@ -135,9 +117,10 @@ states/run/position = Vector2(925.75, 124.812)
 states/walk/node = SubResource("AnimationNodeBlendTree_v430u")
 states/walk/position = Vector2(673.5, -12.5)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_reib3"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_ueton"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_8c50i"), "fall", "idle", SubResource("AnimationNodeStateMachineTransition_w6cjs"), "idle", "fall", SubResource("AnimationNodeStateMachineTransition_ukwrb"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_6qfy3"), "walk", "run", SubResource("AnimationNodeStateMachineTransition_orcnw"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_0mheb"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_7wo34"), "run", "walk", SubResource("AnimationNodeStateMachineTransition_i44gn"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_h7vjx"), "walk", "fall", SubResource("AnimationNodeStateMachineTransition_wyh3w"), "fall", "walk", SubResource("AnimationNodeStateMachineTransition_43j38"), "run", "fall", SubResource("AnimationNodeStateMachineTransition_2xc1m"), "fall", "run", SubResource("AnimationNodeStateMachineTransition_uns2n"), "walk", "jump", SubResource("AnimationNodeStateMachineTransition_knmse"), "run", "jump", SubResource("AnimationNodeStateMachineTransition_w8vh2")]
-graph_offset = Vector2(-323, -96)
+graph_offset = Vector2(-243, -286)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ltym2"]
+graph_offset = Vector2(-617.813, -99.2816)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_yw24n")
 nodes/Animation/position = Vector2(140, 320)
 nodes/BlinkShot/node = SubResource("AnimationNodeOneShot_o63jc")
@@ -158,56 +141,8 @@ unique_name_in_owner = true
 
 [node name="CenterRoot" type="Node3D" parent="VisualRoot"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 
 [node name="chicken" parent="VisualRoot/CenterRoot" instance=ExtResource("1_02lhe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
-
-[node name="Skeleton3D" parent="VisualRoot/CenterRoot/chicken/Rig" index="0"]
-bones/0/position = Vector3(0.0142669, 0.383065, 0.0151717)
-bones/0/rotation = Quaternion(0.0648187, 0.0570324, -0.0370119, 0.995578)
-bones/1/rotation = Quaternion(-0.00868231, 1.13059e-07, 8.76853e-10, 0.999962)
-bones/2/position = Vector3(-1.42316e-09, 0.135228, 1.49036e-08)
-bones/2/rotation = Quaternion(-0.0222646, -0.00135764, -0.0200055, 0.999551)
-bones/3/position = Vector3(-0.0041013, 0.194316, -0.000858153)
-bones/3/rotation = Quaternion(-0.0381627, -0.000578743, 0.00622065, 0.999252)
-bones/4/scale = Vector3(0.999998, 0.999983, 0.999985)
-bones/5/scale = Vector3(0.999996, 0.999983, 0.999986)
-bones/6/rotation = Quaternion(-3.57463e-07, 0.705038, 0.709169, 9.62415e-07)
-bones/7/position = Vector3(-8.22568e-07, 0.0958544, 0.456009)
-bones/7/rotation = Quaternion(-3.57811e-07, 0.705038, 0.709169, 9.62506e-07)
-bones/10/position = Vector3(-4.66362e-08, 0.726424, 0.000341271)
-bones/10/rotation = Quaternion(0.00292057, 4.97442e-05, -0.0170282, 0.999851)
-bones/11/rotation = Quaternion(4.52478e-08, -2.0437e-09, 0.0342655, 0.999413)
-bones/12/position = Vector3(0.389445, 0.206541, -0.0092781)
-bones/12/rotation = Quaternion(-0.0852934, 0.0214063, -0.91631, 0.390696)
-bones/13/rotation = Quaternion(0.022303, 0.0157316, 0.0682188, 0.997297)
-bones/14/rotation = Quaternion(-0.010884, -0.000560138, 0.0502452, 0.998677)
-bones/15/position = Vector3(-0.397897, 0.189667, -0.00925544)
-bones/15/rotation = Quaternion(0.00927751, 0.0763594, 0.983359, 0.164583)
-bones/16/rotation = Quaternion(0.103422, 0.0371968, 0.0650711, 0.99181)
-bones/17/rotation = Quaternion(0.0108842, 0.000560202, 0.0502446, 0.998677)
-bones/18/rotation = Quaternion(-0.521178, 0.0449325, 0.0732053, 0.849115)
-bones/19/rotation = Quaternion(0.113764, -0.0143729, 0.124516, 0.985569)
-bones/20/position = Vector3(0.160563, -0.0740325, -0.00850026)
-bones/20/rotation = Quaternion(0.930754, 0.0538082, 0.00144723, 0.361661)
-bones/21/position = Vector3(3.9357e-08, 0.12789, -3.1103e-08)
-bones/21/rotation = Quaternion(0.528337, -0.110092, 0.0678715, 0.839127)
-bones/22/position = Vector3(-2.09828e-08, 0.12135, 2.67828e-08)
-bones/22/rotation = Quaternion(-0.620434, 0.0537445, -0.0235654, 0.78206)
-bones/23/position = Vector3(-2.71066e-08, 0.130556, -1.26095e-08)
-bones/23/rotation = Quaternion(-2.67569e-05, 0.931517, -0.363697, 1.07815e-05)
-bones/24/position = Vector3(-0.160563, -0.0740325, -0.00850033)
-bones/24/rotation = Quaternion(0.990201, 0.0172521, -0.000599764, 0.138576)
-bones/25/position = Vector3(3.00106e-08, 0.130021, -7.17395e-09)
-bones/25/rotation = Quaternion(0.249339, 0.128692, -0.0340127, 0.959224)
-bones/26/position = Vector3(-1.96109e-08, 0.123197, 2.59644e-08)
-bones/26/rotation = Quaternion(-0.549239, 0.0813751, 0.0163273, 0.831534)
-bones/27/position = Vector3(2.04319e-08, 0.130556, -1.43035e-08)
-bones/27/rotation = Quaternion(1.84956e-05, 0.931503, -0.363733, -7.80435e-06)
-
-[node name="AnimationPlayer" parent="VisualRoot/CenterRoot/chicken" index="1"]
-deterministic = true
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 unique_name_in_owner = true
@@ -220,8 +155,6 @@ parameters/BlinkShot/internal_active = false
 parameters/BlinkShot/request = 0
 parameters/LeanAdd/add_amount = 1.0
 parameters/LeanDirectionBlend/blend_position = 0.0
-parameters/StateMachine/run/Add2/add_amount = 1.0
-parameters/StateMachine/walk/Add2/add_amount = 1.0
 
 [node name="BlinkTimer" type="Timer" parent="."]
 unique_name_in_owner = true
