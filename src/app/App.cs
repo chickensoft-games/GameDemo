@@ -2,12 +2,14 @@ namespace GameDemo;
 
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Godot;
 using Chickensoft.Introspection;
+using Chickensoft.UMLGenerator;
+using Godot;
 
 public interface IApp : ICanvasLayer, IProvide<IAppRepo>;
 
 [Meta(typeof(IAutoNode))]
+[ClassDiagram(UseVSCodePaths = true)]
 public partial class App : CanvasLayer, IApp {
   public override void _Notification(int what) => this.Notify(what);
 
