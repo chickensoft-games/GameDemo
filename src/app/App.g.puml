@@ -1,0 +1,247 @@
+@startuml
+
+package App-Scene [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/app/App.tscn]] {
+	
+class App  {
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/app/App.cs ScriptFile]]
+--
+[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/app/App.cs:38 AppLogic]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/app/state/AppLogic.cs Script]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/app/App.cs:37 AppRepo]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/app/domain/AppRepo.cs Script]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/app/App.cs:24 Game]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/Game.cs Script]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/app/App.cs:25 Instantiator]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/utils/Instantiator.cs Script]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/app/App.cs:46 Menu]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/menu/Menu.cs Script]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/app/App.cs:50 Splash]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/menu/splash/Splash.cs Script]]
+}
+
+	
+package Game-Scene [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/Game.tscn]] {
+	
+class Game  {
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/Game.cs ScriptFile]]
+--
+[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/Game.cs:261 LoadExistingGame()]]
+--
+InGameAudio - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_audio/InGameAudio.cs Script]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/Game.cs:58 DeathMenu]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/death_menu/DeathMenu.cs Script]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/Game.cs:44 GameLogic]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/state/GameLogic.cs Script]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/Game.cs:43 GameRepo]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs Script]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/Game.cs:57 InGameUi]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_ui/InGameUI.cs Script]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/Game.cs:56 Map]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/map/Map.cs Script]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/Game.cs:60 PauseMenu]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/pause_menu/PauseMenu.cs Script]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/Game.cs:54 Player]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player/Player.cs Script]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/Game.cs:52 PlayerCamera]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player_camera/PlayerCamera.cs Script]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/Game.cs:59 WinMenu]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/win_menu/WinMenu.cs Script]]
+}
+
+	
+class PlayerCamera  {
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player_camera/PlayerCamera.cs ScriptFile]]
+--
++ [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player_camera/PlayerCamera.cs:111 CameraBasis]]
+	+ [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player_camera/PlayerCamera.cs:107 CameraLocalPosition]]
+	+ [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player_camera/PlayerCamera.cs:72 CameraLogic]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player_camera/State/PlayerCameraLogic.cs Script]]
+	+ [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player_camera/PlayerCamera.cs:108 GimbalRotationHorizontal]]
+	+ [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player_camera/PlayerCamera.cs:109 GimbalRotationVertical]]
+	+ [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player_camera/PlayerCamera.cs:80 Offset]]
+	+ [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player_camera/PlayerCamera.cs:114 OffsetPosition]]
+	+ [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player_camera/PlayerCamera.cs:106 SpringArmTargetPosition]]
+--
+[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player_camera/PlayerCamera.cs:205 UsePlayerCamera()]]
+--
+[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player_camera/PlayerCamera.cs:82 Settings]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player_camera/PlayerCameraSettings.cs Script]]
+}
+
+	
+class Player  {
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player/Player.cs ScriptFile]]
+--
++ [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player/Player.cs:108 PlayerLogic]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player/state/PlayerLogic.cs Script]]
+--
+[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player/Player.cs:204 GetGlobalInputVector()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player/Player.cs:218 GetNextRotationBasis()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player/Player.cs:238 IsMovingHorizontally()]]
+--
+PlayerModel - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/player/PlayerModel.cs Script]]
+}
+
+	
+package Map-Scene [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/map/Map.tscn]] {
+	
+class Map  {
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/map/Map.cs ScriptFile]]
+--
+[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/map/Map.cs:46 GetCoinCount()]]
+--
+Cloud - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/map/cloud/Cloud.tscn Scene]]
+	Coin - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/coin/Coin.cs Script]]
+	DeathPlane - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/death_plane/DeathPlane.cs Script]]
+	Fence - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/map/fence/Fence.tscn Scene]]
+	Jumpshroom2 - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/jumpshroom/Jumpshroom.cs Script]]
+	LargeTreeTrunk - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/map/large_tree_trunk/LargeTreeTrunk.tscn Scene]]
+	TreeTrunkSmall2 - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/map/tree_trunk/TreeTrunkSmall.tscn Scene]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/map/Map.cs:42 MapLogic]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/map/state/MapLogic.cs Script]]
+}
+
+	
+class Jumpshroom  {
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/jumpshroom/Jumpshroom.cs ScriptFile]]
+--
+[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/jumpshroom/Jumpshroom.cs:28 JumpshroomLogic]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/jumpshroom/state/JumpshroomLogic.cs Script]]
+}
+
+	
+class Coin  {
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/coin/Coin.cs ScriptFile]]
+--
++ [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/coin/Coin.cs:34 CoinLogic]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/coin/state/CoinLogic.cs Script]]
+}
+
+	Map::Jumpshroom2 ---> Jumpshroom
+	Map::Coin ---> Coin
+}
+
+	
+package InGameUI-Scene [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_ui/InGameUI.tscn]] {
+	
+class InGameUI  {
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_ui/InGameUI.cs ScriptFile]]
+--
+[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_ui/InGameUI.cs:58 SetCoinsLabel()]]
+--
+CoinScene - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_ui/coin_scene/CoinScene.tscn Scene]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_ui/InGameUI.cs:31 InGameUILogic]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_ui/state/InGameUILogic.cs Script]]
+}
+
+	
+package CoinScene-Scene [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_ui/coin_scene/CoinScene.tscn]] {
+	
+class CoinScene << (S,black) >> {
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_ui/coin_scene/CoinScene.tscn SceneFile]]
+--
+UICoin - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/coin/Coin.cs Script]]
+}
+
+	
+class Coin  {
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/coin/Coin.cs ScriptFile]]
+--
++ [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/coin/Coin.cs:34 CoinLogic]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/coin/state/CoinLogic.cs Script]]
+}
+
+	CoinScene::UICoin ---> Coin
+}
+
+	InGameUI::CoinScene ---> CoinScene
+}
+
+	
+package InGameAudio-Scene [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_audio/InGameAudio.tscn]] {
+	
+class InGameAudio  {
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_audio/InGameAudio.cs ScriptFile]]
+--
+[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_audio/InGameAudio.cs:19 GameMusic]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_audio/DimmableAudioStreamPlayer.cs Script]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_audio/InGameAudio.cs:33 InGameAudioLogic]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_audio/state/InGameAudioLogic.cs Script]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_audio/InGameAudio.cs:18 MainMenuMusic]] - [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_audio/DimmableAudioStreamPlayer.cs Script]]
+}
+
+	
+class DimmableAudioStreamPlayer  {
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_audio/DimmableAudioStreamPlayer.cs ScriptFile]]
+--
+[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_audio/DimmableAudioStreamPlayer.cs:30 FadeIn()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/in_game_audio/DimmableAudioStreamPlayer.cs:35 FadeOut()]]
+}
+
+	InGameAudio::GameMusic --> DimmableAudioStreamPlayer
+}
+
+	
+class DeathMenu  {
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/death_menu/DeathMenu.cs ScriptFile]]
+--
+[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/death_menu/DeathMenu.cs:53 Animate()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/death_menu/DeathMenu.cs:56 FadeIn()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/death_menu/DeathMenu.cs:58 FadeOut()]]
+}
+
+	
+class WinMenu  {
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/win_menu/WinMenu.cs ScriptFile]]
+--
+[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/win_menu/WinMenu.cs:44 FadeIn()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/win_menu/WinMenu.cs:49 FadeOut()]]
+}
+
+	
+class PauseMenu  {
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/pause_menu/PauseMenu.cs ScriptFile]]
+--
+[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/pause_menu/PauseMenu.cs:70 FadeIn()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/pause_menu/PauseMenu.cs:75 FadeOut()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/pause_menu/PauseMenu.cs:78 OnSaveCompleted()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/pause_menu/PauseMenu.cs:77 OnSaveStarted()]]
+}
+
+	
+class GameRepo  {
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs ScriptFile]]
+--
++ [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs:104 CameraBasis]]
+	+ [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs:107 GlobalCameraDirection]]
+	+ [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs:97 IsMouseCaptured]]
+	+ [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs:99 IsPaused]]
+	+ [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs:111 NumCoinsAtStart]]
+	+ [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs:109 NumCoinsCollected]]
+	+ [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs:101 PlayerGlobalPosition]]
+--
+[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs:162 OnFinishCoinCollection()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs:176 OnGameEnded()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs:174 OnJump()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs:192 OnJumpshroomUsed()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs:182 Pause()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs:187 Resume()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs:153 SetCameraBasis()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs:150 SetIsMouseCaptured()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs:194 SetNumCoinsAtStart()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs:197 SetNumCoinsCollected()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs:147 SetPlayerGlobalPosition()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/game/domain/GameRepo.cs:156 StartCoinCollection()]]
+}
+
+	Game::PlayerCamera ---> PlayerCamera
+	Game::Player ---> Player
+	Game::Map ---> Map
+	Game::InGameUi ---> InGameUI
+	Game::InGameAudio ---> InGameAudio
+	Game::DeathMenu --> DeathMenu
+	Game::WinMenu --> WinMenu
+	Game::PauseMenu --> PauseMenu
+	Game::GameRepo --> GameRepo
+}
+
+	
+class Instantiator  {
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/utils/Instantiator.cs ScriptFile]]
+--
++ [[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/utils/Instantiator.cs:25 SceneTree]]
+--
+[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/utils/Instantiator.cs:31 LoadAndInstantiate()]]
+}
+
+	
+class AppRepo  {
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/app/domain/AppRepo.cs ScriptFile]]
+--
+[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/app/domain/AppRepo.cs:56 OnEnterGame()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/app/domain/AppRepo.cs:57 OnExitGame()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/app/domain/AppRepo.cs:54 OnMainMenuEntered()]]
+	[[vscode://file//home/joanna/Dropbox/GameDev/Chickensoft/GameDemo/GameDemo/src/app/domain/AppRepo.cs:52 SkipSplashScreen()]]
+}
+
+	App::Game ---> Game
+	App::Instantiator --> Instantiator
+	App::AppRepo --> AppRepo
+}
+
+@enduml
