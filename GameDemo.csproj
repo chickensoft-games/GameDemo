@@ -67,7 +67,7 @@
     <PackageReference Include="Chickensoft.Serialization.Godot" Version="0.8.12" />
     <PackageReference Include="Chickensoft.LogicBlocks" Version="5.19.1" />
     <PackageReference Include="Chickensoft.LogicBlocks.DiagramGenerator" Version="5.19.1" PrivateAssets="all" OutputItemType="analyzer" />
-    <PackageReference Include="Chickensoft.UMLGenerator" Version="0.1.5" PrivateAssets="all" OutputItemType="analyzer"/>
+    <PackageReference Include="Chickensoft.UMLGenerator" Version="0.1.6" PrivateAssets="all" OutputItemType="analyzer"/>
   </ItemGroup>
 
   <ItemGroup Condition="'$(RunTests)' != 'true'">
