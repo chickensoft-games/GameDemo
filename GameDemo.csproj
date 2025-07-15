@@ -40,8 +40,8 @@
     <!-- Test dependencies go here! -->
     <!-- Dependencies added here will not be included in release builds. -->
     <!-- Used to drive test scenes when testing visual code -->
-    <PackageReference Include="Chickensoft.GoDotTest" Version="1.7.2" />
-    <PackageReference Include="Chickensoft.GodotTestDriver" Version="3.1.20" />
+    <PackageReference Include="Chickensoft.GoDotTest" Version="1.7.3" />
+    <PackageReference Include="Chickensoft.GodotTestDriver" Version="3.1.21" />
     <!-- Bring your own assertion library for tests! -->
     <!-- We're using Shouldly for this example, but you can use anything. -->
     <PackageReference Include="Shouldly" Version="4.3.0" />
@@ -57,14 +57,14 @@
     <PackageReference Include="System.IO.Abstractions" Version="22.0.15" />
     <PackageReference Include="EnvironmentAbstractions" Version="5.0.0" />
     <PackageReference Include="GodotSharp.SourceGenerators" Version="2.5.0" PrivateAssets="all" OutputItemType="analyzer" />
-    <PackageReference Include="Chickensoft.SaveFileBuilder" Version="1.3.16" />
-    <PackageReference Include="Chickensoft.AutoInject" Version="2.8.2" PrivateAssets="all" />
+    <PackageReference Include="Chickensoft.SaveFileBuilder" Version="1.3.18" />
+    <PackageReference Include="Chickensoft.AutoInject" Version="2.8.4" PrivateAssets="all" />
     <PackageReference Include="Chickensoft.Collections" Version="1.13.14" />
-    <PackageReference Include="Chickensoft.GodotNodeInterfaces" Version="2.4.23" />
+    <PackageReference Include="Chickensoft.GodotNodeInterfaces" Version="2.4.24" />
     <PackageReference Include="Chickensoft.Introspection" Version="3.0.2" />
     <PackageReference Include="Chickensoft.Introspection.Generator" Version="3.0.2" PrivateAssets="all" OutputItemType="analyzer" />
     <PackageReference Include="Chickensoft.Serialization" Version="3.0.1" />
-    <PackageReference Include="Chickensoft.Serialization.Godot" Version="0.8.12" />
+    <PackageReference Include="Chickensoft.Serialization.Godot" Version="0.8.13" />
     <PackageReference Include="Chickensoft.LogicBlocks" Version="5.19.1" />
     <PackageReference Include="Chickensoft.LogicBlocks.DiagramGenerator" Version="5.19.1" PrivateAssets="all" OutputItemType="analyzer" />
     <PackageReference Include="Chickensoft.UMLGenerator" Version="0.1.6" PrivateAssets="all" OutputItemType="analyzer"/>
