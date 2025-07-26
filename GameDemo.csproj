@@ -64,7 +64,7 @@
     <PackageReference Include="Chickensoft.Introspection" Version="3.0.2" />
     <PackageReference Include="Chickensoft.Introspection.Generator" Version="3.0.2" PrivateAssets="all" OutputItemType="analyzer" />
     <PackageReference Include="Chickensoft.Serialization" Version="3.1.0" />
-    <PackageReference Include="Chickensoft.Serialization.Godot" Version="0.8.15" />
+    <PackageReference Include="Chickensoft.Serialization.Godot" Version="0.8.16" />
     <PackageReference Include="Chickensoft.LogicBlocks" Version="5.19.1" />
     <PackageReference Include="Chickensoft.LogicBlocks.DiagramGenerator" Version="5.19.1" PrivateAssets="all" OutputItemType="analyzer" />
     <PackageReference Include="Chickensoft.UMLGenerator" Version="0.1.6" PrivateAssets="all" OutputItemType="analyzer"/>
