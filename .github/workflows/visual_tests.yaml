@@ -26,7 +26,7 @@ jobs:
         shell: bash
     steps:
       - name: 🧾 Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           # If using git-lfs (large file storage), this ensures that your files
           # are checked out properly.
