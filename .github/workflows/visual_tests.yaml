@@ -35,7 +35,7 @@ jobs:
           submodules: "recursive"
 
       - name: 💽 Setup .NET SDK
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           # Use the .NET SDK from global.json in the root of the repository.
           global-json-file: global.json
