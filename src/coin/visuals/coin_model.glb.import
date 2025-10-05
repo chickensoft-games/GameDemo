@@ -15,9 +15,11 @@ dest_files=["res://.godot/imported/coin_model.glb-a40fe0d62930d189afc0ceb478f495
 
 nodes/root_type="Node3D"
 nodes/root_name="Scene Root"
+nodes/root_script=null
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
 nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
@@ -32,10 +34,14 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
+materials/extract=0
+materials/extract_format=0
+materials/extract_path=""
 _subresources={
 "materials": {
 "coin": {
 "use_external/enabled": false,
+"use_external/fallback_path": "",
 "use_external/path": "res://src/coin/visuals/coin.tres"
 }
 }
