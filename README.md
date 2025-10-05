@@ -25,7 +25,7 @@ game state preservation!_
 
 ## 🎮 How to Play
 
-You'll need to setup your [Godot C# development environment][setup-docs]. This should work with .NET 8 and Godot 4.3.
+You'll need to setup your [Godot C# development environment][setup-docs]. This should work with the current .NET LTS release and stable Godot version.
 
 Use WASD to move around. Bounce with spacebar. Hold down spacebar while falling to bounce as soon as you hit the ground. Jump on the mushrooms, collect all the coins, and don't fall off the world!
 
