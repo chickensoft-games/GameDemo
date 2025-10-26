@@ -5,6 +5,7 @@
       "label": "build",
       "command": "dotnet",
       "type": "process",
+      "group": "build",
       "args": [
         "build",
       ],
@@ -22,6 +23,7 @@
       "label": "build-without-tests",
       "command": "dotnet",
       "type": "process",
+      "group": "build",
       "options": {
         "env": {
           "SKIP_TESTS": "1"
