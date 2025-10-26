@@ -4,11 +4,13 @@ using Chickensoft.GoDotTest;
 using Godot;
 using Shouldly;
 
-public class InstantiatorTest : TestClass {
+public class InstantiatorTest : TestClass
+{
   public InstantiatorTest(Node testScene) : base(testScene) { }
 
   [Test]
-  public void Instantiates() {
+  public void Instantiates()
+  {
     var instantiator = new Instantiator(TestScene.GetTree());
 
     var scene = instantiator.LoadAndInstantiate<Node3D>(

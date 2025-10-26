@@ -1,11 +1,12 @@
 namespace GameDemo;
 
-using Chickensoft.GodotNodeInterfaces;
-using Godot;
 using Chickensoft.AutoInject;
+using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using Godot;
 
-public interface IPauseMenu : IControl {
+public interface IPauseMenu : IControl
+{
   event PauseMenu.MainMenuEventHandler MainMenu;
   event PauseMenu.ResumeEventHandler Resume;
   event PauseMenu.TransitionCompletedEventHandler TransitionCompleted;
@@ -19,7 +20,8 @@ public interface IPauseMenu : IControl {
 }
 
 [Meta(typeof(IAutoNode))]
-public partial class PauseMenu : Control, IPauseMenu {
+public partial class PauseMenu : Control, IPauseMenu
+{
   public override void _Notification(int what) => this.Notify(what);
 
   #region Nodes
@@ -49,14 +51,16 @@ public partial class PauseMenu : Control, IPauseMenu {
 
   #endregion Signals
 
-  public void OnReady() {
+  public void OnReady()
+  {
     MainMenuButton.Pressed += OnMainMenuPressed;
     ResumeButton.Pressed += OnResumePressed;
     SaveButton.Pressed += OnSavePressed;
     AnimationPlayer.AnimationFinished += OnAnimationFinished;
   }
 
-  public void OnExitTree() {
+  public void OnExitTree()
+  {
     MainMenuButton.Pressed -= OnMainMenuPressed;
     ResumeButton.Pressed -= OnResumePressed;
     SaveButton.Pressed -= OnSavePressed;
@@ -78,7 +82,6 @@ public partial class PauseMenu : Control, IPauseMenu {
   public void OnSaveCompleted() =>
     CallDeferred(nameof(Animate), "save_fade_out");
 
-  private void Animate(string animation) {
-    SaveOverlayAnimationPlayer.Play(animation);
-  }
+  private void Animate(string animation)
+    => SaveOverlayAnimationPlayer.Play(animation);
 }

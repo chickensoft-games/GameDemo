@@ -3,17 +3,22 @@ namespace GameDemo;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class GameLogic {
+public partial class GameLogic
+{
   [Meta]
-  public abstract partial record State : StateLogic<State> {
-    protected State() {
-      OnAttach(() => {
+  public abstract partial record State : StateLogic<State>
+  {
+    protected State()
+    {
+      OnAttach(() =>
+      {
         var gameRepo = Get<IGameRepo>();
         gameRepo.IsMouseCaptured.Sync += OnIsMouseCaptured;
         gameRepo.IsPaused.Sync += OnIsPaused;
       });
 
-      OnDetach(() => {
+      OnDetach(() =>
+      {
         var gameRepo = Get<IGameRepo>();
         gameRepo.IsMouseCaptured.Sync -= OnIsMouseCaptured;
         gameRepo.IsPaused.Sync -= OnIsPaused;

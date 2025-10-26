@@ -5,12 +5,15 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class PlayerCameraLogicStateInputDisabledTest : TestClass {
+public class PlayerCameraLogicStateInputDisabledTest : TestClass
+{
   public PlayerCameraLogicStateInputDisabledTest(Node testScene) :
-    base(testScene) { }
+    base(testScene)
+  { }
 
   [Test]
-  public void GoesToInputEnabled() {
+  public void GoesToInputEnabled()
+  {
     var state = new PlayerCameraLogic.State.InputDisabled();
     var context = state.CreateFakeContext();
     var gameRepo = new Mock<IGameRepo>();

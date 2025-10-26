@@ -6,7 +6,8 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class LeavingMenuTest : TestClass {
+public class LeavingMenuTest : TestClass
+{
   private IFakeContext _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private AppLogic.State.LeavingMenu _state = default!;
@@ -15,7 +16,8 @@ public class LeavingMenuTest : TestClass {
   public LeavingMenuTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _state = new();
     _appRepo = new();
     _data = new();
@@ -25,7 +27,8 @@ public class LeavingMenuTest : TestClass {
   }
 
   [Test]
-  public void Enters() {
+  public void Enters()
+  {
     _state.Enter();
 
     _context.Outputs.ShouldBe(
@@ -34,14 +37,16 @@ public class LeavingMenuTest : TestClass {
   }
 
   [Test]
-  public void StartsGameOnFadeOutFinished() {
+  public void StartsGameOnFadeOutFinished()
+  {
     var next = _state.On(new AppLogic.Input.FadeOutFinished());
 
     next.State.ShouldBeOfType<AppLogic.State.InGame>();
   }
 
   [Test]
-  public void LoadsSaveFileOnFadeOutFinished() {
+  public void LoadsSaveFileOnFadeOutFinished()
+  {
     _data.ShouldLoadExistingGame = true;
 
     var next = _state.On(new AppLogic.Input.FadeOutFinished());

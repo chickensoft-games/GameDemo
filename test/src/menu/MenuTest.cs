@@ -1,5 +1,6 @@
 namespace GameDemo.Tests;
 
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
@@ -7,7 +8,15 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class MenuTest : TestClass {
+[
+  SuppressMessage(
+    "Design",
+    "CA1001",
+    Justification = "Disposable field is Godot object; Godot will dispose"
+  )
+]
+public class MenuTest : TestClass
+{
   private Mock<IButton> _newGameButton = default!;
   private Mock<IButton> _loadGameButton = default!;
   private Menu _menu = default!;
@@ -15,11 +24,13 @@ public class MenuTest : TestClass {
   public MenuTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _newGameButton = new Mock<IButton>();
     _loadGameButton = new Mock<IButton>();
 
-    _menu = new Menu {
+    _menu = new Menu
+    {
       NewGameButton = _newGameButton.Object,
       LoadGameButton = _loadGameButton.Object
     };
@@ -28,7 +39,8 @@ public class MenuTest : TestClass {
   }
 
   [Test]
-  public void Subscribes() {
+  public void Subscribes()
+  {
     _menu.OnReady();
     _newGameButton.VerifyAdd(menu => menu.Pressed += _menu.OnNewGamePressed);
 
@@ -38,7 +50,8 @@ public class MenuTest : TestClass {
   }
 
   [Test]
-  public async Task SignalsNewGameButtonPressed() {
+  public async Task SignalsNewGameButtonPressed()
+  {
     var signal = _menu.ToSignal(_menu, Menu.SignalName.NewGame);
 
     _menu.OnNewGamePressed();
@@ -49,7 +62,8 @@ public class MenuTest : TestClass {
   }
 
   [Test]
-  public async Task SignalLoadGameButtonPressed() {
+  public async Task SignalLoadGameButtonPressed()
+  {
     var signal = _menu.ToSignal(_menu, Menu.SignalName.LoadGame);
 
     _menu.OnLoadGamePressed();

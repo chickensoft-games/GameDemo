@@ -5,7 +5,8 @@ using Godot;
 /// <summary>
 /// Utility class that loads and instantiates scenes.
 /// </summary>
-public interface IInstantiator {
+public interface IInstantiator
+{
   /// <summary>Scene tree.</summary>
   SceneTree SceneTree { get; }
 
@@ -21,14 +22,17 @@ public interface IInstantiator {
 /// <summary>
 /// Utility class that loads and instantiates scenes.
 /// </summary>
-public class Instantiator : IInstantiator {
+public class Instantiator : IInstantiator
+{
   public SceneTree SceneTree { get; }
 
-  public Instantiator(SceneTree sceneTree) {
+  public Instantiator(SceneTree sceneTree)
+  {
     SceneTree = sceneTree;
   }
 
-  public T LoadAndInstantiate<T>(string path) where T : Node {
+  public T LoadAndInstantiate<T>(string path) where T : Node
+  {
     var scene = GD.Load<PackedScene>(path);
     return scene.Instantiate<T>();
   }

@@ -6,7 +6,8 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class MapLogicStateTest : TestClass {
+public class MapLogicStateTest : TestClass
+{
   private IFakeContext _context = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private MapLogic.State _state = default!;
@@ -15,7 +16,8 @@ public class MapLogicStateTest : TestClass {
   public MapLogicStateTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _gameRepo = new Mock<IGameRepo>();
     _data = new MapLogic.Data();
 
@@ -27,7 +29,8 @@ public class MapLogicStateTest : TestClass {
   }
 
   [Test]
-  public void Subscribes() {
+  public void Subscribes()
+  {
     _state.Attach(_context);
 
     _gameRepo.VerifyAdd(
@@ -48,14 +51,16 @@ public class MapLogicStateTest : TestClass {
   }
 
   [Test]
-  public void GameLoadedFromSaveFile() {
+  public void GameLoadedFromSaveFile()
+  {
     _state.On(new MapLogic.Input.GameLoadedFromSaveFile(5));
 
     _gameRepo.Verify(repo => repo.SetNumCoinsCollected(5));
   }
 
   [Test]
-  public void OnCoinCollectionStarted() {
+  public void OnCoinCollectionStarted()
+  {
     var coin = new Mock<ICoin>();
 
     coin.Setup(coin => coin.Name).Returns("coin1");
@@ -66,7 +71,8 @@ public class MapLogicStateTest : TestClass {
   }
 
   [Test]
-  public void OnCoinCollectionCompleted() {
+  public void OnCoinCollectionCompleted()
+  {
     var coin = new Mock<ICoin>();
 
     coin.Setup(coin => coin.Name).Returns("coin1");

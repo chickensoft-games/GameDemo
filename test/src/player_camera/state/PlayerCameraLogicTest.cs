@@ -4,21 +4,22 @@ using Chickensoft.GoDotTest;
 using Godot;
 using Shouldly;
 
-public class PlayerCameraLogicTest : TestClass {
+public class PlayerCameraLogicTest : TestClass
+{
   private PlayerCameraLogic _logic = default!;
 
   public PlayerCameraLogicTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
-    _logic = new();
-  }
+  public void Setup() => _logic = new();
 
   [Test]
-  public void Initializes() {
+  public void Initializes()
+  {
     // Make sure the camera logic block sets up the blackboard with
     // everything the states will need to use.
-    var data = new PlayerCameraLogic.Data() {
+    var data = new PlayerCameraLogic.Data()
+    {
       TargetPosition = Vector3.Zero,
       TargetAngleHorizontal = 0,
       TargetAngleVertical = 0,

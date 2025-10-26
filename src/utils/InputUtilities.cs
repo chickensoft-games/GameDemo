@@ -3,7 +3,8 @@
 using System;
 using Godot;
 
-public abstract class InputUtilities {
+public abstract class InputUtilities
+{
   /// <summary>
   /// Get axis pressed input by specifying two actions,
   /// one negative and one positive.
@@ -19,7 +20,8 @@ public abstract class InputUtilities {
     StringName positiveAction,
     JoyAxis axis,
     int device = 0
-  ) {
+  )
+  {
     var axisValue = Input.GetAxis(negativeAction, positiveAction);
     var isInDeadZone =
       Math.Abs(axisValue) < InputMap.ActionGetDeadzone(negativeAction) ||
@@ -31,7 +33,8 @@ public abstract class InputUtilities {
         Input.IsActionPressed(negativeAction) ||
         Input.IsActionPressed(positiveAction)
       )
-      ? new InputEventJoypadMotion() {
+      ? new InputEventJoypadMotion()
+      {
         Axis = axis,
         AxisValue = axisValue,
         Device = device

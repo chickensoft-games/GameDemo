@@ -1,10 +1,19 @@
 namespace GameDemo.Tests;
 
+using System.Diagnostics.CodeAnalysis;
 using Chickensoft.GoDotTest;
 using Godot;
 using Shouldly;
 
-public class AppRepoTest : TestClass {
+[
+  SuppressMessage(
+    "Design",
+    "CA1001",
+    Justification = "Disposable field is disposed in last test"
+  )
+]
+public class AppRepoTest : TestClass
+{
   private AppRepo _repo = default!;
 
   public AppRepoTest(Node testScene) : base(testScene) { }
@@ -16,13 +25,15 @@ public class AppRepoTest : TestClass {
   public void Cleanup() => _repo.Dispose();
 
   [Test]
-  public void Initializes() {
+  public void Initializes()
+  {
     var repo = new AppRepo();
     repo.ShouldBeAssignableTo<IAppRepo>();
   }
 
   [Test]
-  public void SkipSplashScreen() {
+  public void SkipSplashScreen()
+  {
     var called = false;
 
     void splashScreenSkipped() => called = true;
@@ -38,7 +49,8 @@ public class AppRepoTest : TestClass {
   }
 
   [Test]
-  public void OnMainMenuEnteredInvokesEvent() {
+  public void OnMainMenuEnteredInvokesEvent()
+  {
     var called = 0;
 
     void onMainMenuEntered() => called++;
@@ -51,7 +63,8 @@ public class AppRepoTest : TestClass {
   }
 
   [Test]
-  public void OnEnterGameInvokesEvent() {
+  public void OnEnterGameInvokesEvent()
+  {
     var called = 0;
 
     void onEnterGame() => called++;
@@ -64,11 +77,13 @@ public class AppRepoTest : TestClass {
   }
 
   [Test]
-  public void OnExitGameInvokesEventWithPostGameAction() {
+  public void OnExitGameInvokesEventWithPostGameAction()
+  {
     var called = 0;
     var action = PostGameAction.GoToMainMenu;
 
-    void onExitGame(PostGameAction a) {
+    void onExitGame(PostGameAction a)
+    {
       called++;
       a.ShouldBe(action);
     }
@@ -81,7 +96,8 @@ public class AppRepoTest : TestClass {
   }
 
   [Test]
-  public void Disposes() {
+  public void Disposes()
+  {
     Should.NotThrow(_repo.Dispose);
     // Redundant dispose shouldn't do anything.
     Should.NotThrow(_repo.Dispose);

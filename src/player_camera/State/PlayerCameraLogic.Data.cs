@@ -4,10 +4,12 @@ using Chickensoft.Introspection;
 using Chickensoft.Serialization;
 using Godot;
 
-public partial class PlayerCameraLogic {
+public partial class PlayerCameraLogic
+{
   /// <summary>Player camera data.</summary>
   [Meta, Id("player_camera_logic_data")]
-  public partial record Data {
+  public partial record Data
+  {
     /// <summary>
     /// The camera's target position. The camera will move towards this
     /// position each tick, allowing for smooth camera follow motion.

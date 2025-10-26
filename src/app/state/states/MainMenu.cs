@@ -3,14 +3,19 @@ namespace GameDemo;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class AppLogic {
-  public partial record State {
+public partial class AppLogic
+{
+  public partial record State
+  {
     [Meta]
     public partial record MainMenu : State,
-    IGet<Input.NewGame>, IGet<Input.LoadGame> {
-      public MainMenu() {
+    IGet<Input.NewGame>, IGet<Input.LoadGame>
+    {
+      public MainMenu()
+      {
         this.OnEnter(
-          () => {
+          () =>
+          {
             Get<Data>().ShouldLoadExistingGame = false;
 
             Output(new Output.SetupGameScene());
@@ -24,7 +29,8 @@ public partial class AppLogic {
 
       public Transition On(in Input.NewGame input) => To<LeavingMenu>();
 
-      public Transition On(in Input.LoadGame input) {
+      public Transition On(in Input.LoadGame input)
+      {
         Get<Data>().ShouldLoadExistingGame = true;
 
         return To<LeavingMenu>();

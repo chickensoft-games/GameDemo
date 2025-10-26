@@ -6,7 +6,8 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class PlayerLogicStateDisabledTest : TestClass {
+public class PlayerLogicStateDisabledTest : TestClass
+{
   private IFakeContext _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private PlayerLogic.State.Disabled _state = default!;
@@ -14,7 +15,8 @@ public class PlayerLogicStateDisabledTest : TestClass {
   public PlayerLogicStateDisabledTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _appRepo = new();
     _state = new();
     _context = _state.CreateFakeContext();
@@ -23,7 +25,8 @@ public class PlayerLogicStateDisabledTest : TestClass {
   }
 
   [Test]
-  public void EntersAndExits() {
+  public void EntersAndExits()
+  {
     _state.Enter();
 
     _context.Outputs.ShouldBe([
@@ -32,7 +35,8 @@ public class PlayerLogicStateDisabledTest : TestClass {
   }
 
   [Test]
-  public void Subscribes() {
+  public void Subscribes()
+  {
     _state.Attach(_context);
     _appRepo.VerifyAdd(
       repo => repo.GameEntered += _state.OnGameEntered
@@ -45,14 +49,16 @@ public class PlayerLogicStateDisabledTest : TestClass {
   }
 
   [Test]
-  public void IdlesOnEnable() {
+  public void IdlesOnEnable()
+  {
     var next = _state.On(new PlayerLogic.Input.Enable());
 
     next.State.ShouldBeAssignableTo<PlayerLogic.State.Idle>();
   }
 
   [Test]
-  public void OnGameAboutToStartEnables() {
+  public void OnGameAboutToStartEnables()
+  {
     _state.OnGameEntered();
 
     _context.Inputs.ShouldBe([new PlayerLogic.Input.Enable()]);

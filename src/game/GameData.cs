@@ -4,7 +4,8 @@ using Chickensoft.Introspection;
 using Chickensoft.Serialization;
 
 [Meta, Id("game_data")]
-public partial record GameData {
+public partial record GameData
+{
   [Save("map_data")]
   public required MapData MapData { get; init; }
 

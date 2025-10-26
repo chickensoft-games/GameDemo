@@ -6,7 +6,8 @@ using Godot;
 
 
 [Meta, Id("coin_data")]
-public partial record CoinData {
+public partial record CoinData
+{
   [Save("state_machine")]
   public required ICoinLogic StateMachine { get; init; }
   [Save("global_transform")]

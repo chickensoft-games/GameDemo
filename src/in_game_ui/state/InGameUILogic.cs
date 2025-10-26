@@ -10,6 +10,7 @@ public interface IInGameUILogic : ILogicBlock<InGameUILogic.State>;
 
 [Meta]
 [LogicBlock(typeof(State))]
-public partial class InGameUILogic : LogicBlock<InGameUILogic.State>, IInGameUILogic {
+public partial class InGameUILogic : LogicBlock<InGameUILogic.State>, IInGameUILogic
+{
   public override Transition GetInitialState() => To<State>();
 }

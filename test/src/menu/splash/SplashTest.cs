@@ -1,12 +1,21 @@
 namespace GameDemo.Tests;
 
+using System.Diagnostics.CodeAnalysis;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
 using Godot;
 using Moq;
 
-public class SplashTest : TestClass {
+[
+  SuppressMessage(
+    "Design",
+    "CA1001",
+    Justification = "Disposable field is Godot object; Godot will dispose"
+  )
+]
+public class SplashTest : TestClass
+{
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IAnimationPlayer> _animationPlayer = default!;
   private Splash _splash = default!;
@@ -14,10 +23,12 @@ public class SplashTest : TestClass {
   public SplashTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _appRepo = new Mock<IAppRepo>();
     _animationPlayer = new Mock<IAnimationPlayer>();
-    _splash = new Splash() {
+    _splash = new Splash()
+    {
       AnimationPlayer = _animationPlayer.Object
     };
 
@@ -27,7 +38,8 @@ public class SplashTest : TestClass {
   }
 
   [Test]
-  public void PlaysSplashScreen() {
+  public void PlaysSplashScreen()
+  {
     _splash.OnReady();
 
     _animationPlayer.VerifyAdd(
@@ -45,7 +57,8 @@ public class SplashTest : TestClass {
   }
 
   [Test]
-  public void SkipsSplashScreen() {
+  public void SkipsSplashScreen()
+  {
     _splash.OnReady();
 
     _animationPlayer.VerifyAdd(
@@ -53,7 +66,8 @@ public class SplashTest : TestClass {
     );
 
     // Make sure clicking skips it.
-    var input = new InputEventMouseButton() {
+    var input = new InputEventMouseButton()
+    {
       Pressed = true
     };
 
@@ -63,11 +77,13 @@ public class SplashTest : TestClass {
     _appRepo.Reset();
 
     // Make sure other inputs don't skip it.
-    var otherInput = new InputEventMouseButton() {
+    var otherInput = new InputEventMouseButton()
+    {
       Pressed = false
     };
 
-    var otherInput2 = new InputEventKey() {
+    var otherInput2 = new InputEventKey()
+    {
       Pressed = true
     };
     _splash._Input(otherInput);

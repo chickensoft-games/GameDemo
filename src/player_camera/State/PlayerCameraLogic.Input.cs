@@ -1,8 +1,11 @@
 namespace GameDemo;
+
 using Godot;
 
-public partial class PlayerCameraLogic {
-  public static class Input {
+public partial class PlayerCameraLogic
+{
+  public static class Input
+  {
     public readonly record struct TargetOffsetChanged(Vector3 TargetOffset);
     public readonly record struct PhysicsTicked(double Delta);
     public readonly record struct MouseInputOccurred(

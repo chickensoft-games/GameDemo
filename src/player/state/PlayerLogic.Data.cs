@@ -5,10 +5,12 @@ using Chickensoft.Introspection;
 using Chickensoft.Serialization;
 using Godot;
 
-public partial class PlayerLogic {
+public partial class PlayerLogic
+{
   /// <summary>Data shared between states.</summary>
   [Meta, Id("player_logic_data")]
-  public partial record Data {
+  public partial record Data
+  {
     [Save("last_strong_direction")]
     public Vector3 LastStrongDirection { get; set; } = Vector3.Forward;
     [Save("last_velocity")]

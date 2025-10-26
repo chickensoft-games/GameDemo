@@ -2,15 +2,17 @@ namespace GameDemo;
 
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Godot;
 using Chickensoft.Introspection;
+using Godot;
 
-public interface IInGameUI : IControl {
+public interface IInGameUI : IControl
+{
   void SetCoinsLabel(int coins, int totalCoins);
 }
 
 [Meta(typeof(IAutoNode))]
-public partial class InGameUI : Control, IInGameUI {
+public partial class InGameUI : Control, IInGameUI
+{
   public override void _Notification(int what) => this.Notify(what);
 
   #region Dependencies
@@ -34,11 +36,10 @@ public partial class InGameUI : Control, IInGameUI {
 
   #endregion State
 
-  public void Setup() {
-    InGameUILogic = new InGameUILogic();
-  }
+  public void Setup() => InGameUILogic = new InGameUILogic();
 
-  public void OnResolved() {
+  public void OnResolved()
+  {
     InGameUILogic.Set(this);
     InGameUILogic.Set(AppRepo);
     InGameUILogic.Set(GameRepo);
@@ -58,7 +59,8 @@ public partial class InGameUI : Control, IInGameUI {
   public void SetCoinsLabel(int coins, int totalCoins) =>
     CoinsLabel.Text = $"{coins}/{totalCoins}";
 
-  public void OnExitTree() {
+  public void OnExitTree()
+  {
     InGameUILogic.Stop();
     InGameUIBinding.Dispose();
   }

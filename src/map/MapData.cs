@@ -5,9 +5,11 @@ using Chickensoft.Introspection;
 using Chickensoft.Serialization;
 
 [Meta, Id("map_data")]
-public partial record MapData {
+public partial record MapData
+{
   [Save("coins_being_collected")]
-  public required Dictionary<string, CoinData> CoinsBeingCollected {
+  public required Dictionary<string, CoinData> CoinsBeingCollected
+  {
     get; init;
   }
   [Save("collected_coin_ids")]

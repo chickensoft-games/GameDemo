@@ -12,17 +12,20 @@ using Chickensoft.GoDotTest;
 // If you want to edit your game's main entry-point, please see Game.tscn and
 // Game.cs instead.
 
-public partial class Main : Node2D {
+public partial class Main : Node2D
+{
 #if RUN_TESTS
   public TestEnvironment Environment = default!;
 #endif
 
-  public override void _Ready() {
+  public override void _Ready()
+  {
 #if RUN_TESTS
     // If this is a debug build, use GoDotTest to examine the
     // command line arguments and determine if we should run tests.
     Environment = TestEnvironment.From(OS.GetCmdlineArgs());
-    if (Environment.ShouldRunTests) {
+    if (Environment.ShouldRunTests)
+    {
       CallDeferred(nameof(RunTests));
       return;
     }

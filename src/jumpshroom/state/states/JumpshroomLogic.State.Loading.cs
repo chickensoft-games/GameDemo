@@ -3,14 +3,19 @@ namespace GameDemo;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class JumpshroomLogic {
-  public partial record State {
+public partial class JumpshroomLogic
+{
+  public partial record State
+  {
     [Meta]
-    public partial record Loading : State, IGet<Input.Launch> {
+    public partial record Loading : State, IGet<Input.Launch>
+    {
       public IPushEnabled Target { get; set; } = default!;
 
-      public Loading() {
-        this.OnEnter(() => {
+      public Loading()
+      {
+        this.OnEnter(() =>
+        {
           Get<IGameRepo>().OnJumpshroomUsed();
           Output(new Output.Animate());
         });

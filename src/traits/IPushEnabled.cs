@@ -5,7 +5,8 @@ using Godot;
 /// <summary>
 /// Represents an object that can have a force applied to it.
 /// </summary>
-public interface IPushEnabled {
+public interface IPushEnabled
+{
   /// <summary>
   /// Applies a force to the object.
   /// </summary>

@@ -4,15 +4,20 @@ using Chickensoft.Collections;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class CoinLogic {
-  public partial record State {
+public partial class CoinLogic
+{
+  public partial record State
+  {
     [Meta, Id("coin_logic_state_collecting")]
-    public partial record Collecting : State, IGet<Input.PhysicsProcess> {
-      public Collecting() {
+    public partial record Collecting : State, IGet<Input.PhysicsProcess>
+    {
+      public Collecting()
+      {
         this.OnEnter(() => Get<IGameRepo>().StartCoinCollection(Get<ICoin>()));
       }
 
-      public Transition On(in Input.PhysicsProcess input) {
+      public Transition On(in Input.PhysicsProcess input)
+      {
         var settings = Get<Settings>();
         var data = Get<Data>();
         var entityTable = Get<EntityTable>();
@@ -20,7 +25,8 @@ public partial class CoinLogic {
 
         data.ElapsedTime += (float)input.Delta;
 
-        if (data.ElapsedTime >= collectionTime) {
+        if (data.ElapsedTime >= collectionTime)
+        {
           Output(new Output.SelfDestruct());
 
           var coin = Get<ICoin>();
@@ -29,7 +35,8 @@ public partial class CoinLogic {
           gameRepo.OnFinishCoinCollection(coin);
         }
 
-        if (entityTable.Get<ICoinCollector>(data.Target) is { } target) {
+        if (entityTable.Get<ICoinCollector>(data.Target) is { } target)
+        {
           var nextPosition = input.GlobalPosition.Lerp(
             target.CenterOfMass, (float)(data.ElapsedTime / collectionTime)
           );

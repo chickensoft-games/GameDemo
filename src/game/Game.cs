@@ -13,14 +13,16 @@ using Chickensoft.Serialization.Godot;
 using Godot;
 
 public interface IGame : INode3D,
-IProvide<IGameRepo>, IProvide<ISaveChunk<GameData>>, IProvide<EntityTable> {
+IProvide<IGameRepo>, IProvide<ISaveChunk<GameData>>, IProvide<EntityTable>
+{
   void LoadExistingGame();
 
   event Game.SaveFileLoadedEventHandler? SaveFileLoaded;
 }
 
 [Meta(typeof(IAutoNode))]
-public partial class Game : Node3D, IGame {
+public partial class Game : Node3D, IGame
+{
   public override void _Notification(int what) => this.Notify(what);
 
   #region Save
@@ -73,7 +75,8 @@ public partial class Game : Node3D, IGame {
 
   #endregion Dependencies
 
-  public void Setup() {
+  public void Setup()
+  {
     FileSystem = new FileSystem();
 
     SaveFilePath = FileSystem.Path.Join(OS.GetUserDataDir(), SAVE_FILE_NAME);
@@ -93,7 +96,8 @@ public partial class Game : Node3D, IGame {
 
     // Create a standard JsonSerializerOptions with our introspective type
     // resolver and the logic blocks converter.
-    JsonOptions = new JsonSerializerOptions {
+    JsonOptions = new JsonSerializerOptions
+    {
       Converters = {
         new SerializableTypeConverter(upgradeDependencies)
       },
@@ -114,8 +118,10 @@ public partial class Game : Node3D, IGame {
     PauseMenu.Save += OnPauseMenuSaveRequested;
 
     GameChunk = new SaveChunk<GameData>(
-      (chunk) => {
-        var gameData = new GameData() {
+      (chunk) =>
+      {
+        var gameData = new GameData()
+        {
           MapData = chunk.GetChunkSaveData<MapData>(),
           PlayerData = chunk.GetChunkSaveData<PlayerData>(),
           PlayerCameraData = chunk.GetChunkSaveData<PlayerCameraData>()
@@ -123,7 +129,8 @@ public partial class Game : Node3D, IGame {
 
         return gameData;
       },
-        onLoad: (chunk, data) => {
+        onLoad: (chunk, data) =>
+        {
           chunk.LoadChunkSaveData(data.MapData);
           chunk.LoadChunkSaveData(data.PlayerData);
           chunk.LoadChunkSaveData(data.PlayerCameraData);
@@ -137,17 +144,21 @@ public partial class Game : Node3D, IGame {
     // while loading an existing save file.
   }
 
-  public void OnResolved() {
+  public void OnResolved()
+  {
     SaveFile = new SaveFile<GameData>(
       root: GameChunk,
-      onSave: async data => {
+      onSave: async data =>
+      {
         // Save the game data to disk.
         var json = JsonSerializer.Serialize(data, JsonOptions);
         await FileSystem.File.WriteAllTextAsync(SaveFilePath, json);
       },
-      onLoad: async () => {
+      onLoad: async () =>
+      {
         // Load the game data from disk.
-        if (!FileSystem.File.Exists(SaveFilePath)) {
+        if (!FileSystem.File.Exists(SaveFilePath))
+        {
           GD.Print("No save file to load :'(");
           return null;
         }
@@ -160,7 +171,8 @@ public partial class Game : Node3D, IGame {
     GameBinding = GameLogic.Bind();
     GameBinding
       .Handle(
-        (in GameLogic.Output.StartGame _) => {
+        (in GameLogic.Output.StartGame _) =>
+        {
           PlayerCamera.UsePlayerCamera();
           InGameUi.Show();
         })
@@ -174,17 +186,20 @@ public partial class Game : Node3D, IGame {
             ? Input.MouseModeEnum.Captured
             : Input.MouseModeEnum.Visible
       )
-      .Handle((in GameLogic.Output.ShowLostScreen _) => {
+      .Handle((in GameLogic.Output.ShowLostScreen _) =>
+      {
         DeathMenu.Show();
         DeathMenu.FadeIn();
         DeathMenu.Animate();
       })
       .Handle((in GameLogic.Output.ExitLostScreen _) => DeathMenu.FadeOut())
-      .Handle((in GameLogic.Output.ShowPauseMenu _) => {
+      .Handle((in GameLogic.Output.ShowPauseMenu _) =>
+      {
         PauseMenu.Show();
         PauseMenu.FadeIn();
       })
-      .Handle((in GameLogic.Output.ShowWonScreen _) => {
+      .Handle((in GameLogic.Output.ShowWonScreen _) =>
+      {
         WinMenu.Show();
         WinMenu.FadeIn();
       })
@@ -217,8 +232,10 @@ public partial class Game : Node3D, IGame {
     this.Provide();
   }
 
-  public override void _Input(InputEvent @event) {
-    if (Input.IsActionJustPressed("ui_cancel")) {
+  public override void _Input(InputEvent @event)
+  {
+    if (Input.IsActionJustPressed("ui_cancel"))
+    {
       GameLogic.Input(new GameLogic.Input.PauseButtonPressed());
     }
   }
@@ -244,7 +261,8 @@ public partial class Game : Node3D, IGame {
   public void OnDeathMenuTransitioned() =>
     GameLogic.Input(new GameLogic.Input.DeathMenuTransitioned());
 
-  public void OnExitTree() {
+  public void OnExitTree()
+  {
     DeathMenu.TryAgain -= OnStart;
     DeathMenu.MainMenu -= OnMainMenu;
     DeathMenu.TransitionCompleted -= OnDeathMenuTransitioned;
@@ -258,14 +276,14 @@ public partial class Game : Node3D, IGame {
     GameRepo.Dispose();
   }
 
-  public void LoadExistingGame() {
+  public void LoadExistingGame()
+  {
     SaveFile.Load()
       .ContinueWith((_) => CallDeferred(nameof(FinishedLoadingSaveFile)));
   }
 
-  private void FinishedLoadingSaveFile() {
-    EmitSignal(SignalName.SaveFileLoaded);
-  }
+  private void FinishedLoadingSaveFile()
+    => EmitSignal(SignalName.SaveFileLoaded);
 
   private void SetPauseMode(bool isPaused) => GetTree().Paused = isPaused;
 }

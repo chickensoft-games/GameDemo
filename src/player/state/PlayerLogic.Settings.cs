@@ -1,6 +1,7 @@
 namespace GameDemo;
 
-public partial class PlayerLogic {
+public partial class PlayerLogic
+{
   /// <summary>Player settings.</summary>
   /// <param name="RotationSpeed">Rotation speed (quaternions?/sec).</param>
   /// <param name="StoppingSpeed">Stopping velocity (meters/sec).</param>

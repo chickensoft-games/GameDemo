@@ -7,7 +7,8 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class CoinLogicStateIdleTest : TestClass {
+public class CoinLogicStateIdleTest : TestClass
+{
   private IFakeContext _context = default!;
   private CoinLogic.State.Idle _state = default!;
   private Mock<IAppRepo> _appRepo = default!;
@@ -20,7 +21,8 @@ public class CoinLogicStateIdleTest : TestClass {
   public CoinLogicStateIdleTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _state = new();
     _coin = new();
     _target = new();
@@ -40,7 +42,8 @@ public class CoinLogicStateIdleTest : TestClass {
   }
 
   [Test]
-  public void GoesToCollectingOnStartCollection() {
+  public void GoesToCollectingOnStartCollection()
+  {
     var next = _state.On(new CoinLogic.Input.StartCollection(_target.Object));
     next.State.ShouldBeAssignableTo<CoinLogic.State.Collecting>();
   }

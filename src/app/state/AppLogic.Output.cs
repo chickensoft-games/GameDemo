@@ -1,7 +1,9 @@
 namespace GameDemo;
 
-public partial class AppLogic {
-  public static class Output {
+public partial class AppLogic
+{
+  public static class Output
+  {
     public readonly record struct FadeToBlack;
 
     public readonly record struct SetupGameScene();

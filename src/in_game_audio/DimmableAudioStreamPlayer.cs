@@ -3,7 +3,8 @@ namespace GameDemo;
 using Chickensoft.GodotNodeInterfaces;
 using Godot;
 
-public interface IDimmableAudioStreamPlayer : IAudioStreamPlayer {
+public interface IDimmableAudioStreamPlayer : IAudioStreamPlayer
+{
   /// <summary>Fade this dimmable audio stream track in.</summary>
   void FadeIn();
   /// <summary>Fade this dimmable audio stream track out.</summary>
@@ -11,7 +12,8 @@ public interface IDimmableAudioStreamPlayer : IAudioStreamPlayer {
 }
 
 public partial class DimmableAudioStreamPlayer :
-  AudioStreamPlayer, IDimmableAudioStreamPlayer {
+  AudioStreamPlayer, IDimmableAudioStreamPlayer
+{
   #region Constants
   // -60 to -80 is considered inaudible for decibels.
   public const float VOLUME_DB_INAUDIBLE = -80f;
@@ -22,22 +24,26 @@ public partial class DimmableAudioStreamPlayer :
 
   public float InitialVolumeDb;
 
-  public override void _Ready() {
+  public override void _Ready()
+  {
     InitialVolumeDb = VolumeDb;
     VolumeDb = VOLUME_DB_INAUDIBLE;
   }
 
-  public void FadeIn() {
+  public void FadeIn()
+  {
     SetupFade(InitialVolumeDb, Tween.EaseType.Out);
     Play();
   }
 
-  public void FadeOut() {
+  public void FadeOut()
+  {
     SetupFade(VOLUME_DB_INAUDIBLE, Tween.EaseType.In);
     FadeTween!.TweenCallback(Callable.From(Stop));
   }
 
-  public void SetupFade(float volumeDb, Tween.EaseType ease) {
+  public void SetupFade(float volumeDb, Tween.EaseType ease)
+  {
     FadeTween?.Kill();
 
     FadeTween = GodotInterfaces.Adapt<ITween>(CreateTween());

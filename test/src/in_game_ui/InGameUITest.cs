@@ -1,5 +1,6 @@
 namespace GameDemo.Tests;
 
+using System.Diagnostics.CodeAnalysis;
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
@@ -8,7 +9,15 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class InGameUITest : TestClass {
+[
+  SuppressMessage(
+    "Design",
+    "CA1001",
+    Justification = "Disposable field is Godot object; Godot will dispose"
+  )
+]
+public class InGameUITest : TestClass
+{
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private Mock<ILabel> _coinsLabel = default!;
@@ -20,7 +29,8 @@ public class InGameUITest : TestClass {
   public InGameUITest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _appRepo = new();
     _gameRepo = new();
     _coinsLabel = new();
@@ -31,7 +41,8 @@ public class InGameUITest : TestClass {
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
     _logic.Setup(logic => logic.Start());
 
-    _ui = new() {
+    _ui = new()
+    {
       CoinsLabel = _coinsLabel.Object,
       InGameUILogic = _logic.Object
     };
@@ -43,14 +54,16 @@ public class InGameUITest : TestClass {
   }
 
   [Test]
-  public void Initializes() {
+  public void Initializes()
+  {
     _ui.Setup();
 
     _ui.InGameUILogic.ShouldBeOfType<InGameUILogic>();
   }
 
   [Test]
-  public void OnExitTree() {
+  public void OnExitTree()
+  {
     _logic.Reset();
     _logic.Setup(logic => logic.Stop());
     _ui.InGameUIBinding = _binding;
@@ -61,7 +74,8 @@ public class InGameUITest : TestClass {
   }
 
   [Test]
-  public void NumCoinsCollectedChanged() {
+  public void NumCoinsCollectedChanged()
+  {
     _ui.OnResolved();
 
     var numCoinsAtStart = new AutoProp<int>(2);
@@ -77,7 +91,8 @@ public class InGameUITest : TestClass {
   }
 
   [Test]
-  public void NumCoinsAtStartChanged() {
+  public void NumCoinsAtStartChanged()
+  {
     _ui.OnResolved();
 
     var numCoinsCollected = new AutoProp<int>(1);

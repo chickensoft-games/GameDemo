@@ -1,5 +1,6 @@
 namespace GameDemo.Tests;
 
+using System.Diagnostics.CodeAnalysis;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
@@ -7,8 +8,17 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public partial class JumpshroomTest : TestClass {
-  public partial class FakePushEnabled : Node3D, IPushEnabled {
+[
+  SuppressMessage(
+    "Design",
+    "CA1001",
+    Justification = "Disposable field is Godot object; Godot will dispose"
+  )
+]
+public partial class JumpshroomTest : TestClass
+{
+  public partial class FakePushEnabled : Node3D, IPushEnabled
+  {
     public void Push(Vector3 force) { }
   }
 
@@ -24,7 +34,8 @@ public partial class JumpshroomTest : TestClass {
   public JumpshroomTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _binding = JumpshroomLogic.CreateFakeBinding();
 
     _logic = new();
@@ -35,7 +46,8 @@ public partial class JumpshroomTest : TestClass {
 
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
 
-    _shroom = new Jumpshroom {
+    _shroom = new Jumpshroom
+    {
       JumpshroomLogic = _logic.Object,
       JumpshroomBinding = _binding,
       AnimationPlayer = _animPlayer.Object,
@@ -51,14 +63,16 @@ public partial class JumpshroomTest : TestClass {
   }
 
   [Test]
-  public void InitializesValues() {
+  public void InitializesValues()
+  {
     _shroom.Setup();
 
     _shroom.JumpshroomLogic.ShouldNotBeNull();
   }
 
   [Test]
-  public void Subscribes() {
+  public void Subscribes()
+  {
     _shroom.OnResolved();
 
     _animPlayer.VerifyAdd(
@@ -85,7 +99,8 @@ public partial class JumpshroomTest : TestClass {
   }
 
   [Test]
-  public void ShroomLoadedLaunches() {
+  public void ShroomLoadedLaunches()
+  {
     _logic.Reset();
     _logic.Setup(
       logic => logic.Input(It.IsAny<JumpshroomLogic.Input.Launch>())
@@ -95,7 +110,8 @@ public partial class JumpshroomTest : TestClass {
   }
 
   [Test]
-  public void OnAnimationFinishedCompletesLaunch() {
+  public void OnAnimationFinishedCompletesLaunch()
+  {
     _logic.Reset();
     _logic.Setup(
       logic => logic.Input(It.IsAny<JumpshroomLogic.Input.LaunchCompleted>())
@@ -105,7 +121,8 @@ public partial class JumpshroomTest : TestClass {
   }
 
   [Test]
-  public void OnAreaBodyEnteredHitsIfPushEnabled() {
+  public void OnAreaBodyEnteredHitsIfPushEnabled()
+  {
     _logic.Reset();
     var target = new FakePushEnabled();
     _logic.Setup(
@@ -117,7 +134,8 @@ public partial class JumpshroomTest : TestClass {
   }
 
   [Test]
-  public void OnCooldownTimeoutCompletesCooldown() {
+  public void OnCooldownTimeoutCompletesCooldown()
+  {
     _logic.Reset();
     _logic.Setup(
       logic => logic.Input(
@@ -129,7 +147,8 @@ public partial class JumpshroomTest : TestClass {
   }
 
   [Test]
-  public void AnimatesBounce() {
+  public void AnimatesBounce()
+  {
     _animPlayer.Setup(player => player.Play("bounce", -1, 1, false));
 
     _shroom.OnResolved();
@@ -139,7 +158,8 @@ public partial class JumpshroomTest : TestClass {
   }
 
   [Test]
-  public void StartsCooldownTimer() {
+  public void StartsCooldownTimer()
+  {
     _cooldownTimer.Setup(timer => timer.Start(-1));
 
     _shroom.OnResolved();

@@ -1,5 +1,6 @@
 namespace GameDemo.Tests;
 
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
@@ -10,8 +11,17 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public partial class CoinTest : TestClass {
-  public partial class FakeCoinCollector : Node3D, ICoinCollector {
+[
+  SuppressMessage(
+    "Design",
+    "CA1001",
+    Justification = "Disposable field is a Godot object; Godot will dispose"
+  )
+]
+public partial class CoinTest : TestClass
+{
+  public partial class FakeCoinCollector : Node3D, ICoinCollector
+  {
     public Vector3 CenterOfMass => Vector3.Zero;
     public void Collect(ICoin coin) { }
   }
@@ -29,7 +39,8 @@ public partial class CoinTest : TestClass {
   public CoinTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _gameRepo = new();
     _animPlayer = new();
     _coinModel = new();
@@ -39,7 +50,8 @@ public partial class CoinTest : TestClass {
 
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
 
-    _coin = new Coin {
+    _coin = new Coin
+    {
       AnimationPlayer = _animPlayer.Object,
       CoinModel = _coinModel.Object,
       CoinLogic = _logic.Object,
@@ -52,14 +64,16 @@ public partial class CoinTest : TestClass {
     _coin.FakeDependency(_entityTable);
 
     // For tests that run in the actual node tree.
-    _coin.FakeNodeTree(new() {
+    _coin.FakeNodeTree(new()
+    {
       ["%AnimationPlayer"] = _animPlayer.Object,
       ["%CoinModel"] = _coinModel.Object
     });
   }
 
   [Test]
-  public void Initializes() {
+  public void Initializes()
+  {
     _coin.Setup();
 
     _coin.Settings.ShouldNotBeNull();
@@ -67,7 +81,8 @@ public partial class CoinTest : TestClass {
   }
 
   [Test]
-  public void OnPhysicsProcess() {
+  public void OnPhysicsProcess()
+  {
     _logic.Reset();
     _logic.Setup(
       logic => logic.Input(in It.Ref<CoinLogic.Input.PhysicsProcess>.IsAny)
@@ -79,7 +94,8 @@ public partial class CoinTest : TestClass {
   }
 
   [Test]
-  public void OnCollectorDetectorBodyEntered() {
+  public void OnCollectorDetectorBodyEntered()
+  {
     _logic.Reset();
     _logic.Setup(
       logic => logic.Input(in It.Ref<CoinLogic.Input.StartCollection>.IsAny)
@@ -92,7 +108,8 @@ public partial class CoinTest : TestClass {
   }
 
   [Test]
-  public void StartsCollectionProcess() {
+  public void StartsCollectionProcess()
+  {
     _coin.OnResolved();
     var state = new Mock<CoinLogic.State.Collecting>();
     _animPlayer.Setup(player => player.Play("collect", -1, 1, false));
@@ -104,7 +121,8 @@ public partial class CoinTest : TestClass {
   }
 
   [Test]
-  public async Task InitializesDetectorAreaDynamically() {
+  public async Task InitializesDetectorAreaDynamically()
+  {
     // This test has to be run in the actual scene tree since it verifies the
     // coin loads and adds a real scene.
     var tree = TestScene.GetTree();
@@ -117,7 +135,8 @@ public partial class CoinTest : TestClass {
   }
 
   [Test]
-  public async Task MovesAndSelfDestructs() {
+  public async Task MovesAndSelfDestructs()
+  {
     // This test has to be run in the actual scene tree since it verifies the
     // coin changes its GlobalPosition.
     var tree = TestScene.GetTree();

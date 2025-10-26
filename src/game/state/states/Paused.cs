@@ -3,16 +3,21 @@ namespace GameDemo;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class GameLogic {
-  public partial record State {
+public partial class GameLogic
+{
+  public partial record State
+  {
     [Meta]
     public partial record Paused : State,
       IGet<Input.PauseButtonPressed>,
       IGet<Input.GoToMainMenu>,
-      IGet<Input.SaveRequested> {
-      public Paused() {
+      IGet<Input.SaveRequested>
+    {
+      public Paused()
+      {
         this.OnEnter(
-          () => {
+          () =>
+          {
             Get<IGameRepo>().Pause();
             Output(new Output.ShowPauseMenu());
           }

@@ -9,7 +9,8 @@ using Godot;
 using Compiler = System.Runtime.CompilerServices;
 
 public interface IPlayer :
-  ICharacterBody3D, IKillable, ICoinCollector, IPushEnabled {
+  ICharacterBody3D, IKillable, ICoinCollector, IPushEnabled
+{
   IPlayerLogic PlayerLogic { get; }
 
   bool IsMovingHorizontally();
@@ -40,7 +41,8 @@ public partial class Player :
 CharacterBody3D,
 IPlayer,
 IProvide<IPlayerLogic>,
-IProvide<PlayerLogic.Settings> {
+IProvide<PlayerLogic.Settings>
+{
   public override void _Notification(int what) => this.Notify(what);
 
   #region Save
@@ -112,7 +114,8 @@ IProvide<PlayerLogic.Settings> {
 
   #endregion State
 
-  public void Setup() {
+  public void Setup()
+  {
     Settings = new PlayerLogic.Settings(
       RotationSpeed,
       StoppingSpeed,
@@ -132,12 +135,14 @@ IProvide<PlayerLogic.Settings> {
     PlayerLogic.Save(() => new PlayerLogic.Data());
 
     PlayerChunk = new SaveChunk<PlayerData>(
-      onSave: (chunk) => new PlayerData() {
+      onSave: (chunk) => new PlayerData()
+      {
         GlobalTransform = GlobalTransform,
         StateMachine = PlayerLogic,
         Velocity = Velocity
       },
-      onLoad: (chunk, data) => {
+      onLoad: (chunk, data) =>
+      {
         GlobalTransform = data.GlobalTransform;
         Velocity = data.Velocity;
         PlayerLogic.RestoreFrom(data.StateMachine);
@@ -148,13 +153,15 @@ IProvide<PlayerLogic.Settings> {
 
   public void OnReady() => SetPhysicsProcess(true);
 
-  public void OnExitTree() {
+  public void OnExitTree()
+  {
     EntityTable.Remove(Name);
     PlayerLogic.Stop();
     PlayerBinding.Dispose();
   }
 
-  public void OnResolved() {
+  public void OnResolved()
+  {
     // Add a child to our parent save chunk (the game chunk) so that it can
     // look up the player chunk when loading and saving the game.
     GameChunk.AddChunk(PlayerChunk);
@@ -179,13 +186,15 @@ IProvide<PlayerLogic.Settings> {
     PlayerLogic.Start();
   }
 
-  public void OnPhysicsProcess(double delta) {
+  public void OnPhysicsProcess(double delta)
+  {
     PlayerLogic.Input(new PlayerLogic.Input.PhysicsTick(delta));
 
     var jumpPressed = Input.IsActionPressed(GameInputs.Jump);
     var jumpJustPressed = Input.IsActionJustPressed(GameInputs.Jump);
 
-    if (ShouldJump(jumpPressed, jumpJustPressed)) {
+    if (ShouldJump(jumpPressed, jumpJustPressed))
+    {
       PlayerLogic.Input(
         new PlayerLogic.Input.Jump(delta)
       );
@@ -201,14 +210,16 @@ IProvide<PlayerLogic.Settings> {
 
   #region IPlayer
 
-  public Vector3 GetGlobalInputVector(Basis cameraBasis) {
+  public Vector3 GetGlobalInputVector(Basis cameraBasis)
+  {
     var rawInput = Input.GetVector(
       GameInputs.MoveLeft, GameInputs.MoveRight, GameInputs.MoveUp,
       GameInputs.MoveDown
     );
     // This is to ensure that diagonal input isn't stronger than axis aligned
     // input.
-    var input = new Vector3 {
+    var input = new Vector3
+    {
       X = rawInput.X * Mathf.Sqrt(1.0f - (rawInput.Y * rawInput.Y / 2.0f)),
       Z = rawInput.Y * Mathf.Sqrt(1.0f - (rawInput.X * rawInput.X / 2.0f))
     };
@@ -219,7 +230,8 @@ IProvide<PlayerLogic.Settings> {
     Vector3 direction,
     double delta,
     float rotationSpeed
-  ) {
+  )
+  {
     var leftAxis = Vector3.Up.Cross(direction);
     // Create a rotation quaternion from a basis with the 3 axis we care about.
     var rotationBasis =

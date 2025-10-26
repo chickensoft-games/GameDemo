@@ -3,7 +3,8 @@ namespace GameDemo;
 using Godot;
 
 [GlobalClass]
-public partial class PlayerCameraSettings : Resource {
+public partial class PlayerCameraSettings : Resource
+{
   [Export(PropertyHint.Range, "0, 10, 0.01")]
   public float MouseSensitivity { get; set; } = 0.2f;
 
