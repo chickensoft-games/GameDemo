@@ -3,13 +3,18 @@ namespace GameDemo;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class GameLogic {
-  public partial record State {
+public partial class GameLogic
+{
+  public partial record State
+  {
     [Meta]
-    public partial record Saving : Paused, IGet<Input.SaveCompleted> {
-      public Saving() {
+    public partial record Saving : Paused, IGet<Input.SaveCompleted>
+    {
+      public Saving()
+      {
         this.OnEnter(
-          () => {
+          () =>
+          {
             Output(new Output.ShowPauseSaveOverlay());
             Output(new Output.StartSaving());
           }

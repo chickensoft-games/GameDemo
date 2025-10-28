@@ -1,6 +1,7 @@
 namespace GameDemo.Tests;
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
@@ -10,7 +11,15 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class MapTest : TestClass {
+[
+  SuppressMessage(
+    "Design",
+    "CA1001",
+    Justification = "Disposable field is Godot object; Godot will dispose"
+  )
+]
+public class MapTest : TestClass
+{
   private Mock<INode3D> _coins = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private Mock<IMapLogic> _mapLogic = default!;
@@ -23,7 +32,8 @@ public class MapTest : TestClass {
   public MapTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _coins = new();
     _gameRepo = new();
     _entityTable = new();
@@ -32,7 +42,8 @@ public class MapTest : TestClass {
     _mapChunk = new();
     _data = new();
 
-    _map = new Map {
+    _map = new Map
+    {
       Coins = _coins.Object,
       MapLogic = _mapLogic.Object,
       MapChunk = _mapChunk.Object
@@ -47,7 +58,8 @@ public class MapTest : TestClass {
   }
 
   [Test]
-  public void Initializes() {
+  public void Initializes()
+  {
     _map.Setup();
     _map.MapLogic.ShouldBeOfType<MapLogic>();
     (_map as IProvide<EntityTable>).Value().ShouldBe(_entityTable);
@@ -57,14 +69,16 @@ public class MapTest : TestClass {
   }
 
   [Test]
-  public void GetCoinCount() {
+  public void GetCoinCount()
+  {
     _coins.Setup(coins => coins.GetChildCount(false)).Returns(5);
 
     _map.GetCoinCount().ShouldBe(5);
   }
 
   [Test]
-  public void PerformsSetup() {
+  public void PerformsSetup()
+  {
     _map.OnResolved();
 
     _mapLogic.Verify(logic => logic.Set(It.IsAny<MapLogic.Data>()));
@@ -73,7 +87,8 @@ public class MapTest : TestClass {
   }
 
   [Test]
-  public void Saves() {
+  public void Saves()
+  {
     var coin1 = new Mock<ICoin>();
     var coin2 = new Mock<ICoin>();
 
@@ -95,11 +110,15 @@ public class MapTest : TestClass {
   }
 
   [Test]
-  public void Loads() {
+  public void Loads()
+  {
 
-    var mapData = new MapData() {
-      CoinsBeingCollected = new Dictionary<string, CoinData> {
-        ["coin2"] = new CoinData {
+    var mapData = new MapData()
+    {
+      CoinsBeingCollected = new Dictionary<string, CoinData>
+      {
+        ["coin2"] = new CoinData
+        {
           StateMachine = new CoinLogic(),
           GlobalTransform = Transform3D.Identity
         }

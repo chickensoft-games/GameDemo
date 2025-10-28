@@ -8,7 +8,8 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public partial class PlayerLogicStateAliveTest : TestClass {
+public partial class PlayerLogicStateAliveTest : TestClass
+{
   [Meta, TestState]
   public partial record TestPlayerState : PlayerLogic.State.Alive;
 
@@ -21,11 +22,13 @@ public partial class PlayerLogicStateAliveTest : TestClass {
   private PlayerLogic.State.Alive _state = default!;
 
   public PlayerLogicStateAliveTest(Node testScene) :
-    base(testScene) {
+    base(testScene)
+  {
   }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _data = new();
     _player = new Mock<IPlayer>();
     _settings = new PlayerLogic.Settings(1, 1, 1, 1, 1, 1, 1);
@@ -43,7 +46,8 @@ public partial class PlayerLogicStateAliveTest : TestClass {
   }
 
   [Test]
-  public void Dies() {
+  public void Dies()
+  {
     _gameRepo.Setup(repo => repo.OnGameEnded(GameOverReason.Lost));
 
     var next = _state.On(new PlayerLogic.Input.Killed());
@@ -53,7 +57,8 @@ public partial class PlayerLogicStateAliveTest : TestClass {
   }
 
   [Test]
-  public void PhysicsUpdatesLastStrongDirection() {
+  public void PhysicsUpdatesLastStrongDirection()
+  {
     var input = new PlayerLogic.Input.PhysicsTick(1);
 
     var cameraBasis = new AutoProp<Basis>(Basis.Identity);
@@ -73,7 +78,8 @@ public partial class PlayerLogicStateAliveTest : TestClass {
   }
 
   [Test]
-  public void PhysicsStopsIfVelocityIsLessThanStoppingSpeed() {
+  public void PhysicsStopsIfVelocityIsLessThanStoppingSpeed()
+  {
     var input = new PlayerLogic.Input.PhysicsTick(1);
 
     var cameraBasis = new AutoProp<Basis>(Basis.Identity);
@@ -97,7 +103,8 @@ public partial class PlayerLogicStateAliveTest : TestClass {
   }
 
   [Test]
-  public void MovedInputsHitFloor() {
+  public void MovedInputsHitFloor()
+  {
     var input = new PlayerLogic.Input.Moved();
 
     _gameRepo.Setup(repo => repo.SetPlayerGlobalPosition(It.IsAny<Vector3>()));
@@ -118,7 +125,8 @@ public partial class PlayerLogicStateAliveTest : TestClass {
   }
 
   [Test]
-  public void MovedInputsLeftFloor() {
+  public void MovedInputsLeftFloor()
+  {
     var input = new PlayerLogic.Input.Moved();
 
     _gameRepo.Setup(repo => repo.SetPlayerGlobalPosition(It.IsAny<Vector3>()));
@@ -139,7 +147,8 @@ public partial class PlayerLogicStateAliveTest : TestClass {
   }
 
   [Test]
-  public void MovedInputsStartedFalling() {
+  public void MovedInputsStartedFalling()
+  {
     var input = new PlayerLogic.Input.Moved();
 
     _gameRepo.Setup(repo => repo.SetPlayerGlobalPosition(It.IsAny<Vector3>()));
@@ -160,7 +169,8 @@ public partial class PlayerLogicStateAliveTest : TestClass {
   }
 
   [Test]
-  public void MovedInputsStartedMovingHorizontally() {
+  public void MovedInputsStartedMovingHorizontally()
+  {
     var input = new PlayerLogic.Input.Moved();
 
     _gameRepo.Setup(repo => repo.SetPlayerGlobalPosition(It.IsAny<Vector3>()));
@@ -181,7 +191,8 @@ public partial class PlayerLogicStateAliveTest : TestClass {
   }
 
   [Test]
-  public void MovedInputsStoppedMovingHorizontally() {
+  public void MovedInputsStoppedMovingHorizontally()
+  {
     var input = new PlayerLogic.Input.Moved();
 
     _gameRepo.Setup(repo => repo.SetPlayerGlobalPosition(It.IsAny<Vector3>()));
@@ -202,7 +213,8 @@ public partial class PlayerLogicStateAliveTest : TestClass {
   }
 
   [Test]
-  public void PushedChangesVelocity() {
+  public void PushedChangesVelocity()
+  {
     var input = new PlayerLogic.Input.Pushed(
       GlobalForceImpulseVector: Vector3.Forward * 10
     );

@@ -5,7 +5,8 @@ using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 
-public class QuitTest : TestClass {
+public class QuitTest : TestClass
+{
   private IFakeContext _context = default!;
   private GameLogic.State.Quit _state = default!;
   private Mock<IAppRepo> _appRepo = default!;
@@ -13,7 +14,8 @@ public class QuitTest : TestClass {
   public QuitTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _state = new GameLogic.State.Quit();
     _context = _state.CreateFakeContext();
 
@@ -22,7 +24,8 @@ public class QuitTest : TestClass {
   }
 
   [Test]
-  public void OnEnter() {
+  public void OnEnter()
+  {
     _appRepo.Setup(repo => repo.OnExitGame(PostGameAction.GoToMainMenu));
 
     _state.Enter();

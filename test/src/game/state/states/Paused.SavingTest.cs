@@ -7,7 +7,8 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class PausedSavingTest : TestClass {
+public class PausedSavingTest : TestClass
+{
   private IFakeContext _context = default!;
   private GameLogic.State.Saving _state = default!;
   private Mock<IGameRepo> _gameRepo = default!;
@@ -15,7 +16,8 @@ public class PausedSavingTest : TestClass {
   public PausedSavingTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _state = new();
     _context = _state.CreateFakeContext();
 
@@ -25,7 +27,8 @@ public class PausedSavingTest : TestClass {
   }
 
   [Test]
-  public void OnEnter() {
+  public void OnEnter()
+  {
     _state.Enter(new GameLogic.State.Paused());
     _context.Outputs.ShouldBeOfTypes(
       typeof(GameLogic.Output.ShowPauseSaveOverlay),
@@ -35,7 +38,8 @@ public class PausedSavingTest : TestClass {
   }
 
   [Test]
-  public void OnExit() {
+  public void OnExit()
+  {
     _state.Exit(new GameLogic.State.Paused());
     _context.Outputs.Single().ShouldBeOfType<GameLogic.Output.HidePauseSaveOverlay>();
   }

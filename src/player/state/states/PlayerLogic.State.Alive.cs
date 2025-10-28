@@ -3,8 +3,10 @@ namespace GameDemo;
 using Chickensoft.Introspection;
 using Godot;
 
-public partial class PlayerLogic {
-  public partial record State {
+public partial class PlayerLogic
+{
+  public partial record State
+  {
     private const float MOVEMENT = 0.2f;
 
     [Meta]
@@ -12,7 +14,8 @@ public partial class PlayerLogic {
       IGet<Input.PhysicsTick>,
       IGet<Input.Moved>,
       IGet<Input.Pushed>,
-      IGet<Input.Killed> {
+      IGet<Input.Killed>
+    {
       // Movement is allowed in any state (even in the air), so these inputs
       // handle movement for each substate unless overridden.
       //
@@ -20,13 +23,15 @@ public partial class PlayerLogic {
       // a MoveEnabled substate and extend it for states where movement is
       // allowed.
 
-      public virtual Transition On(in Input.Killed input) {
+      public virtual Transition On(in Input.Killed input)
+      {
         Get<IGameRepo>().OnGameEnded(GameOverReason.Lost);
 
         return To<Dead>();
       }
 
-      public virtual Transition On(in Input.PhysicsTick input) {
+      public virtual Transition On(in Input.PhysicsTick input)
+      {
         var delta = input.Delta;
         var player = Get<IPlayer>();
         var settings = Get<Settings>();
@@ -39,13 +44,14 @@ public partial class PlayerLogic {
         var direction = new Vector2(moveDirection.X, moveDirection.Z);
 
 
-        if (moveDirection.Length() > MOVEMENT) {
+        if (moveDirection.Length() > MOVEMENT)
+        {
           data.LastStrongDirection = moveDirection.Normalized();
         }
-        else {
+        else
+        {
           direction = new Vector2(data.LastStrongDirection.X, data.LastStrongDirection.Z);
         }
-        var lastDirection = data.LastStrongDirection;
 
         var nextRotationBasis = player.GetNextRotationBasis(
           data.LastStrongDirection, delta, settings.RotationSpeed
@@ -61,7 +67,8 @@ public partial class PlayerLogic {
         if (
           moveDirection.Length() == 0f &&
           velocity.Length() < settings.StoppingSpeed
-        ) {
+        )
+        {
           velocity = Vector3.Zero;
         }
 
@@ -80,7 +87,8 @@ public partial class PlayerLogic {
         return ToSelf();
       }
 
-      public virtual Transition On(in Input.Moved input) {
+      public virtual Transition On(in Input.Moved input)
+      {
         var player = Get<IPlayer>();
         var settings = Get<Settings>();
         var gameRepo = Get<IGameRepo>();
@@ -91,11 +99,8 @@ public partial class PlayerLogic {
         // be updated.
         gameRepo.SetPlayerGlobalPosition(input.GlobalPosition);
 
-        var speed = (player.Velocity with { Y = 0 }).Length();
-        var lastSpeed = (data.LastVelocity with { Y = 0 }).Length();
         var isMovingHorizontally = player.IsMovingHorizontally();
         var isOnFloor = player.IsOnFloor();
-        var yVelocity = player.Velocity.Y;
         var hasNegativeYVelocity = player.Velocity.Y < 0f;
 
         // Determine whether we've *just* encountered a condition that would
@@ -128,34 +133,40 @@ public partial class PlayerLogic {
         data.WasOnFloor = isOnFloor;
         data.LastVelocity = player.Velocity;
 
-        if (justHitFloor) {
+        if (justHitFloor)
+        {
           Input(
             new Input.HitFloor(IsMovingHorizontally: isMovingHorizontally)
           );
         }
-        else if (justLeftFloor) {
+        else if (justLeftFloor)
+        {
           Input(
             new Input.LeftFloor(IsFalling: hasNegativeYVelocity)
           );
         }
-        else if (justStartedFalling) {
+        else if (justStartedFalling)
+        {
           Input(new Input.StartedFalling());
         }
 
         // Grounded status hasn't changed. Check for changes in horizontal
         // movement.
 
-        if (justStartedMovingHorizontally) {
+        if (justStartedMovingHorizontally)
+        {
           Input(new Input.StartedMovingHorizontally());
         }
-        else if (justStoppedMovingHorizontally) {
+        else if (justStoppedMovingHorizontally)
+        {
           Input(new Input.StoppedMovingHorizontally());
         }
 
         return ToSelf();
       }
 
-      public Transition On(in Input.Pushed input) {
+      public Transition On(in Input.Pushed input)
+      {
         var player = Get<IPlayer>();
         var velocity = player.Velocity;
 

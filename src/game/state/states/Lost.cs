@@ -3,12 +3,16 @@ namespace GameDemo;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class GameLogic {
-  public partial record State {
+public partial class GameLogic
+{
+  public partial record State
+  {
     [Meta]
     public partial record Lost : State,
-    IGet<Input.Start>, IGet<Input.GoToMainMenu> {
-      public Lost() {
+    IGet<Input.Start>, IGet<Input.GoToMainMenu>
+    {
+      public Lost()
+      {
         this.OnEnter(() => Output(new Output.ShowLostScreen()));
       }
 

@@ -10,7 +10,8 @@ public interface IApp : ICanvasLayer, IProvide<IAppRepo>;
 
 [Meta(typeof(IAutoNode))]
 [ClassDiagram(UseVSCodePaths = true)]
-public partial class App : CanvasLayer, IApp {
+public partial class App : CanvasLayer, IApp
+{
   public override void _Notification(int what) => this.Notify(what);
 
   #region Constants
@@ -51,7 +52,8 @@ public partial class App : CanvasLayer, IApp {
 
   #endregion Nodes
 
-  public void Initialize() {
+  public void Initialize()
+  {
     Instantiator = new Instantiator(GetTree());
     AppRepo = new AppRepo();
     AppLogic = new AppLogic();
@@ -68,31 +70,37 @@ public partial class App : CanvasLayer, IApp {
     this.Provide();
   }
 
-  public void OnReady() {
+  public void OnReady()
+  {
     AppBinding = AppLogic.Bind();
 
     AppBinding
-      .Handle((in AppLogic.Output.ShowSplashScreen _) => {
+      .Handle((in AppLogic.Output.ShowSplashScreen _) =>
+      {
         HideMenus();
         BlankScreen.Hide();
         Splash.Show();
       })
-      .Handle((in AppLogic.Output.HideSplashScreen _) => {
+      .Handle((in AppLogic.Output.HideSplashScreen _) =>
+      {
         BlankScreen.Show();
         FadeToBlack();
       })
-      .Handle((in AppLogic.Output.RemoveExistingGame _) => {
+      .Handle((in AppLogic.Output.RemoveExistingGame _) =>
+      {
         GamePreview.RemoveChildEx(Game);
         Game.QueueFree();
         Game = default!;
       })
-      .Handle((in AppLogic.Output.SetupGameScene _) => {
+      .Handle((in AppLogic.Output.SetupGameScene _) =>
+      {
         Game = Instantiator.LoadAndInstantiate<Game>(GAME_SCENE_PATH);
         GamePreview.AddChildEx(Game);
 
         Instantiator.SceneTree.Paused = false;
       })
-      .Handle((in AppLogic.Output.ShowMainMenu _) => {
+      .Handle((in AppLogic.Output.ShowMainMenu _) =>
+      {
         // Load everything while we're showing a black screen, then fade in.
         HideMenus();
         Menu.Show();
@@ -101,13 +109,15 @@ public partial class App : CanvasLayer, IApp {
         FadeInFromBlack();
       })
       .Handle((in AppLogic.Output.FadeToBlack _) => FadeToBlack())
-      .Handle((in AppLogic.Output.ShowGame _) => {
+      .Handle((in AppLogic.Output.ShowGame _) =>
+      {
         HideMenus();
         FadeInFromBlack();
       })
       .Handle((in AppLogic.Output.HideGame _) => FadeToBlack())
       .Handle(
-        (in AppLogic.Output.StartLoadingSaveFile _) => {
+        (in AppLogic.Output.StartLoadingSaveFile _) =>
+        {
           Game.SaveFileLoaded += OnSaveFileLoaded;
           Game.LoadExistingGame();
         }
@@ -121,12 +131,14 @@ public partial class App : CanvasLayer, IApp {
 
   public void OnLoadGame() => AppLogic.Input(new AppLogic.Input.LoadGame());
 
-  public void OnAnimationFinished(StringName animation) {
+  public void OnAnimationFinished(StringName animation)
+  {
     // There's only two animations :)
     // We don't care what state we're in — we just tell the current state what's
     // happened and it will do the right thing.
 
-    if (animation == "fade_in") {
+    if (animation == "fade_in")
+    {
       AppLogic.Input(new AppLogic.Input.FadeInFinished());
       BlankScreen.Hide();
       return;
@@ -135,22 +147,26 @@ public partial class App : CanvasLayer, IApp {
     AppLogic.Input(new AppLogic.Input.FadeOutFinished());
   }
 
-  public void FadeInFromBlack() {
+  public void FadeInFromBlack()
+  {
     BlankScreen.Show();
     AnimationPlayer.Play("fade_in");
   }
 
-  public void FadeToBlack() {
+  public void FadeToBlack()
+  {
     BlankScreen.Show();
     AnimationPlayer.Play("fade_out");
   }
 
-  public void HideMenus() {
+  public void HideMenus()
+  {
     Splash.Hide();
     Menu.Hide();
   }
 
-  public void OnExitTree() {
+  public void OnExitTree()
+  {
     // Cleanup things we own.
     AppLogic.Stop();
     AppBinding.Dispose();
@@ -161,7 +177,8 @@ public partial class App : CanvasLayer, IApp {
     AnimationPlayer.AnimationFinished -= OnAnimationFinished;
   }
 
-  public void OnSaveFileLoaded() {
+  public void OnSaveFileLoaded()
+  {
     Game.SaveFileLoaded -= OnSaveFileLoaded;
     AppLogic.Input(new AppLogic.Input.SaveFileLoaded());
   }

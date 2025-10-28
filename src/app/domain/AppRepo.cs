@@ -6,7 +6,8 @@ using System;
 ///   Pure application game logic repository shared between view-specific logic
 ///   blocks.
 /// </summary>
-public interface IAppRepo : IDisposable {
+public interface IAppRepo : IDisposable
+{
   /// <summary>
   ///   Event invoked when the game is about to start.
   /// </summary>
@@ -41,7 +42,8 @@ public interface IAppRepo : IDisposable {
 ///   Pure application game logic repository — shared between view-specific logic
 ///   blocks.
 /// </summary>
-public class AppRepo : IAppRepo {
+public class AppRepo : IAppRepo
+{
   public event Action? SplashScreenSkipped;
   public event Action? MainMenuEntered;
   public event Action? GameEntered;
@@ -58,9 +60,12 @@ public class AppRepo : IAppRepo {
 
   #region Internals
 
-  protected void Dispose(bool disposing) {
-    if (!_disposedValue) {
-      if (disposing) {
+  protected void Dispose(bool disposing)
+  {
+    if (!_disposedValue)
+    {
+      if (disposing)
+      {
         // Dispose managed objects.
         SplashScreenSkipped = null;
         MainMenuEntered = null;
@@ -72,7 +77,8 @@ public class AppRepo : IAppRepo {
     }
   }
 
-  public void Dispose() {
+  public void Dispose()
+  {
     Dispose(disposing: true);
     GC.SuppressFinalize(this);
   }

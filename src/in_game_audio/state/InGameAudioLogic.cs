@@ -8,10 +8,12 @@ public interface IInGameAudioLogic : ILogicBlock<InGameAudioLogic.State>;
 [Meta]
 [LogicBlock(typeof(State))]
 public partial class InGameAudioLogic :
-  LogicBlock<InGameAudioLogic.State>, IInGameAudioLogic {
+  LogicBlock<InGameAudioLogic.State>, IInGameAudioLogic
+{
   public override Transition GetInitialState() => To<State>();
 
-  public static class Output {
+  public static class Output
+  {
     public readonly record struct PlayCoinCollected;
 
     public readonly record struct PlayBounce;

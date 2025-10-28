@@ -4,18 +4,20 @@ using System.Linq;
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
+using Chickensoft.Introspection;
 using Chickensoft.SaveFileBuilder;
 using Godot;
-using Chickensoft.Introspection;
 
 public interface IMap : INode3D,
-IProvide<ISaveChunk<MapData>>, IProvide<EntityTable> {
+IProvide<ISaveChunk<MapData>>, IProvide<EntityTable>
+{
   /// <summary>Get the number of coins in the world.</summary>
   int GetCoinCount();
 }
 
 [Meta(typeof(IAutoNode))]
-public partial class Map : Node3D, IMap {
+public partial class Map : Node3D, IMap
+{
   public override void _Notification(int what) => this.Notify(what);
 
   #region Save
@@ -45,25 +47,28 @@ public partial class Map : Node3D, IMap {
 
   public int GetCoinCount() => Coins.GetChildCount();
 
-  public void Setup() {
-    MapLogic = new MapLogic();
-  }
+  public void Setup() => MapLogic = new MapLogic();
 
-  public void OnResolved() {
+  public void OnResolved()
+  {
     MapChunk = new SaveChunk<MapData>(
-      onSave: (chunk) => {
+      onSave: (chunk) =>
+      {
         var data = MapLogic.Get<MapLogic.Data>();
 
         // Based on the data we track in our state, construct a map data
         // object with information about the coins being collected and the
         // ones already collected (so we can remove them when we load a save
         // file).
-        return new MapData() {
+        return new MapData()
+        {
           CoinsBeingCollected = data.CoinsBeingCollected.ToDictionary(
             keySelector: (coinName) => coinName,
-            elementSelector: coinName => {
+            elementSelector: coinName =>
+            {
               var coin = EntityTable.Get<ICoin>(coinName)!;
-              return new CoinData() {
+              return new CoinData()
+              {
                 StateMachine = coin.CoinLogic,
                 GlobalTransform = coin.GlobalTransform
               };
@@ -72,19 +77,24 @@ public partial class Map : Node3D, IMap {
           CollectedCoinIds = data.CollectedCoinIds
         };
       },
-      onLoad: (chunk, data) => {
+      onLoad: (chunk, data) =>
+      {
         // Remove previously collected coins from the fresh map.
-        foreach (var coinId in data.CollectedCoinIds) {
-          if (Coins.GetNodeOrNullEx<INode>(coinId) is { } coin) {
+        foreach (var coinId in data.CollectedCoinIds)
+        {
+          if (Coins.GetNodeOrNullEx<INode>(coinId) is { } coin)
+          {
             Coins.RemoveChildEx(coin);
             coin.QueueFree();
           }
         }
 
         // Restore the coins actively being collected.
-        foreach ((var coinName, var coinData) in data.CoinsBeingCollected) {
+        foreach ((var coinName, var coinData) in data.CoinsBeingCollected)
+        {
           var child = Coins.GetNodeOrNullEx<INode>(coinName);
-          if (child is ICoin coin) {
+          if (child is ICoin coin)
+          {
             coin.CoinLogic.RestoreFrom(coinData.StateMachine);
             coin.CoinLogic.Start();
             coin.GlobalTransform = coinData.GlobalTransform;
@@ -97,7 +107,7 @@ public partial class Map : Node3D, IMap {
         mapLogicData.CollectedCoinIds = data.CollectedCoinIds;
 
         mapLogicData.CoinsBeingCollected =
-          data.CoinsBeingCollected.Keys.ToList();
+          [.. data.CoinsBeingCollected.Keys];
 
         var numCoinsCollected = data.CollectedCoinIds.Count +
           data.CoinsBeingCollected.Count;

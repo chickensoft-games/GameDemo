@@ -2,9 +2,9 @@ namespace GameDemo;
 
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
+using Chickensoft.Introspection;
 using Chickensoft.SaveFileBuilder;
 using Godot;
-using Chickensoft.Introspection;
 
 /// <summary>
 ///   Camera interface. This is how the camera node is exposed to its logic block,
@@ -12,7 +12,8 @@ using Chickensoft.Introspection;
 ///   to know about its implementation. This interface can easily be mocked,
 ///   allowing the camera logic block to be unit-tested.
 /// </summary>
-public interface IPlayerCamera : INode3D {
+public interface IPlayerCamera : INode3D
+{
   IPlayerCameraLogic CameraLogic { get; }
 
   /// <summary>
@@ -56,7 +57,8 @@ public interface IPlayerCamera : INode3D {
 }
 
 [Meta(typeof(IAutoNode))]
-public partial class PlayerCamera : Node3D, IPlayerCamera {
+public partial class PlayerCamera : Node3D, IPlayerCamera
+{
   public override void _Notification(int what) => this.Notify(what);
 
   #region Save
@@ -115,7 +117,8 @@ public partial class PlayerCamera : Node3D, IPlayerCamera {
 
   #endregion Computed
 
-  public void Setup() {
+  public void Setup()
+  {
     CameraLogic = new PlayerCameraLogic();
 
     CameraLogic.Set(this as IPlayerCamera);
@@ -123,7 +126,8 @@ public partial class PlayerCamera : Node3D, IPlayerCamera {
     CameraLogic.Set(GameRepo);
 
     CameraLogic.Save(
-      () => new PlayerCameraLogic.Data {
+      () => new PlayerCameraLogic.Data
+      {
         TargetPosition = Vector3.Zero,
         TargetAngleHorizontal = 0f,
         TargetAngleVertical = 0f,
@@ -132,13 +136,15 @@ public partial class PlayerCamera : Node3D, IPlayerCamera {
     );
 
     PlayerCameraChunk = new SaveChunk<PlayerCameraData>(
-      onSave: (chunk) => new PlayerCameraData() {
+      onSave: (chunk) => new PlayerCameraData()
+      {
         StateMachine = CameraLogic,
         GlobalTransform = GlobalTransform,
         LocalPosition = CameraNode.Position,
         OffsetPosition = OffsetNode.Position,
       },
-      onLoad: (chunk, data) => {
+      onLoad: (chunk, data) =>
+      {
         CameraLogic.RestoreFrom(data.StateMachine);
         GlobalTransform = data.GlobalTransform;
         CameraNode.Position = data.LocalPosition;
@@ -151,12 +157,14 @@ public partial class PlayerCamera : Node3D, IPlayerCamera {
     SetPhysicsProcess(true);
   }
 
-  public void OnResolved() {
+  public void OnResolved()
+  {
     GameChunk.AddChunk(PlayerCameraChunk);
 
     CameraBinding = CameraLogic.Bind();
     CameraBinding
-      .Handle((in PlayerCameraLogic.Output.GimbalRotationChanged output) => {
+      .Handle((in PlayerCameraLogic.Output.GimbalRotationChanged output) =>
+      {
         GimbalHorizontalNode.Rotation = output.GimbalRotationHorizontal;
         GimbalVerticalNode.Rotation = output.GimbalRotationVertical;
       })
@@ -174,12 +182,14 @@ public partial class PlayerCamera : Node3D, IPlayerCamera {
     CameraLogic.Start();
   }
 
-  public void OnPhysicsProcess(double delta) {
+  public void OnPhysicsProcess(double delta)
+  {
     var xMotion = InputUtilities.GetJoyPadActionPressedMotion(
       "camera_left", "camera_right", JoyAxis.RightX
     );
 
-    if (xMotion is not null) {
+    if (xMotion is not null)
+    {
       CameraLogic.Input(new PlayerCameraLogic.Input.JoyPadInputOccurred(xMotion));
     }
 
@@ -187,7 +197,8 @@ public partial class PlayerCamera : Node3D, IPlayerCamera {
       "camera_up", "camera_down", JoyAxis.RightY
     );
 
-    if (yMotion is not null) {
+    if (yMotion is not null)
+    {
       CameraLogic.Input(new PlayerCameraLogic.Input.JoyPadInputOccurred(yMotion));
     }
 
@@ -196,15 +207,18 @@ public partial class PlayerCamera : Node3D, IPlayerCamera {
     );
   }
 
-  public override void _Input(InputEvent @event) {
-    if (@event is InputEventMouseMotion motion) {
+  public override void _Input(InputEvent @event)
+  {
+    if (@event is InputEventMouseMotion motion)
+    {
       CameraLogic.Input(new PlayerCameraLogic.Input.MouseInputOccurred(motion));
     }
   }
 
   public void UsePlayerCamera() => CameraNode.MakeCurrent();
 
-  public void OnExitTree() {
+  public void OnExitTree()
+  {
     CameraLogic.Stop();
     CameraBinding.Dispose();
   }

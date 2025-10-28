@@ -1,5 +1,6 @@
 namespace GameDemo.Tests;
 
+using System.Diagnostics.CodeAnalysis;
 using System.IO.Abstractions;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -15,7 +16,15 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class GameTest : TestClass {
+[
+  SuppressMessage(
+    "Design",
+    "CA1001",
+    Justification = "Disposable field is added to TestDriver fixture"
+  )
+]
+public class GameTest : TestClass
+{
   private Fixture _fixture = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
@@ -42,12 +51,11 @@ public class GameTest : TestClass {
   public GameTest(Node testScene) : base(testScene) { }
 
   [SetupAll]
-  public void SetupAll() {
-    GodotSerialization.Setup();
-  }
+  public void SetupAll() => GodotSerialization.Setup();
 
   [Setup]
-  public async Task Setup() {
+  public async Task Setup()
+  {
     _fixture = new(TestScene.GetTree());
 
     _appRepo = new();
@@ -65,7 +73,8 @@ public class GameTest : TestClass {
     _gameChunk = new();
     _saveFile = new();
     _fileSystem = new();
-    _jsonOptions = new() {
+    _jsonOptions = new()
+    {
       WriteIndented = true,
       TypeInfoResolver = new SerializableTypeResolver(),
       Converters = {
@@ -77,7 +86,8 @@ public class GameTest : TestClass {
 
     _saveFile.Setup(file => file.Root).Returns(_gameChunk.Object);
 
-    _game = new() {
+    _game = new()
+    {
       GameRepo = _gameRepo.Object,
       GameLogic = _logic.Object,
       GameBinding = _binding,
@@ -101,7 +111,8 @@ public class GameTest : TestClass {
     _game.FakeDependency(_appRepo.Object);
     _game.FakeDependency(_entityTable);
 
-    _game.FakeNodeTree(new() {
+    _game.FakeNodeTree(new()
+    {
       ["%PlayerCamera"] = _playerCam.Object,
       ["%Player"] = _player.Object,
       ["%Map"] = _map.Object,
@@ -118,7 +129,8 @@ public class GameTest : TestClass {
   public async Task Cleanup() => await _fixture.Cleanup();
 
   [Test]
-  public void Initializes() {
+  public void Initializes()
+  {
     ((IProvide<IGameRepo>)_game).Value().ShouldBe(_gameRepo.Object);
     ((IProvide<ISaveChunk<GameData>>)_game).Value().ShouldBe(_gameChunk.Object);
     ((IProvide<EntityTable>)_game).Value().ShouldBe(_entityTable);
@@ -136,7 +148,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public void StartsGame() {
+  public void StartsGame()
+  {
     _logic.Setup(logic => logic.Input(It.IsAny<GameLogic.Input.Initialize>()));
     _game.OnResolved();
     _playerCam.Setup(cam => cam.UsePlayerCamera());
@@ -148,7 +161,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public async Task SetsPauseMode() {
+  public async Task SetsPauseMode()
+  {
     _game.OnResolved();
     var tree = TestScene.GetTree();
     tree.Paused.ShouldBeFalse();
@@ -162,7 +176,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public void CapturesMouse() {
+  public void CapturesMouse()
+  {
     _game.OnResolved();
 
     _binding.Output(new GameLogic.Output.CaptureMouse(true));
@@ -173,7 +188,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public void ShowsLostScreen() {
+  public void ShowsLostScreen()
+  {
     _deathMenu.Setup(menu => menu.Show());
     _deathMenu.Setup(menu => menu.FadeIn());
     _deathMenu.Setup(menu => menu.Animate());
@@ -186,7 +202,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public void ExitsLostScreen() {
+  public void ExitsLostScreen()
+  {
     _game.OnResolved();
 
     _binding.Output(new GameLogic.Output.ExitLostScreen());
@@ -195,7 +212,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public void ShowsPauseMenu() {
+  public void ShowsPauseMenu()
+  {
     _pauseMenu.Setup(menu => menu.Show());
     _pauseMenu.Setup(menu => menu.FadeIn());
 
@@ -207,7 +225,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public void ShowsWonScreen() {
+  public void ShowsWonScreen()
+  {
     _winMenu.Setup(menu => menu.Show());
     _winMenu.Setup(menu => menu.FadeIn());
 
@@ -219,7 +238,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public void ExitsWonScreen() {
+  public void ExitsWonScreen()
+  {
     _game.OnResolved();
 
     _binding.Output(new GameLogic.Output.ExitWonScreen());
@@ -228,7 +248,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public void ExitsPauseMenu() {
+  public void ExitsPauseMenu()
+  {
     _game.OnResolved();
 
     _binding.Output(new GameLogic.Output.ExitPauseMenu());
@@ -237,7 +258,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public void HidesPauseMenu() {
+  public void HidesPauseMenu()
+  {
     _game.OnResolved();
 
     _binding.Output(new GameLogic.Output.HidePauseMenu());
@@ -246,7 +268,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public void ShowsPauseSaveOverlay() {
+  public void ShowsPauseSaveOverlay()
+  {
     _game.OnResolved();
 
     _binding.Output(new GameLogic.Output.ShowPauseSaveOverlay());
@@ -255,7 +278,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public void HidesPauseSaveOverlay() {
+  public void HidesPauseSaveOverlay()
+  {
     _game.OnResolved();
 
     _binding.Output(new GameLogic.Output.HidePauseSaveOverlay());
@@ -264,7 +288,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public async Task SavesGame() {
+  public async Task SavesGame()
+  {
     _game.SaveFile = _saveFile.Object;
 
     _saveFile.Setup(file => file.Save()).Returns(Task.CompletedTask);
@@ -278,7 +303,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public void InputsPauseButtonPressed() {
+  public void InputsPauseButtonPressed()
+  {
     _logic.Setup(
       logic => logic.Input(It.IsAny<GameLogic.Input.PauseButtonPressed>())
     );
@@ -290,7 +316,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public void OnMainMenu() {
+  public void OnMainMenu()
+  {
     _game.OnMainMenu();
 
     _logic.Verify(
@@ -299,7 +326,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public void OnResume() {
+  public void OnResume()
+  {
     _game.OnResume();
 
     _logic.Verify(
@@ -308,14 +336,16 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public void OnStart() {
+  public void OnStart()
+  {
     _game.OnStart();
 
     _logic.Verify(logic => logic.Input(It.IsAny<GameLogic.Input.Start>()));
   }
 
   [Test]
-  public void OnWinMenuTransitioned() {
+  public void OnWinMenuTransitioned()
+  {
     _game.OnWinMenuTransitioned();
 
     _logic.Verify(
@@ -324,7 +354,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public void OnPauseMenuTransitioned() {
+  public void OnPauseMenuTransitioned()
+  {
     _game.OnPauseMenuTransitioned();
 
     _logic.Verify(
@@ -333,7 +364,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public void OnPauseMenuSaveRequested() {
+  public void OnPauseMenuSaveRequested()
+  {
     _game.OnPauseMenuSaveRequested();
 
     _logic.Verify(
@@ -342,7 +374,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public void OnDeathMenuTransitioned() {
+  public void OnDeathMenuTransitioned()
+  {
     _game.OnDeathMenuTransitioned();
 
     _logic.Verify(
@@ -351,21 +384,25 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public void SavesChunk() {
+  public void SavesChunk()
+  {
     _game.Setup();
 
-    var mapData = new MapData() {
+    var mapData = new MapData()
+    {
       CoinsBeingCollected = [],
       CollectedCoinIds = []
     };
 
-    var playerData = new PlayerData() {
+    var playerData = new PlayerData()
+    {
       GlobalTransform = Transform3D.Identity,
       StateMachine = default!,
       Velocity = Vector3.Zero
     };
 
-    var playerCameraData = new PlayerCameraData() {
+    var playerCameraData = new PlayerCameraData()
+    {
       GlobalTransform = Transform3D.Identity,
       StateMachine = default!,
       LocalPosition = Vector3.Zero,
@@ -387,28 +424,33 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public void LoadsChunk() {
+  public void LoadsChunk()
+  {
     _game.Setup();
 
-    var mapData = new MapData() {
+    var mapData = new MapData()
+    {
       CoinsBeingCollected = [],
       CollectedCoinIds = []
     };
 
-    var playerData = new PlayerData() {
+    var playerData = new PlayerData()
+    {
       GlobalTransform = Transform3D.Identity,
       StateMachine = default!,
       Velocity = Vector3.Zero
     };
 
-    var playerCameraData = new PlayerCameraData() {
+    var playerCameraData = new PlayerCameraData()
+    {
       GlobalTransform = Transform3D.Identity,
       StateMachine = default!,
       LocalPosition = Vector3.Zero,
       OffsetPosition = Vector3.Zero
     };
 
-    var gameData = new GameData() {
+    var gameData = new GameData()
+    {
       MapData = mapData,
       PlayerData = playerData,
       PlayerCameraData = playerCameraData
@@ -424,7 +466,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public async Task SaveFileDoesNothingIfSaveFileDoesNotExist() {
+  public async Task SaveFileDoesNothingIfSaveFileDoesNotExist()
+  {
     var file = new Mock<IFile>();
     _fileSystem.Setup(fs => fs.File).Returns(file.Object);
 
@@ -437,7 +480,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public async Task SavesFile() {
+  public async Task SavesFile()
+  {
     var file = new Mock<IFile>();
     _fileSystem.Setup(fs => fs.File).Returns(file.Object);
 
@@ -455,7 +499,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public async Task LoadsSaveFile() {
+  public async Task LoadsSaveFile()
+  {
     var file = new Mock<IFile>();
     _fileSystem.Setup(fs => fs.File).Returns(file.Object);
 
@@ -474,7 +519,8 @@ public class GameTest : TestClass {
   }
 
   [Test]
-  public async Task LoadExistingGameWorks() {
+  public async Task LoadExistingGameWorks()
+  {
     _saveFile.Reset();
     _saveFile.Setup(s => s.Load()).Returns(Task.CompletedTask);
 

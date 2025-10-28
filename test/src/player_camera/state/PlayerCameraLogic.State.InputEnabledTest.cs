@@ -1,12 +1,21 @@
 namespace GameDemo.Tests;
 
+using System.Diagnostics.CodeAnalysis;
 using Chickensoft.GoDotTest;
 using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
-public class PlayerCameraLogicStateInputEnabledTest : TestClass {
+[
+  SuppressMessage(
+    "Design",
+    "CA1001",
+    Justification = "Disposable field is disposed in cleanup"
+  )
+]
+public class PlayerCameraLogicStateInputEnabledTest : TestClass
+{
   private IFakeContext _context = default!;
   private PlayerCameraSettings _settings = default!;
   private PlayerCameraLogic.Data _data = default!;
@@ -15,14 +24,17 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass {
   private PlayerCameraLogic.State.InputEnabled _state = default!;
 
   public PlayerCameraLogicStateInputEnabledTest(Node testScene) :
-    base(testScene) { }
+    base(testScene)
+  { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _state = new();
     _context = _state.CreateFakeContext();
     _settings = new();
-    _data = new() {
+    _data = new()
+    {
       TargetPosition = Vector3.Zero,
       TargetAngleHorizontal = 0,
       TargetAngleVertical = 0,
@@ -44,18 +56,21 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass {
   public void CleanupAll() => _settings.Dispose();
 
   [Test]
-  public void GoesToInputDisabled() {
+  public void GoesToInputDisabled()
+  {
     var next = _state.On(new PlayerCameraLogic.Input.DisableInput());
 
     next.State.ShouldBeOfType<PlayerCameraLogic.State.InputDisabled>();
   }
 
   [Test]
-  public void UpdatesTargetAnglesWhenMouseInputOccurs() {
+  public void UpdatesTargetAnglesWhenMouseInputOccurs()
+  {
     var targetAngleHorizontal = _data.TargetAngleHorizontal;
     var targetAngleVertical = _data.TargetAngleVertical;
 
-    var motion = new InputEventMouseMotion {
+    var motion = new InputEventMouseMotion
+    {
       Relative = Vector2.One
     };
 
@@ -70,11 +85,13 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass {
   }
 
   [Test]
-  public void UpdatesTargetAnglesWhenJoypadInputOccurs() {
+  public void UpdatesTargetAnglesWhenJoypadInputOccurs()
+  {
     var targetAngleHorizontal = _data.TargetAngleHorizontal;
     var targetAngleVertical = _data.TargetAngleVertical;
 
-    var motion = new InputEventJoypadMotion {
+    var motion = new InputEventJoypadMotion
+    {
       Axis = JoyAxis.RightX,
       AxisValue = 3,
       Device = 0
@@ -86,7 +103,8 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass {
 
     _state.ShouldBeSameAs(next.State);
 
-    var motion2 = new InputEventJoypadMotion {
+    var motion2 = new InputEventJoypadMotion
+    {
       Axis = JoyAxis.RightY,
       AxisValue = 3,
       Device = 0

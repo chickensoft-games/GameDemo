@@ -7,7 +7,8 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class InGameUILogicStateTest : TestClass {
+public class InGameUILogicStateTest : TestClass
+{
   private IFakeContext _context = default!;
   private Mock<IInGameUI> _inGameUi = default!;
   private Mock<IAppRepo> _appRepo = default!;
@@ -17,7 +18,8 @@ public class InGameUILogicStateTest : TestClass {
   public InGameUILogicStateTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _inGameUi = new Mock<IInGameUI>();
     _appRepo = new Mock<IAppRepo>();
     _gameRepo = new Mock<IGameRepo>();
@@ -31,7 +33,8 @@ public class InGameUILogicStateTest : TestClass {
   }
 
   [Test]
-  public void Subscribes() {
+  public void Subscribes()
+  {
     var numCoinsCollected = new Mock<IAutoProp<int>>();
     var numCoinsAtStart = new Mock<IAutoProp<int>>();
 
@@ -57,7 +60,8 @@ public class InGameUILogicStateTest : TestClass {
   }
 
   [Test]
-  public void OnNumCoinsCollectedOutputs() {
+  public void OnNumCoinsCollectedOutputs()
+  {
     var numCoinsAtStart = new AutoProp<int>(10);
     _gameRepo.Setup(repo => repo.NumCoinsAtStart)
       .Returns(numCoinsAtStart);
@@ -70,7 +74,8 @@ public class InGameUILogicStateTest : TestClass {
   }
 
   [Test]
-  public void OnNumCoinsAtStartOutputs() {
+  public void OnNumCoinsAtStartOutputs()
+  {
     var numCoinsCollected = new AutoProp<int>(5);
     _gameRepo.Setup(repo => repo.NumCoinsCollected)
       .Returns(numCoinsCollected);

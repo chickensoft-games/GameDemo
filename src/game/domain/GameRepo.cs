@@ -4,7 +4,8 @@ using System;
 using Chickensoft.Collections;
 using Godot;
 
-public interface IGameRepo : IDisposable {
+public interface IGameRepo : IDisposable
+{
   /// <summary>Event invoked when the game ends.</summary>
   event Action<GameOverReason>? Ended;
 
@@ -93,7 +94,8 @@ public interface IGameRepo : IDisposable {
 ///   Game repository — stores pure game logic that's not directly related to the
 ///   game node's overall view.
 /// </summary>
-public class GameRepo : IGameRepo {
+public class GameRepo : IGameRepo
+{
   public IAutoProp<bool> IsMouseCaptured => _isMouseCaptured;
   private readonly AutoProp<bool> _isMouseCaptured;
   public IAutoProp<bool> IsPaused => _isPaused;
@@ -119,7 +121,8 @@ public class GameRepo : IGameRepo {
   private int _coinsBeingCollected;
   private bool _disposedValue;
 
-  public GameRepo() {
+  public GameRepo()
+  {
     _isMouseCaptured = new AutoProp<bool>(false);
     _isPaused = new AutoProp<bool>(false);
     _playerGlobalPosition = new AutoProp<Vector3>(Vector3.Zero);
@@ -135,7 +138,8 @@ public class GameRepo : IGameRepo {
     AutoProp<Basis> cameraBasis,
     AutoProp<int> numCoinsCollected,
     AutoProp<int> numCoinsAtStart
-  ) {
+  )
+  {
     _isMouseCaptured = isMouseCaptured;
     _isPaused = isPaused;
     _playerGlobalPosition = playerGlobalPosition;
@@ -153,38 +157,44 @@ public class GameRepo : IGameRepo {
   public void SetCameraBasis(Basis cameraBasis) =>
     _cameraBasis.OnNext(cameraBasis);
 
-  public void StartCoinCollection(ICoin coin) {
+  public void StartCoinCollection(ICoin coin)
+  {
     _coinsBeingCollected++;
     _numCoinsCollected.OnNext(_numCoinsCollected.Value + 1);
     CoinCollectionStarted?.Invoke(coin);
   }
 
-  public void OnFinishCoinCollection(ICoin coin) {
+  public void OnFinishCoinCollection(ICoin coin)
+  {
     _coinsBeingCollected--;
     CoinCollectionCompleted?.Invoke(coin);
 
     if (
       _coinsBeingCollected == 0 &&
       _numCoinsCollected.Value >= _numCoinsAtStart.Value
-    ) {
+    )
+    {
       OnGameEnded(GameOverReason.Won);
     }
   }
 
   public void OnJump() => Jumped?.Invoke();
 
-  public void OnGameEnded(GameOverReason reason) {
+  public void OnGameEnded(GameOverReason reason)
+  {
     _isMouseCaptured.OnNext(false);
     Pause();
     Ended?.Invoke(reason);
   }
 
-  public void Pause() {
+  public void Pause()
+  {
     _isMouseCaptured.OnNext(false);
     _isPaused.OnNext(true);
   }
 
-  public void Resume() {
+  public void Resume()
+  {
     _isMouseCaptured.OnNext(true);
     _isPaused.OnNext(false);
   }
@@ -199,9 +209,12 @@ public class GameRepo : IGameRepo {
 
   #region Internals
 
-  protected void Dispose(bool disposing) {
-    if (!_disposedValue) {
-      if (disposing) {
+  protected void Dispose(bool disposing)
+  {
+    if (!_disposedValue)
+    {
+      if (disposing)
+      {
         // Dispose managed objects.
         _isMouseCaptured.OnCompleted();
         _isMouseCaptured.Dispose();
@@ -223,7 +236,8 @@ public class GameRepo : IGameRepo {
     }
   }
 
-  public void Dispose() {
+  public void Dispose()
+  {
     Dispose(disposing: true);
     GC.SuppressFinalize(this);
   }

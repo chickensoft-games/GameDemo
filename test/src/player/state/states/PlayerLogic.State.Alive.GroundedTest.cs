@@ -7,7 +7,8 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public partial class PlayerLogicStateAliveGroundedTest : TestClass {
+public partial class PlayerLogicStateAliveGroundedTest : TestClass
+{
   [Meta, TestState]
   public partial record TestPlayerState : PlayerLogic.State.Grounded;
 
@@ -18,10 +19,12 @@ public partial class PlayerLogicStateAliveGroundedTest : TestClass {
   private PlayerLogic.State.Grounded _state = default!;
 
   public PlayerLogicStateAliveGroundedTest(Node testScene) :
-    base(testScene) { }
+    base(testScene)
+  { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _player = new Mock<IPlayer>();
     _appRepo = new Mock<IAppRepo>();
     _settings = new PlayerLogic.Settings(1, 1, 1, 1, 1, 1, 1);
@@ -35,7 +38,8 @@ public partial class PlayerLogicStateAliveGroundedTest : TestClass {
   }
 
   [Test]
-  public void JumpGoesToJumping() {
+  public void JumpGoesToJumping()
+  {
     _player.Setup(player => player.Velocity).Returns(Vector3.Zero);
 
     var next = _state.On(new PlayerLogic.Input.Jump(1d));
@@ -48,7 +52,8 @@ public partial class PlayerLogicStateAliveGroundedTest : TestClass {
   }
 
   [Test]
-  public void LeftFloorGoesToFallingOrLiftoff() {
+  public void LeftFloorGoesToFallingOrLiftoff()
+  {
     _state.On(new PlayerLogic.Input.LeftFloor(IsFalling: true)).State
       .ShouldBeAssignableTo<PlayerLogic.State.Falling>();
 

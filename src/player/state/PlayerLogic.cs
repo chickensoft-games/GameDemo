@@ -7,6 +7,7 @@ public interface IPlayerLogic : ILogicBlock<PlayerLogic.State>;
 
 [Meta, Id("player_logic")]
 [LogicBlock(typeof(State), Diagram = true)]
-public partial class PlayerLogic : LogicBlock<PlayerLogic.State>, IPlayerLogic {
+public partial class PlayerLogic : LogicBlock<PlayerLogic.State>, IPlayerLogic
+{
   public override Transition GetInitialState() => To<State.Disabled>();
 }

@@ -3,11 +3,15 @@ namespace GameDemo;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class InGameAudioLogic {
+public partial class InGameAudioLogic
+{
   [Meta]
-  public partial record State : StateLogic<State> {
-    public State() {
-      OnAttach(() => {
+  public partial record State : StateLogic<State>
+  {
+    public State()
+    {
+      OnAttach(() =>
+      {
         var appRepo = Get<IAppRepo>();
         var gameRepo = Get<IGameRepo>();
         gameRepo.CoinCollectionStarted += OnCoinCollectionStarted;
@@ -18,7 +22,8 @@ public partial class InGameAudioLogic {
         appRepo.GameEntered += OnGameEntered;
       });
 
-      OnDetach(() => {
+      OnDetach(() =>
+      {
         var appRepo = Get<IAppRepo>();
         var gameRepo = Get<IGameRepo>();
         gameRepo.CoinCollectionStarted -= OnCoinCollectionStarted;
@@ -35,10 +40,12 @@ public partial class InGameAudioLogic {
 
     public void OnJumpshroomUsed() => Output(new Output.PlayBounce());
 
-    public void OnGameEnded(GameOverReason reason) {
+    public void OnGameEnded(GameOverReason reason)
+    {
       Output(new Output.StopGameMusic());
 
-      if (reason is not GameOverReason.Lost) {
+      if (reason is not GameOverReason.Lost)
+      {
         return;
       }
 

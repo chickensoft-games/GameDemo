@@ -2,10 +2,11 @@ namespace GameDemo;
 
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Godot;
 using Chickensoft.Introspection;
+using Godot;
 
-public interface IDeathMenu : IControl {
+public interface IDeathMenu : IControl
+{
   event DeathMenu.TryAgainEventHandler TryAgain;
   event DeathMenu.MainMenuEventHandler MainMenu;
   event DeathMenu.TransitionCompletedEventHandler TransitionCompleted;
@@ -17,7 +18,8 @@ public interface IDeathMenu : IControl {
 }
 
 [Meta(typeof(IAutoNode))]
-public partial class DeathMenu : Control, IDeathMenu {
+public partial class DeathMenu : Control, IDeathMenu
+{
   public override void _Notification(int what) => this.Notify(what);
 
   [Signal]
@@ -38,13 +40,15 @@ public partial class DeathMenu : Control, IDeathMenu {
 
   #endregion Nodes
 
-  public void OnReady() {
+  public void OnReady()
+  {
     TryAgainButton.Pressed += OnTryAgainPressed;
     MainMenuButton.Pressed += OnMainMenuPressed;
     FadeAnimationPlayer.AnimationFinished += OnAnimationFinished;
   }
 
-  public void OnExitTree() {
+  public void OnExitTree()
+  {
     TryAgainButton.Pressed -= OnTryAgainPressed;
     MainMenuButton.Pressed -= OnMainMenuPressed;
     FadeAnimationPlayer.AnimationFinished -= OnAnimationFinished;

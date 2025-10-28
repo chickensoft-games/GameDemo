@@ -5,7 +5,8 @@ using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
 using Godot;
 
-public interface IJumpshroom {
+public interface IJumpshroom
+{
   /// <summary>
   ///   Calling this informs the jumpshroom that something hit it.
   /// </summary>
@@ -13,7 +14,8 @@ public interface IJumpshroom {
 }
 
 [Meta(typeof(IAutoNode))]
-public partial class Jumpshroom : Node3D {
+public partial class Jumpshroom : Node3D
+{
   public override void _Notification(int what) => this.Notify(what);
 
   #region Signals
@@ -49,12 +51,14 @@ public partial class Jumpshroom : Node3D {
 
   #endregion Dependencies
 
-  public void Setup() {
+  public void Setup()
+  {
     JumpshroomLogic = new JumpshroomLogic();
     JumpshroomLogic.Set(new JumpshroomLogic.Data(ImpulseStrength));
   }
 
-  public void OnResolved() {
+  public void OnResolved()
+  {
     JumpshroomLogic.Set(GameRepo);
 
     JumpshroomBinding = JumpshroomLogic.Bind();
@@ -77,8 +81,10 @@ public partial class Jumpshroom : Node3D {
 
   public void OnCooldownTimeout() => JumpshroomLogic.Input(new JumpshroomLogic.Input.CooldownCompleted());
 
-  public void OnAreaBodyEntered(Node3D body) {
-    if (body is IPushEnabled target) {
+  public void OnAreaBodyEntered(Node3D body)
+  {
+    if (body is IPushEnabled target)
+    {
       // Whenever a push-enabled body comes into contact with us, we can
       // immediately start the launch process (if the state allows it).
       JumpshroomLogic.Input(new JumpshroomLogic.Input.Hit(target));
@@ -96,7 +102,8 @@ public partial class Jumpshroom : Node3D {
   public void OnAnimationFinished(StringName animationName) =>
     JumpshroomLogic.Input(new JumpshroomLogic.Input.LaunchCompleted());
 
-  public void OnExitTree() {
+  public void OnExitTree()
+  {
     JumpshroomLogic.Stop();
 
     ShroomLoaded -= OnShroomLoaded;

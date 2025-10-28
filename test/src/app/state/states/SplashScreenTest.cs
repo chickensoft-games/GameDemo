@@ -6,7 +6,8 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class SplashScreenTest : TestClass {
+public class SplashScreenTest : TestClass
+{
   private IFakeContext _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private AppLogic.State.SplashScreen _state = default!;
@@ -15,7 +16,8 @@ public class SplashScreenTest : TestClass {
   public SplashScreenTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _state = new();
     _appRepo = new();
     _data = new();
@@ -25,13 +27,15 @@ public class SplashScreenTest : TestClass {
   }
 
   [Test]
-  public void OnEnter() {
+  public void OnEnter()
+  {
     _state.Enter();
     _context.Outputs.ShouldBe([new AppLogic.Output.ShowSplashScreen()]);
   }
 
   [Test]
-  public void Subscribes() {
+  public void Subscribes()
+  {
     _state.Attach(_context);
 
     _appRepo.VerifyAdd(
@@ -49,14 +53,16 @@ public class SplashScreenTest : TestClass {
   }
 
   [Test]
-  public void RespondsToFadeOutFinished() {
+  public void RespondsToFadeOutFinished()
+  {
     var next = _state.On(new AppLogic.Input.FadeOutFinished());
 
     next.State.ShouldBeOfType<AppLogic.State.MainMenu>();
   }
 
   [Test]
-  public void SkipsSplashScreen() {
+  public void SkipsSplashScreen()
+  {
     _state.OnSplashScreenSkipped();
 
     _context.Outputs.ShouldBe([new AppLogic.Output.HideSplashScreen()]);

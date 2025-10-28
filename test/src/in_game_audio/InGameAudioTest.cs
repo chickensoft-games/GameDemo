@@ -1,5 +1,6 @@
 namespace GameDemo.Tests;
 
+using System.Diagnostics.CodeAnalysis;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
@@ -7,7 +8,15 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class InGameAudioTest : TestClass {
+[
+  SuppressMessage(
+    "Design",
+    "CA1001",
+    Justification = "Disposable field is Godot object; Godot will dispose"
+  )
+]
+public class InGameAudioTest : TestClass
+{
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private Mock<IInGameAudioLogic> _logic = default!;
@@ -25,7 +34,8 @@ public class InGameAudioTest : TestClass {
   public InGameAudioTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _appRepo = new Mock<IAppRepo>();
     _gameRepo = new Mock<IGameRepo>();
     _logic = new Mock<IInGameAudioLogic>();
@@ -39,7 +49,8 @@ public class InGameAudioTest : TestClass {
 
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
 
-    _audio = new InGameAudio {
+    _audio = new InGameAudio
+    {
       InGameAudioLogic = _logic.Object,
       CoinCollected = _coinCollected.Object,
       Bounce = _bounce.Object,
@@ -58,14 +69,16 @@ public class InGameAudioTest : TestClass {
   }
 
   [Test]
-  public void Initializes() {
+  public void Initializes()
+  {
     _audio.Setup();
 
     _audio.InGameAudioLogic.ShouldBeOfType<InGameAudioLogic>();
   }
 
   [Test]
-  public void OnExitTree() {
+  public void OnExitTree()
+  {
     _logic.Reset();
     _logic.Setup(logic => logic.Stop());
     _audio.InGameAudioBinding = _binding;
@@ -76,7 +89,8 @@ public class InGameAudioTest : TestClass {
   }
 
   [Test]
-  public void PlaysMainMenuMusic() {
+  public void PlaysMainMenuMusic()
+  {
     _logic.Setup(logic => logic.Start());
     _gameMusic.Setup(music => music.FadeOut());
     _mainMenuMusic.Setup(music => music.Stop());
@@ -92,7 +106,8 @@ public class InGameAudioTest : TestClass {
   }
 
   [Test]
-  public void PlaysGameMusic() {
+  public void PlaysGameMusic()
+  {
     _logic.Setup(logic => logic.Start());
     _gameMusic.Setup(music => music.Stop());
     _gameMusic.Setup(music => music.FadeIn());
@@ -108,7 +123,8 @@ public class InGameAudioTest : TestClass {
   }
 
   [Test]
-  public void StopsGameMusic() {
+  public void StopsGameMusic()
+  {
     _logic.Setup(logic => logic.Start());
     _gameMusic.Setup(music => music.FadeOut());
 
@@ -120,7 +136,8 @@ public class InGameAudioTest : TestClass {
   }
 
   [Test]
-  public void PlaysSounds() {
+  public void PlaysSounds()
+  {
     _logic.Setup(logic => logic.Start());
     _coinCollected.Setup(sfx => sfx.Play(0));
     _bounce.Setup(sfx => sfx.Play(0));

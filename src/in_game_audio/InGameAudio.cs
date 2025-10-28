@@ -2,11 +2,12 @@ namespace GameDemo;
 
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Godot;
 using Chickensoft.Introspection;
+using Godot;
 
 [Meta(typeof(IAutoNode))]
-public partial class InGameAudio : Node {
+public partial class InGameAudio : Node
+{
   public override void _Notification(int what) => this.Notify(what);
 
   #region Nodes
@@ -36,11 +37,10 @@ public partial class InGameAudio : Node {
 
   #endregion State
 
-  public void Setup() {
-    InGameAudioLogic = new InGameAudioLogic();
-  }
+  public void Setup() => InGameAudioLogic = new InGameAudioLogic();
 
-  public void OnResolved() {
+  public void OnResolved()
+  {
     InGameAudioLogic.Set(AppRepo);
     InGameAudioLogic.Set(GameRepo);
 
@@ -68,18 +68,21 @@ public partial class InGameAudio : Node {
     InGameAudioLogic.Start();
   }
 
-  public void OnExitTree() {
+  public void OnExitTree()
+  {
     InGameAudioLogic.Stop();
     InGameAudioBinding.Dispose();
   }
 
-  public void StartMainMenuMusic() {
+  public void StartMainMenuMusic()
+  {
     GameMusic.FadeOut();
     MainMenuMusic.Stop();
     MainMenuMusic.FadeIn();
   }
 
-  public void StartGameMusic() {
+  public void StartGameMusic()
+  {
     MainMenuMusic.FadeOut();
     GameMusic.Stop();
     GameMusic.FadeIn();

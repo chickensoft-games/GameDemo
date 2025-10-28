@@ -1,17 +1,19 @@
 namespace GameDemo;
 
-using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.AutoInject;
-using Godot;
+using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using Godot;
 
-public interface IMenu : IControl {
+public interface IMenu : IControl
+{
   event Menu.NewGameEventHandler NewGame;
   event Menu.LoadGameEventHandler LoadGame;
 }
 
 [Meta(typeof(IAutoNode))]
-public partial class Menu : Control, IMenu {
+public partial class Menu : Control, IMenu
+{
   public override void _Notification(int what) => this.Notify(what);
 
   #region Nodes
@@ -28,12 +30,14 @@ public partial class Menu : Control, IMenu {
   public delegate void LoadGameEventHandler();
   #endregion Signals
 
-  public void OnReady() {
+  public void OnReady()
+  {
     NewGameButton.Pressed += OnNewGamePressed;
     LoadGameButton.Pressed += OnLoadGamePressed;
   }
 
-  public void OnExitTree() {
+  public void OnExitTree()
+  {
     NewGameButton.Pressed -= OnNewGamePressed;
     LoadGameButton.Pressed -= OnLoadGamePressed;
   }

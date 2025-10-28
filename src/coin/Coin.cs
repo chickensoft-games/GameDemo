@@ -6,12 +6,14 @@ using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
 using Godot;
 
-public interface ICoin : INode3D {
+public interface ICoin : INode3D
+{
   ICoinLogic CoinLogic { get; }
 }
 
 [Meta(typeof(IAutoNode))]
-public partial class Coin : Node3D, ICoin {
+public partial class Coin : Node3D, ICoin
+{
   public override void _Notification(int what) => this.Notify(what);
 
   #region Nodes
@@ -45,7 +47,8 @@ public partial class Coin : Node3D, ICoin {
 
   #endregion PackedScenes
 
-  public void Setup() {
+  public void Setup()
+  {
     Settings = new CoinLogic.Settings(CollectionTimeInSeconds);
     CoinLogic = new CoinLogic();
 
@@ -56,7 +59,8 @@ public partial class Coin : Node3D, ICoin {
     CoinLogic.Set(EntityTable);
   }
 
-  public void OnReady() {
+  public void OnReady()
+  {
     // We lazily add the area 3D to the scene tree that detects coin collectors
     // (just the player, but could be anything that implements ICoinCollector).
     //
@@ -70,12 +74,14 @@ public partial class Coin : Node3D, ICoin {
     AddChild(collectorDetector);
   }
 
-  public void OnResolved() {
+  public void OnResolved()
+  {
     EntityTable.Set(Name, this);
     CoinBinding = CoinLogic.Bind();
 
     CoinBinding
-      .When<CoinLogic.State.Collecting>(_ => {
+      .When<CoinLogic.State.Collecting>(_ =>
+      {
         // We want to start receiving physics ticks so we can orient ourselves
         // toward the entity that's collecting us.
         SetPhysicsProcess(true);
@@ -101,15 +107,18 @@ public partial class Coin : Node3D, ICoin {
   public void OnPhysicsProcess(double delta) =>
     CoinLogic.Input(new CoinLogic.Input.PhysicsProcess(delta, GlobalPosition));
 
-  public void OnCollectorDetectorBodyEntered(Node body) {
-    if (body is ICoinCollector target) {
+  public void OnCollectorDetectorBodyEntered(Node body)
+  {
+    if (body is ICoinCollector target)
+    {
       // Whenever we come into contact with a coin collector, we begin the
       // collection process.
       CoinLogic.Input(new CoinLogic.Input.StartCollection(target));
     }
   }
 
-  public void OnExitTree() {
+  public void OnExitTree()
+  {
     CoinLogic.Stop();
     CoinBinding.Dispose();
     EntityTable.Remove(Name);

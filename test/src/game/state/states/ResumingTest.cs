@@ -7,7 +7,8 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class ResumingTest : TestClass {
+public class ResumingTest : TestClass
+{
   private IFakeContext _context = default!;
   private GameLogic.State.Resuming _state = default!;
   private Mock<IGameRepo> _gameRepo = default!;
@@ -15,7 +16,8 @@ public class ResumingTest : TestClass {
   public ResumingTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _state = new GameLogic.State.Resuming();
     _context = _state.CreateFakeContext();
 
@@ -24,20 +26,23 @@ public class ResumingTest : TestClass {
   }
 
   [Test]
-  public void OnEnter() {
+  public void OnEnter()
+  {
     _gameRepo.Setup(repo => repo.Resume());
     _state.Enter();
     _gameRepo.VerifyAll();
   }
 
   [Test]
-  public void OnExit() {
+  public void OnExit()
+  {
     _state.Exit();
     _context.Outputs.Single().ShouldBeOfType<GameLogic.Output.HidePauseMenu>();
   }
 
   [Test]
-  public void OnPauseMenuTransitioned() {
+  public void OnPauseMenuTransitioned()
+  {
     var result = _state.On(new GameLogic.Input.PauseMenuTransitioned());
     result.State.ShouldBeOfType<GameLogic.State.Playing>();
   }

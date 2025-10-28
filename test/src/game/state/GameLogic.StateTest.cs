@@ -8,7 +8,8 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public partial class GameLogicStateTest : TestClass {
+public partial class GameLogicStateTest : TestClass
+{
   [Meta]
   public partial record TestGameState : GameLogic.State;
 
@@ -22,7 +23,8 @@ public partial class GameLogicStateTest : TestClass {
   public GameLogicStateTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _gameRepo = new();
 
     _state = new TestGameState();
@@ -38,7 +40,8 @@ public partial class GameLogicStateTest : TestClass {
   }
 
   [Test]
-  public void Subscribes() {
+  public void Subscribes()
+  {
     _state.Attach(_context);
 
     _gameRepo.VerifyAdd(
@@ -60,7 +63,8 @@ public partial class GameLogicStateTest : TestClass {
   }
 
   [Test]
-  public void OnIsMouseCaptured() {
+  public void OnIsMouseCaptured()
+  {
     _state.OnIsMouseCaptured(true);
 
     _context.Outputs
@@ -68,7 +72,8 @@ public partial class GameLogicStateTest : TestClass {
   }
 
   [Test]
-  public void OnIsPaused() {
+  public void OnIsPaused()
+  {
     _state.OnIsPaused(true);
 
     _context.Outputs

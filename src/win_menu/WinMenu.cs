@@ -1,11 +1,12 @@
 namespace GameDemo;
 
-using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.AutoInject;
-using Godot;
+using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using Godot;
 
-public interface IWinMenu : IControl {
+public interface IWinMenu : IControl
+{
   event WinMenu.MainMenuEventHandler MainMenu;
 
   event WinMenu.TransitionCompletedEventHandler TransitionCompleted;
@@ -15,7 +16,8 @@ public interface IWinMenu : IControl {
 }
 
 [Meta(typeof(IAutoNode))]
-public partial class WinMenu : Control, IWinMenu {
+public partial class WinMenu : Control, IWinMenu
+{
   public override void _Notification(int what) => this.Notify(what);
 
   #region Nodes

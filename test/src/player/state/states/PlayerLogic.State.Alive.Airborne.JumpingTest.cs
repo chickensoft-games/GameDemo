@@ -6,7 +6,8 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class PlayerLogicStateAliveAirborneJumpingTest : TestClass {
+public class PlayerLogicStateAliveAirborneJumpingTest : TestClass
+{
   private IFakeContext _context = default!;
   private Mock<IPlayer> _player = default!;
   private Mock<IAppRepo> _appRepo = default!;
@@ -15,11 +16,13 @@ public class PlayerLogicStateAliveAirborneJumpingTest : TestClass {
   private PlayerLogic.State.Jumping _state = default!;
 
   public PlayerLogicStateAliveAirborneJumpingTest(Node testScene) :
-    base(testScene) {
+    base(testScene)
+  {
   }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _player = new();
     _appRepo = new();
     _gameRepo = new();
@@ -35,7 +38,8 @@ public class PlayerLogicStateAliveAirborneJumpingTest : TestClass {
   }
 
   [Test]
-  public void Enters() {
+  public void Enters()
+  {
 
     _gameRepo.Setup(repo => repo.OnJump());
 
@@ -49,7 +53,8 @@ public class PlayerLogicStateAliveAirborneJumpingTest : TestClass {
   }
 
   [Test]
-  public void ContinuedJumpInputFurthersJump() {
+  public void ContinuedJumpInputFurthersJump()
+  {
     _player.Setup(player => player.Velocity).Returns(Vector3.Up);
 
     _state.On(new PlayerLogic.Input.Jump(1));

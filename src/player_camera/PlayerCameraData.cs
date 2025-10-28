@@ -5,7 +5,8 @@ using Chickensoft.Serialization;
 using Godot;
 
 [Meta, Id("player_camera_data")]
-public partial record PlayerCameraData {
+public partial record PlayerCameraData
+{
   [Save("state_machine")]
   public required IPlayerCameraLogic StateMachine { get; init; }
 

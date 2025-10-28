@@ -7,7 +7,8 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class InGameTest : TestClass {
+public class InGameTest : TestClass
+{
   private IFakeContext _context = default!;
   private AppLogic.State.InGame _state = default!;
   private Mock<IAppRepo> _appRepo = default!;
@@ -16,7 +17,8 @@ public class InGameTest : TestClass {
   public InGameTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _state = new();
     _appRepo = new();
     _data = new();
@@ -26,7 +28,8 @@ public class InGameTest : TestClass {
   }
 
   [Test]
-  public void OnEnter() {
+  public void OnEnter()
+  {
     _appRepo.Setup(repo => repo.OnEnterGame());
 
     _state.Enter();
@@ -36,14 +39,16 @@ public class InGameTest : TestClass {
   }
 
   [Test]
-  public void OnExit() {
+  public void OnExit()
+  {
     _state.Exit();
 
     _context.Outputs.First().ShouldBeOfType<AppLogic.Output.HideGame>();
   }
 
   [Test]
-  public void Subscribes() {
+  public void Subscribes()
+  {
     _state.Attach(_context);
 
     _appRepo.VerifyAdd(repo => repo.GameExited += _state.OnGameExited);
@@ -54,7 +59,8 @@ public class InGameTest : TestClass {
   }
 
   [Test]
-  public void OnRestartGameRequested() {
+  public void OnRestartGameRequested()
+  {
     _state.OnRestartGameRequested();
 
     var input = _context.Inputs.Single()
@@ -64,7 +70,8 @@ public class InGameTest : TestClass {
   }
 
   [Test]
-  public void OnGameExited() {
+  public void OnGameExited()
+  {
     _state.OnGameExited(PostGameAction.RestartGame);
 
     var input = _context.Inputs.Single()
@@ -74,7 +81,8 @@ public class InGameTest : TestClass {
   }
 
   [Test]
-  public void OnEndGame() {
+  public void OnEndGame()
+  {
     _context.Set(new AppLogic.State.LeavingGame());
 
     var result =

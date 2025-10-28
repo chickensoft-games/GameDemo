@@ -1,5 +1,6 @@
 namespace GameDemo.Tests;
 
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
@@ -10,7 +11,15 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class PlayerTest : TestClass {
+[
+  SuppressMessage(
+    "Design",
+    "CA1001",
+    Justification = "Disposable field is added to TestDriver fixture"
+  )
+]
+public class PlayerTest : TestClass
+{
   private Fixture _fixture = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
@@ -26,7 +35,8 @@ public class PlayerTest : TestClass {
   public PlayerTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public async Task Setup() {
+  public async Task Setup()
+  {
     _fixture = new(TestScene.GetTree());
 
     _appRepo = new();
@@ -46,7 +56,8 @@ public class PlayerTest : TestClass {
     _gameChunk = new();
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
 
-    _player = new() {
+    _player = new()
+    {
       RotationSpeed = _settings.RotationSpeed,
       StoppingSpeed = _settings.StoppingSpeed,
       Gravity = _settings.Gravity,
@@ -73,7 +84,8 @@ public class PlayerTest : TestClass {
   public async Task Cleanup() => await _fixture.Cleanup();
 
   [Test]
-  public void Initializes() {
+  public void Initializes()
+  {
     _player.Setup();
 
     _player.Settings.ShouldNotBeNull();
@@ -83,13 +95,15 @@ public class PlayerTest : TestClass {
   }
 
   [Test]
-  public void OnReady() {
+  public void OnReady()
+  {
     _player.OnReady();
     _player.IsPhysicsProcessing().ShouldBeTrue();
   }
 
   [Test]
-  public void OnExitTree() {
+  public void OnExitTree()
+  {
     _logic.Setup(logic => logic.Stop());
 
     _player.OnExitTree();
@@ -98,7 +112,8 @@ public class PlayerTest : TestClass {
   }
 
   [Test]
-  public void OnPhysicsProcessJumpsOnInput() {
+  public void OnPhysicsProcessJumpsOnInput()
+  {
     Input.ActionPress(GameInputs.Jump);
 
     _player.OnPhysicsProcess(1d);
@@ -109,7 +124,8 @@ public class PlayerTest : TestClass {
   }
 
   [Test]
-  public void OnPhysicsProcess() {
+  public void OnPhysicsProcess()
+  {
     _logic.Reset();
     _logic.Setup(
       logic => logic.Input(in It.Ref<PlayerLogic.Input.PhysicsTick>.IsAny)
@@ -124,14 +140,16 @@ public class PlayerTest : TestClass {
   }
 
   [Test]
-  public void ShouldJump() {
+  public void ShouldJump()
+  {
     Player.ShouldJump(true, false).ShouldBe(true);
     Player.ShouldJump(true, true).ShouldBe(true);
     Player.ShouldJump(false, false).ShouldBe(false);
   }
 
   [Test]
-  public void GetGlobalInputVector() {
+  public void GetGlobalInputVector()
+  {
     var cameraBasis = Basis.Identity;
     var expected = Vector3.Zero;
 
@@ -139,7 +157,8 @@ public class PlayerTest : TestClass {
   }
 
   [Test]
-  public void GetNextRotationBasis() {
+  public void GetNextRotationBasis()
+  {
     var direction = Vector3.Forward;
     var expected = Basis.Identity;
 
@@ -147,13 +166,15 @@ public class PlayerTest : TestClass {
   }
 
   [Test]
-  public void IsMovingChecks() {
+  public void IsMovingChecks()
+  {
     _player.Velocity = Vector3.Forward * 10;
     _player.IsMovingHorizontally().ShouldBe(true);
   }
 
   [Test]
-  public void Pushed() {
+  public void Pushed()
+  {
     _logic.Reset();
     _logic.Setup(
       logic => logic.Input(in It.Ref<PlayerLogic.Input.Pushed>.IsAny)
@@ -167,7 +188,8 @@ public class PlayerTest : TestClass {
   public void CoinCollector() => _player.CenterOfMass.ShouldBeOfType<Vector3>();
 
   [Test]
-  public void Dies() {
+  public void Dies()
+  {
     _logic.Reset();
     _logic.Setup(
       logic => logic.Input(in It.Ref<PlayerLogic.Input.Killed>.IsAny)
@@ -177,7 +199,8 @@ public class PlayerTest : TestClass {
   }
 
   [Test]
-  public void ChangesVelocityAfterMovementIsComputed() {
+  public void ChangesVelocityAfterMovementIsComputed()
+  {
     _player.OnResolved();
 
     _binding.Output(
@@ -191,7 +214,8 @@ public class PlayerTest : TestClass {
   }
 
   [Test]
-  public void ChangesVelocityWhenTold() {
+  public void ChangesVelocityWhenTold()
+  {
     _player.OnResolved();
 
     _binding.Output(
@@ -202,7 +226,8 @@ public class PlayerTest : TestClass {
   }
 
   [Test]
-  public void Saves() {
+  public void Saves()
+  {
     _player.Setup();
 
     var chunk = new Mock<ISaveChunk<PlayerData>>();
@@ -215,7 +240,8 @@ public class PlayerTest : TestClass {
   }
 
   [Test]
-  public void Loads() {
+  public void Loads()
+  {
     _player.Setup();
 
     var chunk = new Mock<ISaveChunk<PlayerData>>();
@@ -224,7 +250,8 @@ public class PlayerTest : TestClass {
     logic.Set(_appRepo.Object);
     logic.Start();
 
-    var data = new PlayerData {
+    var data = new PlayerData
+    {
       GlobalTransform = Transform3D.Identity,
       StateMachine = logic,
       Velocity = Vector3.Forward

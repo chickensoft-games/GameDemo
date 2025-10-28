@@ -1,5 +1,6 @@
 namespace GameDemo.Tests;
 
+using System.Diagnostics.CodeAnalysis;
 using Chickensoft.Collections;
 using Chickensoft.GoDotTest;
 using Chickensoft.LogicBlocks;
@@ -7,7 +8,15 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class PlayerCameraLogicStateTest : TestClass {
+[
+  SuppressMessage(
+    "Design",
+    "CA1001",
+    Justification = "Disposable field is disposed in cleanup"
+  )
+]
+public class PlayerCameraLogicStateTest : TestClass
+{
   private Mock<IPlayerCamera> _camera = default!;
   private PlayerCameraSettings _settings = default!;
   private Mock<IGameRepo> _gameRepo = default!;
@@ -18,11 +27,13 @@ public class PlayerCameraLogicStateTest : TestClass {
   public PlayerCameraLogicStateTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _camera = new();
     _settings = new();
     _gameRepo = new();
-    _data = new() {
+    _data = new()
+    {
       TargetPosition = Vector3.Zero,
       TargetAngleHorizontal = 0,
       TargetAngleVertical = 0,
@@ -39,8 +50,12 @@ public class PlayerCameraLogicStateTest : TestClass {
     _context.Set(_data);
   }
 
+  [Cleanup]
+  public void Cleanup() => _settings.Dispose();
+
   [Test]
-  public void ListensToMouseAndPlayerPosition() {
+  public void ListensToMouseAndPlayerPosition()
+  {
     var isMouseCaptured = new Mock<IAutoProp<bool>>();
     var playerGlobalPosition = new Mock<IAutoProp<Vector3>>();
 
@@ -70,7 +85,8 @@ public class PlayerCameraLogicStateTest : TestClass {
   }
 
   [Test]
-  public void OnMouseCaptured() {
+  public void OnMouseCaptured()
+  {
     // Make sure it enables input when mouse is captured.
     _state.OnMouseCaptured(true);
 
@@ -89,7 +105,8 @@ public class PlayerCameraLogicStateTest : TestClass {
   }
 
   [Test]
-  public void OnPlayerGlobalPositionChanged() {
+  public void OnPlayerGlobalPositionChanged()
+  {
     // Make sure it updates the camera position when the player moves.
     _state.OnPlayerGlobalPositionChanged(Vector3.Zero);
 
@@ -99,7 +116,8 @@ public class PlayerCameraLogicStateTest : TestClass {
   }
 
   [Test]
-  public void OnCameraTargetOffsetChanged() {
+  public void OnCameraTargetOffsetChanged()
+  {
     // Make sure it updates the camera offset when the player moves.
     _state.OnCameraTargetOffsetChanged(Vector3.Zero);
 
@@ -109,7 +127,8 @@ public class PlayerCameraLogicStateTest : TestClass {
   }
 
   [Test]
-  public void OnPhysicsTicked() {
+  public void OnPhysicsTicked()
+  {
     _camera.Setup(cam => cam.GimbalRotationHorizontal).Returns(Vector3.Zero);
     _camera.Setup(cam => cam.GimbalRotationVertical).Returns(Vector3.Zero);
     _camera.Setup(cam => cam.CameraBasis).Returns(Basis.Identity);
@@ -147,8 +166,8 @@ public class PlayerCameraLogicStateTest : TestClass {
   }
 
   [Test]
-  public void OnTargetPositionChanged() {
-    var originalTargetPosition = _data.TargetPosition;
+  public void OnTargetPositionChanged()
+  {
     var newTargetPosition = Vector3.Up;
 
     _state.On(new PlayerCameraLogic.Input.TargetPositionChanged(
@@ -159,8 +178,8 @@ public class PlayerCameraLogicStateTest : TestClass {
   }
 
   [Test]
-  public void TargetOffsetChanged() {
-    var originalTargetOffset = _data.TargetOffset;
+  public void TargetOffsetChanged()
+  {
     var newTargetOffset = Vector3.Up;
 
     _state.On(new PlayerCameraLogic.Input.TargetOffsetChanged(

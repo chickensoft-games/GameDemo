@@ -6,7 +6,8 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class JumpshroomLogicStateIdleTest : TestClass {
+public class JumpshroomLogicStateIdleTest : TestClass
+{
   private IFakeContext _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private JumpshroomLogic.State.Idle _state = default!;
@@ -14,7 +15,8 @@ public class JumpshroomLogicStateIdleTest : TestClass {
   public JumpshroomLogicStateIdleTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _appRepo = new Mock<IAppRepo>();
 
     _state = new();
@@ -23,7 +25,8 @@ public class JumpshroomLogicStateIdleTest : TestClass {
   }
 
   [Test]
-  public void HitGoesToLoading() {
+  public void HitGoesToLoading()
+  {
     var target = new Mock<IPushEnabled>();
     var next = _state.On(new JumpshroomLogic.Input.Hit(target.Object));
 

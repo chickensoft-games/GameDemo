@@ -5,21 +5,25 @@ using Chickensoft.LogicBlocks;
 using Godot;
 using Shouldly;
 
-public class PlayerLogicStateAliveGroundedIdleTest : TestClass {
+public class PlayerLogicStateAliveGroundedIdleTest : TestClass
+{
   private IFakeContext _context = default!;
   private PlayerLogic.State.Idle _state = default!;
 
   public PlayerLogicStateAliveGroundedIdleTest(Node testScene) :
-    base(testScene) { }
+    base(testScene)
+  { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _state = new();
     _context = _state.CreateFakeContext();
   }
 
   [Test]
-  public void Enters() {
+  public void Enters()
+  {
     _state.Enter<PlayerLogic.State.Grounded>();
 
     _context.Outputs.ShouldBe([
@@ -28,7 +32,8 @@ public class PlayerLogicStateAliveGroundedIdleTest : TestClass {
   }
 
   [Test]
-  public void OnStartedMovingHorizontallyGoesToMoving() {
+  public void OnStartedMovingHorizontallyGoesToMoving()
+  {
     var next = _state.On(new PlayerLogic.Input.StartedMovingHorizontally());
 
     next.State.ShouldBeAssignableTo<PlayerLogic.State.Moving>();

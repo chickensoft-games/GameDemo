@@ -1,5 +1,6 @@
 namespace GameDemo.Tests;
 
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
@@ -11,7 +12,15 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class PlayerCameraTest : TestClass {
+[
+  SuppressMessage(
+    "Design",
+    "CA1001",
+    Justification = "Disposable fields are Godot objects; Godot will dispose"
+  )
+]
+public class PlayerCameraTest : TestClass
+{
   private PlayerCamera _playerCam = default!;
   private Mock<IPlayerCameraLogic> _logic = default!;
   private PlayerCameraLogic.IFakeBinding _binding = default!;
@@ -27,10 +36,12 @@ public class PlayerCameraTest : TestClass {
   private Mock<INode3D> _springArmTarget = default!;
 
   public PlayerCameraTest(Node testScene) :
-    base(testScene) { }
+    base(testScene)
+  { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _logic = new();
     _binding = PlayerCameraLogic.CreateFakeBinding();
     _settings = new();
@@ -44,7 +55,8 @@ public class PlayerCameraTest : TestClass {
     _cameraNode = new();
     _springArmTarget = new();
 
-    _playerCam = new() {
+    _playerCam = new()
+    {
       OffsetNode = _offsetNode.Object,
       GimbalHorizontalNode = _gimbalHorizontal.Object,
       GimbalVerticalNode = _gimbalVertical.Object,
@@ -56,7 +68,8 @@ public class PlayerCameraTest : TestClass {
 
     (_playerCam as IAutoInit).IsTesting = true;
 
-    _playerCam.FakeNodeTree(new() {
+    _playerCam.FakeNodeTree(new()
+    {
       ["%Offset"] = _offsetNode.Object,
       ["%GimbalHorizontal"] = _gimbalHorizontal.Object,
       ["%GimbalVertical"] = _gimbalVertical.Object,
@@ -72,13 +85,15 @@ public class PlayerCameraTest : TestClass {
   }
 
   [Test]
-  public void Initializes() {
+  public void Initializes()
+  {
     _playerCam.Setup();
     _playerCam.CameraLogic.ShouldBeOfType<PlayerCameraLogic>();
   }
 
   [Test]
-  public void OnPhysicsProcess() {
+  public void OnPhysicsProcess()
+  {
     _logic.Reset();
 
     Input.ActionPress("camera_left", 0.8f);
@@ -97,7 +112,8 @@ public class PlayerCameraTest : TestClass {
   }
 
   [Test]
-  public void InputsMouseMotion() {
+  public void InputsMouseMotion()
+  {
     _logic.Reset();
 
     var motion = new InputEventMouseMotion();
@@ -113,7 +129,8 @@ public class PlayerCameraTest : TestClass {
   }
 
   [Test]
-  public void Getters() {
+  public void Getters()
+  {
     _springArmTarget.Setup(node => node.Position).Returns(Vector3.Up);
     _playerCam.SpringArmTargetPosition.ShouldBe(Vector3.Up);
 
@@ -135,7 +152,8 @@ public class PlayerCameraTest : TestClass {
   }
 
   [Test]
-  public void UpdatesGimbalRotation() {
+  public void UpdatesGimbalRotation()
+  {
     _gimbalHorizontal.SetupSet(node => node.Rotation = Vector3.Up);
     _gimbalVertical.SetupSet(node => node.Rotation = Vector3.Up);
 
@@ -152,7 +170,8 @@ public class PlayerCameraTest : TestClass {
   }
 
   [Test]
-  public async Task UpdatesGlobalTransform() {
+  public async Task UpdatesGlobalTransform()
+  {
     // This test has to be conducted inside the scene tree so that we can
     // verify GlobalTransform is updated.
     var fixture = new Fixture(TestScene.GetTree());
@@ -173,7 +192,8 @@ public class PlayerCameraTest : TestClass {
   }
 
   [Test]
-  public void UpdatesCameraLocalPosition() {
+  public void UpdatesCameraLocalPosition()
+  {
     var value = Vector3.Up;
     _cameraNode.SetupSet(node => node.Position = value);
     _playerCam.OnResolved();
@@ -186,7 +206,8 @@ public class PlayerCameraTest : TestClass {
   }
 
   [Test]
-  public void UpdatesCameraOffset() {
+  public void UpdatesCameraOffset()
+  {
     var value = Vector3.Up;
     _offsetNode.SetupSet(node => node.Position = value);
     _playerCam.OnResolved();
@@ -199,7 +220,8 @@ public class PlayerCameraTest : TestClass {
   }
 
   [Test]
-  public void MakesItselfCurrentCamera() {
+  public void MakesItselfCurrentCamera()
+  {
     _cameraNode.Setup(node => node.MakeCurrent());
 
     _playerCam.UsePlayerCamera();
@@ -208,7 +230,8 @@ public class PlayerCameraTest : TestClass {
   }
 
   [Test]
-  public void Saves() {
+  public void Saves()
+  {
     _playerCam.Setup();
 
     var chunk = new Mock<ISaveChunk<PlayerCameraData>>();
@@ -224,7 +247,8 @@ public class PlayerCameraTest : TestClass {
   }
 
   [Test]
-  public void Loads() {
+  public void Loads()
+  {
     _playerCam.Setup();
 
     var chunk = new Mock<ISaveChunk<PlayerCameraData>>();
@@ -235,7 +259,8 @@ public class PlayerCameraTest : TestClass {
       .Returns(new AutoProp<Vector3>(Vector3.Zero));
 
     logic.Set(_gameRepo.Object);
-    logic.Set(new PlayerCameraLogic.Data {
+    logic.Set(new PlayerCameraLogic.Data
+    {
       TargetPosition = Vector3.Zero,
       TargetAngleHorizontal = 0f,
       TargetAngleVertical = 0f,
@@ -244,7 +269,8 @@ public class PlayerCameraTest : TestClass {
 
     logic.Start();
 
-    var data = new PlayerCameraData {
+    var data = new PlayerCameraData
+    {
       StateMachine = logic,
       GlobalTransform = Transform3D.Identity,
       LocalPosition = Vector3.Zero,

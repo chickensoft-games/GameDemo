@@ -6,7 +6,8 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class JumpshroomLogicStateLoadingTest : TestClass {
+public class JumpshroomLogicStateLoadingTest : TestClass
+{
   private IFakeContext _context = default!;
   private Mock<IPushEnabled> _target = default!;
   private Mock<IGameRepo> _gameRepo = default!;
@@ -16,7 +17,8 @@ public class JumpshroomLogicStateLoadingTest : TestClass {
   public JumpshroomLogicStateLoadingTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _target = new();
     _gameRepo = new();
     _data = new(1.0f);
@@ -29,7 +31,8 @@ public class JumpshroomLogicStateLoadingTest : TestClass {
   }
 
   [Test]
-  public void AnimatesAndAnnouncesJumpshroomUseOnEnter() {
+  public void AnimatesAndAnnouncesJumpshroomUseOnEnter()
+  {
     _gameRepo.Setup(repo => repo.OnJumpshroomUsed());
 
     _state.Enter();
@@ -42,7 +45,8 @@ public class JumpshroomLogicStateLoadingTest : TestClass {
   }
 
   [Test]
-  public void LaunchGoesToLaunching() {
+  public void LaunchGoesToLaunching()
+  {
     var next = _state.On(new JumpshroomLogic.Input.Launch());
 
     next.State.ShouldBeOfType<JumpshroomLogic.State.Launching>();

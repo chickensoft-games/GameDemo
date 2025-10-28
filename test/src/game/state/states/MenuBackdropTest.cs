@@ -8,7 +8,8 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class MenuBackdropTest : TestClass {
+public class MenuBackdropTest : TestClass
+{
   private IFakeContext _context = default!;
   private GameLogic.State.MenuBackdrop _state = default!;
   private Mock<IAppRepo> _appRepo = default!;
@@ -17,7 +18,8 @@ public class MenuBackdropTest : TestClass {
   public MenuBackdropTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _appRepo = new();
     _gameRepo = new();
 
@@ -32,7 +34,8 @@ public class MenuBackdropTest : TestClass {
   }
 
   [Test]
-  public void Subscribes() {
+  public void Subscribes()
+  {
     _state.Attach(_context);
 
     _appRepo.VerifyAdd(x => x.GameEntered += _state.OnGameEntered);
@@ -43,7 +46,8 @@ public class MenuBackdropTest : TestClass {
   }
 
   [Test]
-  public void OnEnter() {
+  public void OnEnter()
+  {
     _gameRepo.Reset();
     _gameRepo.Setup(repo => repo.SetIsMouseCaptured(false));
 
@@ -53,7 +57,8 @@ public class MenuBackdropTest : TestClass {
   }
 
   [Test]
-  public void OnGameEntered() {
+  public void OnGameEntered()
+  {
     _state.Attach(_context);
 
     _state.OnGameEntered();
@@ -62,13 +67,15 @@ public class MenuBackdropTest : TestClass {
   }
 
   [Test]
-  public void OnStartGame() {
+  public void OnStartGame()
+  {
     var result = _state.On(new GameLogic.Input.Start());
     result.State.ShouldBeOfType<GameLogic.State.Playing>();
   }
 
   [Test]
-  public void OnInitialize() {
+  public void OnInitialize()
+  {
     var numCoins = 10;
     _gameRepo.Reset();
     _gameRepo.Setup(repo => repo.SetNumCoinsAtStart(numCoins));

@@ -7,7 +7,8 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class CoinLogicStateCollectingTest : TestClass {
+public class CoinLogicStateCollectingTest : TestClass
+{
   private IFakeContext _context = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private CoinLogic.Settings _settings = default!;
@@ -20,7 +21,8 @@ public class CoinLogicStateCollectingTest : TestClass {
   public CoinLogicStateCollectingTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _state = new();
     _gameRepo = new();
     _settings = new(1.0f);
@@ -42,7 +44,8 @@ public class CoinLogicStateCollectingTest : TestClass {
   }
 
   [Test]
-  public void Enters() {
+  public void Enters()
+  {
     _gameRepo.Setup(repo => repo.StartCoinCollection(_coin.Object));
 
     _state.Enter();
@@ -51,7 +54,8 @@ public class CoinLogicStateCollectingTest : TestClass {
   }
 
   [Test]
-  public void ComputesNextPositionOnPhysicsProcess() {
+  public void ComputesNextPositionOnPhysicsProcess()
+  {
     var input = new CoinLogic.Input.PhysicsProcess(
       1.0f,
       GlobalPosition: Vector3.Zero

@@ -4,7 +4,8 @@ using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 using Godot;
 
-public partial class PlayerCameraLogic {
+public partial class PlayerCameraLogic
+{
   /// <summary>
   ///   Overall player camera state. This would be abstract, but it's helpful to
   ///   be able to instantiate it by itself for easier testing.
@@ -13,10 +14,13 @@ public partial class PlayerCameraLogic {
   public abstract partial record State : StateLogic<State>,
     IGet<Input.PhysicsTicked>,
     IGet<Input.TargetPositionChanged>,
-    IGet<Input.TargetOffsetChanged> {
-    public State() {
+    IGet<Input.TargetOffsetChanged>
+  {
+    public State()
+    {
       OnAttach(
-        () => {
+        () =>
+        {
           var gameRepo = Get<IGameRepo>();
           gameRepo.IsMouseCaptured.Sync += OnMouseCaptured;
           gameRepo.PlayerGlobalPosition.Sync += OnPlayerGlobalPositionChanged;
@@ -24,7 +28,8 @@ public partial class PlayerCameraLogic {
       );
 
       OnDetach(
-        () => {
+        () =>
+        {
           var gameRepo = Get<IGameRepo>();
           gameRepo.IsMouseCaptured.Sync -= OnMouseCaptured;
           gameRepo.PlayerGlobalPosition.Sync -= OnPlayerGlobalPositionChanged;
@@ -32,8 +37,10 @@ public partial class PlayerCameraLogic {
       );
     }
 
-    internal void OnMouseCaptured(bool isMouseCaptured) {
-      if (isMouseCaptured) {
+    internal void OnMouseCaptured(bool isMouseCaptured)
+    {
+      if (isMouseCaptured)
+      {
         Input(new Input.EnableInput());
         return;
       }
@@ -47,7 +54,8 @@ public partial class PlayerCameraLogic {
     internal void OnCameraTargetOffsetChanged(Vector3 targetOffset) =>
       Input(new Input.TargetOffsetChanged(targetOffset));
 
-    public Transition On(in Input.PhysicsTicked input) {
+    public Transition On(in Input.PhysicsTicked input)
+    {
       var camera = Get<IPlayerCamera>();
       var gameRepo = Get<IGameRepo>();
       var settings = Get<PlayerCameraSettings>();
@@ -111,13 +119,15 @@ public partial class PlayerCameraLogic {
       return ToSelf();
     }
 
-    public Transition On(in Input.TargetPositionChanged input) {
+    public Transition On(in Input.TargetPositionChanged input)
+    {
       var data = Get<Data>();
       data.TargetPosition = input.TargetPosition;
       return ToSelf();
     }
 
-    public Transition On(in Input.TargetOffsetChanged input) {
+    public Transition On(in Input.TargetOffsetChanged input)
+    {
       var data = Get<Data>();
       data.TargetOffset = input.TargetOffset;
       return ToSelf();

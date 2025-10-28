@@ -3,17 +3,22 @@ namespace GameDemo;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class InGameUILogic {
+public partial class InGameUILogic
+{
   [Meta]
-  public partial record State : StateLogic<State> {
-    public State() {
-      OnAttach(() => {
+  public partial record State : StateLogic<State>
+  {
+    public State()
+    {
+      OnAttach(() =>
+      {
         var gameRepo = Get<IGameRepo>();
         gameRepo.NumCoinsCollected.Sync += OnNumCoinsCollected;
         gameRepo.NumCoinsAtStart.Sync += OnNumCoinsAtStart;
       });
 
-      OnDetach(() => {
+      OnDetach(() =>
+      {
         var gameRepo = Get<IGameRepo>();
         gameRepo.NumCoinsCollected.Sync -= OnNumCoinsCollected;
         gameRepo.NumCoinsAtStart.Sync -= OnNumCoinsAtStart;

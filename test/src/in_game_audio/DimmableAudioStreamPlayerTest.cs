@@ -1,19 +1,29 @@
 namespace GameDemo.Tests;
 
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Chickensoft.GoDotTest;
 using Chickensoft.GodotTestDriver;
 using Godot;
 using Shouldly;
 
-public class DimmableAudioStreamPlayerTest : TestClass {
+[
+  SuppressMessage(
+    "Design",
+    "CA1001",
+    Justification = "Disposable field is added to TestDriver fixture"
+  )
+]
+public class DimmableAudioStreamPlayerTest : TestClass
+{
   private DimmableAudioStreamPlayer _player = default!;
   private Fixture _fixture = default!;
 
   public DimmableAudioStreamPlayerTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public async Task Setup() {
+  public async Task Setup()
+  {
     // This node has to be tested in the scene tree since you can't create
     // tweens outside of the scene tree.
     _player = new();
@@ -26,7 +36,8 @@ public class DimmableAudioStreamPlayerTest : TestClass {
   public async Task Cleanup() => await _fixture.Cleanup();
 
   [Test]
-  public void Initializes() {
+  public void Initializes()
+  {
     _player.VolumeDb = -1f;
     _player._Ready();
 
@@ -35,7 +46,8 @@ public class DimmableAudioStreamPlayerTest : TestClass {
   }
 
   [Test]
-  public void FadesIn() {
+  public void FadesIn()
+  {
     _player.FadeIn();
     _player.FadeTween.ShouldNotBeNull();
     _player.FadeIn();
@@ -43,7 +55,8 @@ public class DimmableAudioStreamPlayerTest : TestClass {
   }
 
   [Test]
-  public void FadesOut() {
+  public void FadesOut()
+  {
     _player.FadeOut();
     _player.FadeTween.ShouldNotBeNull();
     _player.FadeOut();

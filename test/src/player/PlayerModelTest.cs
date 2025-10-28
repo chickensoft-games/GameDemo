@@ -1,6 +1,7 @@
 namespace GameDemo.Tests;
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
@@ -8,7 +9,15 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class PlayerModelTest : TestClass {
+[
+  SuppressMessage(
+    "Design",
+    "CA1001",
+    Justification = "Disposable field is Godot object; Godot will dispose"
+  )
+]
+public class PlayerModelTest : TestClass
+{
   private Mock<IPlayerLogic> _playerLogic = default!;
   private PlayerLogic.IFakeBinding _playerBinding = default!;
   private Mock<IAnimationTree> _animationTree = default!;
@@ -22,7 +31,8 @@ public class PlayerModelTest : TestClass {
   public PlayerModelTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _playerLogic = new Mock<IPlayerLogic>();
     _playerBinding = PlayerLogic.CreateFakeBinding();
     _animationTree = new Mock<IAnimationTree>();
@@ -42,14 +52,16 @@ public class PlayerModelTest : TestClass {
 
     _playerLogic.Setup(logic => logic.Bind()).Returns(_playerBinding);
 
-    _model = new PlayerModel() {
+    _model = new PlayerModel()
+    {
       AnimationTree = _animationTree.Object,
       AnimationStateMachine = _animStateMachine.Object
     };
 
     (_model as IAutoInit).IsTesting = true;
 
-    _model.FakeNodeTree(new() {
+    _model.FakeNodeTree(new()
+    {
       ["%AnimationTree"] = _animationTree.Object,
       ["%VisualRoot"] = _visualRoot.Object,
       ["%CenterRoot"] = _centerRoot.Object,
@@ -63,14 +75,16 @@ public class PlayerModelTest : TestClass {
   }
 
   [Test]
-  public void OnEnterTree() {
+  public void OnEnterTree()
+  {
     _model.OnEnterTree();
 
     _blinkTimer.VerifyAdd(timer => timer.Timeout += It.IsAny<Action>());
   }
 
   [Test]
-  public void OnExitTree() {
+  public void OnExitTree()
+  {
     _model.OnResolved();
     _model.OnExitTree();
 
@@ -78,7 +92,8 @@ public class PlayerModelTest : TestClass {
   }
 
   [Test]
-  public void Idles() {
+  public void Idles()
+  {
     _animStateMachine.Setup(sm => sm.Travel("idle", true));
 
     _model.OnResolved();
@@ -87,7 +102,8 @@ public class PlayerModelTest : TestClass {
   }
 
   [Test]
-  public void Runs() {
+  public void Runs()
+  {
     _animStateMachine.Setup(sm => sm.Travel("run", true));
     _model.OnResolved();
     _playerBinding.Output(new PlayerLogic.Output.Animations.Move());
@@ -95,7 +111,8 @@ public class PlayerModelTest : TestClass {
   }
 
   [Test]
-  public void Jumps() {
+  public void Jumps()
+  {
     _animStateMachine.Setup(sm => sm.Travel("jump", true));
     _model.OnResolved();
     _playerBinding.Output(new PlayerLogic.Output.Animations.Jump());
@@ -103,7 +120,8 @@ public class PlayerModelTest : TestClass {
   }
 
   [Test]
-  public void Falls() {
+  public void Falls()
+  {
     _animStateMachine.Setup(sm => sm.Travel("fall", true));
     _model.OnResolved();
     _playerBinding.Output(new PlayerLogic.Output.Animations.Fall());
@@ -111,7 +129,8 @@ public class PlayerModelTest : TestClass {
   }
 
   [Test]
-  public void MoveSpeedChanged() {
+  public void MoveSpeedChanged()
+  {
     _model.AnimationStateMachine = _animStateMachine.Object;
 
     _animationTree.Setup(tree => tree.Set(
@@ -123,7 +142,8 @@ public class PlayerModelTest : TestClass {
   }
 
   [Test]
-  public void MovementComputedAffectsLeanWhenGrounded() {
+  public void MovementComputedAffectsLeanWhenGrounded()
+  {
     _model.OnResolved();
     _playerBinding.Output(
       new PlayerLogic.Output.MovementComputed(
@@ -145,20 +165,23 @@ public class PlayerModelTest : TestClass {
   }
 
   [Test]
-  public void GetTarget() {
+  public void GetTarget()
+  {
     PlayerModel.GetTarget(1, new PlayerLogic.State.Jumping()).ShouldBe(0);
     PlayerModel.GetTarget(1, new PlayerLogic.State.Idle()).ShouldBe(1);
   }
 
   [Test]
-  public void Blinks() {
+  public void Blinks()
+  {
     _model.OnBlink();
 
     _animationTree.Verify(tree => tree.Set(PlayerModel.BLINK_REQUEST, true));
   }
 
   [Test]
-  public void Ready() {
+  public void Ready()
+  {
     var sm = new AnimationNodeStateMachinePlayback();
     _animationTree
       .Setup(tree => tree.Get(PlayerModel.ANIM_STATE_MACHINE))

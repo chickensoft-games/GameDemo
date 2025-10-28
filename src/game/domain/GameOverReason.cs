@@ -1,6 +1,7 @@
 namespace GameDemo;
 
-public enum GameOverReason {
+public enum GameOverReason
+{
   Won,
   Lost,
   Quit

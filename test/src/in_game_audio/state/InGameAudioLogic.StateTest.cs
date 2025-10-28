@@ -6,7 +6,8 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class InGameAudioLogicStateTest : TestClass {
+public class InGameAudioLogicStateTest : TestClass
+{
   private IFakeContext _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
@@ -15,7 +16,8 @@ public class InGameAudioLogicStateTest : TestClass {
   public InGameAudioLogicStateTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _appRepo = new();
     _gameRepo = new();
 
@@ -26,7 +28,8 @@ public class InGameAudioLogicStateTest : TestClass {
   }
 
   [Test]
-  public void Subscribes() {
+  public void Subscribes()
+  {
     _state.Attach(_context);
 
     _gameRepo.VerifyAdd(
@@ -71,7 +74,8 @@ public class InGameAudioLogicStateTest : TestClass {
   }
 
   [Test]
-  public void OnCoinCollectionStarted() {
+  public void OnCoinCollectionStarted()
+  {
     _state.OnCoinCollectionStarted(new Mock<ICoin>().Object);
 
     _context.Outputs.ShouldBe([
@@ -80,7 +84,8 @@ public class InGameAudioLogicStateTest : TestClass {
   }
 
   [Test]
-  public void OnJumpshroomUsed() {
+  public void OnJumpshroomUsed()
+  {
     _state.OnJumpshroomUsed();
 
     _context.Outputs.ShouldBe([
@@ -89,7 +94,8 @@ public class InGameAudioLogicStateTest : TestClass {
   }
 
   [Test]
-  public void OnGameEndedLost() {
+  public void OnGameEndedLost()
+  {
     _state.OnGameEnded(GameOverReason.Lost);
 
     _context.Outputs.ShouldBe([
@@ -99,7 +105,8 @@ public class InGameAudioLogicStateTest : TestClass {
   }
 
   [Test]
-  public void OnGameEndedOther() {
+  public void OnGameEndedOther()
+  {
     _state.OnGameEnded(GameOverReason.Quit);
 
     _context.Outputs.ShouldBe([
@@ -108,7 +115,8 @@ public class InGameAudioLogicStateTest : TestClass {
   }
 
   [Test]
-  public void OnJumped() {
+  public void OnJumped()
+  {
     _state.OnJumped();
 
     _context.Outputs.ShouldBe([
@@ -117,7 +125,8 @@ public class InGameAudioLogicStateTest : TestClass {
   }
 
   [Test]
-  public void OnMainMenuEntered() {
+  public void OnMainMenuEntered()
+  {
     _state.OnMainMenuEntered();
 
     _context.Outputs.ShouldBe([
@@ -126,7 +135,8 @@ public class InGameAudioLogicStateTest : TestClass {
   }
 
   [Test]
-  public void OnGameEntered() {
+  public void OnGameEntered()
+  {
     _state.OnGameEntered();
 
     _context.Outputs.ShouldBe([

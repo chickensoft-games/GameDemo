@@ -1,6 +1,7 @@
 namespace GameDemo;
 
-public enum PostGameAction {
+public enum PostGameAction
+{
   GoToMainMenu,
   RestartGame
 }

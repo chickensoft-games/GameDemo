@@ -4,21 +4,25 @@ using Chickensoft.GoDotTest;
 using Godot;
 using Shouldly;
 
-public class InputUtilitiesTest : TestClass {
+public class InputUtilitiesTest : TestClass
+{
   private float _deadZoneX = default!;
   private float _deadZoneY = default!;
 
   public InputUtilitiesTest(Node testScene) :
-  base(testScene) { }
+  base(testScene)
+  { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _deadZoneX = InputMap.ActionGetDeadzone("camera_right");
     _deadZoneY = InputMap.ActionGetDeadzone("camera_down");
   }
 
   [Test]
-  public void NotTriggerJoyPadWhenAxisIsNotPressed() {
+  public void NotTriggerJoyPadWhenAxisIsNotPressed()
+  {
     Input.UseAccumulatedInput = false;
 
     Input.ActionRelease("camera_left");
@@ -39,7 +43,8 @@ public class InputUtilitiesTest : TestClass {
   }
 
   [Test]
-  public void TriggerJoyPadWhenAxisIsPressed() {
+  public void TriggerJoyPadWhenAxisIsPressed()
+  {
     //up and left are always negative
     //down and right are always positive
 
@@ -58,7 +63,8 @@ public class InputUtilitiesTest : TestClass {
   }
 
   [Test]
-  public void NotTriggerJoyPadWhenAxisIsPressedInDeadZone() {
+  public void NotTriggerJoyPadWhenAxisIsPressedInDeadZone()
+  {
     Input.ActionRelease("camera_left");
     Input.ActionPress("camera_right", _deadZoneX - 0.1f);
 

@@ -1,5 +1,6 @@
 namespace GameDemo.Tests;
 
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Chickensoft.Collections;
 using Chickensoft.GoDotTest;
@@ -8,7 +9,15 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class PlayingTest : TestClass {
+[
+  SuppressMessage(
+    "Design",
+    "CA1001",
+    Justification = "Disposable fields are disposed in cleanup"
+  )
+]
+public class PlayingTest : TestClass
+{
   private IFakeContext _context = default!;
   private GameLogic.State.Playing _state = default!;
   private Mock<IGameRepo> _gameRepo = default!;
@@ -18,7 +27,8 @@ public class PlayingTest : TestClass {
   public PlayingTest(Node testScene) : base(testScene) { }
 
   [Setup]
-  public void Setup() {
+  public void Setup()
+  {
     _state = new GameLogic.State.Playing();
     _context = _state.CreateFakeContext();
 
@@ -32,8 +42,16 @@ public class PlayingTest : TestClass {
     _context.Set(_gameRepo.Object);
   }
 
+  [Cleanup]
+  public void Cleanup()
+  {
+    _isPaused.Dispose();
+    _isMouseCaptured.Dispose();
+  }
+
   [Test]
-  public void OnEnter() {
+  public void OnEnter()
+  {
     _gameRepo.Reset();
     _gameRepo.Setup(repo => repo.SetIsMouseCaptured(true));
     _state.Enter();
@@ -42,7 +60,8 @@ public class PlayingTest : TestClass {
   }
 
   [Test]
-  public void Subscribes() {
+  public void Subscribes()
+  {
     _state.Attach(_context);
 
     _gameRepo.VerifyAdd(repo => repo.Ended += _state.OnEnded);
@@ -58,27 +77,31 @@ public class PlayingTest : TestClass {
       .ShouldBeOfType<GameLogic.State.Paused>();
 
   [Test]
-  public void OnEnded() {
+  public void OnEnded()
+  {
     _state.OnEnded(GameOverReason.Won);
     _context.Inputs.Single().ShouldBeOfType<GameLogic.Input.EndGame>();
   }
 
   [Test]
-  public void OnEndGameWins() {
+  public void OnEndGameWins()
+  {
     var result = _state.On(new GameLogic.Input.EndGame(GameOverReason.Won));
     _gameRepo.Verify(repo => repo.Pause());
     result.State.ShouldBeOfType<GameLogic.State.Won>();
   }
 
   [Test]
-  public void OnEndGameLoses() {
+  public void OnEndGameLoses()
+  {
     var result = _state.On(new GameLogic.Input.EndGame(GameOverReason.Lost));
     _gameRepo.Verify(repo => repo.Pause());
     result.State.ShouldBeOfType<GameLogic.State.Lost>();
   }
 
   [Test]
-  public void OnEndGameQuits() {
+  public void OnEndGameQuits()
+  {
     var result = _state.On(new GameLogic.Input.EndGame(GameOverReason.Quit));
     _gameRepo.Verify(repo => repo.Pause());
     result.State.ShouldBeOfType<GameLogic.State.Quit>();
