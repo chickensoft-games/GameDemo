@@ -21,15 +21,22 @@ settings/stdout/print_fps=true
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
-window/stretch/mode="canvas_items"
-window/stretch/aspect="keep_height"
+window/size/viewport_width=3840
+window/size/viewport_height=2160
+window/size/initial_position_type=4
+window/size/window_width_override=1920
+window/size/window_height_override=1080
 window/vsync/vsync_mode=0
 
 [dotnet]
 
 project/assembly_name="GameDemo"
+
+[gui]
+
+theme/default_font_multichannel_signed_distance_field=true
+theme/default_font_generate_mipmaps=true
+theme/default_theme_scale=2.0
 
 [input]
 

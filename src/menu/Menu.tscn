@@ -4,38 +4,38 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aq8ij"]
 bg_color = Color(1, 1, 1, 0.219608)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nkv16"]
 bg_color = Color(1, 1, 1, 0.513726)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vps5y"]
 bg_color = Color(0.282353, 0.282353, 0.282353, 0.894118)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [sub_resource type="SystemFont" id="SystemFont_yn3ou"]
 subpixel_positioning = 0
 
 [sub_resource type="Theme" id="Theme_orto1"]
 default_font = SubResource("SystemFont_yn3ou")
-default_font_size = 24
+default_font_size = 48
 Button/styles/focus = SubResource("StyleBoxFlat_aq8ij")
 Button/styles/hover = SubResource("StyleBoxFlat_nkv16")
 Button/styles/normal = SubResource("StyleBoxFlat_aq8ij")
 Button/styles/pressed = SubResource("StyleBoxFlat_vps5y")
 
 [sub_resource type="LabelSettings" id="LabelSettings_5fc0a"]
-font_size = 48
+font_size = 96
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -54,10 +54,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 80
-theme_override_constants/margin_top = 80
-theme_override_constants/margin_right = 80
-theme_override_constants/margin_bottom = 80
+theme_override_constants/margin_left = 160
+theme_override_constants/margin_top = 160
+theme_override_constants/margin_right = 160
+theme_override_constants/margin_bottom = 160
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -79,26 +79,26 @@ label_settings = SubResource("LabelSettings_5fc0a")
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_top = 24
+theme_override_constants/margin_top = 48
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 40
 
 [node name="NewGameButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer2"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(2.08165e-12, 64)
+custom_minimum_size = Vector2(2.08165e-12, 128)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "New Game"
 
 [node name="LoadGameButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer2"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(2.08165e-12, 64)
+custom_minimum_size = Vector2(2.08165e-12, 128)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Load Game"
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer2"]
 layout_mode = 2
-theme_override_constants/margin_top = 160
+theme_override_constants/margin_top = 320

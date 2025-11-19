@@ -5,24 +5,24 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6nh0u"]
 bg_color = Color(0, 0.815686, 1, 0.337255)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_beapk"]
 bg_color = Color(0, 0.483995, 0.598094, 0.337255)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [sub_resource type="SystemFont" id="SystemFont_tfmt8"]
 subpixel_positioning = 0
 
 [sub_resource type="Theme" id="Theme_r7rsr"]
 default_font = SubResource("SystemFont_tfmt8")
-default_font_size = 24
+default_font_size = 48
 Button/styles/focus = SubResource("StyleBoxFlat_6nh0u")
 Button/styles/normal = SubResource("StyleBoxFlat_6nh0u")
 Button/styles/pressed = SubResource("StyleBoxFlat_beapk")
@@ -39,10 +39,10 @@ variation_embolden = 0.54
 
 [sub_resource type="LabelSettings" id="LabelSettings_3oq1d"]
 font = SubResource("FontVariation_ps6b3")
-font_size = 48
+font_size = 96
 
 [sub_resource type="LabelSettings" id="LabelSettings_1cpnb"]
-font_size = 36
+font_size = 72
 
 [sub_resource type="Animation" id="Animation_qq1c3"]
 length = 0.001
@@ -138,10 +138,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 80
-theme_override_constants/margin_top = 80
-theme_override_constants/margin_right = 80
-theme_override_constants/margin_bottom = 80
+theme_override_constants/margin_left = 160
+theme_override_constants/margin_top = 160
+theme_override_constants/margin_right = 160
+theme_override_constants/margin_bottom = 160
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -149,7 +149,7 @@ alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_bottom = 24
+theme_override_constants/margin_bottom = 48
 
 [node name="Title" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
@@ -165,15 +165,15 @@ horizontal_alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 48
+theme_override_constants/margin_top = 96
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 48
 
 [node name="MainMenuButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(256, 64)
+custom_minimum_size = Vector2(512, 128)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
