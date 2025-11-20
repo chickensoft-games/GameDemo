@@ -1,9 +1,9 @@
 namespace GameDemo.Tests;
 
 using System.Diagnostics.CodeAnalysis;
-using Chickensoft.Collections;
 using Chickensoft.GoDotTest;
 using Chickensoft.LogicBlocks;
+using Chickensoft.Sync.Primitives;
 using Godot;
 using Moq;
 using Shouldly;
@@ -52,68 +52,6 @@ public class PlayerCameraLogicStateTest : TestClass
 
   [Cleanup]
   public void Cleanup() => _settings.Dispose();
-
-  [Test]
-  public void ListensToMouseAndPlayerPosition()
-  {
-    var isMouseCaptured = new Mock<IAutoProp<bool>>();
-    var playerGlobalPosition = new Mock<IAutoProp<Vector3>>();
-
-    _gameRepo.Setup(repo => repo.IsMouseCaptured)
-      .Returns(isMouseCaptured.Object);
-    _gameRepo.Setup(repo => repo.PlayerGlobalPosition)
-      .Returns(playerGlobalPosition.Object);
-
-    _state.Attach(_context);
-
-    _gameRepo
-      .VerifyAdd(repo => repo.IsMouseCaptured.Sync += _state.OnMouseCaptured);
-    _gameRepo
-      .VerifyAdd(repo =>
-        repo.PlayerGlobalPosition.Sync += _state.OnPlayerGlobalPositionChanged
-      );
-
-    _state.Detach();
-
-    _gameRepo
-      .VerifyRemove(repo =>
-        repo.IsMouseCaptured.Sync -= _state.OnMouseCaptured);
-    _gameRepo
-      .VerifyRemove(repo =>
-        repo.PlayerGlobalPosition.Sync -= _state.OnPlayerGlobalPositionChanged
-      );
-  }
-
-  [Test]
-  public void OnMouseCaptured()
-  {
-    // Make sure it enables input when mouse is captured.
-    _state.OnMouseCaptured(true);
-
-    _context.Inputs.ShouldBe([
-      new PlayerCameraLogic.Input.EnableInput()
-    ]);
-
-    _context.Reset();
-
-    // Make sure it disables input when mouse is not captured.
-    _state.OnMouseCaptured(false);
-
-    _context.Inputs.ShouldBe([
-      new PlayerCameraLogic.Input.DisableInput()
-    ]);
-  }
-
-  [Test]
-  public void OnPlayerGlobalPositionChanged()
-  {
-    // Make sure it updates the camera position when the player moves.
-    _state.OnPlayerGlobalPositionChanged(Vector3.Zero);
-
-    _context.Inputs.ShouldBe([
-      new PlayerCameraLogic.Input.TargetPositionChanged(Vector3.Zero)
-    ]);
-  }
 
   [Test]
   public void OnCameraTargetOffsetChanged()

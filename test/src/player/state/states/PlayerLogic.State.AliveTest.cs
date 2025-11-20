@@ -1,9 +1,9 @@
 namespace GameDemo.Tests;
 
-using Chickensoft.Collections;
 using Chickensoft.GoDotTest;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
+using Chickensoft.Sync.Primitives;
 using Godot;
 using Moq;
 using Shouldly;
@@ -61,7 +61,7 @@ public partial class PlayerLogicStateAliveTest : TestClass
   {
     var input = new PlayerLogic.Input.PhysicsTick(1);
 
-    var cameraBasis = new AutoProp<Basis>(Basis.Identity);
+    var cameraBasis = new AutoValue<Basis>(Basis.Identity);
     _gameRepo.Setup(repo => repo.CameraBasis).Returns(cameraBasis);
     _player
       .Setup(player => player.GetGlobalInputVector(It.IsAny<Basis>()))
@@ -82,7 +82,7 @@ public partial class PlayerLogicStateAliveTest : TestClass
   {
     var input = new PlayerLogic.Input.PhysicsTick(1);
 
-    var cameraBasis = new AutoProp<Basis>(Basis.Identity);
+    var cameraBasis = new AutoValue<Basis>(Basis.Identity);
     _gameRepo.Setup(repo => repo.CameraBasis).Returns(cameraBasis);
     _player
       .Setup(player => player.GetGlobalInputVector(It.IsAny<Basis>()))

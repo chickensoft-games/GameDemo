@@ -16,41 +16,6 @@ public partial class PlayerCameraLogic
     IGet<Input.TargetPositionChanged>,
     IGet<Input.TargetOffsetChanged>
   {
-    public State()
-    {
-      OnAttach(
-        () =>
-        {
-          var gameRepo = Get<IGameRepo>();
-          gameRepo.IsMouseCaptured.Sync += OnMouseCaptured;
-          gameRepo.PlayerGlobalPosition.Sync += OnPlayerGlobalPositionChanged;
-        }
-      );
-
-      OnDetach(
-        () =>
-        {
-          var gameRepo = Get<IGameRepo>();
-          gameRepo.IsMouseCaptured.Sync -= OnMouseCaptured;
-          gameRepo.PlayerGlobalPosition.Sync -= OnPlayerGlobalPositionChanged;
-        }
-      );
-    }
-
-    internal void OnMouseCaptured(bool isMouseCaptured)
-    {
-      if (isMouseCaptured)
-      {
-        Input(new Input.EnableInput());
-        return;
-      }
-
-      Input(new Input.DisableInput());
-    }
-
-    internal void OnPlayerGlobalPositionChanged(Vector3 position) =>
-      Input(new Input.TargetPositionChanged(position));
-
     internal void OnCameraTargetOffsetChanged(Vector3 targetOffset) =>
       Input(new Input.TargetOffsetChanged(targetOffset));
 
