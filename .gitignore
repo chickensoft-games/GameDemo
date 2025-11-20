@@ -13,3 +13,5 @@ obj/
 
 *.translation
 *.old
+
+App.g.puml
