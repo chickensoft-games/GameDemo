@@ -3,11 +3,11 @@ namespace GameDemo.Tests;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Chickensoft.AutoInject;
-using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
 using Chickensoft.GodotTestDriver;
 using Chickensoft.SaveFileBuilder;
+using Chickensoft.Sync.Primitives;
 using Godot;
 using Moq;
 using Shouldly;
@@ -254,9 +254,9 @@ public class PlayerCameraTest : TestClass
     var chunk = new Mock<ISaveChunk<PlayerCameraData>>();
 
     var logic = new PlayerCameraLogic();
-    _gameRepo.Setup(g => g.IsMouseCaptured).Returns(new AutoProp<bool>(false));
+    _gameRepo.Setup(g => g.IsMouseCaptured).Returns(new AutoValue<bool>(false));
     _gameRepo.Setup(g => g.PlayerGlobalPosition)
-      .Returns(new AutoProp<Vector3>(Vector3.Zero));
+      .Returns(new AutoValue<Vector3>(Vector3.Zero));
 
     logic.Set(_gameRepo.Object);
     logic.Set(new PlayerCameraLogic.Data

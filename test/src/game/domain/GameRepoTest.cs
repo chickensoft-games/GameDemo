@@ -1,8 +1,8 @@
 namespace GameDemo.Tests;
 
 using System.Diagnostics.CodeAnalysis;
-using Chickensoft.Collections;
 using Chickensoft.GoDotTest;
+using Chickensoft.Sync.Primitives;
 using Godot;
 using Moq;
 using Shouldly;
@@ -16,12 +16,12 @@ using Shouldly;
 ]
 public class GameRepoTest : TestClass
 {
-  private AutoProp<bool> _isMouseCaptured = default!;
-  private AutoProp<bool> _isPaused = default!;
-  private AutoProp<Vector3> _playerGlobalPosition = default!;
-  private AutoProp<Basis> _cameraBasis = default!;
-  private AutoProp<int> _numCoinsCollected = default!;
-  private AutoProp<int> _numCoinsAtStart = default!;
+  private AutoValue<bool> _isMouseCaptured = default!;
+  private AutoValue<bool> _isPaused = default!;
+  private AutoValue<Vector3> _playerGlobalPosition = default!;
+  private AutoValue<Basis> _cameraBasis = default!;
+  private AutoValue<int> _numCoinsCollected = default!;
+  private AutoValue<int> _numCoinsAtStart = default!;
 
   private GameRepo _repo = default!;
 
