@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: '🧾 Checkout'
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: '📝 Change Version'
         uses: vers-one/dotnet-project-version-updater@v1.7
