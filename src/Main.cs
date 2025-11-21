@@ -1,6 +1,7 @@
 namespace GameDemo;
 
 using Godot;
+using Chickensoft.GameTools.Displays;
 
 #if RUN_TESTS
 using System.Reflection;
@@ -14,12 +15,16 @@ using Chickensoft.GoDotTest;
 
 public partial class Main : Node2D
 {
+  public Vector2I DesignResolution => Display.UHD4k;
 #if RUN_TESTS
   public TestEnvironment Environment = default!;
 #endif
 
   public override void _Ready()
   {
+    // Correct any erroneous scaling and guess sensible defaults.
+    GetWindow().LookGood(WindowScaleBehavior.UIProportional, DesignResolution);
+
 #if RUN_TESTS
     // If this is a debug build, use GoDotTest to examine the
     // command line arguments and determine if we should run tests.

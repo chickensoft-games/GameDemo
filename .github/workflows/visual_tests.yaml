@@ -51,7 +51,7 @@ jobs:
       - name: 💾 Install Graphics Driver Emulators
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          packages: mesa-vulkan-drivers binutils
+          packages: mesa-vulkan-drivers binutils x11-xserver-utils
           version: 1.0
 
       - name: 🤖 Setup Godot

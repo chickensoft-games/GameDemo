@@ -13,17 +13,17 @@ variation_embolden = 0.54
 
 [sub_resource type="LabelSettings" id="LabelSettings_57jok"]
 font = SubResource("FontVariation_ps6b3")
-font_size = 48
+font_size = 96
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg3p1"]
 bg_color = Color(0, 0, 0, 0.87451)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_dourt"]
-font_size = 32
+font_size = 64
 
 [sub_resource type="Animation" id="Animation_xporw"]
 length = 0.001
@@ -234,10 +234,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 80
-theme_override_constants/margin_top = 80
-theme_override_constants/margin_right = 80
-theme_override_constants/margin_bottom = 80
+theme_override_constants/margin_left = 160
+theme_override_constants/margin_top = 160
+theme_override_constants/margin_right = 160
+theme_override_constants/margin_bottom = 160
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -248,7 +248,7 @@ alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_bottom = 24
+theme_override_constants/margin_bottom = 48
 
 [node name="Title" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
@@ -259,15 +259,15 @@ horizontal_alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 48
+theme_override_constants/margin_top = 96
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 48
 
 [node name="ResumeButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(256, 64)
+custom_minimum_size = Vector2(512, 128)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -276,7 +276,7 @@ text = "Resume"
 
 [node name="SaveButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(256, 64)
+custom_minimum_size = Vector2(512, 128)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -286,7 +286,7 @@ expand_icon = true
 
 [node name="MainMenuButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(256, 64)
+custom_minimum_size = Vector2(512, 128)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -300,7 +300,7 @@ modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="MarginContainer/CenterContainer/SaveOverlay"]
-custom_minimum_size = Vector2(512, 512)
+custom_minimum_size = Vector2(1024, 1024)
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_bg3p1")
@@ -312,7 +312,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_top = 24
+theme_override_constants/margin_top = 48
 
 [node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer/CenterContainer/SaveOverlay/Panel/MarginContainer"]
 layout_mode = 2

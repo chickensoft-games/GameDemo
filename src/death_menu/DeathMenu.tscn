@@ -5,24 +5,24 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nr2f"]
 bg_color = Color(0.890805, 0.000373708, 0.0286205, 0.266667)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bjrl7"]
 bg_color = Color(0.6, 0, 0.0117647, 0.266667)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [sub_resource type="SystemFont" id="SystemFont_yn3ou"]
 subpixel_positioning = 0
 
 [sub_resource type="Theme" id="Theme_48i0m"]
 default_font = SubResource("SystemFont_yn3ou")
-default_font_size = 24
+default_font_size = 48
 Button/styles/focus = SubResource("StyleBoxFlat_8nr2f")
 Button/styles/normal = SubResource("StyleBoxFlat_8nr2f")
 Button/styles/pressed = SubResource("StyleBoxFlat_bjrl7")
@@ -53,11 +53,11 @@ variation_embolden = 0.54
 
 [sub_resource type="LabelSettings" id="LabelSettings_7gk1r"]
 font = SubResource("FontVariation_ps6b3")
-font_size = 48
+font_size = 96
 font_color = Color(1, 0.239216, 0.239216, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_jxos6"]
-font_size = 36
+font_size = 72
 font_color = Color(0.788235, 0.227451, 0.227451, 1)
 
 [sub_resource type="Animation" id="Animation_ifg22"]
@@ -192,10 +192,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 80
-theme_override_constants/margin_top = 80
-theme_override_constants/margin_right = 80
-theme_override_constants/margin_bottom = 80
+theme_override_constants/margin_left = 160
+theme_override_constants/margin_top = 160
+theme_override_constants/margin_right = 160
+theme_override_constants/margin_bottom = 160
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -203,7 +203,7 @@ alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_bottom = 24
+theme_override_constants/margin_bottom = 48
 
 [node name="Title" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
@@ -219,15 +219,15 @@ horizontal_alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 48
+theme_override_constants/margin_top = 96
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 48
 
 [node name="TryAgainButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(256, 64)
+custom_minimum_size = Vector2(512, 128)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -236,7 +236,7 @@ text = "Try Again"
 
 [node name="MainMenuButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(256, 64)
+custom_minimum_size = Vector2(512, 128)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0

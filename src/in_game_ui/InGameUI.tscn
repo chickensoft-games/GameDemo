@@ -35,26 +35,26 @@ alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 48
-theme_override_constants/margin_right = 96
+theme_override_constants/margin_top = 96
+theme_override_constants/margin_right = 192
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer"]
 layout_mode = 2
 
 [node name="CoinsLabel" type="Label" parent="HBoxContainer/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 2.08165e-12)
+custom_minimum_size = Vector2(400, 2.08165e-12)
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 96
 text = "## / ##"
 horizontal_alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 24
+theme_override_constants/margin_left = 48
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="HBoxContainer/MarginContainer/HBoxContainer/MarginContainer"]
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 
 [node name="SubViewport" type="SubViewport" parent="HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/SubViewportContainer"]
@@ -62,7 +62,7 @@ own_world_3d = true
 world_3d = SubResource("World3D_5xwgl")
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(128, 128)
+size = Vector2i(256, 256)
 render_target_update_mode = 4
 
 [node name="CoinScene" parent="HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_eo2h2")]
