@@ -23,5 +23,9 @@ public partial class GameLogic
     public readonly record struct GoToMainMenu;
 
     public readonly record struct Start;
+
+    public readonly record struct MouseCaptured(bool IsMouseCaptured);
+
+    public readonly record struct Paused(bool IsPaused);
   }
 }

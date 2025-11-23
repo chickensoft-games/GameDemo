@@ -11,6 +11,7 @@ public partial class GameLogic
     public readonly record struct CaptureMouse(bool IsMouseCaptured);
 
     public readonly record struct ShowPauseSaveOverlay;
+
     public readonly record struct StartSaving();
 
     public readonly record struct HidePauseSaveOverlay;

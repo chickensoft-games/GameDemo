@@ -2,9 +2,9 @@ namespace GameDemo.Tests;
 
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Chickensoft.Collections;
 using Chickensoft.GoDotTest;
 using Chickensoft.LogicBlocks;
+using Chickensoft.Sync.Primitives;
 using Godot;
 using Moq;
 using Shouldly;
@@ -21,8 +21,8 @@ public class PlayingTest : TestClass
   private IFakeContext _context = default!;
   private GameLogic.State.Playing _state = default!;
   private Mock<IGameRepo> _gameRepo = default!;
-  private AutoProp<bool> _isMouseCaptured = default!;
-  private AutoProp<bool> _isPaused = default!;
+  private AutoValue<bool> _isMouseCaptured = default!;
+  private AutoValue<bool> _isPaused = default!;
 
   public PlayingTest(Node testScene) : base(testScene) { }
 
