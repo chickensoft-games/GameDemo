@@ -84,6 +84,13 @@ public class GameLogicTest : TestClass
     outputs.ShouldContain(new GameLogic.Output.SetPauseMode(true));
   }
 
+  [Test]
+  public void OnStopWithoutStartSucceeds()
+  {
+    var logic = new GameLogic();
+    logic.OnStop();
+  }
+
   [Cleanup]
   public void Cleanup()
   {

@@ -84,6 +84,13 @@ public class InGameUILogicTest : TestClass
     outputs.ShouldContain(new InGameUILogic.Output.NumCoinsChanged(0, 10));
   }
 
+  [Test]
+  public void OnStopWithoutStartSucceeds()
+  {
+    var logic = new InGameUILogic();
+    logic.OnStop();
+  }
+
   [Cleanup]
   public void Cleanup()
   {

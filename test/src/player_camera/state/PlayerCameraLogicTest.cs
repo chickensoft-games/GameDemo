@@ -128,6 +128,13 @@ public class PlayerCameraLogicTest : TestClass
     lastOutput.Value.GlobalTransform.Origin.ShouldNotBe(Vector3.Zero);
   }
 
+  [Test]
+  public void OnStopWithoutStartSucceeds()
+  {
+    var logic = new PlayerCameraLogic();
+    logic.OnStop();
+  }
+
   [Cleanup]
   public void Cleanup()
   {

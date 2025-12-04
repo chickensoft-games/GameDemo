@@ -106,4 +106,12 @@ public class PlayingTest : TestClass
     _gameRepo.Verify(repo => repo.Pause());
     result.State.ShouldBeOfType<GameLogic.State.Quit>();
   }
+
+  [Test]
+  public void OnUnknownEndGameQuits()
+  {
+    var result = _state.On(new GameLogic.Input.EndGame((GameOverReason)25));
+    _gameRepo.Verify(repo => repo.Pause());
+    result.State.ShouldBeOfType<GameLogic.State.Quit>();
+  }
 }
