@@ -2,9 +2,9 @@ namespace GameDemo.Tests;
 
 using System.Diagnostics.CodeAnalysis;
 using Chickensoft.AutoInject;
-using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
+using Chickensoft.Sync.Primitives;
 using Godot;
 using Moq;
 using Shouldly;
@@ -78,7 +78,7 @@ public class InGameUITest : TestClass
   {
     _ui.OnResolved();
 
-    var numCoinsAtStart = new AutoProp<int>(2);
+    var numCoinsAtStart = new AutoValue<int>(2);
     _gameRepo.Setup(repo => repo.NumCoinsAtStart).Returns(numCoinsAtStart);
 
     _coinsLabel.SetupSet(label => label.Text = "1/2");
@@ -95,7 +95,7 @@ public class InGameUITest : TestClass
   {
     _ui.OnResolved();
 
-    var numCoinsCollected = new AutoProp<int>(1);
+    var numCoinsCollected = new AutoValue<int>(1);
     _gameRepo.Setup(repo => repo.NumCoinsCollected).Returns(numCoinsCollected);
 
     _coinsLabel.SetupSet(label => label.Text = "1/2");

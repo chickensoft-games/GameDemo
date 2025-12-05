@@ -28,8 +28,6 @@ GameDemo_GameLogic_State_Saving --> GameDemo_GameLogic_State_Paused : SaveComple
 GameDemo_GameLogic_State_Saving --> GameDemo_GameLogic_State_Saving : PauseButtonPressed
 GameDemo_GameLogic_State_Won --> GameDemo_GameLogic_State_Won : GoToMainMenu
 
-GameDemo_GameLogic_State : OnIsMouseCaptured() → CaptureMouse
-GameDemo_GameLogic_State : OnIsPaused() → SetPauseMode
 GameDemo_GameLogic_State_Lost : OnEnter → ShowLostScreen
 GameDemo_GameLogic_State_Paused : OnEnter → ShowPauseMenu
 GameDemo_GameLogic_State_Paused : OnExit → ExitPauseMenu

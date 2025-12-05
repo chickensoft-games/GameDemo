@@ -1,7 +1,7 @@
 namespace GameDemo;
 
 using System;
-using Chickensoft.Collections;
+using Chickensoft.Sync.Primitives;
 using Godot;
 
 public interface IGameRepo : IDisposable
@@ -20,22 +20,22 @@ public interface IGameRepo : IDisposable
   event Action? Jumped;
 
   /// <summary>Mouse captured status.</summary>
-  IAutoProp<bool> IsMouseCaptured { get; }
+  IAutoValue<bool> IsMouseCaptured { get; }
 
   /// <summary>Pause status.</summary>
-  IAutoProp<bool> IsPaused { get; }
+  IAutoValue<bool> IsPaused { get; }
 
   /// <summary>Number of coins collected by the players.</summary>
-  IAutoProp<int> NumCoinsCollected { get; }
+  IAutoValue<int> NumCoinsCollected { get; }
 
   /// <summary>The total number of coins the world started with.</summary>
-  IAutoProp<int> NumCoinsAtStart { get; }
+  IAutoValue<int> NumCoinsAtStart { get; }
 
   /// <summary>Player's position in global coordinates.</summary>
-  IAutoProp<Vector3> PlayerGlobalPosition { get; }
+  IAutoValue<Vector3> PlayerGlobalPosition { get; }
 
   /// <summary>Camera's global transform basis.</summary>
-  IAutoProp<Basis> CameraBasis { get; }
+  IAutoValue<Basis> CameraBasis { get; }
 
   /// <summary>Camera's global forward direction vector.</summary>
   Vector3 GlobalCameraDirection { get; }
@@ -96,22 +96,22 @@ public interface IGameRepo : IDisposable
 /// </summary>
 public class GameRepo : IGameRepo
 {
-  public IAutoProp<bool> IsMouseCaptured => _isMouseCaptured;
-  private readonly AutoProp<bool> _isMouseCaptured;
-  public IAutoProp<bool> IsPaused => _isPaused;
-  private readonly AutoProp<bool> _isPaused;
-  public IAutoProp<Vector3> PlayerGlobalPosition => _playerGlobalPosition;
-  private readonly AutoProp<Vector3> _playerGlobalPosition;
+  public IAutoValue<bool> IsMouseCaptured => _isMouseCaptured;
+  private readonly AutoValue<bool> _isMouseCaptured;
+  public IAutoValue<bool> IsPaused => _isPaused;
+  private readonly AutoValue<bool> _isPaused;
+  public IAutoValue<Vector3> PlayerGlobalPosition => _playerGlobalPosition;
+  private readonly AutoValue<Vector3> _playerGlobalPosition;
 
-  public IAutoProp<Basis> CameraBasis => _cameraBasis;
-  private readonly AutoProp<Basis> _cameraBasis;
+  public IAutoValue<Basis> CameraBasis => _cameraBasis;
+  private readonly AutoValue<Basis> _cameraBasis;
 
   public Vector3 GlobalCameraDirection => -_cameraBasis.Value.Z;
 
-  public IAutoProp<int> NumCoinsCollected => _numCoinsCollected;
-  private readonly AutoProp<int> _numCoinsCollected;
-  public IAutoProp<int> NumCoinsAtStart => _numCoinsAtStart;
-  private readonly AutoProp<int> _numCoinsAtStart;
+  public IAutoValue<int> NumCoinsCollected => _numCoinsCollected;
+  private readonly AutoValue<int> _numCoinsCollected;
+  public IAutoValue<int> NumCoinsAtStart => _numCoinsAtStart;
+  private readonly AutoValue<int> _numCoinsAtStart;
   public event Action<ICoin>? CoinCollectionCompleted;
   public event Action<ICoin>? CoinCollectionStarted;
   public event Action? JumpshroomUsed;
@@ -123,21 +123,21 @@ public class GameRepo : IGameRepo
 
   public GameRepo()
   {
-    _isMouseCaptured = new AutoProp<bool>(false);
-    _isPaused = new AutoProp<bool>(false);
-    _playerGlobalPosition = new AutoProp<Vector3>(Vector3.Zero);
-    _cameraBasis = new AutoProp<Basis>(Basis.Identity);
-    _numCoinsCollected = new AutoProp<int>(0);
-    _numCoinsAtStart = new AutoProp<int>(0);
+    _isMouseCaptured = new AutoValue<bool>(false);
+    _isPaused = new AutoValue<bool>(false);
+    _playerGlobalPosition = new AutoValue<Vector3>(Vector3.Zero);
+    _cameraBasis = new AutoValue<Basis>(Basis.Identity);
+    _numCoinsCollected = new AutoValue<int>(0);
+    _numCoinsAtStart = new AutoValue<int>(0);
   }
 
   internal GameRepo(
-    AutoProp<bool> isMouseCaptured,
-    AutoProp<bool> isPaused,
-    AutoProp<Vector3> playerGlobalPosition,
-    AutoProp<Basis> cameraBasis,
-    AutoProp<int> numCoinsCollected,
-    AutoProp<int> numCoinsAtStart
+    AutoValue<bool> isMouseCaptured,
+    AutoValue<bool> isPaused,
+    AutoValue<Vector3> playerGlobalPosition,
+    AutoValue<Basis> cameraBasis,
+    AutoValue<int> numCoinsCollected,
+    AutoValue<int> numCoinsAtStart
   )
   {
     _isMouseCaptured = isMouseCaptured;
@@ -149,18 +149,18 @@ public class GameRepo : IGameRepo
   }
 
   public void SetPlayerGlobalPosition(Vector3 playerGlobalPosition) =>
-    _playerGlobalPosition.OnNext(playerGlobalPosition);
+    _playerGlobalPosition.Value = playerGlobalPosition;
 
   public void SetIsMouseCaptured(bool isMouseCaptured) =>
-    _isMouseCaptured.OnNext(isMouseCaptured);
+    _isMouseCaptured.Value = isMouseCaptured;
 
   public void SetCameraBasis(Basis cameraBasis) =>
-    _cameraBasis.OnNext(cameraBasis);
+    _cameraBasis.Value = cameraBasis;
 
   public void StartCoinCollection(ICoin coin)
   {
     _coinsBeingCollected++;
-    _numCoinsCollected.OnNext(_numCoinsCollected.Value + 1);
+    _numCoinsCollected.Value = _numCoinsCollected.Value + 1;
     CoinCollectionStarted?.Invoke(coin);
   }
 
@@ -182,30 +182,30 @@ public class GameRepo : IGameRepo
 
   public void OnGameEnded(GameOverReason reason)
   {
-    _isMouseCaptured.OnNext(false);
+    _isMouseCaptured.Value = false;
     Pause();
     Ended?.Invoke(reason);
   }
 
   public void Pause()
   {
-    _isMouseCaptured.OnNext(false);
-    _isPaused.OnNext(true);
+    _isMouseCaptured.Value = false;
+    _isPaused.Value = true;
   }
 
   public void Resume()
   {
-    _isMouseCaptured.OnNext(true);
-    _isPaused.OnNext(false);
+    _isMouseCaptured.Value = true;
+    _isPaused.Value = false;
   }
 
   public void OnJumpshroomUsed() => JumpshroomUsed?.Invoke();
 
   public void SetNumCoinsAtStart(int numCoinsAtStart) =>
-    _numCoinsAtStart.OnNext(numCoinsAtStart);
+    _numCoinsAtStart.Value = numCoinsAtStart;
 
   public void SetNumCoinsCollected(int numCoinsCollected) =>
-    _numCoinsCollected.OnNext(numCoinsCollected);
+    _numCoinsCollected.Value = numCoinsCollected;
 
   #region Internals
 
@@ -216,19 +216,10 @@ public class GameRepo : IGameRepo
       if (disposing)
       {
         // Dispose managed objects.
-        _isMouseCaptured.OnCompleted();
         _isMouseCaptured.Dispose();
-
-        _playerGlobalPosition.OnCompleted();
         _playerGlobalPosition.Dispose();
-
-        _cameraBasis.OnCompleted();
         _cameraBasis.Dispose();
-
-        _numCoinsCollected.OnCompleted();
         _numCoinsCollected.Dispose();
-
-        _numCoinsAtStart.OnCompleted();
         _numCoinsAtStart.Dispose();
       }
 

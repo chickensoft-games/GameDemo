@@ -49,7 +49,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="**/*.tscn"/>
+    <AdditionalFiles Include="**/*.tscn" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,12 +62,13 @@
     <PackageReference Include="Chickensoft.Collections" Version="3.1.4" />
     <PackageReference Include="Chickensoft.GodotNodeInterfaces" Version="2.4.57" />
     <PackageReference Include="Chickensoft.Introspection" Version="3.0.2" />
-    <PackageReference Include="Chickensoft.Introspection.Generator" Version="3.0.2" PrivateAssets="all" OutputItemType="analyzer" />
+    <PackageReference Include="Chickensoft.Introspection.Generator" Version="3.0.2"  PrivateAssets="all" OutputItemType="analyzer" />
     <PackageReference Include="Chickensoft.Serialization" Version="3.1.0" />
     <PackageReference Include="Chickensoft.Serialization.Godot" Version="0.8.45" />
     <PackageReference Include="Chickensoft.LogicBlocks" Version="5.20.0" />
     <PackageReference Include="Chickensoft.LogicBlocks.DiagramGenerator" Version="5.20.0" PrivateAssets="all" OutputItemType="analyzer" />
     <PackageReference Include="Chickensoft.UMLGenerator" Version="1.1.0" />
+    <PackageReference Include="Chickensoft.Sync" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(RunTests)' != 'true'">

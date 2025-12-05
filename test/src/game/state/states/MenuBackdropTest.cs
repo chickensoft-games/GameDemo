@@ -1,9 +1,9 @@
 namespace GameDemo.Tests;
 
 using System.Linq;
-using Chickensoft.Collections;
 using Chickensoft.GoDotTest;
 using Chickensoft.LogicBlocks;
+using Chickensoft.Sync.Primitives;
 using Godot;
 using Moq;
 using Shouldly;
@@ -29,8 +29,8 @@ public class MenuBackdropTest : TestClass
     _context.Set(_appRepo.Object);
     _context.Set(_gameRepo.Object);
 
-    _gameRepo.Setup(repo => repo.IsMouseCaptured).Returns(new Mock<IAutoProp<bool>>().Object);
-    _gameRepo.Setup(repo => repo.IsPaused).Returns(new Mock<IAutoProp<bool>>().Object);
+    _gameRepo.Setup(repo => repo.IsMouseCaptured).Returns(new Mock<IAutoValue<bool>>().Object);
+    _gameRepo.Setup(repo => repo.IsPaused).Returns(new Mock<IAutoValue<bool>>().Object);
   }
 
   [Test]
