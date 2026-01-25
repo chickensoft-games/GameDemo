@@ -120,5 +120,5 @@ public partial class PlayerModel : Node3D
     return 0;
   }
 
-  public void OnBlink() => AnimationTree.Set(BLINK_REQUEST, true);
+  public void OnBlink() => AnimationTree.Set(BLINK_REQUEST, (int)AnimationNodeOneShot.OneShotRequest.Fire);
 }
