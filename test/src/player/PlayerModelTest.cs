@@ -176,7 +176,7 @@ public class PlayerModelTest : TestClass
   {
     _model.OnBlink();
 
-    _animationTree.Verify(tree => tree.Set(PlayerModel.BLINK_REQUEST, true));
+    _animationTree.Verify(tree => tree.Set(PlayerModel.BLINK_REQUEST, (int)AnimationNodeOneShot.OneShotRequest.Fire));
   }
 
   [Test]
