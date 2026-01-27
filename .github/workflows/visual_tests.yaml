@@ -67,7 +67,7 @@ jobs:
           version: global.json
 
       - name: 🧑‍🔬 Generate .NET Bindings
-        run: godot --headless --build-solutions --quit || exit 0
+        run: godot --headless --build-solutions --quit
 
       - name: 🌋 Run Tests in Godot
         run: |
