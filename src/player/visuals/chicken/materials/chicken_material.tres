@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://8k0x7l1y4em8"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://8k0x7l1y4em8"]
 
 [ext_resource type="Shader" uid="uid://hs43l7q04erh" path="res://src/player/visuals/chicken/materials/chicken_shader.gdshader" id="1_qrwbj"]
 

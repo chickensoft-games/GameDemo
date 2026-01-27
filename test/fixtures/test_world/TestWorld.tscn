@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://d2cpk155g6ono"]
+[gd_scene format=3 uid="uid://d2cpk155g6ono"]
 
 [ext_resource type="PackedScene" uid="uid://cb7m8cgutfp0c" path="res://test/fixtures/test_ground/TestGround.tscn" id="1_t18hc"]
 
@@ -15,17 +15,17 @@ sky_material = SubResource("ProceduralSkyMaterial_j6y40")
 background_mode = 2
 sky = SubResource("Sky_ieu1m")
 
-[node name="TestWorld" type="Node3D"]
+[node name="TestWorld" type="Node3D" unique_id=1076131682]
 
-[node name="TestGround" parent="." instance=ExtResource("1_t18hc")]
+[node name="TestGround" parent="." unique_id=1120181736 instance=ExtResource("1_t18hc")]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=976810981]
 environment = SubResource("Environment_a53fc")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1848995021]
 transform = Transform3D(1, 0, 0, 0, 0.677967, 0.735092, 0, -0.735092, 0.677967, 0, 2.0396, 0)
 shadow_enabled = true
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=294895058]
 transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 1.51107e-16, 0.889727, 0.456492, -4.69544e-16, -0.456492, 0.889727, 2.08165e-12, 2.51056, 5.821)
 current = true

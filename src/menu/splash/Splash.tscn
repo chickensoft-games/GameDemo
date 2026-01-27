@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://7tblo640sji4"]
+[gd_scene format=3 uid="uid://7tblo640sji4"]
 
 [ext_resource type="Script" uid="uid://baxvxve2nd31" path="res://src/menu/splash/Splash.cs" id="1_3ixcl"]
 [ext_resource type="Texture2D" uid="uid://dvdp4mw83pl5" path="res://src/menu/splash/chickensoft_logo.png" id="2_t8gk7"]
@@ -113,7 +113,7 @@ _data = {
 &"intro": SubResource("Animation_eqwqs")
 }
 
-[node name="Splash" type="Control"]
+[node name="Splash" type="Control" unique_id=1179388847]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -122,7 +122,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3ixcl")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=42442795]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -131,14 +131,12 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=921111941]
 unique_name_in_owner = true
-libraries = {
-"": SubResource("AnimationLibrary_c7llu")
-}
-autoplay = "intro"
+libraries/ = SubResource("AnimationLibrary_c7llu")
+autoplay = &"intro"
 
-[node name="VBoxChickensoft" type="VBoxContainer" parent="."]
+[node name="VBoxChickensoft" type="VBoxContainer" parent="." unique_id=932934229]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -149,12 +147,12 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Chickensoft" type="TextureRect" parent="VBoxChickensoft"]
+[node name="Chickensoft" type="TextureRect" parent="VBoxChickensoft" unique_id=1953894383]
 layout_mode = 2
 texture = ExtResource("2_t8gk7")
 expand_mode = 5
 
-[node name="VBoxGodot" type="VBoxContainer" parent="."]
+[node name="VBoxGodot" type="VBoxContainer" parent="." unique_id=1069458205]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -165,7 +163,7 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Godot" type="TextureRect" parent="VBoxGodot"]
+[node name="Godot" type="TextureRect" parent="VBoxGodot" unique_id=669686250]
 layout_mode = 2
 texture = ExtResource("3_7ugse")
 expand_mode = 5

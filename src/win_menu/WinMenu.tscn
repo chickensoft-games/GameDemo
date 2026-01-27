@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bthdrw6580hll"]
+[gd_scene format=3 uid="uid://bthdrw6580hll"]
 
 [ext_resource type="Script" uid="uid://d1lxcluhtvwtq" path="res://src/win_menu/WinMenu.cs" id="1_ephor"]
 [ext_resource type="Shader" uid="uid://c847n11uwaagb" path="res://src/win_menu/fireworks.gdshader" id="1_m8kyu"]
@@ -110,7 +110,7 @@ _data = {
 &"fade_out": SubResource("Animation_lgj8v")
 }
 
-[node name="WinMenu" type="Control"]
+[node name="WinMenu" type="Control" unique_id=1600663793]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -121,7 +121,7 @@ grow_vertical = 2
 theme = SubResource("Theme_r7rsr")
 script = ExtResource("1_ephor")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=805471347]
 material = SubResource("ShaderMaterial_p6kuv")
 layout_mode = 1
 anchors_preset = 15
@@ -131,7 +131,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1891576080]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -143,35 +143,35 @@ theme_override_constants/margin_top = 80
 theme_override_constants/margin_right = 80
 theme_override_constants/margin_bottom = 80
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=279381644]
 layout_mode = 2
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=81081151]
 layout_mode = 2
 theme_override_constants/margin_bottom = 24
 
-[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer"]
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=1718185458]
 layout_mode = 2
 text = "You won!"
 label_settings = SubResource("LabelSettings_3oq1d")
 horizontal_alignment = 1
 
-[node name="Subtitle" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Subtitle" type="Label" parent="MarginContainer/VBoxContainer" unique_id=72717206]
 layout_mode = 2
 text = "No more coins!"
 label_settings = SubResource("LabelSettings_1cpnb")
 horizontal_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=873575499]
 layout_mode = 2
 theme_override_constants/margin_top = 48
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer2" unique_id=2129856809]
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="MainMenuButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="MainMenuButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1739182]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
@@ -179,8 +179,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Main Menu"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1500111275]
 unique_name_in_owner = true
-libraries = {
-"": SubResource("AnimationLibrary_kxx0w")
-}
+libraries/ = SubResource("AnimationLibrary_kxx0w")

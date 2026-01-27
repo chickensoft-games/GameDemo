@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cywpu6lxdjhuu"]
+[gd_scene format=3 uid="uid://cywpu6lxdjhuu"]
 
 [ext_resource type="Script" uid="uid://d3gnuv1uga3om" path="res://src/game/Game.cs" id="1_17mmo"]
 [ext_resource type="PackedScene" uid="uid://pjmfnaiwwwed" path="res://src/player_camera/PlayerCamera.tscn" id="2_g21k4"]
@@ -10,46 +10,46 @@
 [ext_resource type="PackedScene" uid="uid://bthdrw6580hll" path="res://src/win_menu/WinMenu.tscn" id="8_ovoi6"]
 [ext_resource type="PackedScene" uid="uid://conmng5ejji6f" path="res://src/pause_menu/PauseMenu.tscn" id="9_yxma7"]
 
-[node name="Game" type="Node3D"]
+[node name="Game" type="Node3D" unique_id=1639502299]
 process_mode = 3
 script = ExtResource("1_17mmo")
 
-[node name="PauseContainer" type="Node3D" parent="."]
+[node name="PauseContainer" type="Node3D" parent="." unique_id=1940956694]
 unique_name_in_owner = true
 process_mode = 1
 
-[node name="PlayerCamera" parent="PauseContainer" instance=ExtResource("2_g21k4")]
+[node name="PlayerCamera" parent="PauseContainer" unique_id=129513250 instance=ExtResource("2_g21k4")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5627, 6.93445, 13.521)
 Offset = Vector3(2.08165e-12, 1.6, 2.08165e-12)
 
-[node name="Player" parent="PauseContainer" instance=ExtResource("4_smjqx")]
+[node name="Player" parent="PauseContainer" unique_id=2027509092 instance=ExtResource("4_smjqx")]
 unique_name_in_owner = true
 transform = Transform3D(-1, 3.48787e-16, 8.74228e-08, 3.48787e-16, 1, -3.48787e-16, -8.74228e-08, -3.48787e-16, -1, 5.47546, 4.39983, 8.56415)
 
-[node name="Map" parent="PauseContainer" instance=ExtResource("3_cpkwg")]
+[node name="Map" parent="PauseContainer" unique_id=229051028 instance=ExtResource("3_cpkwg")]
 unique_name_in_owner = true
 
-[node name="InGameUi" parent="." instance=ExtResource("5_w4lns")]
+[node name="InGameUi" parent="." unique_id=1148283132 instance=ExtResource("5_w4lns")]
 unique_name_in_owner = true
 visible = false
 
 [node name="SubViewport" parent="InGameUi/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/SubViewportContainer" index="0"]
 render_target_update_mode = 0
 
-[node name="InGameAudio" parent="." instance=ExtResource("6_wnbqg")]
+[node name="InGameAudio" parent="." unique_id=1399134061 instance=ExtResource("6_wnbqg")]
 
-[node name="DeathMenu" parent="." instance=ExtResource("7_35ldn")]
+[node name="DeathMenu" parent="." unique_id=1937519048 instance=ExtResource("7_35ldn")]
 unique_name_in_owner = true
 visible = false
 mouse_filter = 1
 
-[node name="WinMenu" parent="." instance=ExtResource("8_ovoi6")]
+[node name="WinMenu" parent="." unique_id=126132101 instance=ExtResource("8_ovoi6")]
 unique_name_in_owner = true
 visible = false
 mouse_filter = 1
 
-[node name="PauseMenu" parent="." instance=ExtResource("9_yxma7")]
+[node name="PauseMenu" parent="." unique_id=2081638504 instance=ExtResource("9_yxma7")]
 unique_name_in_owner = true
 visible = false
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://pjmfnaiwwwed"]
+[gd_scene format=3 uid="uid://pjmfnaiwwwed"]
 
 [ext_resource type="Script" uid="uid://dx8tf6ofaxx62" path="res://src/player_camera/PlayerCamera.cs" id="1_gmpa3"]
 [ext_resource type="Script" uid="uid://cn0d8vnyiff4l" path="res://src/player_camera/PlayerCameraSettings.cs" id="2_xh3xu"]
@@ -6,45 +6,37 @@
 [sub_resource type="Resource" id="Resource_qx47m"]
 script = ExtResource("2_xh3xu")
 MouseSensitivity = 0.2
-JoypadSensitivity = 5.0
-VerticalMax = 45.0
-VerticalMin = -45.0
-FollowSpeed = 15.0
-SpringArmAdjSpeed = 15.0
-OffsetAdjSpeed = 2.0
-VerticalRotationAcceleration = 6.0
-HorizontalRotationAcceleration = 6.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_las6s"]
 custom_solver_bias = 0.164
 
-[node name="PlayerCamera" type="Node3D"]
+[node name="PlayerCamera" type="Node3D" unique_id=48643601]
 script = ExtResource("1_gmpa3")
 Settings = SubResource("Resource_qx47m")
 
-[node name="GimbalHorizontal" type="Node3D" parent="."]
+[node name="GimbalHorizontal" type="Node3D" parent="." unique_id=2079307299]
 unique_name_in_owner = true
 transform = Transform3D(1, -4.09353e-16, 3.43488e-16, 3.43488e-16, 0.984807, 0.173648, -4.09353e-16, -0.173648, 0.984807, 0, 0, 0)
 
-[node name="GimbalVertical" type="Node3D" parent="GimbalHorizontal"]
+[node name="GimbalVertical" type="Node3D" parent="GimbalHorizontal" unique_id=1716387941]
 unique_name_in_owner = true
 transform = Transform3D(1, 9.74598e-23, -1.31459e-23, 1.0558e-23, 1, -6.46025e-11, 8.58562e-24, -5.02469e-09, 1, 1.50502e-16, 0.431501, 0.0760853)
 
-[node name="Offset" type="Node3D" parent="GimbalHorizontal/GimbalVertical"]
+[node name="Offset" type="Node3D" parent="GimbalHorizontal/GimbalVertical" unique_id=2014490804]
 unique_name_in_owner = true
 transform = Transform3D(1, 3.43488e-16, -4.09353e-16, -4.09353e-16, 0.984809, -0.173648, 3.43488e-16, 0.173648, 0.984809, 0, 0, 0)
 
-[node name="SpringArm3D" type="SpringArm3D" parent="GimbalHorizontal/GimbalVertical/Offset"]
+[node name="SpringArm3D" type="SpringArm3D" parent="GimbalHorizontal/GimbalVertical/Offset" unique_id=676343228]
 unique_name_in_owner = true
 transform = Transform3D(1, -4.09353e-16, 3.43488e-16, 3.43488e-16, 0.984807, 0.173648, -4.09353e-16, -0.173648, 0.984807, 0, 0, 0)
 shape = SubResource("SphereShape3D_las6s")
 spring_length = 3.0
 margin = 0.33
 
-[node name="SpringArmTarget" type="Node3D" parent="GimbalHorizontal/GimbalVertical/Offset/SpringArm3D"]
+[node name="SpringArmTarget" type="Node3D" parent="GimbalHorizontal/GimbalVertical/Offset/SpringArm3D" unique_id=954096634]
 unique_name_in_owner = true
 
-[node name="Camera3D" type="Camera3D" parent="GimbalHorizontal/GimbalVertical/Offset"]
+[node name="Camera3D" type="Camera3D" parent="GimbalHorizontal/GimbalVertical/Offset" unique_id=1353498227]
 unique_name_in_owner = true
 transform = Transform3D(1, -4.09353e-16, 3.43487e-16, 3.43488e-16, 0.984807, 0.173648, -4.09352e-16, -0.173648, 0.984807, 0, 0, 0)
 current = true

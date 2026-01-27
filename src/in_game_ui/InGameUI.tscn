@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://d3qf2po8l4dlr"]
+[gd_scene format=3 uid="uid://d3qf2po8l4dlr"]
 
 [ext_resource type="Script" uid="uid://cnrc67a62ktoi" path="res://src/in_game_ui/InGameUI.cs" id="1_00v78"]
 [ext_resource type="PackedScene" uid="uid://c7cbqvc78fb07" path="res://src/in_game_ui/coin_scene/CoinScene.tscn" id="1_eo2h2"]
@@ -15,7 +15,7 @@ ssil_normal_rejection = 0.0
 [sub_resource type="World3D" id="World3D_5xwgl"]
 environment = SubResource("Environment_ugqbc")
 
-[node name="InGameUi" type="Control"]
+[node name="InGameUi" type="Control" unique_id=1576198577]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -26,22 +26,22 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_00v78")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1596716570]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" unique_id=1552147587]
 layout_mode = 2
 theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 96
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer" unique_id=1110583082]
 layout_mode = 2
 
-[node name="CoinsLabel" type="Label" parent="HBoxContainer/MarginContainer/HBoxContainer"]
+[node name="CoinsLabel" type="Label" parent="HBoxContainer/MarginContainer/HBoxContainer" unique_id=237610945]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 2.08165e-12)
 layout_mode = 2
@@ -49,15 +49,15 @@ theme_override_font_sizes/font_size = 48
 text = "## / ##"
 horizontal_alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer/HBoxContainer" unique_id=1726990807]
 layout_mode = 2
 theme_override_constants/margin_left = 24
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="HBoxContainer/MarginContainer/HBoxContainer/MarginContainer"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="HBoxContainer/MarginContainer/HBoxContainer/MarginContainer" unique_id=1264910715]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 
-[node name="SubViewport" type="SubViewport" parent="HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/SubViewportContainer" unique_id=1968428710]
 own_world_3d = true
 world_3d = SubResource("World3D_5xwgl")
 transparent_bg = true
@@ -65,4 +65,4 @@ handle_input_locally = false
 size = Vector2i(128, 128)
 render_target_update_mode = 4
 
-[node name="CoinScene" parent="HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_eo2h2")]
+[node name="CoinScene" parent="HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/SubViewportContainer/SubViewport" unique_id=1843951732 instance=ExtResource("1_eo2h2")]

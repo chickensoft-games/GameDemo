@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://20qwxeyklyrk"]
+[gd_scene format=3 uid="uid://20qwxeyklyrk"]
 
 [ext_resource type="PackedScene" uid="uid://bnf50n8imq0pg" path="res://src/player/visuals/chicken/chicken.glb" id="1_33xro"]
 [ext_resource type="Material" uid="uid://8k0x7l1y4em8" path="res://src/player/visuals/chicken/materials/chicken_material.tres" id="2_uelql"]
 
-[node name="chickensoft_mascot" instance=ExtResource("1_33xro")]
+[node name="chickensoft_mascot" unique_id=1561459962 instance=ExtResource("1_33xro")]
 
-[node name="ChickenMesh" parent="Rig/Skeleton3D" index="0"]
+[node name="ChickenMesh" parent="Rig/Skeleton3D" parent_id_path=PackedInt32Array(1815017285) index="0" unique_id=392487722]
 surface_material_override/0 = ExtResource("2_uelql")

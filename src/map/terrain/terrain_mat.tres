@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=13 format=3 uid="uid://c5trc4hy86utg"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://c5trc4hy86utg"]
 
 [ext_resource type="Shader" uid="uid://dw58ou8ihinq1" path="res://src/map/terrain/terrain_shader.gdshader" id="1_tmq40"]
 [ext_resource type="Texture2D" uid="uid://ccle3gd0lgtig" path="res://src/map/terrain/visuals/voronoi_rock_cliff/voronoi_rock_cliff_albedo.png" id="2_ais5s"]
@@ -16,8 +16,8 @@ noise_type = 3
 fractal_type = 0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jhgfj"]
-seamless = true
 noise = SubResource("FastNoiseLite_dkxv0")
+seamless = true
 
 [resource]
 render_priority = 0

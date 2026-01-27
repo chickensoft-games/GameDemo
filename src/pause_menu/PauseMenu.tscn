@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://conmng5ejji6f"]
+[gd_scene format=3 uid="uid://conmng5ejji6f"]
 
 [ext_resource type="Script" uid="uid://cfjst4n7fctli" path="res://src/pause_menu/PauseMenu.cs" id="1_6kvog"]
 [ext_resource type="Shader" uid="uid://b3evm7o6dacv" path="res://src/pause_menu/PauseMenu.gdshader" id="1_m43vi"]
@@ -203,7 +203,7 @@ _data = {
 &"save_fade_out": SubResource("Animation_ipon8")
 }
 
-[node name="PauseMenu" type="Control"]
+[node name="PauseMenu" type="Control" unique_id=1091787653]
 process_mode = 3
 modulate = Color(1, 1, 1, 0)
 layout_mode = 3
@@ -215,7 +215,7 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_6kvog")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=237575879]
 material = SubResource("ShaderMaterial_r4f68")
 layout_mode = 1
 anchors_preset = 15
@@ -227,7 +227,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=121094198]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -239,33 +239,33 @@ theme_override_constants/margin_top = 80
 theme_override_constants/margin_right = 80
 theme_override_constants/margin_bottom = 80
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer" unique_id=336805806]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer" unique_id=551162927]
 layout_mode = 2
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/VBoxContainer" unique_id=641925287]
 layout_mode = 2
 theme_override_constants/margin_bottom = 24
 
-[node name="Title" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer"]
+[node name="Title" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer" unique_id=1160535847]
 layout_mode = 2
 mouse_filter = 1
 text = "Paused"
 label_settings = SubResource("LabelSettings_57jok")
 horizontal_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/CenterContainer/VBoxContainer" unique_id=1116134233]
 layout_mode = 2
 theme_override_constants/margin_top = 48
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer2" unique_id=336857881]
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="ResumeButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="ResumeButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=478020701]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
@@ -274,7 +274,7 @@ size_flags_vertical = 0
 mouse_filter = 1
 text = "Resume"
 
-[node name="SaveButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="SaveButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=374065550]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
@@ -284,7 +284,7 @@ mouse_filter = 1
 text = "Save Game"
 expand_icon = true
 
-[node name="MainMenuButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="MainMenuButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1909193716]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
@@ -293,19 +293,19 @@ size_flags_vertical = 0
 mouse_filter = 1
 text = "Main Menu"
 
-[node name="SaveOverlay" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
+[node name="SaveOverlay" type="VBoxContainer" parent="MarginContainer/CenterContainer" unique_id=434011015]
 unique_name_in_owner = true
 visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="MarginContainer/CenterContainer/SaveOverlay"]
+[node name="Panel" type="Panel" parent="MarginContainer/CenterContainer/SaveOverlay" unique_id=2052114856]
 custom_minimum_size = Vector2(512, 512)
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_bg3p1")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/SaveOverlay/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/SaveOverlay/Panel" unique_id=1977059957]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -314,21 +314,21 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_top = 24
 
-[node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer/CenterContainer/SaveOverlay/Panel/MarginContainer"]
+[node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer/CenterContainer/SaveOverlay/Panel/MarginContainer" unique_id=1731037834]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="SaveTitleContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/SaveOverlay/Panel/MarginContainer/VBoxContainer"]
+[node name="SaveTitleContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/SaveOverlay/Panel/MarginContainer/VBoxContainer" unique_id=22262239]
 layout_mode = 2
 
-[node name="SavingGameLabel" type="Label" parent="MarginContainer/CenterContainer/SaveOverlay/Panel/MarginContainer/VBoxContainer/SaveTitleContainer"]
+[node name="SavingGameLabel" type="Label" parent="MarginContainer/CenterContainer/SaveOverlay/Panel/MarginContainer/VBoxContainer/SaveTitleContainer" unique_id=944901061]
 layout_mode = 2
 mouse_filter = 1
 text = "Saving Game"
 label_settings = SubResource("LabelSettings_dourt")
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/CenterContainer/SaveOverlay/Panel"]
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/CenterContainer/SaveOverlay/Panel" unique_id=18649270]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -336,27 +336,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Control" type="Control" parent="MarginContainer/CenterContainer/SaveOverlay/Panel/CenterContainer"]
+[node name="Control" type="Control" parent="MarginContainer/CenterContainer/SaveOverlay/Panel/CenterContainer" unique_id=793826710]
 layout_mode = 2
 mouse_filter = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/CenterContainer/SaveOverlay/Panel/CenterContainer/Control"]
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/CenterContainer/SaveOverlay/Panel/CenterContainer/Control" unique_id=1797648193]
 texture = ExtResource("3_w1cw3")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="MarginContainer/CenterContainer/SaveOverlay/Panel/CenterContainer/Control"]
-libraries = {
-"": SubResource("AnimationLibrary_80o4u")
-}
-autoplay = "spin"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MarginContainer/CenterContainer/SaveOverlay/Panel/CenterContainer/Control" unique_id=827155012]
+libraries/ = SubResource("AnimationLibrary_80o4u")
+autoplay = &"spin"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1886996636]
 unique_name_in_owner = true
-libraries = {
-"": SubResource("AnimationLibrary_7stnf")
-}
+libraries/ = SubResource("AnimationLibrary_7stnf")
 
-[node name="SaveOverlayAnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="SaveOverlayAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1131657892]
 unique_name_in_owner = true
-libraries = {
-"": SubResource("AnimationLibrary_u45i6")
-}
+libraries/ = SubResource("AnimationLibrary_u45i6")

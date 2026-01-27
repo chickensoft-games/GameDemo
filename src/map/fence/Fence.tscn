@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://de71rucbhgdtl"]
+[gd_scene format=4 uid="uid://de71rucbhgdtl"]
 
 [ext_resource type="Texture2D" uid="uid://cy2mpbqsp3tgb" path="res://src/map/fence/fence_bridge_planks_albedo.png" id="1_22m3q"]
 [ext_resource type="Texture2D" uid="uid://bhkkxfnecai8s" path="res://src/map/fence/fence_bridge_planks_roughness.png" id="2_kgnlf"]
@@ -49,13 +49,12 @@ shadow_mesh = SubResource("ArrayMesh_vrya8")
 [sub_resource type="BoxShape3D" id="BoxShape3D_4im40"]
 size = Vector3(0.371875, 1.53573, 2.40598)
 
-[node name="Fence" type="StaticBody3D"]
+[node name="Fence" type="StaticBody3D" unique_id=1972118576]
 
-[node name="fence" type="MeshInstance3D" parent="."]
+[node name="fence" type="MeshInstance3D" parent="." unique_id=394795926]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0888059, -0.807598, 0.0563344)
 mesh = SubResource("ArrayMesh_5oh6l")
-skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=853609059]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0604198, -0.0607895, 0.0543904)
 shape = SubResource("BoxShape3D_4im40")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cb7m8cgutfp0c"]
+[gd_scene format=3 uid="uid://cb7m8cgutfp0c"]
 
 [ext_resource type="Texture2D" uid="uid://cme6j34uikqn0" path="res://test/fixtures/textures/grid.png" id="1_ldog7"]
 
@@ -14,11 +14,11 @@ size = Vector2(50, 50)
 [sub_resource type="BoxShape3D" id="BoxShape3D_x7sik"]
 size = Vector3(50, 0.5, 50)
 
-[node name="TestGround" type="StaticBody3D"]
+[node name="TestGround" type="StaticBody3D" unique_id=151928978]
 
-[node name="GroundMesh" type="MeshInstance3D" parent="."]
+[node name="GroundMesh" type="MeshInstance3D" parent="." unique_id=2069191726]
 mesh = SubResource("PlaneMesh_e5gf1")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1377903101]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -0.25, 2.08165e-12)
 shape = SubResource("BoxShape3D_x7sik")
