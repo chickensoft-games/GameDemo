@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://cxpsn4dx47at8"]
+[gd_scene format=4 uid="uid://cxpsn4dx47at8"]
 
 [ext_resource type="Script" uid="uid://s7iulxlg5f7g" path="res://src/coin/Coin.cs" id="1_ptagp"]
 [ext_resource type="PackedScene" uid="uid://dta8u77j4ye4v" path="res://src/coin/visuals/coin_model.glb" id="2_xha7h"]
@@ -95,7 +95,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_xd1kj")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pca5v"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2ksd5"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("3_ginri")
@@ -199,31 +199,29 @@ _data = {
 &"spin": SubResource("Animation_ctfif")
 }
 
-[node name="Coin" type="Node3D"]
+[node name="Coin" type="Node3D" unique_id=137664972]
 script = ExtResource("1_ptagp")
 
-[node name="CoinShape" type="CollisionShape3D" parent="."]
+[node name="CoinShape" type="CollisionShape3D" parent="." unique_id=2080654014]
 editor_description = "Only used to snap to floor in editor."
 transform = Transform3D(1, -6.97574e-16, -1.5246e-23, -1.5246e-23, -4.37114e-08, 1, -6.97574e-16, -1, -4.37114e-08, 2.76583e-24, -0.181414, 7.92986e-09)
 shape = SubResource("CylinderShape3D_67twf")
 
-[node name="CoinModel" parent="." instance=ExtResource("2_xha7h")]
+[node name="CoinModel" parent="." unique_id=1974812104 instance=ExtResource("2_xha7h")]
 unique_name_in_owner = true
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 
-[node name="Cylinder_001" parent="CoinModel" index="0"]
+[node name="Cylinder_001" parent="CoinModel" index="0" unique_id=801191481]
 mesh = SubResource("ArrayMesh_78ly8")
-surface_material_override/0 = SubResource("ShaderMaterial_pca5v")
+surface_material_override/0 = SubResource("ShaderMaterial_2ksd5")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1342578613]
 unique_name_in_owner = true
-libraries = {
-"": SubResource("AnimationLibrary_2yqni")
-}
-autoplay = "spin"
+libraries/ = SubResource("AnimationLibrary_2yqni")
+autoplay = &"spin"
 playback_default_blend_time = 0.1
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1307972983]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.417667, 0)
 visible = false
 light_color = Color(1, 0.694118, 0.290196, 1)

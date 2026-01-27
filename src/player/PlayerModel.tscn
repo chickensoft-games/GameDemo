@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://c6hf4ibwmd31r"]
+[gd_scene format=3 uid="uid://c6hf4ibwmd31r"]
 
 [ext_resource type="PackedScene" uid="uid://20qwxeyklyrk" path="res://src/player/visuals/chicken/chicken.tscn" id="1_02lhe"]
 
@@ -45,9 +45,9 @@ animation = &"walk"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_v430u"]
 graph_offset = Vector2(-251, 48)
+nodes/output/position = Vector2(740, 140)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_xv858")
 nodes/Animation/position = Vector2(260, 110)
-nodes/output/position = Vector2(740, 140)
 node_connections = [&"output", 0, &"Animation"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_reib3"]
@@ -121,6 +121,7 @@ graph_offset = Vector2(-243, -286)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ltym2"]
 graph_offset = Vector2(-617.813, -99.2816)
+nodes/output/position = Vector2(680, 120)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_yw24n")
 nodes/Animation/position = Vector2(140, 320)
 nodes/BlinkShot/node = SubResource("AnimationNodeOneShot_o63jc")
@@ -131,20 +132,19 @@ nodes/LeanDirectionBlend/node = SubResource("AnimationNodeBlendSpace1D_4huun")
 nodes/LeanDirectionBlend/position = Vector2(-140, 320)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_gqlm7")
 nodes/StateMachine/position = Vector2(-250, 100)
-nodes/output/position = Vector2(680, 120)
-node_connections = [&"BlinkShot", 0, &"LeanAdd", &"BlinkShot", 1, &"Animation", &"LeanAdd", 0, &"StateMachine", &"LeanAdd", 1, &"LeanDirectionBlend", &"output", 0, &"BlinkShot"]
+node_connections = [&"output", 0, &"BlinkShot", &"BlinkShot", 0, &"LeanAdd", &"BlinkShot", 1, &"Animation", &"LeanAdd", 0, &"StateMachine", &"LeanAdd", 1, &"LeanDirectionBlend"]
 
-[node name="PlayerModel" type="Node3D"]
+[node name="PlayerModel" type="Node3D" unique_id=712158189]
 
-[node name="VisualRoot" type="Node3D" parent="."]
+[node name="VisualRoot" type="Node3D" parent="." unique_id=356427241]
 unique_name_in_owner = true
 
-[node name="CenterRoot" type="Node3D" parent="VisualRoot"]
+[node name="CenterRoot" type="Node3D" parent="VisualRoot" unique_id=211787138]
 unique_name_in_owner = true
 
-[node name="chicken" parent="VisualRoot/CenterRoot" instance=ExtResource("1_02lhe")]
+[node name="chicken" parent="VisualRoot/CenterRoot" unique_id=1407695323 instance=ExtResource("1_02lhe")]
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=919238559]
 unique_name_in_owner = true
 root_node = NodePath("%CenterRoot/chicken")
 tree_root = SubResource("AnimationNodeBlendTree_ltym2")
@@ -156,7 +156,7 @@ parameters/BlinkShot/request = 0
 parameters/LeanAdd/add_amount = 1.0
 parameters/LeanDirectionBlend/blend_position = 0.0
 
-[node name="BlinkTimer" type="Timer" parent="."]
+[node name="BlinkTimer" type="Timer" parent="." unique_id=908723057]
 unique_name_in_owner = true
 wait_time = 5.0
 autostart = true

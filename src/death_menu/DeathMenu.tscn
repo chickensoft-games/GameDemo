@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bn84ofaaq4o80"]
+[gd_scene format=3 uid="uid://bn84ofaaq4o80"]
 
 [ext_resource type="Script" uid="uid://cykbrmprff4vl" path="res://src/death_menu/DeathMenu.cs" id="1_36ukh"]
 [ext_resource type="Shader" uid="uid://bh4tiocxcks02" path="res://src/death_menu/DeathMenu.gdshader" id="2_se3wr"]
@@ -163,7 +163,7 @@ _data = {
 &"fade_out": SubResource("Animation_lgj8v")
 }
 
-[node name="DeathMenu" type="Control"]
+[node name="DeathMenu" type="Control" unique_id=621051487]
 process_mode = 3
 modulate = Color(1, 1, 1, 0)
 layout_mode = 3
@@ -175,7 +175,7 @@ grow_vertical = 2
 theme = SubResource("Theme_48i0m")
 script = ExtResource("1_36ukh")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2095256601]
 material = SubResource("ShaderMaterial_h8lr8")
 layout_mode = 1
 anchors_preset = 15
@@ -185,7 +185,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.113725, 0, 0, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=258251589]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -197,35 +197,35 @@ theme_override_constants/margin_top = 80
 theme_override_constants/margin_right = 80
 theme_override_constants/margin_bottom = 80
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=7174360]
 layout_mode = 2
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=2039684028]
 layout_mode = 2
 theme_override_constants/margin_bottom = 24
 
-[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer"]
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=2124511976]
 layout_mode = 2
 text = "Game Over"
 label_settings = SubResource("LabelSettings_7gk1r")
 horizontal_alignment = 1
 
-[node name="Subtitle" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Subtitle" type="Label" parent="MarginContainer/VBoxContainer" unique_id=2070857110]
 layout_mode = 2
 text = "The chicken cannot swim."
 label_settings = SubResource("LabelSettings_jxos6")
 horizontal_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=2013552249]
 layout_mode = 2
 theme_override_constants/margin_top = 48
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer2" unique_id=771874152]
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="TryAgainButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="TryAgainButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1997323427]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
@@ -234,7 +234,7 @@ size_flags_vertical = 0
 theme_override_colors/font_color = Color(1, 0.501961, 0.435294, 1)
 text = "Try Again"
 
-[node name="MainMenuButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="MainMenuButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=2113203600]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
@@ -243,15 +243,11 @@ size_flags_vertical = 0
 theme_override_colors/font_color = Color(1, 0.501961, 0.435294, 1)
 text = "Main Menu"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=823407504]
 unique_name_in_owner = true
 deterministic = true
-libraries = {
-&"": SubResource("AnimationLibrary_5xdmp")
-}
+libraries/ = SubResource("AnimationLibrary_5xdmp")
 
-[node name="FadeAnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="FadeAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1094669296]
 unique_name_in_owner = true
-libraries = {
-&"": SubResource("AnimationLibrary_kxx0w")
-}
+libraries/ = SubResource("AnimationLibrary_kxx0w")

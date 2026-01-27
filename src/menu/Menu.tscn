@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cwsfvhqinjpy4"]
+[gd_scene format=3 uid="uid://cwsfvhqinjpy4"]
 
 [ext_resource type="Script" uid="uid://ceo4se7s2b4eh" path="res://src/menu/Menu.cs" id="1_or2kc"]
 
@@ -37,7 +37,7 @@ Button/styles/pressed = SubResource("StyleBoxFlat_vps5y")
 [sub_resource type="LabelSettings" id="LabelSettings_5fc0a"]
 font_size = 48
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" unique_id=1973994570]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,7 +47,7 @@ grow_vertical = 2
 theme = SubResource("Theme_orto1")
 script = ExtResource("1_or2kc")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2127271474]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,46 +59,46 @@ theme_override_constants/margin_top = 80
 theme_override_constants/margin_right = 80
 theme_override_constants/margin_bottom = 80
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1431917008]
 layout_mode = 2
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1643215639]
 layout_mode = 2
 alignment = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer3"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer3" unique_id=2051401718]
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="Title" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer"]
+[node name="Title" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer" unique_id=632331989]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Game Demo"
 label_settings = SubResource("LabelSettings_5fc0a")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer" unique_id=1357016158]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_top = 24
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer3"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer3" unique_id=538529850]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="NewGameButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer2"]
+[node name="NewGameButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer2" unique_id=530504689]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "New Game"
 
-[node name="LoadGameButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer2"]
+[node name="LoadGameButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer2" unique_id=289233875]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Load Game"
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer3/VBoxContainer2" unique_id=1029245480]
 layout_mode = 2
 theme_override_constants/margin_top = 160

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://deqdtimrd6526"]
+[gd_scene format=3 uid="uid://deqdtimrd6526"]
 
 [ext_resource type="Script" uid="uid://ddt3uu3j27e1u" path="res://src/app/App.cs" id="1_g7sps"]
 [ext_resource type="PackedScene" uid="uid://cwsfvhqinjpy4" path="res://src/menu/Menu.tscn" id="4_kh3vh"]
@@ -56,11 +56,11 @@ _data = {
 &"fade_out": SubResource("Animation_ps7d4")
 }
 
-[node name="App" type="CanvasLayer"]
+[node name="App" type="CanvasLayer" unique_id=799729563]
 process_mode = 3
 script = ExtResource("1_g7sps")
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1262696886]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -68,30 +68,28 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="GamePreview" type="SubViewport" parent="SubViewportContainer"]
+[node name="GamePreview" type="SubViewport" parent="SubViewportContainer" unique_id=407851599]
 unique_name_in_owner = true
 handle_input_locally = false
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1600336066]
 unique_name_in_owner = true
 deterministic = true
-libraries = {
-"": SubResource("AnimationLibrary_piei0")
-}
+libraries/ = SubResource("AnimationLibrary_piei0")
 
-[node name="Menu" parent="." instance=ExtResource("4_kh3vh")]
+[node name="Menu" parent="." unique_id=1874833423 instance=ExtResource("4_kh3vh")]
 unique_name_in_owner = true
 visible = false
 mouse_filter = 1
 
-[node name="Splash" parent="." instance=ExtResource("7_eh6dj")]
+[node name="Splash" parent="." unique_id=1970804633 instance=ExtResource("7_eh6dj")]
 unique_name_in_owner = true
 visible = false
 mouse_filter = 1
 
-[node name="BlankScreenControl" type="Control" parent="."]
+[node name="BlankScreenControl" type="Control" parent="." unique_id=1225000952]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -100,7 +98,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="BlankScreen" type="ColorRect" parent="BlankScreenControl"]
+[node name="BlankScreen" type="ColorRect" parent="BlankScreenControl" unique_id=1579142562]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15

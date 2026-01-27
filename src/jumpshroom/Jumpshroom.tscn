@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://7j15r0ej4fwx"]
+[gd_scene format=3 uid="uid://7j15r0ej4fwx"]
 
 [ext_resource type="Script" uid="uid://cmvnsibkpkfs1" path="res://src/jumpshroom/Jumpshroom.cs" id="1_56b1h"]
 [ext_resource type="PackedScene" uid="uid://d3jgve1g030hy" path="res://src/map/mushroom/mushroom.glb" id="2_6y1uq"]
@@ -105,38 +105,36 @@ _data = {
 &"bounce": SubResource("Animation_3f7se")
 }
 
-[node name="Jumpshroom" type="Node3D"]
+[node name="Jumpshroom" type="Node3D" unique_id=998281257]
 script = ExtResource("1_56b1h")
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Area3D" type="Area3D" parent="." unique_id=576747686]
 unique_name_in_owner = true
 collision_mask = 15
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1262503174]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12066, 0)
 shape = SubResource("CylinderShape3D_1kkbt")
 
-[node name="mushroom" parent="." instance=ExtResource("2_6y1uq")]
+[node name="mushroom" parent="." unique_id=1492047663 instance=ExtResource("2_6y1uq")]
 unique_name_in_owner = true
 
-[node name="Mushroom" parent="mushroom" index="0"]
+[node name="Mushroom" parent="mushroom" index="0" unique_id=1589779795]
 material_overlay = SubResource("StandardMaterial3D_73n2l")
 surface_material_override/0 = SubResource("StandardMaterial3D_yceej")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="mushroom"]
+[node name="StaticBody3D" type="StaticBody3D" parent="mushroom" unique_id=2058572644]
 collision_mask = 15
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="mushroom/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="mushroom/StaticBody3D" unique_id=1640533768]
 shape = SubResource("ConcavePolygonShape3D_8nowq")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1953730075]
 unique_name_in_owner = true
 deterministic = true
-libraries = {
-"": SubResource("AnimationLibrary_n2mwr")
-}
+libraries/ = SubResource("AnimationLibrary_n2mwr")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=614334221]
 unique_name_in_owner = true
 one_shot = true
 

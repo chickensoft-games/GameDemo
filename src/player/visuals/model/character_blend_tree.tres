@@ -1,4 +1,4 @@
-[gd_resource type="AnimationNodeBlendTree" load_steps=24 format=3 uid="uid://bv3dam6jofmv4"]
+[gd_resource type="AnimationNodeBlendTree" format=3 uid="uid://bv3dam6jofmv4"]
 
 [sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_dpb3n"]
 
@@ -90,6 +90,7 @@ fadeout_time = 0.1
 
 [resource]
 graph_offset = Vector2(-397.182, -2.18201)
+nodes/output/position = Vector2(780, 80)
 nodes/add_all_animations/node = SubResource("AnimationNodeAdd2_dpb3n")
 nodes/add_all_animations/position = Vector2(540, 80)
 nodes/add_heartbeat_blink/node = SubResource("AnimationNodeAdd2_766tv")
@@ -100,9 +101,8 @@ nodes/heartbeat/node = SubResource("AnimationNodeAnimation_6avlo")
 nodes/heartbeat/position = Vector2(-140, 60)
 nodes/main_animations/node = SubResource("AnimationNodeStateMachine_k7175")
 nodes/main_animations/position = Vector2(-80, 410)
-nodes/output/position = Vector2(780, 80)
 nodes/punch/node = SubResource("AnimationNodeAnimation_cakye")
 nodes/punch/position = Vector2(-100, 610)
 nodes/punch_one_shot/node = SubResource("AnimationNodeOneShot_rfqjk")
 nodes/punch_one_shot/position = Vector2(370, 400)
-node_connections = [&"add_all_animations", 0, &"add_heartbeat_blink", &"add_all_animations", 1, &"punch_one_shot", &"add_heartbeat_blink", 0, &"heartbeat", &"add_heartbeat_blink", 1, &"blink", &"output", 0, &"add_all_animations", &"punch_one_shot", 0, &"main_animations", &"punch_one_shot", 1, &"punch"]
+node_connections = [&"output", 0, &"add_all_animations", &"add_all_animations", 0, &"add_heartbeat_blink", &"add_all_animations", 1, &"punch_one_shot", &"add_heartbeat_blink", 0, &"heartbeat", &"add_heartbeat_blink", 1, &"blink", &"punch_one_shot", 0, &"main_animations", &"punch_one_shot", 1, &"punch"]

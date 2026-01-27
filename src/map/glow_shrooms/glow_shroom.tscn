@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ndll0y08l4t5"]
+[gd_scene format=3 uid="uid://ndll0y08l4t5"]
 
 [ext_resource type="PackedScene" uid="uid://d3jgve1g030hy" path="res://src/map/mushroom/mushroom.glb" id="1_g3eif"]
 [ext_resource type="Texture2D" uid="uid://bn2dckxcyjlje" path="res://src/map/mushroom/mushroom_mushroom_albedo.png" id="2_w1uti"]
@@ -26,15 +26,15 @@ normal_texture = ExtResource("3_ux8m5")
 [sub_resource type="SphereShape3D" id="SphereShape3D_d33n5"]
 radius = 0.774741
 
-[node name="GlowShrooms" type="StaticBody3D"]
+[node name="GlowShrooms" type="StaticBody3D" unique_id=2147177136]
 
-[node name="mushroom" parent="." instance=ExtResource("1_g3eif")]
+[node name="mushroom" parent="." unique_id=351860148 instance=ExtResource("1_g3eif")]
 
-[node name="Mushroom" parent="mushroom" index="0"]
+[node name="Mushroom" parent="mushroom" index="0" unique_id=1589779795]
 material_overlay = SubResource("StandardMaterial3D_e0lf1")
 surface_material_override/0 = SubResource("StandardMaterial3D_hy5cr")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=920961563]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.846024, 0)
 shape = SubResource("SphereShape3D_d33n5")
 

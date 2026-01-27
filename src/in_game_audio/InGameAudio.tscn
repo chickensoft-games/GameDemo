@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://be3pehf5e67m5"]
+[gd_scene format=3 uid="uid://be3pehf5e67m5"]
 
 [ext_resource type="AudioStream" uid="uid://c1gemc28v25c0" path="res://src/in_game_audio/sounds/coin.wav" id="1_681yd"]
 [ext_resource type="Script" uid="uid://c2g7mpfm4y61b" path="res://src/in_game_audio/InGameAudio.cs" id="1_hobj4"]
@@ -9,40 +9,40 @@
 [ext_resource type="AudioStream" uid="uid://popc3scqxjfk" path="res://src/in_game_audio/sounds/menu_music.mp3" id="7_o8s4p"]
 [ext_resource type="PackedScene" uid="uid://cac8acl84d1ul" path="res://src/in_game_audio/DimmableAudioStreamPlayer.tscn" id="7_rirec"]
 
-[node name="InGameAudio" type="Node"]
+[node name="InGameAudio" type="Node" unique_id=1719865033]
 process_mode = 3
 script = ExtResource("1_hobj4")
 
-[node name="CoinCollected" type="AudioStreamPlayer" parent="."]
+[node name="CoinCollected" type="AudioStreamPlayer" parent="." unique_id=675911022]
 unique_name_in_owner = true
 stream = ExtResource("1_681yd")
 volume_db = -15.363
 max_polyphony = 8
 
-[node name="Bounce" type="AudioStreamPlayer" parent="."]
+[node name="Bounce" type="AudioStreamPlayer" parent="." unique_id=1474720732]
 unique_name_in_owner = true
 stream = ExtResource("3_xxu3m")
 volume_db = -11.061
 max_polyphony = 8
 
-[node name="PlayerDied" type="AudioStreamPlayer" parent="."]
+[node name="PlayerDied" type="AudioStreamPlayer" parent="." unique_id=556770852]
 unique_name_in_owner = true
 stream = ExtResource("4_s1k52")
 volume_db = -11.718
 max_polyphony = 2
 
-[node name="PlayerJumped" type="AudioStreamPlayer" parent="."]
+[node name="PlayerJumped" type="AudioStreamPlayer" parent="." unique_id=391111224]
 unique_name_in_owner = true
 stream = ExtResource("5_t7dvy")
 volume_db = -4.727
 max_polyphony = 4
 
-[node name="GameMusic" parent="." instance=ExtResource("7_rirec")]
+[node name="GameMusic" parent="." unique_id=1033850023 instance=ExtResource("7_rirec")]
 unique_name_in_owner = true
 stream = ExtResource("6_cwwy4")
 volume_db = -30.4
 
-[node name="MainMenuMusic" parent="." instance=ExtResource("7_rirec")]
+[node name="MainMenuMusic" parent="." unique_id=910664360 instance=ExtResource("7_rirec")]
 unique_name_in_owner = true
 stream = ExtResource("7_o8s4p")
 volume_db = -16.267

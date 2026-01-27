@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://cnritjjpfqqyp"]
+[gd_scene format=4 uid="uid://cnritjjpfqqyp"]
 
 [ext_resource type="Material" uid="uid://c5trc4hy86utg" path="res://src/map/terrain/terrain_mat.tres" id="1_23c0f"]
 [ext_resource type="Texture2D" uid="uid://b4nbhaovwgjrj" path="res://src/map/terrain_bridge_planks_albedo.png" id="1_jjbdm"]
@@ -130,53 +130,51 @@ material = SubResource("StandardMaterial3D_au5sv")
 radius = 4.031
 height = 1.581
 
-[node name="terrain" type="Node3D"]
+[node name="terrain" type="Node3D" unique_id=816677404]
 
-[node name="main_ground" type="MeshInstance3D" parent="."]
+[node name="main_ground" type="MeshInstance3D" parent="." unique_id=1829965503]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.51098, 0)
 material_override = ExtResource("1_23c0f")
 mesh = SubResource("ArrayMesh_dm36h")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="main_ground"]
+[node name="StaticBody3D" type="StaticBody3D" parent="main_ground" unique_id=738187906]
 visible = false
 collision_layer = 15
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="main_ground/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="main_ground/StaticBody3D" unique_id=473342073]
 shape = SubResource("ConcavePolygonShape3D_2ajmx")
 
-[node name="bridge_001" type="Node3D" parent="."]
+[node name="bridge_001" type="Node3D" parent="." unique_id=597834823]
 transform = Transform3D(0.932258, -0.0312045, -0.360447, -0.00821529, 0.994191, -0.107317, 0.361702, 0.103008, 0.926586, 9.35909, 3.69171, -1.97126)
 
-[node name="bridge" type="MeshInstance3D" parent="bridge_001"]
+[node name="bridge" type="MeshInstance3D" parent="bridge_001" unique_id=1612979264]
 transform = Transform3D(-1.24103, -0.035166, 0.00127849, -0.0351359, 1.24082, 0.0230328, -0.0019287, 0.0229871, -1.24131, 0.0579939, 0.0834761, -4.94199)
 mesh = SubResource("ArrayMesh_dk1jv")
-skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="bridge_001/bridge"]
+[node name="StaticBody3D" type="StaticBody3D" parent="bridge_001/bridge" unique_id=832239424]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="bridge_001/bridge/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bridge_001/bridge/StaticBody3D" unique_id=1791943103]
 shape = SubResource("ConvexPolygonShape3D_pna3i")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="bridge_001/bridge/StaticBody3D"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="bridge_001/bridge/StaticBody3D" unique_id=23647834]
 shape = SubResource("ConvexPolygonShape3D_8cnu3")
 
-[node name="Grass" type="MultiMeshInstance3D" parent="."]
+[node name="Grass" type="MultiMeshInstance3D" parent="." unique_id=1825713663]
 material_override = ExtResource("5_p7twj")
 cast_shadow = 0
 multimesh = ExtResource("6_f17u8")
 script = ExtResource("7_8b8xh")
 target_mesh_path = NodePath("../main_ground")
 
-[node name="Waterfall" parent="." instance=ExtResource("7_ms62n")]
+[node name="Waterfall" parent="." unique_id=1266202164 instance=ExtResource("7_ms62n")]
 transform = Transform3D(1.12588, 0, -0.273128, 0, 1.15854, 0, 0.273128, 0, 1.12588, -6.1049, 14.6591, -6.65077)
 
-[node name="Water" type="MeshInstance3D" parent="."]
+[node name="Water" type="MeshInstance3D" parent="." unique_id=1675648202]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.62962, 0)
 material_override = SubResource("ShaderMaterial_kx8jc")
 mesh = SubResource("PlaneMesh_11546")
 skeleton = NodePath("../..")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1194024831]
 transform = Transform3D(0.953767, -0.0292311, -0.299123, 0.0189702, 0.99913, -0.0371496, 0.299949, 0.0297576, 0.953491, -3.45896, -3.33159, -5.917)
 mesh = SubResource("SphereMesh_mtagc")

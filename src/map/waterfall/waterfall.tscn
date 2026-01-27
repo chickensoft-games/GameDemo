@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://dw4emjgi3m85k"]
+[gd_scene format=4 uid="uid://dw4emjgi3m85k"]
 
 [ext_resource type="Shader" uid="uid://bo02uaywyx1o6" path="res://src/map/waterfall/waterfall.gdshader" id="1_0ynt1"]
 
@@ -39,8 +39,8 @@ shadow_mesh = SubResource("ArrayMesh_4lvtu")
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_iurwa"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_khmcg"]
-seamless = true
 noise = SubResource("FastNoiseLite_iurwa")
+seamless = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ekh8v"]
 render_priority = 0
@@ -50,9 +50,8 @@ shader_parameter/water_color_top = Color(0.207843, 0.164706, 0.329412, 1)
 shader_parameter/water_color_bottom = Color(0.317647, 0.227451, 0.709804, 1)
 shader_parameter/speed = 0.35
 
-[node name="Waterfall" type="Node3D"]
+[node name="Waterfall" type="Node3D" unique_id=861129009]
 
-[node name="waterfall" type="MeshInstance3D" parent="."]
+[node name="waterfall" type="MeshInstance3D" parent="." unique_id=1242823868]
 mesh = SubResource("ArrayMesh_cq0ig")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_ekh8v")
