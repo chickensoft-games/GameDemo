@@ -13,7 +13,7 @@ using Chickensoft.GodotNodeInterfaces;
 // If you want to edit your game's main entry-point, please see Game.tscn and
 // Game.cs instead.
 
-public partial class Main : Node2D, INode2D
+public partial class Main : Node2D
 {
 #if RUN_TESTS
   public TestEnvironment Environment = default!;
