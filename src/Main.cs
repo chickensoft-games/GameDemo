@@ -5,6 +5,7 @@ using Godot;
 #if RUN_TESTS
 using System.Reflection;
 using Chickensoft.GoDotTest;
+using Chickensoft.GodotNodeInterfaces;
 #endif
 
 // This entry-point file is responsible for determining if we should run tests.
@@ -26,6 +27,7 @@ public partial class Main : Node2D
     Environment = TestEnvironment.From(OS.GetCmdlineArgs());
     if (Environment.ShouldRunTests)
     {
+      RuntimeContext.IsTesting = true;
       CallDeferred(nameof(RunTests));
       return;
     }
