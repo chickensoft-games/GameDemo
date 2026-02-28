@@ -67,7 +67,7 @@
     <PackageReference Include="Chickensoft.Serialization.Godot" Version="0.8.54" />
     <PackageReference Include="Chickensoft.LogicBlocks" Version="5.20.0" />
     <PackageReference Include="Chickensoft.LogicBlocks.DiagramGenerator" Version="5.20.0" PrivateAssets="all" OutputItemType="analyzer" />
-    <PackageReference Include="Chickensoft.UMLGenerator" Version="1.1.0" />
+    <PackageReference Include="Chickensoft.UMLGenerator" Version="1.2.0" />
     <PackageReference Include="Chickensoft.Sync" Version="2.2.0" />
   </ItemGroup>
 
