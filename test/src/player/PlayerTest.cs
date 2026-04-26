@@ -236,7 +236,7 @@ public class PlayerTest : TestClass
     var data = _player.PlayerChunk.OnSave(chunk.Object);
 
     data.GlobalTransform.ShouldBe(_player.GlobalTransform);
-    data.StateMachine.ShouldBe(_player.PlayerLogic.Save());
+    data.StateMachine.ShouldBe(_player.PlayerLogic.GetData());
     data.Velocity.ShouldBe(_player.Velocity);
   }
 
@@ -254,7 +254,7 @@ public class PlayerTest : TestClass
     var data = new PlayerData
     {
       GlobalTransform = Transform3D.Identity,
-      StateMachine = logic.Save(),
+      StateMachine = logic.GetData(),
       Velocity = Vector3.Forward
     };
 

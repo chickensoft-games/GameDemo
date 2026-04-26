@@ -1,7 +1,7 @@
 namespace GameDemo;
 
 using Chickensoft.Introspection;
-using Chickensoft.LogicBlocks.Auto;
+using Chickensoft.LogicBlocks;
 using Chickensoft.Serialization;
 using Godot;
 
@@ -9,7 +9,7 @@ using Godot;
 public partial record PlayerCameraData
 {
   [Save("state_machine")]
-  public required ILogicBlockSaveData StateMachine { get; init; }
+  public required LogicBlockData StateMachine { get; init; }
 
   [Save("global_transform")]
   public required Transform3D GlobalTransform { get; init; }

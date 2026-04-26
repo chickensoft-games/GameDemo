@@ -120,7 +120,7 @@ public class MapTest : TestClass
       {
         ["coin2"] = new CoinData
         {
-          StateMachine = logic.Save(),
+          StateMachine = logic.GetData(),
           GlobalTransform = Transform3D.Identity
         }
       },
@@ -145,7 +145,7 @@ public class MapTest : TestClass
       .Returns(coinNode2.Object);
 
     coinNode2.Setup(c => c.CoinLogic).Returns(coinLogic2.Object);
-    coinLogic2.Setup(c => c.Start(mapData.CoinsBeingCollected["coin2"].StateMachine.Data, true));
+    coinLogic2.Setup(c => c.Start(mapData.CoinsBeingCollected["coin2"].StateMachine, true));
     coinNode2.SetupSet(c => c.GlobalTransform = mapData.CoinsBeingCollected["coin2"].GlobalTransform);
 
     _map.OnResolved();

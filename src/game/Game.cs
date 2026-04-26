@@ -8,6 +8,7 @@ using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
+using Chickensoft.LogicBlocks.Auto;
 using Chickensoft.SaveFileBuilder;
 using Chickensoft.Serialization;
 using Chickensoft.Serialization.Godot;
@@ -93,6 +94,8 @@ public partial class Game : Node3D, IGame
     // Tell our type type resolver about the Godot-specific converters.
     GodotSerialization.Setup();
 
+    Serializer.AddConverter(new LogicBlockDataConverter());
+
     var upgradeDependencies = new Blackboard();
 
     // Create a standard JsonSerializerOptions with our introspective type
@@ -100,7 +103,8 @@ public partial class Game : Node3D, IGame
     JsonOptions = new JsonSerializerOptions
     {
       Converters = {
-        new SerializableTypeConverter(upgradeDependencies)
+        new SerializableTypeConverter(upgradeDependencies),
+        new LogicBlockDataConverter()
       },
       TypeInfoResolver = resolver,
       WriteIndented = true
