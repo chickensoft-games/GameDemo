@@ -1,11 +1,19 @@
 namespace GameDemo.Tests;
 
+using System.Diagnostics.CodeAnalysis;
 using Chickensoft.GoDotTest;
 using Chickensoft.Sync.Primitives;
 using Godot;
 using Moq;
 using Shouldly;
 
+[
+  SuppressMessage(
+    "Design",
+    "CA1001",
+    Justification = "Disposable field is disposed in cleanup"
+  )
+]
 public class PlayerCameraLogicTest : TestClass
 {
   private PlayerCameraLogic _logic = default!;
