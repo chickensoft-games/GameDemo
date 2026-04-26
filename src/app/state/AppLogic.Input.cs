@@ -8,6 +8,7 @@ public partial class AppLogic
     public readonly record struct FadeOutFinished;
     public readonly record struct NewGame;
     public readonly record struct LoadGame;
+    public readonly record struct DeleteGame;
     public readonly record struct EndGame(PostGameAction PostGameAction);
     public readonly record struct SaveFileLoaded();
   }

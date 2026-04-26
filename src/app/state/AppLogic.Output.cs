@@ -23,5 +23,7 @@ public partial class AppLogic
     public readonly record struct HideSplashScreen;
 
     public readonly record struct StartLoadingSaveFile;
+
+    public readonly record struct StartDeletingSaveFile;
   }
 }

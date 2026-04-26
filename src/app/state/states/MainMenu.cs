@@ -8,8 +8,10 @@ public partial class AppLogic
   public partial record State
   {
     [Meta]
-    public partial record MainMenu : State,
-    IGet<Input.NewGame>, IGet<Input.LoadGame>
+    public partial record MainMenu : State
+      , IGet<Input.NewGame>
+      , IGet<Input.LoadGame>
+      , IGet<Input.DeleteGame>
     {
       public MainMenu()
       {
@@ -34,6 +36,13 @@ public partial class AppLogic
         Get<Data>().ShouldLoadExistingGame = true;
 
         return To<LeavingMenu>();
+      }
+
+      public Transition On(in Input.DeleteGame input)
+      {
+        Output(new Output.StartDeletingSaveFile());
+
+        return ToSelf();
       }
     }
   }

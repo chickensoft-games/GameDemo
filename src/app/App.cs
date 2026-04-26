@@ -91,6 +91,7 @@ public partial class App : CanvasLayer, IApp
     // for the overall app's state machine.
     Menu.NewGame += OnNewGame;
     Menu.LoadGame += OnLoadGame;
+    Menu.DeleteGame += OnDeleteGame;
 
     AnimationPlayer.AnimationFinished += OnAnimationFinished;
 
@@ -129,15 +130,7 @@ public partial class App : CanvasLayer, IApp
 
         Instantiator.SceneTree.Paused = false;
       })
-      .Handle((in AppLogic.Output.ShowMainMenu _) =>
-      {
-        // Load everything while we're showing a black screen, then fade in.
-        HideMenus();
-        Menu.Show();
-        Game.Show();
-
-        FadeInFromBlack();
-      })
+      .Handle((in AppLogic.Output.ShowMainMenu _) => ShowMainMenu().AsTask())
       .Handle((in AppLogic.Output.FadeToBlack _) => FadeToBlack())
       .Handle((in AppLogic.Output.ShowGame _) =>
       {
@@ -149,7 +142,8 @@ public partial class App : CanvasLayer, IApp
       {
         Game.SaveFileLoaded += OnSaveFileLoaded;
         Game.LoadExistingGame().AsTask();
-      });
+      })
+      .Handle((in AppLogic.Output.StartDeletingSaveFile _) => DeleteSaveFile().AsTask());
 
     // Enter the first state to kick off the binding side effects.
     AppLogic.Start();
@@ -158,6 +152,8 @@ public partial class App : CanvasLayer, IApp
   public void OnNewGame() => AppLogic.Input(new AppLogic.Input.NewGame());
 
   public void OnLoadGame() => AppLogic.Input(new AppLogic.Input.LoadGame());
+
+  public void OnDeleteGame() => AppLogic.Input(new AppLogic.Input.DeleteGame());
 
   public void OnAnimationFinished(StringName animation)
   {
@@ -202,13 +198,35 @@ public partial class App : CanvasLayer, IApp
 
     Menu.NewGame -= OnNewGame;
     Menu.LoadGame -= OnLoadGame;
+    Menu.DeleteGame -= OnDeleteGame;
 
     AnimationPlayer.AnimationFinished -= OnAnimationFinished;
+  }
+
+  private async ValueTask ShowMainMenu()
+  {
+    // Load everything while we're showing a black screen, then fade in.
+    HideMenus();
+    Menu.Show();
+    Game.Show();
+
+    var gameExists = await SaveFile.ExistsAsync();
+    Menu.SetGameAvailable(gameExists);
+    Menu.SetGameExists(gameExists);
+
+    FadeInFromBlack();
   }
 
   public void OnSaveFileLoaded()
   {
     Game.SaveFileLoaded -= OnSaveFileLoaded;
     AppLogic.Input(new AppLogic.Input.SaveFileLoaded());
+  }
+
+  private async ValueTask DeleteSaveFile()
+  {
+    Menu.SetGameAvailable(false);
+    await SaveFile.DeleteAsync();
+    Menu.SetGameExists(false);
   }
 }
