@@ -1,12 +1,19 @@
 namespace GameDemo;
 
+using System.IO;
+using System.Text.Json;
+using System.Threading.Tasks;
 using Chickensoft.AutoInject;
+using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using Chickensoft.SaveFileBuilder;
+using Chickensoft.Serialization;
+using Chickensoft.Serialization.Godot;
 using Chickensoft.UMLGenerator;
 using Godot;
 
-public interface IApp : ICanvasLayer, IProvide<IAppRepo>;
+public interface IApp : ICanvasLayer, IProvide<IAppRepo>, IProvide<ISaveFile>;
 
 [Meta(typeof(IAutoNode))]
 [ClassDiagram(UseVSCodePaths = true)]
@@ -27,9 +34,29 @@ public partial class App : CanvasLayer, IApp
 
   #endregion External
 
+  #region Save
+
+  public ISaveFile SaveFile { get; } = Chickensoft.SaveFileBuilder.SaveFile.CreateGZipJsonFile(
+    Path.Join(OS.GetUserDataDir(), "game.json.gz"),
+
+    // Create a standard JsonSerializerOptions with our introspective type
+    // resolver and the logic blocks converter.
+    new JsonSerializerOptions()
+    {
+      Converters = {
+        new SerializableTypeConverter(new Blackboard())
+      },
+      TypeInfoResolver = new SerializableTypeResolver(),
+      WriteIndented = true
+    }
+  );
+
+  #endregion Save
+
   #region Provisions
 
   IAppRepo IProvide<IAppRepo>.Value() => AppRepo;
+  ISaveFile IProvide<ISaveFile>.Value() => SaveFile;
 
   #endregion Provisions
 
@@ -72,6 +99,9 @@ public partial class App : CanvasLayer, IApp
 
   public void OnReady()
   {
+    // Tell our type type resolver about the Godot-specific converters.
+    GodotSerialization.Setup();
+
     AppBinding = AppLogic.Bind();
 
     AppBinding
@@ -115,13 +145,11 @@ public partial class App : CanvasLayer, IApp
         FadeInFromBlack();
       })
       .Handle((in AppLogic.Output.HideGame _) => FadeToBlack())
-      .Handle(
-        (in AppLogic.Output.StartLoadingSaveFile _) =>
-        {
-          Game.SaveFileLoaded += OnSaveFileLoaded;
-          Game.LoadExistingGame();
-        }
-      );
+      .Handle((in AppLogic.Output.StartLoadingSaveFile _) =>
+      {
+        Game.SaveFileLoaded += OnSaveFileLoaded;
+        Game.LoadExistingGame().AsTask();
+      });
 
     // Enter the first state to kick off the binding side effects.
     AppLogic.Start();
@@ -173,6 +201,7 @@ public partial class App : CanvasLayer, IApp
     AppRepo.Dispose();
 
     Menu.NewGame -= OnNewGame;
+    Menu.LoadGame -= OnLoadGame;
 
     AnimationPlayer.AnimationFinished -= OnAnimationFinished;
   }
