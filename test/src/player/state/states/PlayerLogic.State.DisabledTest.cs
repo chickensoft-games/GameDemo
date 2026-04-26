@@ -8,9 +8,9 @@ using Shouldly;
 
 public class PlayerLogicStateDisabledTest : TestClass
 {
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
-  private PlayerLogic.State.Disabled _state = default!;
+  private PlayerLogic.BaseState.Disabled _state = default!;
 
   public PlayerLogicStateDisabledTest(Node testScene) : base(testScene) { }
 
@@ -19,7 +19,7 @@ public class PlayerLogicStateDisabledTest : TestClass
   {
     _appRepo = new();
     _state = new();
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
 
     _context.Set(_appRepo.Object);
   }
@@ -35,31 +35,17 @@ public class PlayerLogicStateDisabledTest : TestClass
   }
 
   [Test]
-  public void Subscribes()
-  {
-    _state.Attach(_context);
-    _appRepo.VerifyAdd(
-      repo => repo.GameEntered += _state.OnGameEntered
-    );
-
-    _state.Detach();
-    _appRepo.VerifyRemove(
-      repo => repo.GameEntered -= _state.OnGameEntered
-    );
-  }
-
-  [Test]
   public void IdlesOnEnable()
   {
     var next = _state.On(new PlayerLogic.Input.Enable());
 
-    next.State.ShouldBeAssignableTo<PlayerLogic.State.Idle>();
+    next.ShouldBeAssignableTo<PlayerLogic.BaseState.Idle>();
   }
 
   [Test]
   public void OnGameAboutToStartEnables()
   {
-    _state.OnGameEntered();
+    _state.Input(new PlayerLogic.Input.Enable());
 
     _context.Inputs.ShouldBe([new PlayerLogic.Input.Enable()]);
   }

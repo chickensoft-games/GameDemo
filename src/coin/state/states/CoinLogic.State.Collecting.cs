@@ -1,5 +1,6 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Collections;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
@@ -16,7 +17,7 @@ public partial class CoinLogic
         this.OnEnter(() => Get<IGameRepo>().StartCoinCollection(Get<ICoin>()));
       }
 
-      public Transition On(in Input.PhysicsProcess input)
+      public Type On(in Input.PhysicsProcess input)
       {
         var settings = Get<Settings>();
         var data = Get<Data>();

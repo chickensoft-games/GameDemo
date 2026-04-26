@@ -8,9 +8,9 @@ using Shouldly;
 
 public class LoadingSaveFileTest : TestClass
 {
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
-  private AppLogic.State.LoadingSaveFile _state = default!;
+  private AppLogic.BaseState.LoadingSaveFile _state = default!;
   private AppLogic.Data _data = default!;
 
   public LoadingSaveFileTest(Node testScene) : base(testScene) { }
@@ -21,7 +21,7 @@ public class LoadingSaveFileTest : TestClass
     _state = new();
     _appRepo = new();
     _data = new();
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
     _context.Set(_appRepo.Object);
     _context.Set(_data);
   }
@@ -41,6 +41,6 @@ public class LoadingSaveFileTest : TestClass
   {
     var next = _state.On(new AppLogic.Input.SaveFileLoaded());
 
-    next.State.ShouldBeOfType<AppLogic.State.InGame>();
+    next.IsAssignableTo(typeof(AppLogic.BaseState.InGame)).ShouldBeTrue();
   }
 }

@@ -1,22 +1,24 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 using Godot;
 
 public partial class PlayerCameraLogic
 {
-  public partial record State
+  public partial record BaseState
   {
     /// <summary>The state of the player camera.</summary>
     [Meta, Id("player_camera_logic_state_input_enabled")]
-    public partial record InputEnabled : State,
+    public partial record InputEnabled : BaseState,
     IGet<Input.DisableInput>,
     IGet<Input.MouseInputOccurred>,
     IGet<Input.JoyPadInputOccurred>
     {
-      public Transition On(in Input.DisableInput input) => To<InputDisabled>();
+      public Type On(in Input.DisableInput input) => To<InputDisabled>();
 
-      public Transition On(in Input.MouseInputOccurred input)
+      public Type On(in Input.MouseInputOccurred input)
       {
         var settings = Get<PlayerCameraSettings>();
         var data = Get<Data>();
@@ -35,7 +37,7 @@ public partial class PlayerCameraLogic
         return ToSelf();
       }
 
-      public Transition On(in Input.JoyPadInputOccurred input)
+      public Type On(in Input.JoyPadInputOccurred input)
       {
         var settings = Get<PlayerCameraSettings>();
         var data = Get<Data>();

@@ -6,5 +6,5 @@ using Chickensoft.LogicBlocks;
 public partial class InGameUILogic
 {
   [Meta]
-  public partial record State : StateLogic<State>;
+  public partial record BaseState : LogicBlockState;
 }

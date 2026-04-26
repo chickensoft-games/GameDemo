@@ -1,22 +1,28 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 using Chickensoft.Sync.Primitives;
 using Godot;
 
-public interface IPlayerCameraLogic : ILogicBlock<PlayerCameraLogic.State>;
+public interface IPlayerCameraLogic : ILogicBlock;
 
 [Meta, Id("player_camera_logic")]
-[LogicBlock(typeof(State), Diagram = true)]
 public partial class PlayerCameraLogic :
-  LogicBlock<PlayerCameraLogic.State>, IPlayerCameraLogic
+  LogicBlock, IPlayerCameraLogic
 {
   private AutoValue<bool>.Binding? _isMouseCapturedBinding;
 
   private AutoValue<Vector3>.Binding? _playerGlobalPositionBinding;
 
-  public override Transition GetInitialState() => To<State.InputDisabled>();
+  public override Type GetInitialState() => typeof(BaseState.InputDisabled);
+
+  public PlayerCameraLogic()
+  {
+    Set(new BaseState.InputDisabled());
+    Set(new BaseState.InputEnabled());
+  }
 
   public override void OnStart()
   {

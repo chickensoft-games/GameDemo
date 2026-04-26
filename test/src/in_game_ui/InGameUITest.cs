@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Chickensoft.Sync.Primitives;
 using Godot;
 using Moq;
@@ -22,7 +23,7 @@ public class InGameUITest : TestClass
   private Mock<IGameRepo> _gameRepo = default!;
   private Mock<ILabel> _coinsLabel = default!;
   private Mock<IInGameUILogic> _logic = default!;
-  private InGameUILogic.IFakeBinding _binding = default!;
+  private LogicBlock.FakeBinding _binding = default!;
 
   private InGameUI _ui = default!;
 
@@ -36,10 +37,10 @@ public class InGameUITest : TestClass
     _coinsLabel = new();
     _logic = new();
 
-    _binding = InGameUILogic.CreateFakeBinding();
+    _binding = LogicBlock.CreateFakeBinding();
 
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
-    _logic.Setup(logic => logic.Start());
+    _logic.Setup(logic => logic.Start(false));
 
     _ui = new()
     {

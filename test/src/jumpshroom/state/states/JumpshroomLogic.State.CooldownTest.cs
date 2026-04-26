@@ -7,7 +7,7 @@ using Shouldly;
 
 public class JumpshroomLogicStateCooldownTest : TestClass
 {
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private JumpshroomLogic.State.Cooldown _state = default!;
 
   public JumpshroomLogicStateCooldownTest(Node testScene) : base(testScene) { }
@@ -16,7 +16,7 @@ public class JumpshroomLogicStateCooldownTest : TestClass
   public void Setup()
   {
     _state = new();
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
   }
 
   [Test]
@@ -34,6 +34,6 @@ public class JumpshroomLogicStateCooldownTest : TestClass
   {
     var next = _state.On(new JumpshroomLogic.Input.CooldownCompleted());
 
-    next.State.ShouldBeOfType<JumpshroomLogic.State.Idle>();
+    next.IsAssignableTo(typeof(JumpshroomLogic.State.Idle)).ShouldBeTrue();
   }
 }

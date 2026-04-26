@@ -83,7 +83,7 @@ public class MapTest : TestClass
 
     _mapLogic.Verify(logic => logic.Set(It.IsAny<MapLogic.Data>()));
     _mapLogic.Verify(logic => logic.Set(_gameRepo.Object));
-    _mapLogic.Verify(logic => logic.Start());
+    _mapLogic.Verify(logic => logic.Start(false));
   }
 
   [Test]
@@ -112,14 +112,15 @@ public class MapTest : TestClass
   [Test]
   public void Loads()
   {
-
+    var logic = new CoinLogic();
+    logic.Start();
     var mapData = new MapData()
     {
       CoinsBeingCollected = new Dictionary<string, CoinData>
       {
         ["coin2"] = new CoinData
         {
-          StateMachine = new CoinLogic(),
+          StateMachine = logic,
           GlobalTransform = Transform3D.Identity
         }
       },
@@ -144,8 +145,7 @@ public class MapTest : TestClass
       .Returns(coinNode2.Object);
 
     coinNode2.Setup(c => c.CoinLogic).Returns(coinLogic2.Object);
-    coinLogic2.Setup(c => c.RestoreFrom(mapData.CoinsBeingCollected["coin2"].StateMachine, true));
-    coinLogic2.Setup(c => c.Start());
+    coinLogic2.Setup(c => c.Start(mapData.CoinsBeingCollected["coin2"].StateMachine.GetData(), true));
     coinNode2.SetupSet(c => c.GlobalTransform = mapData.CoinsBeingCollected["coin2"].GlobalTransform);
 
     _map.OnResolved();

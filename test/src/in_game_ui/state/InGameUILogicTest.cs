@@ -42,8 +42,8 @@ public class InGameUILogicTest : TestClass
   public void Initializes()
   {
     _logic
-      .GetInitialState().State
-      .ShouldBeAssignableTo<InGameUILogic.State>();
+      .GetInitialState()
+      .IsAssignableTo(typeof(InGameUILogic.BaseState)).ShouldBeTrue();
   }
 
   [Test]
@@ -52,7 +52,7 @@ public class InGameUILogicTest : TestClass
     var outputs = new List<object>();
     using var binding = _logic.Bind();
 
-    binding.Handle(
+    binding.OnOutput(
       (in InGameUILogic.Output.NumCoinsChanged output) => outputs.Add(output)
     );
 
@@ -71,7 +71,7 @@ public class InGameUILogicTest : TestClass
     var outputs = new List<object>();
     using var binding = _logic.Bind();
 
-    binding.Handle(
+    binding.OnOutput(
       (in InGameUILogic.Output.NumCoinsChanged output) => outputs.Add(output)
     );
 

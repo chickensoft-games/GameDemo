@@ -5,7 +5,7 @@ using Chickensoft.LogicBlocks;
 
 public partial class PlayerLogic
 {
-  public partial record State
+  public partial record BaseState
   {
     [Meta, Id("player_logic_state_alive_airborne_falling")]
     public partial record Falling : Airborne

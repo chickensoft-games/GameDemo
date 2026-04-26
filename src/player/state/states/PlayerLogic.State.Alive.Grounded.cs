@@ -1,16 +1,18 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 
 public partial class PlayerLogic
 {
-  public abstract partial record State
+  public abstract partial record BaseState
   {
     [Meta]
     public abstract partial record Grounded : Alive,
     IGet<Input.Jump>, IGet<Input.LeftFloor>
     {
-      public virtual Transition On(in Input.Jump input)
+      public virtual Type On(in Input.Jump input)
       {
         // We can jump from any grounded state if the jump button was just
         // pressed.
@@ -26,7 +28,7 @@ public partial class PlayerLogic
         return To<Jumping>();
       }
 
-      public Transition On(in Input.LeftFloor input)
+      public Type On(in Input.LeftFloor input)
       {
         if (input.IsFalling)
         {

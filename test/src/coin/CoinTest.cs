@@ -7,6 +7,7 @@ using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
 using Chickensoft.GodotTestDriver;
+using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
@@ -32,7 +33,7 @@ public partial class CoinTest : TestClass
   private Mock<ICoinLogic> _logic = default!;
   private EntityTable _entityTable = default!;
 
-  private CoinLogic.IFakeBinding _binding = default!;
+  private LogicBlock.FakeBinding _binding = default!;
 
   private Coin _coin = default!;
 
@@ -45,7 +46,7 @@ public partial class CoinTest : TestClass
     _animPlayer = new();
     _coinModel = new();
     _logic = new();
-    _binding = CoinLogic.CreateFakeBinding();
+    _binding = LogicBlock.CreateFakeBinding();
     _entityTable = new EntityTable();
 
     _logic.Setup(logic => logic.Bind()).Returns(_binding);

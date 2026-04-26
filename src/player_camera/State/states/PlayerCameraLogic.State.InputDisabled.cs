@@ -1,15 +1,17 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 
 public partial class PlayerCameraLogic
 {
-  public partial record State
+  public partial record BaseState
   {
     [Meta, Id("player_camera_logic_state_input_disabled")]
-    public partial record InputDisabled : State, IGet<Input.EnableInput>
+    public partial record InputDisabled : BaseState, IGet<Input.EnableInput>
     {
-      public Transition On(in Input.EnableInput input) => To<InputEnabled>();
+      public Type On(in Input.EnableInput input) => To<InputEnabled>();
     }
   }
 }

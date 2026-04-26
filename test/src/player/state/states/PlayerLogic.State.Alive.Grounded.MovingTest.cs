@@ -8,9 +8,9 @@ using Shouldly;
 
 public class PlayerLogicStateAliveGroundedMovingTest : TestClass
 {
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
-  private PlayerLogic.State.Moving _state = default!;
+  private PlayerLogic.BaseState.Moving _state = default!;
 
   public PlayerLogicStateAliveGroundedMovingTest(Node testScene) :
     base(testScene)
@@ -21,7 +21,7 @@ public class PlayerLogicStateAliveGroundedMovingTest : TestClass
   {
     _appRepo = new();
     _state = new();
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
 
     _context.Set(_appRepo.Object);
   }
@@ -29,7 +29,7 @@ public class PlayerLogicStateAliveGroundedMovingTest : TestClass
   [Test]
   public void Enters()
   {
-    _state.Enter<PlayerLogic.State.Grounded>();
+    _state.Enter(new PlayerLogic.BaseState.Idle());
 
     _context.Outputs.ShouldBe([
       new PlayerLogic.Output.Animations.Move()
@@ -41,6 +41,6 @@ public class PlayerLogicStateAliveGroundedMovingTest : TestClass
   {
     var next = _state.On(new PlayerLogic.Input.StoppedMovingHorizontally());
 
-    next.State.ShouldBeAssignableTo<PlayerLogic.State.Idle>();
+    next.ShouldBeAssignableTo<PlayerLogic.BaseState.Idle>();
   }
 }

@@ -1,29 +1,25 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
 public partial class GameLogic
 {
-  public partial record State
+  public partial record BaseState
   {
     [Meta]
-    public partial record MenuBackdrop : State,
+    public partial record MenuBackdrop : BaseState,
     IGet<Input.Start>, IGet<Input.Initialize>
     {
       public MenuBackdrop()
       {
         this.OnEnter(() => Get<IGameRepo>().SetIsMouseCaptured(false));
-
-        OnAttach(() => Get<IAppRepo>().GameEntered += OnGameEntered);
-        OnDetach(() => Get<IAppRepo>().GameEntered -= OnGameEntered);
       }
 
-      public void OnGameEntered() => Input(new Input.Start());
+      public Type On(in Input.Start input) => To<Playing>();
 
-      public Transition On(in Input.Start input) => To<Playing>();
-
-      public Transition On(in Input.Initialize input)
+      public Type On(in Input.Initialize input)
       {
         Get<IGameRepo>().SetNumCoinsAtStart(input.NumCoinsInWorld);
         return ToSelf();

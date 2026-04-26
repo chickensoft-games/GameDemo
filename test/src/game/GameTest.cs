@@ -9,6 +9,7 @@ using Chickensoft.Collections;
 using Chickensoft.GoDotTest;
 using Chickensoft.GodotTestDriver;
 using Chickensoft.GodotTestDriver.Util;
+using Chickensoft.LogicBlocks;
 using Chickensoft.SaveFileBuilder;
 using Chickensoft.Serialization;
 using Chickensoft.Serialization.Godot;
@@ -30,7 +31,7 @@ public class GameTest : TestClass
   private Mock<IGameRepo> _gameRepo = default!;
   private Mock<IGameLogic> _logic = default!;
 
-  private GameLogic.IFakeBinding _binding = default!;
+  private LogicBlock.FakeBinding _binding = default!;
 
   private Mock<IPlayerCamera> _playerCam = default!;
   private Mock<IPlayer> _player = default!;
@@ -61,7 +62,7 @@ public class GameTest : TestClass
     _appRepo = new();
     _gameRepo = new();
     _logic = new();
-    _binding = GameLogic.CreateFakeBinding();
+    _binding = LogicBlock.CreateFakeBinding();
     _playerCam = new();
     _player = new();
     _map = new();

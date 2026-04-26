@@ -17,7 +17,7 @@ public class PlayerLogicTest : TestClass
   public void Initializes()
   {
     _logic
-      .GetInitialState().State
-      .ShouldBeAssignableTo<PlayerLogic.State>();
+      .GetInitialState()
+      .IsAssignableTo(typeof(PlayerLogic.BaseState)).ShouldBeTrue();
   }
 }

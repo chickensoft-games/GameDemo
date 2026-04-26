@@ -18,8 +18,8 @@ using Shouldly;
 ]
 public class PlayingTest : TestClass
 {
-  private IFakeContext _context = default!;
-  private GameLogic.State.Playing _state = default!;
+  private StateTester _context = default!;
+  private GameLogic.BaseState.Playing _state = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private AutoValue<bool> _isMouseCaptured = default!;
   private AutoValue<bool> _isPaused = default!;
@@ -29,8 +29,8 @@ public class PlayingTest : TestClass
   [Setup]
   public void Setup()
   {
-    _state = new GameLogic.State.Playing();
-    _context = _state.CreateFakeContext();
+    _state = new GameLogic.BaseState.Playing();
+    _context = _state.Test();
 
     _isMouseCaptured = new(true);
     _isPaused = new(true);
@@ -60,26 +60,14 @@ public class PlayingTest : TestClass
   }
 
   [Test]
-  public void Subscribes()
-  {
-    _state.Attach(_context);
-
-    _gameRepo.VerifyAdd(repo => repo.Ended += _state.OnEnded);
-
-    _state.Detach();
-
-    _gameRepo.VerifyRemove(repo => repo.Ended -= _state.OnEnded);
-  }
-
-  [Test]
   public void OnPauseButtonPressed() =>
-    _state.On(new GameLogic.Input.PauseButtonPressed()).State
-      .ShouldBeOfType<GameLogic.State.Paused>();
+    _state.On(new GameLogic.Input.PauseButtonPressed())
+      .ShouldBe(typeof(GameLogic.BaseState.Paused));
 
   [Test]
   public void OnEnded()
   {
-    _state.OnEnded(GameOverReason.Won);
+    _state.Input(new GameLogic.Input.EndGame(GameOverReason.Won));
     _context.Inputs.Single().ShouldBeOfType<GameLogic.Input.EndGame>();
   }
 
@@ -88,7 +76,7 @@ public class PlayingTest : TestClass
   {
     var result = _state.On(new GameLogic.Input.EndGame(GameOverReason.Won));
     _gameRepo.Verify(repo => repo.Pause());
-    result.State.ShouldBeOfType<GameLogic.State.Won>();
+    result.ShouldBe(typeof(GameLogic.BaseState.Won));
   }
 
   [Test]
@@ -96,7 +84,7 @@ public class PlayingTest : TestClass
   {
     var result = _state.On(new GameLogic.Input.EndGame(GameOverReason.Lost));
     _gameRepo.Verify(repo => repo.Pause());
-    result.State.ShouldBeOfType<GameLogic.State.Lost>();
+    result.ShouldBe(typeof(GameLogic.BaseState.Lost));
   }
 
   [Test]
@@ -104,7 +92,7 @@ public class PlayingTest : TestClass
   {
     var result = _state.On(new GameLogic.Input.EndGame(GameOverReason.Quit));
     _gameRepo.Verify(repo => repo.Pause());
-    result.State.ShouldBeOfType<GameLogic.State.Quit>();
+    result.ShouldBe(typeof(GameLogic.BaseState.Quit));
   }
 
   [Test]
@@ -112,6 +100,6 @@ public class PlayingTest : TestClass
   {
     var result = _state.On(new GameLogic.Input.EndGame((GameOverReason)25));
     _gameRepo.Verify(repo => repo.Pause());
-    result.State.ShouldBeOfType<GameLogic.State.Quit>();
+    result.ShouldBe(typeof(GameLogic.BaseState.Quit));
   }
 }

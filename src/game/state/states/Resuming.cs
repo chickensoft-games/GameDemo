@@ -1,14 +1,15 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
 public partial class GameLogic
 {
-  public partial record State
+  public partial record BaseState
   {
     [Meta]
-    public partial record Resuming : State, IGet<Input.PauseMenuTransitioned>
+    public partial record Resuming : BaseState, IGet<Input.PauseMenuTransitioned>
     {
       public Resuming()
       {
@@ -16,7 +17,7 @@ public partial class GameLogic
         this.OnExit(() => Output(new Output.HidePauseMenu()));
       }
 
-      public Transition On(in Input.PauseMenuTransitioned input) =>
+      public Type On(in Input.PauseMenuTransitioned input) =>
         To<Playing>();
     }
   }

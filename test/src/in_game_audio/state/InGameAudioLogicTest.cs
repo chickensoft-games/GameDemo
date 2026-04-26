@@ -17,7 +17,7 @@ public class InGameAudioLogicTest : TestClass
   public void Initializes()
   {
     _logic
-      .GetInitialState().State
-      .ShouldBeAssignableTo<InGameAudioLogic.State>();
+      .GetInitialState()
+      .IsAssignableTo(typeof(InGameAudioLogic.BaseState)).ShouldBeTrue();
   }
 }

@@ -8,16 +8,16 @@ using Shouldly;
 
 public class LostTest : TestClass
 {
-  private IFakeContext _context = default!;
-  private GameLogic.State.Lost _state = default!;
+  private StateTester _context = default!;
+  private GameLogic.BaseState.Lost _state = default!;
 
   public LostTest(Node testScene) : base(testScene) { }
 
   [Setup]
   public void Setup()
   {
-    _state = new GameLogic.State.Lost();
-    _context = _state.CreateFakeContext();
+    _state = new GameLogic.BaseState.Lost();
+    _context = _state.Test();
   }
 
   [Test]
@@ -31,13 +31,13 @@ public class LostTest : TestClass
   public void OnStartGame()
   {
     var result = _state.On(new GameLogic.Input.Start());
-    result.State.ShouldBeOfType<GameLogic.State.RestartingGame>();
+    result.ShouldBe(typeof(GameLogic.BaseState.RestartingGame));
   }
 
   [Test]
   public void OnGoToMainMenu()
   {
     var result = _state.On(new GameLogic.Input.GoToMainMenu());
-    result.State.ShouldBeOfType<GameLogic.State.Quit>();
+    result.ShouldBe(typeof(GameLogic.BaseState.Quit));
   }
 }

@@ -7,5 +7,5 @@ public partial class JumpshroomLogic
 {
   [Meta]
 
-  public abstract partial record State : StateLogic<State>;
+  public abstract partial record State : LogicBlockState;
 }

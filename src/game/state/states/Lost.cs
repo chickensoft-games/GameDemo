@@ -1,14 +1,15 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
 public partial class GameLogic
 {
-  public partial record State
+  public partial record BaseState
   {
     [Meta]
-    public partial record Lost : State,
+    public partial record Lost : BaseState,
     IGet<Input.Start>, IGet<Input.GoToMainMenu>
     {
       public Lost()
@@ -16,8 +17,8 @@ public partial class GameLogic
         this.OnEnter(() => Output(new Output.ShowLostScreen()));
       }
 
-      public Transition On(in Input.Start input) => To<RestartingGame>();
-      public Transition On(in Input.GoToMainMenu input) => To<Quit>();
+      public Type On(in Input.Start input) => To<RestartingGame>();
+      public Type On(in Input.GoToMainMenu input) => To<Quit>();
     }
   }
 }

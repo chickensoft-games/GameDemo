@@ -3,6 +3,7 @@ namespace GameDemo;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 using Godot;
 
 [Meta(typeof(IAutoNode))]
@@ -33,7 +34,7 @@ public partial class InGameAudio : Node
 
   public IInGameAudioLogic InGameAudioLogic { get; set; } = default!;
 
-  public InGameAudioLogic.IBinding InGameAudioBinding { get; set; } = default!;
+  public LogicBlock.Binding InGameAudioBinding { get; set; } = default!;
 
   #endregion State
 
@@ -47,21 +48,21 @@ public partial class InGameAudio : Node
     InGameAudioBinding = InGameAudioLogic.Bind();
 
     InGameAudioBinding
-      .Handle((in InGameAudioLogic.Output.PlayCoinCollected _) =>
+      .OnOutput((in InGameAudioLogic.Output.PlayCoinCollected _) =>
         CoinCollected.Play()
       )
-      .Handle((in InGameAudioLogic.Output.PlayBounce _) => Bounce.Play()
+      .OnOutput((in InGameAudioLogic.Output.PlayBounce _) => Bounce.Play()
       )
-      .Handle((in InGameAudioLogic.Output.PlayPlayerDied _) => PlayerDied.Play()
+      .OnOutput((in InGameAudioLogic.Output.PlayPlayerDied _) => PlayerDied.Play()
       )
-      .Handle((in InGameAudioLogic.Output.PlayJump _) =>
+      .OnOutput((in InGameAudioLogic.Output.PlayJump _) =>
         PlayerJumped.Play()
       )
-      .Handle((in InGameAudioLogic.Output.PlayMainMenuMusic _) =>
+      .OnOutput((in InGameAudioLogic.Output.PlayMainMenuMusic _) =>
         StartMainMenuMusic()
       )
-      .Handle((in InGameAudioLogic.Output.PlayGameMusic _) => StartGameMusic())
-      .Handle((in InGameAudioLogic.Output.StopGameMusic _) =>
+      .OnOutput((in InGameAudioLogic.Output.PlayGameMusic _) => StartGameMusic())
+      .OnOutput((in InGameAudioLogic.Output.StopGameMusic _) =>
         GameMusic.FadeOut()
       );
 

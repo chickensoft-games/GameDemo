@@ -1,16 +1,18 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 using Godot;
 
 public partial class PlayerLogic
 {
-  public partial record State
+  public partial record BaseState
   {
     private const float MOVEMENT = 0.2f;
 
     [Meta]
-    public abstract partial record Alive : State,
+    public abstract partial record Alive : BaseState,
       IGet<Input.PhysicsTick>,
       IGet<Input.Moved>,
       IGet<Input.Pushed>,
@@ -23,14 +25,14 @@ public partial class PlayerLogic
       // a MoveEnabled substate and extend it for states where movement is
       // allowed.
 
-      public virtual Transition On(in Input.Killed input)
+      public virtual Type On(in Input.Killed input)
       {
         Get<IGameRepo>().OnGameEnded(GameOverReason.Lost);
 
         return To<Dead>();
       }
 
-      public virtual Transition On(in Input.PhysicsTick input)
+      public virtual Type On(in Input.PhysicsTick input)
       {
         var delta = input.Delta;
         var player = Get<IPlayer>();
@@ -87,7 +89,7 @@ public partial class PlayerLogic
         return ToSelf();
       }
 
-      public virtual Transition On(in Input.Moved input)
+      public virtual Type On(in Input.Moved input)
       {
         var player = Get<IPlayer>();
         var settings = Get<Settings>();
@@ -165,7 +167,7 @@ public partial class PlayerLogic
         return ToSelf();
       }
 
-      public Transition On(in Input.Pushed input)
+      public Type On(in Input.Pushed input)
       {
         var player = Get<IPlayer>();
         var velocity = player.Velocity;

@@ -1,5 +1,6 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
@@ -15,7 +16,7 @@ public partial class JumpshroomLogic
         this.OnEnter(() => Output(new Output.StartCooldownTimer()));
       }
 
-      public Transition On(in Input.CooldownCompleted input) => To<Idle>();
+      public Type On(in Input.CooldownCompleted input) => To<Idle>();
     }
   }
 }

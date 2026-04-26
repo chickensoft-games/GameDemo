@@ -3,6 +3,7 @@ namespace GameDemo;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 using Chickensoft.UMLGenerator;
 using Godot;
 
@@ -38,7 +39,7 @@ public partial class App : CanvasLayer, IApp
   public IAppRepo AppRepo { get; set; } = default!;
   public IAppLogic AppLogic { get; set; } = default!;
 
-  public AppLogic.IBinding AppBinding { get; set; } = default!;
+  public LogicBlock.Binding AppBinding { get; set; } = default!;
 
   #endregion State
 
@@ -75,31 +76,31 @@ public partial class App : CanvasLayer, IApp
     AppBinding = AppLogic.Bind();
 
     AppBinding
-      .Handle((in AppLogic.Output.ShowSplashScreen _) =>
+      .OnOutput((in AppLogic.Output.ShowSplashScreen _) =>
       {
         HideMenus();
         BlankScreen.Hide();
         Splash.Show();
       })
-      .Handle((in AppLogic.Output.HideSplashScreen _) =>
+      .OnOutput((in AppLogic.Output.HideSplashScreen _) =>
       {
         BlankScreen.Show();
         FadeToBlack();
       })
-      .Handle((in AppLogic.Output.RemoveExistingGame _) =>
+      .OnOutput((in AppLogic.Output.RemoveExistingGame _) =>
       {
         GamePreview.RemoveChildEx(Game);
         Game.QueueFree();
         Game = default!;
       })
-      .Handle((in AppLogic.Output.SetupGameScene _) =>
+      .OnOutput((in AppLogic.Output.SetupGameScene _) =>
       {
         Game = Instantiator.LoadAndInstantiate<Game>(GAME_SCENE_PATH);
         GamePreview.AddChildEx(Game);
 
         Instantiator.SceneTree.Paused = false;
       })
-      .Handle((in AppLogic.Output.ShowMainMenu _) =>
+      .OnOutput((in AppLogic.Output.ShowMainMenu _) =>
       {
         // Load everything while we're showing a black screen, then fade in.
         HideMenus();
@@ -108,14 +109,14 @@ public partial class App : CanvasLayer, IApp
 
         FadeInFromBlack();
       })
-      .Handle((in AppLogic.Output.FadeToBlack _) => FadeToBlack())
-      .Handle((in AppLogic.Output.ShowGame _) =>
+      .OnOutput((in AppLogic.Output.FadeToBlack _) => FadeToBlack())
+      .OnOutput((in AppLogic.Output.ShowGame _) =>
       {
         HideMenus();
         FadeInFromBlack();
       })
-      .Handle((in AppLogic.Output.HideGame _) => FadeToBlack())
-      .Handle(
+      .OnOutput((in AppLogic.Output.HideGame _) => FadeToBlack())
+      .OnOutput(
         (in AppLogic.Output.StartLoadingSaveFile _) =>
         {
           Game.SaveFileLoaded += OnSaveFileLoaded;

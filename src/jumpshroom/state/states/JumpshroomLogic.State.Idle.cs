@@ -1,6 +1,8 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 
 public partial class JumpshroomLogic
 {
@@ -9,11 +11,11 @@ public partial class JumpshroomLogic
     [Meta]
     public partial record Idle : State, IGet<Input.Hit>
     {
-      public Transition On(in Input.Hit input)
+      public Type On(in Input.Hit input)
       {
         var target = input.Target;
-        return To<Loading>()
-        .With(state => ((Loading)state).Target = target);
+        Get<Data>().Target = target;
+        return To<Loading>();
       }
     }
   }

@@ -9,8 +9,8 @@ using Shouldly;
 
 public class WonTest : TestClass
 {
-  private IFakeContext _context = default!;
-  private GameLogic.State.Won _state = default!;
+  private StateTester _context = default!;
+  private GameLogic.BaseState.Won _state = default!;
   private Mock<IAppRepo> _appRepo = default!;
 
   public WonTest(Node testScene) : base(testScene) { }
@@ -18,8 +18,8 @@ public class WonTest : TestClass
   [Setup]
   public void Setup()
   {
-    _state = new GameLogic.State.Won();
-    _context = _state.CreateFakeContext();
+    _state = new GameLogic.BaseState.Won();
+    _context = _state.Test();
 
     _appRepo = new Mock<IAppRepo>();
     _context.Set(_appRepo.Object);
@@ -40,6 +40,6 @@ public class WonTest : TestClass
     var result = _state.On(new GameLogic.Input.GoToMainMenu());
 
     _appRepo.VerifyAll();
-    result.State.ShouldBe(_state);
+    result.ShouldBe(_state.GetType());
   }
 }

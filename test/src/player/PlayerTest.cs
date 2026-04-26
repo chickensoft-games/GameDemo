@@ -6,6 +6,7 @@ using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.GoDotTest;
 using Chickensoft.GodotTestDriver;
+using Chickensoft.LogicBlocks;
 using Chickensoft.SaveFileBuilder;
 using Godot;
 using Moq;
@@ -27,7 +28,7 @@ public class PlayerTest : TestClass
   private EntityTable _entityTable = default!;
   private Mock<ISaveChunk<GameData>> _gameChunk = default!;
 
-  private PlayerLogic.IFakeBinding _binding = default!;
+  private LogicBlock.FakeBinding _binding = default!;
 
   private PlayerLogic.Settings _settings = default!;
   private Player _player = default!;
@@ -42,7 +43,7 @@ public class PlayerTest : TestClass
     _appRepo = new();
     _gameRepo = new();
     _logic = new();
-    _binding = PlayerLogic.CreateFakeBinding();
+    _binding = LogicBlock.CreateFakeBinding();
     _settings = new PlayerLogic.Settings(
       RotationSpeed: 1.0f,
       StoppingSpeed: 1.0f,

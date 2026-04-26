@@ -9,14 +9,14 @@ using Shouldly;
 
 public partial class PlayerLogicStateAliveGroundedTest : TestClass
 {
-  [Meta, TestState]
-  public partial record TestPlayerState : PlayerLogic.State.Grounded;
+  [Meta]
+  public partial record TestPlayerState : PlayerLogic.BaseState.Grounded;
 
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private Mock<IPlayer> _player = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private PlayerLogic.Settings _settings = default!;
-  private PlayerLogic.State.Grounded _state = default!;
+  private PlayerLogic.BaseState.Grounded _state = default!;
 
   public PlayerLogicStateAliveGroundedTest(Node testScene) :
     base(testScene)
@@ -30,7 +30,7 @@ public partial class PlayerLogicStateAliveGroundedTest : TestClass
     _settings = new PlayerLogic.Settings(1, 1, 1, 1, 1, 1, 1);
 
     _state = new TestPlayerState();
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
 
     _context.Set(_player.Object);
     _context.Set(_appRepo.Object);
@@ -44,7 +44,7 @@ public partial class PlayerLogicStateAliveGroundedTest : TestClass
 
     var next = _state.On(new PlayerLogic.Input.Jump(1d));
 
-    next.State.ShouldBeAssignableTo<PlayerLogic.State.Jumping>();
+    next.ShouldBeAssignableTo<PlayerLogic.BaseState.Jumping>();
 
     _context.Outputs.ShouldBeOfTypes([
       typeof(PlayerLogic.Output.VelocityChanged)
@@ -54,10 +54,10 @@ public partial class PlayerLogicStateAliveGroundedTest : TestClass
   [Test]
   public void LeftFloorGoesToFallingOrLiftoff()
   {
-    _state.On(new PlayerLogic.Input.LeftFloor(IsFalling: true)).State
-      .ShouldBeAssignableTo<PlayerLogic.State.Falling>();
+    _state.On(new PlayerLogic.Input.LeftFloor(IsFalling: true))
+      .ShouldBeAssignableTo<PlayerLogic.BaseState.Falling>();
 
-    _state.On(new PlayerLogic.Input.LeftFloor(IsFalling: false)).State
-      .ShouldBeAssignableTo<PlayerLogic.State.Liftoff>();
+    _state.On(new PlayerLogic.Input.LeftFloor(IsFalling: false))
+      .ShouldBeAssignableTo<PlayerLogic.BaseState.Liftoff>();
   }
 }

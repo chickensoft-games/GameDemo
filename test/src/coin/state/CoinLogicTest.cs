@@ -17,7 +17,7 @@ public class CoinLogicTest : TestClass
   public void Initializes()
   {
     _logic
-      .GetInitialState().State
-      .ShouldBeAssignableTo<CoinLogic.State.Idle>();
+      .GetInitialState()
+      .IsAssignableTo(typeof(CoinLogic.State.Idle)).ShouldBeTrue();
   }
 }

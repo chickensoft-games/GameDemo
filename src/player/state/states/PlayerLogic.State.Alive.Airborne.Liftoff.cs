@@ -5,7 +5,7 @@ using Chickensoft.LogicBlocks;
 
 public partial class PlayerLogic
 {
-  public abstract partial record State
+  public abstract partial record BaseState
   {
     /// <summary>
     /// This is like the jumping state because it represents moving upwards

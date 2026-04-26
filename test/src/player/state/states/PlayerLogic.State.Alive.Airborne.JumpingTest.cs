@@ -8,12 +8,12 @@ using Shouldly;
 
 public class PlayerLogicStateAliveAirborneJumpingTest : TestClass
 {
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private Mock<IPlayer> _player = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private PlayerLogic.Settings _settings = default!;
-  private PlayerLogic.State.Jumping _state = default!;
+  private PlayerLogic.BaseState.Jumping _state = default!;
 
   public PlayerLogicStateAliveAirborneJumpingTest(Node testScene) :
     base(testScene)
@@ -29,7 +29,7 @@ public class PlayerLogicStateAliveAirborneJumpingTest : TestClass
     _settings = new PlayerLogic.Settings(1, 1, 1, 1, 1, 1, JumpForce: 1);
 
     _state = new();
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
 
     _context.Set(_player.Object);
     _context.Set(_appRepo.Object);
@@ -43,7 +43,7 @@ public class PlayerLogicStateAliveAirborneJumpingTest : TestClass
 
     _gameRepo.Setup(repo => repo.OnJump());
 
-    _state.Enter<PlayerLogic.State.Airborne>();
+    _state.Enter(new PlayerLogic.BaseState.Jumping());
 
     _context.Outputs.ShouldBe([
       new PlayerLogic.Output.Animations.Jump()

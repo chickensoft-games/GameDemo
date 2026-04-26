@@ -1,13 +1,36 @@
 namespace GameDemo;
 
+using System;
+using System.Collections.Generic;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public interface IAppLogic : ILogicBlock<AppLogic.State>;
+public interface IAppLogic : ILogicBlock;
 
 [Meta]
-[LogicBlock(typeof(State), Diagram = true)]
-public partial class AppLogic : LogicBlock<AppLogic.State>, IAppLogic
+public partial class AppLogic : LogicBlock, IAppLogic
 {
-  public override Transition GetInitialState() => To<State.SplashScreen>();
+  public override Type GetInitialState() => typeof(BaseState.SplashScreen);
+  public AppLogic()
+  {
+    Set(new BaseState.InGame());
+    Set(new BaseState.LeavingGame());
+    Set(new BaseState.LeavingMenu());
+    Set(new BaseState.LoadingSaveFile());
+    Set(new BaseState.MainMenu());
+    Set(new BaseState.SplashScreen());
+  }
+
+  public override IEnumerable<IDisposable> OnStartSubscriptions()
+  {
+    yield return Get<IAppRepo>().AutoChannel.Bind()
+      .On((in IAppRepo.GameExited message) => Input(new Input.EndGame(message.Action)))
+      .On((in IAppRepo.SplashScreenSkipped _) =>
+      {
+        if (State is BaseState.SplashScreen)
+        {
+          State.Output(new Output.HideSplashScreen());
+        }
+      });
+  }
 }

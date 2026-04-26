@@ -2,6 +2,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDemo", "GameDemo.csproj", "{45379075-6EBB-4F34-A5E7-73575F71192E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chickensoft.LogicBlocks", "..\LogicBlocks6\Chickensoft.LogicBlocks\Chickensoft.LogicBlocks.csproj", "{33ABAEBD-E249-4C9E-BA00-3C8FC14BC047}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chickensoft.LogicBlocks.DiagramGenerator", "..\LogicBlocks6\Chickensoft.LogicBlocks.DiagramGenerator\Chickensoft.LogicBlocks.DiagramGenerator.csproj", "{3FC7C179-93F0-49B0-AFE5-105E92CF2834}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 	Debug|Any CPU = Debug|Any CPU
@@ -15,5 +19,17 @@ Global
 		{45379075-6EBB-4F34-A5E7-73575F71192E}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
 		{45379075-6EBB-4F34-A5E7-73575F71192E}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{45379075-6EBB-4F34-A5E7-73575F71192E}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{33ABAEBD-E249-4C9E-BA00-3C8FC14BC047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33ABAEBD-E249-4C9E-BA00-3C8FC14BC047}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33ABAEBD-E249-4C9E-BA00-3C8FC14BC047}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33ABAEBD-E249-4C9E-BA00-3C8FC14BC047}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{33ABAEBD-E249-4C9E-BA00-3C8FC14BC047}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{33ABAEBD-E249-4C9E-BA00-3C8FC14BC047}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
+		{3FC7C179-93F0-49B0-AFE5-105E92CF2834}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FC7C179-93F0-49B0-AFE5-105E92CF2834}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FC7C179-93F0-49B0-AFE5-105E92CF2834}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FC7C179-93F0-49B0-AFE5-105E92CF2834}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{3FC7C179-93F0-49B0-AFE5-105E92CF2834}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FC7C179-93F0-49B0-AFE5-105E92CF2834}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -8,9 +8,9 @@ using Shouldly;
 
 public class LeavingMenuTest : TestClass
 {
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
-  private AppLogic.State.LeavingMenu _state = default!;
+  private AppLogic.BaseState.LeavingMenu _state = default!;
   private AppLogic.Data _data = default!;
 
   public LeavingMenuTest(Node testScene) : base(testScene) { }
@@ -21,7 +21,7 @@ public class LeavingMenuTest : TestClass
     _state = new();
     _appRepo = new();
     _data = new();
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
     _context.Set(_appRepo.Object);
     _context.Set(_data);
   }
@@ -41,7 +41,7 @@ public class LeavingMenuTest : TestClass
   {
     var next = _state.On(new AppLogic.Input.FadeOutFinished());
 
-    next.State.ShouldBeOfType<AppLogic.State.InGame>();
+    next.IsAssignableTo(typeof(AppLogic.BaseState.InGame)).ShouldBeTrue();
   }
 
   [Test]
@@ -51,6 +51,6 @@ public class LeavingMenuTest : TestClass
 
     var next = _state.On(new AppLogic.Input.FadeOutFinished());
 
-    next.State.ShouldBeOfType<AppLogic.State.LoadingSaveFile>();
+    next.IsAssignableTo(typeof(AppLogic.BaseState.LoadingSaveFile)).ShouldBeTrue();
   }
 }

@@ -1,5 +1,6 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 using Godot;
@@ -11,7 +12,7 @@ public partial class PlayerCameraLogic
   ///   be able to instantiate it by itself for easier testing.
   /// </summary>
   [Meta]
-  public abstract partial record State : StateLogic<State>,
+  public abstract partial record BaseState : LogicBlockState,
     IGet<Input.PhysicsTicked>,
     IGet<Input.TargetPositionChanged>,
     IGet<Input.TargetOffsetChanged>
@@ -19,7 +20,7 @@ public partial class PlayerCameraLogic
     internal void OnCameraTargetOffsetChanged(Vector3 targetOffset) =>
       Input(new Input.TargetOffsetChanged(targetOffset));
 
-    public Transition On(in Input.PhysicsTicked input)
+    public Type On(in Input.PhysicsTicked input)
     {
       var camera = Get<IPlayerCamera>();
       var gameRepo = Get<IGameRepo>();
@@ -84,14 +85,14 @@ public partial class PlayerCameraLogic
       return ToSelf();
     }
 
-    public Transition On(in Input.TargetPositionChanged input)
+    public Type On(in Input.TargetPositionChanged input)
     {
       var data = Get<Data>();
       data.TargetPosition = input.TargetPosition;
       return ToSelf();
     }
 
-    public Transition On(in Input.TargetOffsetChanged input)
+    public Type On(in Input.TargetOffsetChanged input)
     {
       var data = Get<Data>();
       data.TargetOffset = input.TargetOffset;

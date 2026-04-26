@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
@@ -19,7 +20,7 @@ using Shouldly;
 public class PlayerModelTest : TestClass
 {
   private Mock<IPlayerLogic> _playerLogic = default!;
-  private PlayerLogic.IFakeBinding _playerBinding = default!;
+  private LogicBlock.FakeBinding _playerBinding = default!;
   private Mock<IAnimationTree> _animationTree = default!;
   private Mock<IAnimationNodeStateMachinePlayback> _animStateMachine = default!;
   private Mock<INode3D> _visualRoot = default!;
@@ -34,7 +35,7 @@ public class PlayerModelTest : TestClass
   public void Setup()
   {
     _playerLogic = new Mock<IPlayerLogic>();
-    _playerBinding = PlayerLogic.CreateFakeBinding();
+    _playerBinding = LogicBlock.CreateFakeBinding();
     _animationTree = new Mock<IAnimationTree>();
     _animStateMachine = new Mock<IAnimationNodeStateMachinePlayback>();
     _visualRoot = new Mock<INode3D>();
@@ -152,8 +153,8 @@ public class PlayerModelTest : TestClass
     );
 
     _playerLogic
-      .Setup(logic => logic.Value)
-      .Returns(new PlayerLogic.State.Idle());
+      .Setup(logic => logic.State)
+      .Returns(new PlayerLogic.BaseState.Idle());
 
     _animationTree.Verify(
       tree => tree.Set(PlayerModel.LEAN_ADD, It.IsAny<Variant>())
@@ -167,8 +168,8 @@ public class PlayerModelTest : TestClass
   [Test]
   public void GetTarget()
   {
-    PlayerModel.GetTarget(1, new PlayerLogic.State.Jumping()).ShouldBe(0);
-    PlayerModel.GetTarget(1, new PlayerLogic.State.Idle()).ShouldBe(1);
+    PlayerModel.GetTarget(1, new PlayerLogic.BaseState.Jumping()).ShouldBe(0);
+    PlayerModel.GetTarget(1, new PlayerLogic.BaseState.Idle()).ShouldBe(1);
   }
 
   [Test]

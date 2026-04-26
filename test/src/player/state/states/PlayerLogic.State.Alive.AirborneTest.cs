@@ -8,10 +8,10 @@ using Shouldly;
 
 public partial class PlayerLogicStateAliveAirborneTest : TestClass
 {
-  [Meta, TestState]
-  public partial record TestPlayerState : PlayerLogic.State.Airborne;
+  [Meta]
+  public partial record TestPlayerState : PlayerLogic.BaseState.Airborne;
 
-  private PlayerLogic.State.Airborne _state = default!;
+  private PlayerLogic.BaseState.Airborne _state = default!;
 
   public PlayerLogicStateAliveAirborneTest(Node testScene) :
     base(testScene)
@@ -21,7 +21,7 @@ public partial class PlayerLogicStateAliveAirborneTest : TestClass
   public void Setup()
   {
     _state = new TestPlayerState();
-    _state.CreateFakeContext();
+    _state.Test();
   }
 
   [Test]
@@ -29,7 +29,7 @@ public partial class PlayerLogicStateAliveAirborneTest : TestClass
   {
     var next = _state.On(new PlayerLogic.Input.HitFloor(true));
 
-    next.State.ShouldBeOfType<PlayerLogic.State.Moving>();
+    next.IsAssignableTo(typeof(PlayerLogic.BaseState.Moving)).ShouldBeTrue();
   }
 
   [Test]
@@ -37,7 +37,7 @@ public partial class PlayerLogicStateAliveAirborneTest : TestClass
   {
     var next = _state.On(new PlayerLogic.Input.HitFloor(false));
 
-    next.State.ShouldBeOfType<PlayerLogic.State.Idle>();
+    next.IsAssignableTo(typeof(PlayerLogic.BaseState.Idle)).ShouldBeTrue();
   }
 
   [Test]
@@ -45,6 +45,6 @@ public partial class PlayerLogicStateAliveAirborneTest : TestClass
   {
     var next = _state.On(new PlayerLogic.Input.StartedFalling());
 
-    next.State.ShouldBeOfType<PlayerLogic.State.Falling>();
+    next.IsAssignableTo(typeof(PlayerLogic.BaseState.Falling)).ShouldBeTrue();
   }
 }

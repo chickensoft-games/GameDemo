@@ -1,13 +1,21 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public interface IJumpshroomLogic : ILogicBlock<JumpshroomLogic.State>;
+public interface IJumpshroomLogic : ILogicBlock;
 
 [Meta]
-[LogicBlock(typeof(State), Diagram = true)]
-public partial class JumpshroomLogic : LogicBlock<JumpshroomLogic.State>, IJumpshroomLogic
+public partial class JumpshroomLogic : LogicBlock, IJumpshroomLogic
 {
-  public override Transition GetInitialState() => To<State.Idle>();
+  public override Type GetInitialState() => typeof(State.Idle);
+
+  public JumpshroomLogic()
+  {
+    Set(new State.Cooldown());
+    Set(new State.Idle());
+    Set(new State.Launching());
+    Set(new State.Loading());
+  }
 }

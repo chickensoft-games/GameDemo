@@ -1,21 +1,22 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
 public partial class GameLogic
 {
-  public partial record State
+  public partial record BaseState
   {
     [Meta]
-    public partial record Won : State, IGet<Input.GoToMainMenu>
+    public partial record Won : BaseState, IGet<Input.GoToMainMenu>
     {
       public Won()
       {
         this.OnEnter(() => Output(new Output.ShowWonScreen()));
       }
 
-      public Transition On(in Input.GoToMainMenu input)
+      public Type On(in Input.GoToMainMenu input)
       {
         Get<IAppRepo>().OnExitGame(PostGameAction.GoToMainMenu);
         return ToSelf();

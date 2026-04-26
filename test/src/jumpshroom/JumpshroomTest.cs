@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
@@ -22,7 +23,7 @@ public partial class JumpshroomTest : TestClass
     public void Push(Vector3 force) { }
   }
 
-  private JumpshroomLogic.IFakeBinding _binding = default!;
+  private LogicBlock.FakeBinding _binding = default!;
 
   private Mock<IJumpshroomLogic> _logic = default!;
   private Mock<IGameRepo> _gameRepo = default!;
@@ -36,7 +37,7 @@ public partial class JumpshroomTest : TestClass
   [Setup]
   public void Setup()
   {
-    _binding = JumpshroomLogic.CreateFakeBinding();
+    _binding = LogicBlock.CreateFakeBinding();
 
     _logic = new();
     _gameRepo = new();

@@ -8,9 +8,9 @@ using Shouldly;
 
 public class MainMenuTest : TestClass
 {
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
-  private AppLogic.State.MainMenu _state = default!;
+  private AppLogic.BaseState.MainMenu _state = default!;
   private AppLogic.Data _data = default!;
 
 
@@ -22,7 +22,7 @@ public class MainMenuTest : TestClass
     _state = new();
     _appRepo = new();
     _data = new();
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
     _context.Set(_appRepo.Object);
     _context.Set(_data);
   }
@@ -43,7 +43,7 @@ public class MainMenuTest : TestClass
   {
     var next = _state.On(new AppLogic.Input.NewGame());
 
-    next.State.ShouldBeOfType<AppLogic.State.LeavingMenu>();
+    next.IsAssignableTo(typeof(AppLogic.BaseState.LeavingMenu)).ShouldBeTrue();
   }
 
   [Test]
@@ -51,7 +51,7 @@ public class MainMenuTest : TestClass
   {
     var next = _state.On(new AppLogic.Input.LoadGame());
 
-    next.State.ShouldBeOfType<AppLogic.State.LeavingMenu>();
+    next.IsAssignableTo(typeof(AppLogic.BaseState.LeavingMenu)).ShouldBeTrue();
 
     _data.ShouldLoadExistingGame.ShouldBeTrue();
   }

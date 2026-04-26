@@ -8,7 +8,7 @@ using Shouldly;
 
 public class JumpshroomLogicStateIdleTest : TestClass
 {
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private JumpshroomLogic.State.Idle _state = default!;
 
@@ -20,8 +20,9 @@ public class JumpshroomLogicStateIdleTest : TestClass
     _appRepo = new Mock<IAppRepo>();
 
     _state = new();
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
     _context.Set(_appRepo.Object);
+    _context.Set(new JumpshroomLogic.Data(30));
   }
 
   [Test]
@@ -30,8 +31,8 @@ public class JumpshroomLogicStateIdleTest : TestClass
     var target = new Mock<IPushEnabled>();
     var next = _state.On(new JumpshroomLogic.Input.Hit(target.Object));
 
-    var loading = next.State.ShouldBeOfType<JumpshroomLogic.State.Loading>();
-    loading.Target.ShouldBe(target.Object);
+    next.IsAssignableTo(typeof(JumpshroomLogic.State.Loading)).ShouldBeTrue();
+    _state.Get<JumpshroomLogic.Data>().Target.ShouldBe(target.Object);
 
     _appRepo.VerifyAll();
   }

@@ -10,16 +10,16 @@ using Shouldly;
 
 public partial class PlayerLogicStateAliveTest : TestClass
 {
-  [Meta, TestState]
-  public partial record TestPlayerState : PlayerLogic.State.Alive;
+  [Meta]
+  public partial record TestPlayerState : PlayerLogic.BaseState.Alive;
 
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private PlayerLogic.Data _data = default!;
   private Mock<IPlayer> _player = default!;
   private PlayerLogic.Settings _settings = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private Mock<IAppRepo> _appRepo = default!;
-  private PlayerLogic.State.Alive _state = default!;
+  private PlayerLogic.BaseState.Alive _state = default!;
 
   public PlayerLogicStateAliveTest(Node testScene) :
     base(testScene)
@@ -36,7 +36,7 @@ public partial class PlayerLogicStateAliveTest : TestClass
     _appRepo = new Mock<IAppRepo>();
 
     _state = new TestPlayerState();
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
 
     _context.Set(_data);
     _context.Set(_player.Object);
@@ -53,7 +53,7 @@ public partial class PlayerLogicStateAliveTest : TestClass
     var next = _state.On(new PlayerLogic.Input.Killed());
 
     _gameRepo.VerifyAll();
-    next.State.ShouldBeOfType<PlayerLogic.State.Dead>();
+    next.IsAssignableTo(typeof(PlayerLogic.BaseState.Dead)).ShouldBeTrue();
   }
 
   [Test]

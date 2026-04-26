@@ -17,7 +17,7 @@ public class JumpshroomLogicTest : TestClass
   public void Initializes()
   {
     _logic
-      .GetInitialState().State
-      .ShouldBeAssignableTo<JumpshroomLogic.State>();
+      .GetInitialState()
+      .IsAssignableTo(typeof(JumpshroomLogic.State)).ShouldBeTrue();
   }
 }

@@ -4,6 +4,7 @@ using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 using Godot;
 
 public interface ICoin : INode3D
@@ -36,7 +37,7 @@ public partial class Coin : Node3D, ICoin
   public ICoinLogic CoinLogic { get; set; } = default!;
   public CoinLogic.Settings Settings { get; set; } = default!;
 
-  public CoinLogic.IBinding CoinBinding { get; set; } = default!;
+  public LogicBlock.Binding CoinBinding { get; set; } = default!;
 
   #endregion State
 
@@ -55,7 +56,7 @@ public partial class Coin : Node3D, ICoin
     CoinLogic.Set(this as ICoin);
     CoinLogic.Set(Settings);
     CoinLogic.Set(GameRepo);
-    CoinLogic.Save(() => new CoinLogic.Data());
+    CoinLogic.Set(new CoinLogic.Data());
     CoinLogic.Set(EntityTable);
   }
 
@@ -80,7 +81,7 @@ public partial class Coin : Node3D, ICoin
     CoinBinding = CoinLogic.Bind();
 
     CoinBinding
-      .When<CoinLogic.State.Collecting>(_ =>
+      .OnState<CoinLogic.State.Collecting>(_ =>
       {
         // We want to start receiving physics ticks so we can orient ourselves
         // toward the entity that's collecting us.
@@ -89,11 +90,11 @@ public partial class Coin : Node3D, ICoin
         // process of being collected.
         AnimationPlayer.Play("collect");
       })
-      .Handle(
+      .OnOutput(
         (in CoinLogic.Output.Move output) =>
           GlobalPosition = output.GlobalPosition
       )
-      .Handle(
+      .OnOutput(
         // We're done being collected, so we can remove ourselves from the
         // scene tree.
         (in CoinLogic.Output.SelfDestruct output) => QueueFree()

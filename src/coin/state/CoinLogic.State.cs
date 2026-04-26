@@ -6,5 +6,5 @@ using Chickensoft.LogicBlocks;
 public partial class CoinLogic
 {
   [Meta]
-  public abstract partial record State : StateLogic<State>;
+  public abstract partial record State : LogicBlockState;
 }

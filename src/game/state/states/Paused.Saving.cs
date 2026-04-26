@@ -1,11 +1,12 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
 public partial class GameLogic
 {
-  public partial record State
+  public partial record BaseState
   {
     [Meta]
     public partial record Saving : Paused, IGet<Input.SaveCompleted>
@@ -23,10 +24,10 @@ public partial class GameLogic
         this.OnExit(() => Output(new Output.HidePauseSaveOverlay()));
       }
 
-      public Transition On(in Input.SaveCompleted input) => To<Paused>();
+      public Type On(in Input.SaveCompleted input) => To<Paused>();
 
       // Make it impossible to leave the pause menu while saving
-      public override Transition On(in Input.PauseButtonPressed input) =>
+      public override Type On(in Input.PauseButtonPressed input) =>
         ToSelf();
     }
   }

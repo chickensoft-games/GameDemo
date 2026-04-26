@@ -1,14 +1,15 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
 public partial class GameLogic
 {
-  public partial record State
+  public partial record BaseState
   {
     [Meta]
-    public partial record Paused : State,
+    public partial record Paused : BaseState,
       IGet<Input.PauseButtonPressed>,
       IGet<Input.GoToMainMenu>,
       IGet<Input.SaveRequested>
@@ -28,12 +29,12 @@ public partial class GameLogic
         this.OnExit(() => Output(new Output.ExitPauseMenu()));
       }
 
-      public virtual Transition On(in Input.PauseButtonPressed input)
+      public virtual Type On(in Input.PauseButtonPressed input)
         => To<Resuming>();
 
-      public Transition On(in Input.SaveRequested input) => To<Saving>();
+      public Type On(in Input.SaveRequested input) => To<Saving>();
 
-      public Transition On(in Input.GoToMainMenu input) => To<Quit>();
+      public Type On(in Input.GoToMainMenu input) => To<Quit>();
     }
   }
 }

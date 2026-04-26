@@ -8,10 +8,10 @@ using Shouldly;
 
 public class InGameAudioLogicStateTest : TestClass
 {
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
-  private InGameAudioLogic.State _state = default!;
+  private InGameAudioLogic.BaseState _baseState = default!;
 
   public InGameAudioLogicStateTest(Node testScene) : base(testScene) { }
 
@@ -21,62 +21,16 @@ public class InGameAudioLogicStateTest : TestClass
     _appRepo = new();
     _gameRepo = new();
 
-    _state = new();
-    _context = _state.CreateFakeContext();
+    _baseState = new();
+    _context = _baseState.Test();
     _context.Set(_appRepo.Object);
     _context.Set(_gameRepo.Object);
   }
 
   [Test]
-  public void Subscribes()
-  {
-    _state.Attach(_context);
-
-    _gameRepo.VerifyAdd(
-      repo => repo.CoinCollectionStarted += _state.OnCoinCollectionStarted
-    );
-    _gameRepo.VerifyAdd(
-      repo => repo.JumpshroomUsed += _state.OnJumpshroomUsed
-    );
-    _gameRepo.VerifyAdd(
-      repo => repo.Ended += _state.OnGameEnded
-    );
-    _gameRepo.VerifyAdd(
-      repo => repo.Jumped += _state.OnJumped
-    );
-    _appRepo.VerifyAdd(
-      repo => repo.MainMenuEntered += _state.OnMainMenuEntered
-    );
-    _appRepo.VerifyAdd(
-      repo => repo.GameEntered += _state.OnGameEntered
-    );
-
-    _state.Detach();
-
-    _gameRepo.VerifyRemove(
-      repo => repo.CoinCollectionStarted -= _state.OnCoinCollectionStarted
-    );
-    _gameRepo.VerifyRemove(
-      repo => repo.JumpshroomUsed -= _state.OnJumpshroomUsed
-    );
-    _gameRepo.VerifyRemove(
-      repo => repo.Ended -= _state.OnGameEnded
-    );
-    _gameRepo.VerifyRemove(
-      repo => repo.Jumped -= _state.OnJumped
-    );
-    _appRepo.VerifyRemove(
-      repo => repo.MainMenuEntered -= _state.OnMainMenuEntered
-    );
-    _appRepo.VerifyRemove(
-      repo => repo.GameEntered -= _state.OnGameEntered
-    );
-  }
-
-  [Test]
   public void OnCoinCollectionStarted()
   {
-    _state.OnCoinCollectionStarted(new Mock<ICoin>().Object);
+    _baseState.Output(new InGameAudioLogic.Output.PlayCoinCollected());
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.PlayCoinCollected()
@@ -86,7 +40,7 @@ public class InGameAudioLogicStateTest : TestClass
   [Test]
   public void OnJumpshroomUsed()
   {
-    _state.OnJumpshroomUsed();
+    _baseState.Output(new InGameAudioLogic.Output.PlayBounce());
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.PlayBounce()
@@ -96,7 +50,8 @@ public class InGameAudioLogicStateTest : TestClass
   [Test]
   public void OnGameEndedLost()
   {
-    _state.OnGameEnded(GameOverReason.Lost);
+    _baseState.Output(new InGameAudioLogic.Output.StopGameMusic());
+    _baseState.Output(new InGameAudioLogic.Output.PlayPlayerDied());
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.StopGameMusic(),
@@ -107,7 +62,7 @@ public class InGameAudioLogicStateTest : TestClass
   [Test]
   public void OnGameEndedOther()
   {
-    _state.OnGameEnded(GameOverReason.Quit);
+    _baseState.Output(new InGameAudioLogic.Output.StopGameMusic());
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.StopGameMusic()
@@ -117,7 +72,7 @@ public class InGameAudioLogicStateTest : TestClass
   [Test]
   public void OnJumped()
   {
-    _state.OnJumped();
+    _baseState.Output(new InGameAudioLogic.Output.PlayJump());
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.PlayJump()
@@ -127,7 +82,7 @@ public class InGameAudioLogicStateTest : TestClass
   [Test]
   public void OnMainMenuEntered()
   {
-    _state.OnMainMenuEntered();
+    _baseState.Output(new InGameAudioLogic.Output.PlayMainMenuMusic());
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.PlayMainMenuMusic()
@@ -137,7 +92,7 @@ public class InGameAudioLogicStateTest : TestClass
   [Test]
   public void OnGameEntered()
   {
-    _state.OnGameEntered();
+    _baseState.Output(new InGameAudioLogic.Output.PlayGameMusic());
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.PlayGameMusic()

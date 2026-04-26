@@ -6,6 +6,7 @@ using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
 using Chickensoft.GodotTestDriver;
+using Chickensoft.LogicBlocks;
 using Chickensoft.SaveFileBuilder;
 using Chickensoft.Sync.Primitives;
 using Godot;
@@ -23,7 +24,7 @@ public class PlayerCameraTest : TestClass
 {
   private PlayerCamera _playerCam = default!;
   private Mock<IPlayerCameraLogic> _logic = default!;
-  private PlayerCameraLogic.IFakeBinding _binding = default!;
+  private LogicBlock.FakeBinding _binding = default!;
   private PlayerCameraSettings _settings = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private Mock<IAppRepo> _appRepo = default!;
@@ -43,7 +44,7 @@ public class PlayerCameraTest : TestClass
   public void Setup()
   {
     _logic = new();
-    _binding = PlayerCameraLogic.CreateFakeBinding();
+    _binding = LogicBlock.CreateFakeBinding();
     _settings = new();
     _gameRepo = new();
     _appRepo = new();

@@ -19,6 +19,7 @@ public class GameLogicTest : TestClass
 {
   private GameLogic _logic = default!;
   private Mock<IGameRepo> _gameRepo = default!;
+  private Mock<IAppRepo> _appRepo = default!;
   private AutoValue<bool> _isMouseCaptured = default!;
   private AutoValue<bool> _isPaused = default!;
 
@@ -29,6 +30,7 @@ public class GameLogicTest : TestClass
   {
     _logic = new GameLogic();
     _gameRepo = new();
+    _appRepo = new();
     _isMouseCaptured = new AutoValue<bool>(false);
     _isPaused = new AutoValue<bool>(false);
 
@@ -36,14 +38,15 @@ public class GameLogicTest : TestClass
     _gameRepo.Setup(repo => repo.IsPaused).Returns(_isPaused);
 
     _logic.Set(_gameRepo.Object);
+    _logic.Set(_appRepo.Object);
   }
 
   [Test]
   public void Initializes()
   {
     _logic
-      .GetInitialState().State
-      .ShouldBeAssignableTo<GameLogic.State>();
+      .GetInitialState()
+      .IsAssignableTo(typeof(GameLogic.BaseState)).ShouldBeTrue();
   }
 
   [Test]
@@ -52,7 +55,7 @@ public class GameLogicTest : TestClass
     var outputs = new List<object>();
     using var binding = _logic.Bind();
 
-    binding.Handle(
+    binding.OnOutput(
       (in GameLogic.Output.CaptureMouse output) => outputs.Add(output)
     );
 
@@ -71,7 +74,7 @@ public class GameLogicTest : TestClass
     var outputs = new List<object>();
     using var binding = _logic.Bind();
 
-    binding.Handle(
+    binding.OnOutput(
       (in GameLogic.Output.SetPauseMode output) => outputs.Add(output)
     );
 

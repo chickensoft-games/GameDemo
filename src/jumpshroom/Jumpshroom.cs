@@ -3,6 +3,7 @@ namespace GameDemo;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 using Godot;
 
 public interface IJumpshroom
@@ -29,7 +30,7 @@ public partial class Jumpshroom : Node3D
 
   public IJumpshroomLogic JumpshroomLogic { get; set; } = default!;
 
-  public JumpshroomLogic.IBinding JumpshroomBinding { get; set; }
+  public LogicBlock.Binding JumpshroomBinding { get; set; }
     = default!;
 
   [Export(PropertyHint.Range, "1,100,0.5")]
@@ -69,14 +70,16 @@ public partial class Jumpshroom : Node3D
     CooldownTimer.Timeout += OnCooldownTimeout;
 
     JumpshroomBinding
-      .Handle(
+      .OnOutput(
         (in JumpshroomLogic.Output.Animate output) =>
           AnimationPlayer.Play("bounce")
       )
-      .Handle(
+      .OnOutput(
         (in JumpshroomLogic.Output.StartCooldownTimer output) =>
           CooldownTimer.Start()
       );
+
+    JumpshroomLogic.Start();
   }
 
   public void OnCooldownTimeout() => JumpshroomLogic.Input(new JumpshroomLogic.Input.CooldownCompleted());

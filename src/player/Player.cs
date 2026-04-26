@@ -4,6 +4,7 @@ using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 using Chickensoft.SaveFileBuilder;
 using Godot;
 using Compiler = System.Runtime.CompilerServices;
@@ -110,7 +111,7 @@ IProvide<PlayerLogic.Settings>
   public IPlayerLogic PlayerLogic { get; set; } = default!;
   public PlayerLogic.Settings Settings { get; set; } = default!;
 
-  public PlayerLogic.IBinding PlayerBinding { get; set; } = default!;
+  public LogicBlock.Binding PlayerBinding { get; set; } = default!;
 
   #endregion State
 
@@ -132,7 +133,7 @@ IProvide<PlayerLogic.Settings>
     PlayerLogic.Set(Settings);
     PlayerLogic.Set(AppRepo);
     PlayerLogic.Set(GameRepo);
-    PlayerLogic.Save(() => new PlayerLogic.Data());
+    PlayerLogic.Set(new PlayerLogic.Data());
 
     PlayerChunk = new SaveChunk<PlayerData>(
       onSave: (chunk) => new PlayerData()
@@ -145,8 +146,7 @@ IProvide<PlayerLogic.Settings>
       {
         GlobalTransform = data.GlobalTransform;
         Velocity = data.Velocity;
-        PlayerLogic.RestoreFrom(data.StateMachine);
-        PlayerLogic.Start();
+        PlayerLogic.Start(data.StateMachine.GetData());
       }
     );
   }
@@ -173,9 +173,9 @@ IProvide<PlayerLogic.Settings>
     GameRepo.SetPlayerGlobalPosition(GlobalPosition);
 
     PlayerBinding
-      .Handle((in PlayerLogic.Output.MovementComputed output) =>
+      .OnOutput((in PlayerLogic.Output.MovementComputed output) =>
         Velocity = output.Velocity)
-      .Handle((in PlayerLogic.Output.VelocityChanged output) =>
+      .OnOutput((in PlayerLogic.Output.VelocityChanged output) =>
         Velocity = output.Velocity
       );
 

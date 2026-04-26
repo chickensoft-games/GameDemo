@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
@@ -21,7 +22,7 @@ public class AppTest : TestClass
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IAppLogic> _logic = default!;
 
-  private AppLogic.IFakeBinding _binding = default!;
+  private LogicBlock.FakeBinding _binding = default!;
 
   private Mock<IInstantiator> _instantiator = default!;
   private Mock<IGame> _game = default!;
@@ -38,7 +39,7 @@ public class AppTest : TestClass
   {
     _appRepo = new();
     _logic = new();
-    _binding = AppLogic.CreateFakeBinding();
+    _binding = LogicBlock.CreateFakeBinding();
 
     _instantiator = new();
 
@@ -65,7 +66,7 @@ public class AppTest : TestClass
     (_app as IAutoInit).IsTesting = true;
 
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
-    _logic.Setup(logic => logic.Start());
+    _logic.Setup(logic => logic.Start(false));
   }
 
   [Test]

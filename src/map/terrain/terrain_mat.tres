@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://c5trc4hy86utg"]
 
-[ext_resource type="Shader" uid="uid://dw58ou8ihinq1" path="res://src/map/terrain/terrain_shader.gdshader" id="1_tmq40"]
+[ext_resource type="Shader" uid="uid://b4buev82nmsbk" path="res://src/map/terrain/terrain_shader.gdshader" id="1_tmq40"]
 [ext_resource type="Texture2D" uid="uid://ccle3gd0lgtig" path="res://src/map/terrain/visuals/voronoi_rock_cliff/voronoi_rock_cliff_albedo.png" id="2_ais5s"]
 [ext_resource type="Texture2D" uid="uid://cqs4w0fnrsnda" path="res://src/map/terrain/visuals/voronoi_rock_cliff/voronoi_rock_cliff_normal.png" id="3_mrld1"]
 [ext_resource type="Texture2D" uid="uid://c5t0wkqsdvy0a" path="res://src/map/terrain/visuals/voronoi_rock_cliff/voronoi_rock_cliff_orm.png" id="4_d0u70"]

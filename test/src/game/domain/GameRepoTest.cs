@@ -96,7 +96,7 @@ public class GameRepoTest : TestClass
     var coin = new Mock<ICoin>();
     var called = false;
 
-    _repo.CoinCollectionStarted += (_) => called = true;
+    _repo.AutoChannel.Bind().On((in IGameRepo.CoinCollectionStarted _) => called = true);
 
     _repo.StartCoinCollection(coin.Object);
 
@@ -122,12 +122,9 @@ public class GameRepoTest : TestClass
     var coins = 0;
     GameOverReason gameOverReason = default!;
 
-    void gameEnded(GameOverReason reason) => gameOverReason = reason;
-
-    void coinCollected(ICoin _) => coins++;
-
-    _repo.Ended += gameEnded;
-    _repo.CoinCollectionStarted += coinCollected;
+    var binding = _repo.AutoChannel.Bind();
+    binding.On((in IGameRepo.Ended message) => gameOverReason = message.Reason);
+    binding.On((in IGameRepo.CoinCollectionStarted _) => coins++);
     _repo.StartCoinCollection(coin.Object);
 
     _repo.NumCoinsCollected.Value.ShouldBe(1);
@@ -137,8 +134,7 @@ public class GameRepoTest : TestClass
 
     gameOverReason.ShouldBe(GameOverReason.Won);
 
-    _repo.Ended -= gameEnded;
-    _repo.CoinCollectionStarted -= coinCollected;
+    binding.Dispose();
   }
 
   [Test]
@@ -153,15 +149,14 @@ public class GameRepoTest : TestClass
   {
     var called = false;
 
-    void finished(ICoin _) => called = true;
-
     var coin = new Mock<ICoin>();
 
-    _repo.CoinCollectionCompleted += finished;
+    var binding = _repo.AutoChannel.Bind();
+    binding.On((in IGameRepo.CoinCollectionCompleted _) => called = true);
 
     _repo.OnFinishCoinCollection(coin.Object);
 
-    _repo.CoinCollectionCompleted -= finished;
+    binding.Dispose();
 
     called.ShouldBeTrue();
   }
@@ -172,7 +167,7 @@ public class GameRepoTest : TestClass
     Should.NotThrow(_repo.OnJump);
 
     var called = false;
-    _repo.Jumped += () => called = true;
+    _repo.AutoChannel.Bind().On((in IGameRepo.Jumped _) => called = true);
 
     _repo.OnJump();
 
@@ -183,7 +178,7 @@ public class GameRepoTest : TestClass
   public void OnGameEndedPausesAndInvokesGameEnded()
   {
     var called = false;
-    _repo.Ended += _ => called = true;
+    _repo.AutoChannel.Bind().On((in IGameRepo.Ended _) => called = true);
 
     _repo.OnGameEnded(GameOverReason.Won);
 
@@ -217,10 +212,8 @@ public class GameRepoTest : TestClass
   {
     var called = 0;
 
-    void onJumpshroomUsed() => called++;
-
     _repo.OnJumpshroomUsed();
-    _repo.JumpshroomUsed += onJumpshroomUsed;
+    _repo.AutoChannel.Bind().On((in IGameRepo.JumpshroomUsed _) => called++);
     _repo.OnJumpshroomUsed();
 
     called.ShouldBe(1);

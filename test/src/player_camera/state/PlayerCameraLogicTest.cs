@@ -60,8 +60,8 @@ public class PlayerCameraLogicTest : TestClass
     data.TargetOffset.ShouldBe(Vector3.Zero);
 
     _logic
-      .GetInitialState().State
-      .ShouldBeOfType<PlayerCameraLogic.State.InputDisabled>();
+      .GetInitialState()
+      .ShouldBeOfType<PlayerCameraLogic.BaseState.InputDisabled>();
 
     // Test outputs
     var gimbalRotationChanged =
@@ -89,13 +89,13 @@ public class PlayerCameraLogicTest : TestClass
   {
     _logic.Start();
 
-    _logic.Value.ShouldBeOfType<PlayerCameraLogic.State.InputDisabled>();
+    _logic.State.ShouldBeOfType<PlayerCameraLogic.BaseState.InputDisabled>();
 
     _isMouseCaptured.Value = true;
-    _logic.Value.ShouldBeOfType<PlayerCameraLogic.State.InputEnabled>();
+    _logic.State.ShouldBeOfType<PlayerCameraLogic.BaseState.InputEnabled>();
 
     _isMouseCaptured.Value = false;
-    _logic.Value.ShouldBeOfType<PlayerCameraLogic.State.InputDisabled>();
+    _logic.State.ShouldBeOfType<PlayerCameraLogic.BaseState.InputDisabled>();
   }
 
   [Test]
@@ -118,7 +118,7 @@ public class PlayerCameraLogicTest : TestClass
     using var binding = _logic.Bind();
     PlayerCameraLogic.Output.GlobalTransformChanged? lastOutput = null;
 
-    binding.Handle(
+    binding.OnOutput(
       (in PlayerCameraLogic.Output.GlobalTransformChanged o) => lastOutput = o
     );
 

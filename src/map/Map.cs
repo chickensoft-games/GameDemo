@@ -95,8 +95,7 @@ public partial class Map : Node3D, IMap
           var child = Coins.GetNodeOrNullEx<INode>(coinName);
           if (child is ICoin coin)
           {
-            coin.CoinLogic.RestoreFrom(coinData.StateMachine);
-            coin.CoinLogic.Start();
+            coin.CoinLogic.Start(coinData.StateMachine.GetData());
             coin.GlobalTransform = coinData.GlobalTransform;
           }
         }

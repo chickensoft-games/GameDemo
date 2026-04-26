@@ -1,15 +1,21 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public interface ICoinLogic : ILogicBlock<CoinLogic.State>;
+public interface ICoinLogic : ILogicBlock;
 
 [Meta, Id("coin_logic")]
-[LogicBlock(typeof(State), Diagram = true)]
-public partial class CoinLogic : LogicBlock<CoinLogic.State>, ICoinLogic
+public partial class CoinLogic : LogicBlock, ICoinLogic
 {
-  public override Transition GetInitialState() => To<State.Idle>();
+  public override Type GetInitialState() => typeof(State.Idle);
+
+  public CoinLogic()
+  {
+    Set(new State.Collecting());
+    Set(new State.Idle());
+  }
 
   public record Settings(double CollectionTimeInSeconds);
 }

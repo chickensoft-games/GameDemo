@@ -1,5 +1,6 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
@@ -10,8 +11,6 @@ public partial class JumpshroomLogic
     [Meta]
     public partial record Loading : State, IGet<Input.Launch>
     {
-      public IPushEnabled Target { get; set; } = default!;
-
       public Loading()
       {
         this.OnEnter(() =>
@@ -22,8 +21,7 @@ public partial class JumpshroomLogic
       }
 
       // Springy top is fully compressed, so it is ready to launch.
-      public Transition On(in Input.Launch input) => To<Launching>()
-        .With(state => ((Launching)state).Target = Target);
+      public Type On(in Input.Launch input) => To<Launching>();
     }
   }
 }

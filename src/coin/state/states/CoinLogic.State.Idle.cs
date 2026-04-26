@@ -1,6 +1,8 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 
 public partial class CoinLogic
 {
@@ -9,7 +11,7 @@ public partial class CoinLogic
     [Meta, Id("coin_logic_state_idle")]
     public partial record Idle : State, IGet<Input.StartCollection>
     {
-      public Transition On(in Input.StartCollection input)
+      public Type On(in Input.StartCollection input)
       {
         Get<Data>().Target = input.Target.Name;
         return To<Collecting>();

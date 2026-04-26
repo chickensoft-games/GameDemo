@@ -5,10 +5,10 @@ using Chickensoft.LogicBlocks;
 
 public partial class GameLogic
 {
-  public partial record State
+  public partial record BaseState
   {
     [Meta]
-    public partial record Quit : State
+    public partial record Quit : BaseState
     {
       public Quit()
       {

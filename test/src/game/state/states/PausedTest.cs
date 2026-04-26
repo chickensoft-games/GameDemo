@@ -9,8 +9,8 @@ using Shouldly;
 
 public class PausedTest : TestClass
 {
-  private IFakeContext _context = default!;
-  private GameLogic.State.Paused _state = default!;
+  private StateTester _context = default!;
+  private GameLogic.BaseState.Paused _state = default!;
   private Mock<IGameRepo> _gameRepo = default!;
 
   public PausedTest(Node testScene) : base(testScene) { }
@@ -18,8 +18,8 @@ public class PausedTest : TestClass
   [Setup]
   public void Setup()
   {
-    _state = new GameLogic.State.Paused();
-    _context = _state.CreateFakeContext();
+    _state = new GameLogic.BaseState.Paused();
+    _context = _state.Test();
 
     _gameRepo = new();
     _context.Set(_gameRepo.Object);
@@ -45,20 +45,20 @@ public class PausedTest : TestClass
   public void OnPauseButtonPressed()
   {
     var result = _state.On(new GameLogic.Input.PauseButtonPressed());
-    result.State.ShouldBeOfType<GameLogic.State.Resuming>();
+    result.ShouldBe(typeof(GameLogic.BaseState.Resuming));
   }
 
   [Test]
   public void OnGameSaveRequested()
   {
     var result = _state.On(new GameLogic.Input.SaveRequested());
-    result.State.ShouldBeOfType<GameLogic.State.Saving>();
+    result.ShouldBe(typeof(GameLogic.BaseState.Saving));
   }
 
   [Test]
   public void OnGoToMainMenu()
   {
     var result = _state.On(new GameLogic.Input.GoToMainMenu());
-    result.State.ShouldBeOfType<GameLogic.State.Quit>();
+    result.ShouldBe(typeof(GameLogic.BaseState.Quit));
   }
 }

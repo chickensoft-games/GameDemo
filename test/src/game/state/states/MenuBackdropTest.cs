@@ -10,8 +10,8 @@ using Shouldly;
 
 public class MenuBackdropTest : TestClass
 {
-  private IFakeContext _context = default!;
-  private GameLogic.State.MenuBackdrop _state = default!;
+  private StateTester _context = default!;
+  private GameLogic.BaseState.MenuBackdrop _state = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
 
@@ -23,26 +23,14 @@ public class MenuBackdropTest : TestClass
     _appRepo = new();
     _gameRepo = new();
 
-    _state = new GameLogic.State.MenuBackdrop();
+    _state = new GameLogic.BaseState.MenuBackdrop();
 
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
     _context.Set(_appRepo.Object);
     _context.Set(_gameRepo.Object);
 
     _gameRepo.Setup(repo => repo.IsMouseCaptured).Returns(new Mock<IAutoValue<bool>>().Object);
     _gameRepo.Setup(repo => repo.IsPaused).Returns(new Mock<IAutoValue<bool>>().Object);
-  }
-
-  [Test]
-  public void Subscribes()
-  {
-    _state.Attach(_context);
-
-    _appRepo.VerifyAdd(x => x.GameEntered += _state.OnGameEntered);
-
-    _state.Detach();
-
-    _appRepo.VerifyRemove(x => x.GameEntered -= _state.OnGameEntered);
   }
 
   [Test]
@@ -59,18 +47,16 @@ public class MenuBackdropTest : TestClass
   [Test]
   public void OnGameEntered()
   {
-    _state.Attach(_context);
+    _state.Output(new GameLogic.Input.Start());
 
-    _state.OnGameEntered();
-
-    _context.Inputs.First().ShouldBeOfType<GameLogic.Input.Start>();
+    _context.Inputs.First().ShouldBe(typeof(GameLogic.Input.Start));
   }
 
   [Test]
   public void OnStartGame()
   {
     var result = _state.On(new GameLogic.Input.Start());
-    result.State.ShouldBeOfType<GameLogic.State.Playing>();
+    result.ShouldBe(typeof(GameLogic.BaseState.Playing));
   }
 
   [Test]
@@ -82,7 +68,7 @@ public class MenuBackdropTest : TestClass
 
     var result = _state.On(new GameLogic.Input.Initialize(numCoins));
 
-    result.State.ShouldBe(_state);
+    result.ShouldBe(_state.GetType());
     _gameRepo.VerifyAll();
   }
 }

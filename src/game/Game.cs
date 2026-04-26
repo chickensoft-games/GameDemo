@@ -7,6 +7,7 @@ using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 using Chickensoft.SaveFileBuilder;
 using Chickensoft.Serialization;
 using Chickensoft.Serialization.Godot;
@@ -45,7 +46,7 @@ public partial class Game : Node3D, IGame
   public IGameRepo GameRepo { get; set; } = default!;
   public IGameLogic GameLogic { get; set; } = default!;
 
-  public GameLogic.IBinding GameBinding { get; set; } = default!;
+  public LogicBlock.Binding GameBinding { get; set; } = default!;
 
   #endregion State
 
@@ -170,49 +171,49 @@ public partial class Game : Node3D, IGame
 
     GameBinding = GameLogic.Bind();
     GameBinding
-      .Handle(
+      .OnOutput(
         (in GameLogic.Output.StartGame _) =>
         {
           PlayerCamera.UsePlayerCamera();
           InGameUi.Show();
         })
-      .Handle(
+      .OnOutput(
         (in GameLogic.Output.SetPauseMode output) =>
           CallDeferred(nameof(SetPauseMode), output.IsPaused)
       )
-      .Handle(
+      .OnOutput(
         (in GameLogic.Output.CaptureMouse output) =>
           Input.MouseMode = output.IsMouseCaptured
             ? Input.MouseModeEnum.Captured
             : Input.MouseModeEnum.Visible
       )
-      .Handle((in GameLogic.Output.ShowLostScreen _) =>
+      .OnOutput((in GameLogic.Output.ShowLostScreen _) =>
       {
         DeathMenu.Show();
         DeathMenu.FadeIn();
         DeathMenu.Animate();
       })
-      .Handle((in GameLogic.Output.ExitLostScreen _) => DeathMenu.FadeOut())
-      .Handle((in GameLogic.Output.ShowPauseMenu _) =>
+      .OnOutput((in GameLogic.Output.ExitLostScreen _) => DeathMenu.FadeOut())
+      .OnOutput((in GameLogic.Output.ShowPauseMenu _) =>
       {
         PauseMenu.Show();
         PauseMenu.FadeIn();
       })
-      .Handle((in GameLogic.Output.ShowWonScreen _) =>
+      .OnOutput((in GameLogic.Output.ShowWonScreen _) =>
       {
         WinMenu.Show();
         WinMenu.FadeIn();
       })
-      .Handle((in GameLogic.Output.ExitWonScreen _) => WinMenu.FadeOut())
-      .Handle((in GameLogic.Output.ExitPauseMenu _) => PauseMenu.FadeOut())
-      .Handle((in GameLogic.Output.HidePauseMenu _) => PauseMenu.Hide())
-      .Handle((in GameLogic.Output.ShowPauseSaveOverlay _) =>
+      .OnOutput((in GameLogic.Output.ExitWonScreen _) => WinMenu.FadeOut())
+      .OnOutput((in GameLogic.Output.ExitPauseMenu _) => PauseMenu.FadeOut())
+      .OnOutput((in GameLogic.Output.HidePauseMenu _) => PauseMenu.Hide())
+      .OnOutput((in GameLogic.Output.ShowPauseSaveOverlay _) =>
         PauseMenu.OnSaveStarted()
       )
-      .Handle((in GameLogic.Output.HidePauseSaveOverlay _) =>
+      .OnOutput((in GameLogic.Output.HidePauseSaveOverlay _) =>
         PauseMenu.OnSaveCompleted()
       )
-      .Handle((in GameLogic.Output.StartSaving _) =>
+      .OnOutput((in GameLogic.Output.StartSaving _) =>
         SaveFile.Save().ContinueWith(
           // Saving is async. The game node is always around, so kicking off
           // an async process is safe. Plus, we block input while saving, so

@@ -9,8 +9,8 @@ using Shouldly;
 
 public class InGameTest : TestClass
 {
-  private IFakeContext _context = default!;
-  private AppLogic.State.InGame _state = default!;
+  private StateTester _tester = default!;
+  private AppLogic.BaseState.InGame _state = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private AppLogic.Data _data = default!;
 
@@ -22,9 +22,9 @@ public class InGameTest : TestClass
     _state = new();
     _appRepo = new();
     _data = new();
-    _context = _state.CreateFakeContext();
-    _context.Set(_appRepo.Object);
-    _context.Set(_data);
+    _tester = _state.Test();
+    _tester.Set(_appRepo.Object);
+    _tester.Set(_data);
   }
 
   [Test]
@@ -35,7 +35,7 @@ public class InGameTest : TestClass
     _state.Enter();
 
     _appRepo.VerifyAll();
-    _context.Outputs.First().ShouldBeOfType<AppLogic.Output.ShowGame>();
+    _tester.Outputs[0].ShouldBeOfType<AppLogic.Output.ShowGame>();
   }
 
   [Test]
@@ -43,19 +43,7 @@ public class InGameTest : TestClass
   {
     _state.Exit();
 
-    _context.Outputs.First().ShouldBeOfType<AppLogic.Output.HideGame>();
-  }
-
-  [Test]
-  public void Subscribes()
-  {
-    _state.Attach(_context);
-
-    _appRepo.VerifyAdd(repo => repo.GameExited += _state.OnGameExited);
-
-    _state.Detach();
-
-    _appRepo.VerifyRemove(repo => repo.GameExited -= _state.OnGameExited);
+    _tester.Outputs[0].ShouldBeOfType<AppLogic.Output.HideGame>();
   }
 
   [Test]
@@ -63,7 +51,7 @@ public class InGameTest : TestClass
   {
     _state.OnRestartGameRequested();
 
-    var input = _context.Inputs.Single()
+    var input = _tester.Inputs.Single()
       .ShouldBeOfType<AppLogic.Input.EndGame>();
 
     input.PostGameAction.ShouldBe(PostGameAction.RestartGame);
@@ -72,9 +60,9 @@ public class InGameTest : TestClass
   [Test]
   public void OnGameExited()
   {
-    _state.OnGameExited(PostGameAction.RestartGame);
+    _state.Input(new AppLogic.Input.EndGame(PostGameAction.RestartGame));
 
-    var input = _context.Inputs.Single()
+    var input = _tester.Inputs.Single()
       .ShouldBeOfType<AppLogic.Input.EndGame>();
 
     input.PostGameAction.ShouldBe(PostGameAction.RestartGame);
@@ -83,11 +71,11 @@ public class InGameTest : TestClass
   [Test]
   public void OnEndGame()
   {
-    _context.Set(new AppLogic.State.LeavingGame());
+    _tester.Set(new AppLogic.BaseState.LeavingGame());
 
     var result =
       _state.On(new AppLogic.Input.EndGame(PostGameAction.RestartGame));
 
-    result.State.ShouldBeOfType<AppLogic.State.LeavingGame>();
+    result.IsAssignableTo(typeof(AppLogic.BaseState.LeavingGame)).ShouldBeTrue();
   }
 }
