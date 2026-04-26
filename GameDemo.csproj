@@ -76,6 +76,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LogicBlocks6\Chickensoft.LogicBlocks.Auto\Chickensoft.LogicBlocks.Auto.csproj" />
     <ProjectReference Include="..\LogicBlocks6\Chickensoft.LogicBlocks.DiagramGenerator\Chickensoft.LogicBlocks.DiagramGenerator.csproj" />
     <ProjectReference Include="..\LogicBlocks6\Chickensoft.LogicBlocks\Chickensoft.LogicBlocks.csproj" PrivateAssets="all" OutputItemType="analyzer" />
   </ItemGroup>

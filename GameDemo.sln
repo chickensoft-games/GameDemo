@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chickensoft.LogicBlocks", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chickensoft.LogicBlocks.DiagramGenerator", "..\LogicBlocks6\Chickensoft.LogicBlocks.DiagramGenerator\Chickensoft.LogicBlocks.DiagramGenerator.csproj", "{3FC7C179-93F0-49B0-AFE5-105E92CF2834}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chickensoft.LogicBlocks.Auto", "..\LogicBlocks6\Chickensoft.LogicBlocks.Auto\Chickensoft.LogicBlocks.Auto.csproj", "{20E0A48A-B8A1-4127-B1EE-33894B72478C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 	Debug|Any CPU = Debug|Any CPU
@@ -31,5 +33,11 @@ Global
 		{3FC7C179-93F0-49B0-AFE5-105E92CF2834}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
 		{3FC7C179-93F0-49B0-AFE5-105E92CF2834}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
 		{3FC7C179-93F0-49B0-AFE5-105E92CF2834}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
+		{20E0A48A-B8A1-4127-B1EE-33894B72478C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20E0A48A-B8A1-4127-B1EE-33894B72478C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20E0A48A-B8A1-4127-B1EE-33894B72478C}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20E0A48A-B8A1-4127-B1EE-33894B72478C}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{20E0A48A-B8A1-4127-B1EE-33894B72478C}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{20E0A48A-B8A1-4127-B1EE-33894B72478C}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -69,7 +69,7 @@ public partial class Map : Node3D, IMap
               var coin = EntityTable.Get<ICoin>(coinName)!;
               return new CoinData()
               {
-                StateMachine = coin.CoinLogic,
+                StateMachine = coin.CoinLogic.Save(),
                 GlobalTransform = coin.GlobalTransform
               };
             }
@@ -95,7 +95,7 @@ public partial class Map : Node3D, IMap
           var child = Coins.GetNodeOrNullEx<INode>(coinName);
           if (child is ICoin coin)
           {
-            coin.CoinLogic.Start(coinData.StateMachine.GetData());
+            coin.CoinLogic.Start(coinData.StateMachine.Data);
             coin.GlobalTransform = coinData.GlobalTransform;
           }
         }

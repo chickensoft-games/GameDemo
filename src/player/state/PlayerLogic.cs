@@ -4,11 +4,12 @@ using System;
 using System.Collections.Generic;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
+using Chickensoft.LogicBlocks.Auto;
 
-public interface IPlayerLogic : ILogicBlock;
+public interface IPlayerLogic : IAutoLogicBlock;
 
 [Meta, Id("player_logic")]
-public partial class PlayerLogic : LogicBlock, IPlayerLogic
+public partial class PlayerLogic : AutoBlock, IPlayerLogic
 {
   public override Type GetInitialState() => typeof(BaseState.Disabled);
 
@@ -28,4 +29,13 @@ public partial class PlayerLogic : LogicBlock, IPlayerLogic
     yield return Get<IAppRepo>().AutoChannel.Bind().On((
       in IAppRepo.GameEntered _) => State?.Input(new Input.Enable()));
   }
+
+  public override ILogicBlockSaveData GetSaveData(LogicBlockData data) =>
+    new PlayerLogicSaveData { Data = data };
+}
+
+[Meta, Id("player_logic_save_data")]
+public partial class PlayerLogicSaveData : ILogicBlockSaveData
+{
+  public required LogicBlockData Data { get; init; }
 }

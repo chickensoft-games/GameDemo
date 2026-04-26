@@ -3,11 +3,12 @@ namespace GameDemo;
 using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
+using Chickensoft.LogicBlocks.Auto;
 
-public interface ICoinLogic : ILogicBlock;
+public interface ICoinLogic : IAutoLogicBlock;
 
 [Meta, Id("coin_logic")]
-public partial class CoinLogic : LogicBlock, ICoinLogic
+public partial class CoinLogic : AutoBlock, ICoinLogic
 {
   public override Type GetInitialState() => typeof(State.Idle);
 
@@ -18,4 +19,13 @@ public partial class CoinLogic : LogicBlock, ICoinLogic
   }
 
   public record Settings(double CollectionTimeInSeconds);
+
+  public override ILogicBlockSaveData GetSaveData(LogicBlockData data) =>
+    new CoinLogicSaveData { Data = data };
+}
+
+[Meta, Id("coin_logic_save_data")]
+public partial class CoinLogicSaveData : ILogicBlockSaveData
+{
+  public required LogicBlockData Data { get; init; }
 }

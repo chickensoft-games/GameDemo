@@ -3,14 +3,14 @@ namespace GameDemo;
 using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
+using Chickensoft.LogicBlocks.Auto;
 using Chickensoft.Sync.Primitives;
 using Godot;
 
-public interface IPlayerCameraLogic : ILogicBlock;
+public interface IPlayerCameraLogic : IAutoLogicBlock;
 
 [Meta, Id("player_camera_logic")]
-public partial class PlayerCameraLogic :
-  LogicBlock, IPlayerCameraLogic
+public partial class PlayerCameraLogic : AutoBlock, IPlayerCameraLogic
 {
   private AutoValue<bool>.Binding? _isMouseCapturedBinding;
 
@@ -48,4 +48,13 @@ public partial class PlayerCameraLogic :
     _isMouseCapturedBinding?.Dispose();
     _playerGlobalPositionBinding?.Dispose();
   }
+
+  public override ILogicBlockSaveData GetSaveData(LogicBlockData data) =>
+    new PlayerCameraLogicSaveData { Data = data };
+}
+
+[Meta, Id("player_camera_logic_save_data")]
+public partial class PlayerCameraLogicSaveData : ILogicBlockSaveData
+{
+  public required LogicBlockData Data { get; init; }
 }
