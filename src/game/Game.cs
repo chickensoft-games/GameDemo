@@ -3,6 +3,7 @@ namespace GameDemo;
 using System;
 using System.IO.Abstractions;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
@@ -15,7 +16,7 @@ using Godot;
 public interface IGame : INode3D,
 IProvide<IGameRepo>, IProvide<ISaveChunk<GameData>>, IProvide<EntityTable>
 {
-  void LoadExistingGame();
+  Task LoadExistingGame();
 
   event Game.SaveFileLoadedEventHandler? SaveFileLoaded;
 }
@@ -213,12 +214,11 @@ public partial class Game : Node3D, IGame
         PauseMenu.OnSaveCompleted()
       )
       .Handle((in GameLogic.Output.StartSaving _) =>
-        SaveFile.Save().ContinueWith(
-          // Saving is async. The game node is always around, so kicking off
-          // an async process is safe. Plus, we block input while saving, so
-          // no interruptions.
-          (task) => GameLogic.Input(new GameLogic.Input.SaveCompleted())
-        )
+        Task.Run(async () =>
+        {
+          await SaveFile.Save();
+          GameLogic.Input(new GameLogic.Input.SaveCompleted());
+        })
       );
 
     // Trigger the first state's OnEnter callbacks so our bindings run.
@@ -276,10 +276,11 @@ public partial class Game : Node3D, IGame
     GameRepo.Dispose();
   }
 
-  public void LoadExistingGame()
+  public async Task LoadExistingGame()
   {
-    SaveFile.Load()
-      .ContinueWith((_) => CallDeferred(nameof(FinishedLoadingSaveFile)));
+    await SaveFile.Load();
+
+    FinishedLoadingSaveFile();
   }
 
   private void FinishedLoadingSaveFile()

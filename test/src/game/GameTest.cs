@@ -526,7 +526,7 @@ public class GameTest : TestClass
 
     _game.SaveFile = _saveFile.Object;
 
-    _game.LoadExistingGame();
+    await _game.LoadExistingGame();
 
     await TestScene.ProcessFrame();
 
