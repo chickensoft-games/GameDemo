@@ -4,6 +4,7 @@ using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 using Chickensoft.LogicBlocks.Auto;
+using Chickensoft.Serialization;
 using Chickensoft.Sync.Primitives;
 using Godot;
 
@@ -56,5 +57,6 @@ public partial class PlayerCameraLogic : AutoBlock, IPlayerCameraLogic
 [Meta, Id("player_camera_logic_save_data")]
 public partial class PlayerCameraLogicSaveData : ILogicBlockSaveData
 {
+  [Save("data")]
   public required LogicBlockData Data { get; init; }
 }

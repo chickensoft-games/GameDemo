@@ -4,6 +4,7 @@ using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 using Chickensoft.LogicBlocks.Auto;
+using Chickensoft.Serialization;
 
 public interface ICoinLogic : IAutoLogicBlock;
 
@@ -27,5 +28,6 @@ public partial class CoinLogic : AutoBlock, ICoinLogic
 [Meta, Id("coin_logic_save_data")]
 public partial class CoinLogicSaveData : ILogicBlockSaveData
 {
+  [Save("data")]
   public required LogicBlockData Data { get; init; }
 }

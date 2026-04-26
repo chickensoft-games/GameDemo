@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 using Chickensoft.LogicBlocks.Auto;
+using Chickensoft.Serialization;
 
 public interface IPlayerLogic : IAutoLogicBlock;
 
@@ -37,5 +38,6 @@ public partial class PlayerLogic : AutoBlock, IPlayerLogic
 [Meta, Id("player_logic_save_data")]
 public partial class PlayerLogicSaveData : ILogicBlockSaveData
 {
+  [Save("data")]
   public required LogicBlockData Data { get; init; }
 }

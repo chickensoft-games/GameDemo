@@ -139,7 +139,7 @@ IProvide<PlayerLogic.Settings>
       onSave: (chunk) => new PlayerData()
       {
         GlobalTransform = GlobalTransform,
-        StateMachine = PlayerLogic.GetData(),
+        StateMachine = PlayerLogic.Save(),
         Velocity = Velocity
       },
       onLoad: (chunk, data) =>
@@ -147,7 +147,7 @@ IProvide<PlayerLogic.Settings>
         GlobalTransform = data.GlobalTransform;
         Velocity = data.Velocity;
         PlayerLogic.Stop();
-        PlayerLogic.Start(data.StateMachine);
+        PlayerLogic.Start(data.StateMachine.Data);
       }
     );
   }
