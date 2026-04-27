@@ -13,8 +13,6 @@ public interface IGame : INode3D,
 IProvide<IGameRepo>, IProvide<ISaveChunk<GameData>>, IProvide<EntityTable>
 {
   ValueTask LoadExistingGame();
-
-  event Game.SaveFileLoadedEventHandler? SaveFileLoaded;
 }
 
 [Meta(typeof(IAutoNode))]
@@ -23,9 +21,6 @@ public partial class Game : Node3D, IGame
   public override void _Notification(int what) => this.Notify(what);
 
   #region Save
-
-  [Signal]
-  public delegate void SaveFileLoadedEventHandler();
 
   [Dependency]
   public ISaveFile SaveFile => this.DependOn<ISaveFile>();
@@ -220,8 +215,6 @@ public partial class Game : Node3D, IGame
     {
       GameChunk.LoadSaveData(data);
     }
-
-    EmitSignal(SignalName.SaveFileLoaded);
   }
 
   private void SetPauseMode(bool isPaused) => GetTree().Paused = isPaused;

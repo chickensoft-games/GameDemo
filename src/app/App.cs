@@ -138,11 +138,7 @@ public partial class App : CanvasLayer, IApp
         FadeInFromBlack();
       })
       .Handle((in AppLogic.Output.HideGame _) => FadeToBlack())
-      .Handle((in AppLogic.Output.StartLoadingSaveFile _) =>
-      {
-        Game.SaveFileLoaded += OnSaveFileLoaded;
-        Game.LoadExistingGame().AsTask();
-      })
+      .Handle((in AppLogic.Output.StartLoadingSaveFile _) => LoadSaveFile().AsTask())
       .Handle((in AppLogic.Output.StartDeletingSaveFile _) => DeleteSaveFile().AsTask());
 
     // Enter the first state to kick off the binding side effects.
@@ -215,9 +211,9 @@ public partial class App : CanvasLayer, IApp
     FadeInFromBlack();
   }
 
-  public void OnSaveFileLoaded()
+  private async ValueTask LoadSaveFile()
   {
-    Game.SaveFileLoaded -= OnSaveFileLoaded;
+    await Game.LoadExistingGame();
     AppLogic.Input(new AppLogic.Input.SaveFileLoaded());
   }
 
