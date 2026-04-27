@@ -97,8 +97,7 @@ public partial class Game : Node3D, IGame
 
   public void OnResolved()
   {
-    GameBinding = GameLogic.Bind();
-    GameBinding
+    GameBinding = GameLogic.Bind()
       .Handle((in GameLogic.Output.StartGame _) =>
       {
         PlayerCamera.UsePlayerCamera();

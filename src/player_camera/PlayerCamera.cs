@@ -155,8 +155,7 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
 
   public void OnResolved()
   {
-    CameraBinding = CameraLogic.Bind();
-    CameraBinding
+    CameraBinding = CameraLogic.Bind()
       .Handle((in PlayerCameraLogic.Output.GimbalRotationChanged output) =>
       {
         GimbalHorizontalNode.Rotation = output.GimbalRotationHorizontal;
@@ -196,9 +195,7 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
       CameraLogic.Input(new PlayerCameraLogic.Input.JoyPadInputOccurred(yMotion));
     }
 
-    CameraLogic.Input(
-      new PlayerCameraLogic.Input.PhysicsTicked(delta)
-    );
+    CameraLogic.Input(new PlayerCameraLogic.Input.PhysicsTicked(delta));
   }
 
   public override void _Input(InputEvent @event)

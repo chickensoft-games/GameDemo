@@ -92,9 +92,8 @@ public partial class Coin : Node3D, ICoin
   public void OnResolved()
   {
     EntityTable.Set(Name, this);
-    CoinBinding = CoinLogic.Bind();
 
-    CoinBinding
+    CoinBinding = CoinLogic.Bind()
       .When<CoinLogic.State.Collecting>(_ =>
       {
         // We want to start receiving physics ticks so we can orient ourselves
@@ -104,15 +103,8 @@ public partial class Coin : Node3D, ICoin
         // process of being collected.
         AnimationPlayer.Play("collect");
       })
-      .Handle(
-        (in CoinLogic.Output.Move output) =>
-          GlobalPosition = output.GlobalPosition
-      )
-      .Handle(
-        // We're done being collected, so we can remove ourselves from the
-        // scene tree.
-        (in CoinLogic.Output.SelfDestruct output) => QueueFree()
-      );
+      .Handle((in CoinLogic.Output.Move output) => GlobalPosition = output.GlobalPosition)
+      .Handle((in CoinLogic.Output.SelfDestruct output) => QueueFree());
 
     CoinLogic.Start();
   }

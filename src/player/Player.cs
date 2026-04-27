@@ -164,16 +164,12 @@ IProvide<PlayerLogic.Settings>
   {
     EntityTable.Set(Name, this);
 
-    PlayerBinding = PlayerLogic.Bind();
 
     GameRepo.SetPlayerGlobalPosition(GlobalPosition);
 
-    PlayerBinding
-      .Handle((in PlayerLogic.Output.MovementComputed output) =>
-        Velocity = output.Velocity)
-      .Handle((in PlayerLogic.Output.VelocityChanged output) =>
-        Velocity = output.Velocity
-      );
+    PlayerBinding = PlayerLogic.Bind()
+      .Handle((in PlayerLogic.Output.MovementComputed output) => Velocity = output.Velocity)
+      .Handle((in PlayerLogic.Output.VelocityChanged output) => Velocity = output.Velocity);
 
     // Allow the player model to lookup our state machine and bind to it.
     this.Provide();
@@ -191,9 +187,7 @@ IProvide<PlayerLogic.Settings>
 
     if (ShouldJump(jumpPressed, jumpJustPressed))
     {
-      PlayerLogic.Input(
-        new PlayerLogic.Input.Jump(delta)
-      );
+      PlayerLogic.Input(new PlayerLogic.Input.Jump(delta));
     }
 
     MoveAndSlide();

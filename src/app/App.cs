@@ -103,9 +103,7 @@ public partial class App : CanvasLayer, IApp
     // Tell our type type resolver about the Godot-specific converters.
     GodotSerialization.Setup();
 
-    AppBinding = AppLogic.Bind();
-
-    AppBinding
+    AppBinding = AppLogic.Bind()
       .Handle((in AppLogic.Output.ShowSplashScreen _) =>
       {
         HideMenus();
