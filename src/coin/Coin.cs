@@ -4,12 +4,10 @@ using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using Chickensoft.SaveFileBuilder;
 using Godot;
 
-public interface ICoin : INode3D
-{
-  ICoinLogic CoinLogic { get; }
-}
+public interface ICoin : INode3D, ISaveable<CoinData>;
 
 [Meta(typeof(IAutoNode))]
 public partial class Coin : Node3D, ICoin
@@ -22,6 +20,23 @@ public partial class Coin : Node3D, ICoin
   [Node("%CoinModel")] public INode3D CoinModel { get; set; } = default!;
 
   #endregion Nodes
+
+  #region Save
+
+  public CoinData Save() => new()
+  {
+    StateMachine = CoinLogic,
+    GlobalTransform = GlobalTransform,
+  };
+
+  public void Load(in CoinData data)
+  {
+    CoinLogic.RestoreFrom(data.StateMachine);
+    CoinLogic.Start();
+    GlobalTransform = data.GlobalTransform;
+  }
+
+  #endregion
 
   #region Exports
 

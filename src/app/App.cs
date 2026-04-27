@@ -213,7 +213,12 @@ public partial class App : CanvasLayer, IApp
 
   private async ValueTask LoadSaveFile()
   {
-    await Game.LoadExistingGame();
+    if (await SaveFile.ExistsAsync()
+      && await SaveFile.LoadAsync<GameData>() is { } data)
+    {
+      Game.Load(data);
+    }
+
     AppLogic.Input(new AppLogic.Input.SaveFileLoaded());
   }
 

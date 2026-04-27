@@ -1,6 +1,5 @@
 namespace GameDemo;
 
-using System;
 using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
@@ -9,11 +8,10 @@ using Chickensoft.Introspection;
 using Chickensoft.SaveFileBuilder;
 using Godot;
 
-public interface IGame : INode3D,
-IProvide<IGameRepo>, IProvide<ISaveChunk<GameData>>, IProvide<EntityTable>
-{
-  ValueTask LoadExistingGame();
-}
+public interface IGame : INode3D
+  , ISaveable<GameData>
+  , IProvide<IGameRepo>
+  , IProvide<EntityTable>;
 
 [Meta(typeof(IAutoNode))]
 public partial class Game : Node3D, IGame
@@ -25,12 +23,22 @@ public partial class Game : Node3D, IGame
   [Dependency]
   public ISaveFile SaveFile => this.DependOn<ISaveFile>();
 
-  public IEnvironmentProvider Environment { get; set; } = default!;
-  public string SaveFilePath { get; set; } = default!;
   public EntityTable EntityTable { get; set; } = new();
   EntityTable IProvide<EntityTable>.Value() => EntityTable;
-  public ISaveChunk<GameData> GameChunk { get; set; } = default!;
-  ISaveChunk<GameData> IProvide<ISaveChunk<GameData>>.Value() => GameChunk;
+
+  public GameData Save() => new()
+  {
+    MapData = Map.Save(),
+    PlayerData = Player.Save(),
+    PlayerCameraData = PlayerCamera.Save(),
+  };
+
+  public void Load(in GameData data)
+  {
+    Map.Load(data.MapData);
+    Player.Load(data.PlayerData);
+    PlayerCamera.Load(data.PlayerCameraData);
+  }
 
   #endregion Save
 
@@ -46,9 +54,7 @@ public partial class Game : Node3D, IGame
   #region Nodes
 
   [Node] public IPlayerCamera PlayerCamera { get; set; } = default!;
-
   [Node] public IPlayer Player { get; set; } = default!;
-
   [Node] public IMap Map { get; set; } = default!;
   [Node] public IInGameUI InGameUi { get; set; } = default!;
   [Node] public IDeathMenu DeathMenu { get; set; } = default!;
@@ -87,20 +93,6 @@ public partial class Game : Node3D, IGame
     PauseMenu.Resume += OnResume;
     PauseMenu.TransitionCompleted += OnPauseMenuTransitioned;
     PauseMenu.Save += OnPauseMenuSaveRequested;
-
-    GameChunk = new SaveChunk<GameData>(
-      (chunk) => new GameData()
-      {
-        MapData = chunk.GetChunkSaveData<MapData>(),
-        PlayerData = chunk.GetChunkSaveData<PlayerData>(),
-        PlayerCameraData = chunk.GetChunkSaveData<PlayerCameraData>()
-      },
-      onLoad: (chunk, data) =>
-      {
-        chunk.LoadChunkSaveData(data.MapData);
-        chunk.LoadChunkSaveData(data.PlayerData);
-        chunk.LoadChunkSaveData(data.PlayerCameraData);
-      });
   }
 
   public void OnResolved()
@@ -204,17 +196,8 @@ public partial class Game : Node3D, IGame
 
   private async ValueTask SaveGame()
   {
-    await SaveFile.SaveAsync(GameChunk.GetSaveData());
+    await SaveFile.SaveAsync(Save());
     GameLogic.Input(new GameLogic.Input.SaveCompleted());
-  }
-
-  public async ValueTask LoadExistingGame()
-  {
-    if (await SaveFile.ExistsAsync()
-      && await SaveFile.LoadAsync<GameData>() is { } data)
-    {
-      GameChunk.LoadSaveData(data);
-    }
   }
 
   private void SetPauseMode(bool isPaused) => GetTree().Paused = isPaused;

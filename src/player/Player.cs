@@ -8,8 +8,11 @@ using Chickensoft.SaveFileBuilder;
 using Godot;
 using Compiler = System.Runtime.CompilerServices;
 
-public interface IPlayer :
-  ICharacterBody3D, IKillable, ICoinCollector, IPushEnabled
+public interface IPlayer : ICharacterBody3D
+  , ISaveable<PlayerData>
+  , IKillable
+  , ICoinCollector
+  , IPushEnabled
 {
   IPlayerLogic PlayerLogic { get; }
 
@@ -49,9 +52,22 @@ IProvide<PlayerLogic.Settings>
 
   [Dependency]
   public EntityTable EntityTable => this.DependOn<EntityTable>();
-  [Dependency]
-  public ISaveChunk<GameData> GameChunk => this.DependOn<ISaveChunk<GameData>>();
-  public ISaveChunk<PlayerData> PlayerChunk { get; set; } = default!;
+
+  public PlayerData Save() => new()
+  {
+    GlobalTransform = GlobalTransform,
+    StateMachine = PlayerLogic,
+    Velocity = Velocity
+  };
+
+  public void Load(in PlayerData data)
+  {
+    GlobalTransform = data.GlobalTransform;
+    Velocity = data.Velocity;
+    PlayerLogic.RestoreFrom(data.StateMachine);
+    PlayerLogic.Start();
+  }
+
   #endregion Save
 
   #region Provisions
@@ -133,22 +149,6 @@ IProvide<PlayerLogic.Settings>
     PlayerLogic.Set(AppRepo);
     PlayerLogic.Set(GameRepo);
     PlayerLogic.Save(() => new PlayerLogic.Data());
-
-    PlayerChunk = new SaveChunk<PlayerData>(
-      onSave: (chunk) => new PlayerData()
-      {
-        GlobalTransform = GlobalTransform,
-        StateMachine = PlayerLogic,
-        Velocity = Velocity
-      },
-      onLoad: (chunk, data) =>
-      {
-        GlobalTransform = data.GlobalTransform;
-        Velocity = data.Velocity;
-        PlayerLogic.RestoreFrom(data.StateMachine);
-        PlayerLogic.Start();
-      }
-    );
   }
 
   public void OnReady() => SetPhysicsProcess(true);
@@ -162,10 +162,6 @@ IProvide<PlayerLogic.Settings>
 
   public void OnResolved()
   {
-    // Add a child to our parent save chunk (the game chunk) so that it can
-    // look up the player chunk when loading and saving the game.
-    GameChunk.AddChunk(PlayerChunk);
-
     EntityTable.Set(Name, this);
 
     PlayerBinding = PlayerLogic.Bind();

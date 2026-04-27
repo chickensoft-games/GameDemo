@@ -2,6 +2,7 @@ namespace GameDemo;
 
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
+
 public partial class MapLogic
 {
   [Meta]
