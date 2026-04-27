@@ -7,7 +7,6 @@ using Godot;
 
 public interface IMenu : IControl
 {
-  void SetGameAvailable(bool gameAvailable);
   void SetGameExists(bool gameExists);
 
   event Menu.NewGameEventHandler NewGame;
@@ -40,31 +39,25 @@ public partial class Menu : Control, IMenu
 
   public void OnReady()
   {
-	NewGameButton.Pressed += OnNewGamePressed;
-	LoadGameButton.Pressed += OnLoadGamePressed;
-	DeleteGameButton.Pressed += OnDeleteGamePressed;
+    NewGameButton.Pressed += OnNewGamePressed;
+    LoadGameButton.Pressed += OnLoadGamePressed;
+    DeleteGameButton.Pressed += OnDeleteGamePressed;
   }
 
   public void OnExitTree()
   {
-	NewGameButton.Pressed -= OnNewGamePressed;
-	LoadGameButton.Pressed -= OnLoadGamePressed;
-	DeleteGameButton.Pressed -= OnDeleteGamePressed;
+    NewGameButton.Pressed -= OnNewGamePressed;
+    LoadGameButton.Pressed -= OnLoadGamePressed;
+    DeleteGameButton.Pressed -= OnDeleteGamePressed;
   }
 
   public void OnNewGamePressed() => EmitSignal(SignalName.NewGame);
   public void OnLoadGamePressed() => EmitSignal(SignalName.LoadGame);
   public void OnDeleteGamePressed() => EmitSignal(SignalName.DeleteGame);
 
-  public void SetGameAvailable(bool gameAvailable)
-  {
-	LoadGameButton.Disabled = !gameAvailable;
-	DeleteGameButton.Disabled = !gameAvailable;
-  }
-
   public void SetGameExists(bool gameExists)
   {
-	LoadGameButton.Visible = gameExists;
-	DeleteGameButton.Visible = gameExists;
+    LoadGameButton.Visible = gameExists;
+    DeleteGameButton.Visible = gameExists;
   }
 }

@@ -210,9 +210,7 @@ public partial class App : CanvasLayer, IApp
     Menu.Show();
     Game.Show();
 
-    var gameExists = await SaveFile.ExistsAsync();
-    Menu.SetGameAvailable(gameExists);
-    Menu.SetGameExists(gameExists);
+    Menu.SetGameExists(await SaveFile.ExistsAsync());
 
     FadeInFromBlack();
   }
@@ -225,8 +223,7 @@ public partial class App : CanvasLayer, IApp
 
   private async ValueTask DeleteSaveFile()
   {
-    Menu.SetGameAvailable(false);
-    await SaveFile.DeleteAsync();
     Menu.SetGameExists(false);
+    await SaveFile.DeleteAsync();
   }
 }
