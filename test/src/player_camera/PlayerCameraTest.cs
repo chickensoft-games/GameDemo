@@ -78,6 +78,9 @@ public class PlayerCameraTest : TestClass
       ["%SpringArmTarget"] = _springArmTarget.Object
     });
 
+    _gameRepo.Setup(repo => repo.IsMouseCaptured).Returns(new AutoValue<bool>(false));
+    _gameRepo.Setup(repo => repo.PlayerGlobalPosition).Returns(new AutoValue<Vector3>(Vector3.Zero));
+
     _playerCam.FakeDependency(_gameRepo.Object);
     _playerCam.FakeDependency(_appRepo.Object);
     _playerCam.FakeDependency(_gameChunk.Object);
@@ -234,6 +237,7 @@ public class PlayerCameraTest : TestClass
   public void Saves()
   {
     _playerCam.Setup();
+    _playerCam.CameraLogic.Start();
 
     var chunk = new Mock<ISaveChunk<PlayerCameraData>>();
 
@@ -242,7 +246,7 @@ public class PlayerCameraTest : TestClass
     var data = _playerCam.PlayerCameraChunk.OnSave(chunk.Object);
 
     data.GlobalTransform.ShouldBe(_playerCam.GlobalTransform);
-    data.StateMachine.ShouldBe(_playerCam.CameraLogic.Save());
+    data.StateMachine.Data.ShouldBe(_playerCam.CameraLogic.Save().Data);
     data.LocalPosition.ShouldBe(_playerCam.CameraNode.Position);
     data.OffsetPosition.ShouldBe(_playerCam.OffsetNode.Position);
   }
@@ -260,6 +264,8 @@ public class PlayerCameraTest : TestClass
       .Returns(new AutoValue<Vector3>(Vector3.Zero));
 
     logic.Set(_gameRepo.Object);
+    logic.Set<IPlayerCamera>(_playerCam);
+    logic.Set(_settings);
     logic.Set(new PlayerCameraLogic.Data
     {
       TargetPosition = Vector3.Zero,
@@ -269,6 +275,7 @@ public class PlayerCameraTest : TestClass
     });
 
     logic.Start();
+    _playerCam.CameraLogic = logic;
 
     var data = new PlayerCameraData
     {

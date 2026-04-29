@@ -92,7 +92,9 @@ public class MapTest : TestClass
     var coin1 = new Mock<ICoin>();
     var coin2 = new Mock<ICoin>();
 
-    coin2.Setup(c => c.CoinLogic).Returns(new CoinLogic());
+    var coinLogic = new CoinLogic();
+    coinLogic.Start();
+    coin2.Setup(c => c.CoinLogic).Returns(coinLogic);
     coin2.Setup(c => c.GlobalTransform).Returns(Transform3D.Identity);
 
     _entityTable.Set("coin1", coin1.Object);

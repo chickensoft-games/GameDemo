@@ -230,13 +230,14 @@ public class PlayerTest : TestClass
   public void Saves()
   {
     _player.Setup();
+    _player.PlayerLogic.Start();
 
     var chunk = new Mock<ISaveChunk<PlayerData>>();
 
     var data = _player.PlayerChunk.OnSave(chunk.Object);
 
     data.GlobalTransform.ShouldBe(_player.GlobalTransform);
-    data.StateMachine.ShouldBe(_player.PlayerLogic.Save());
+    data.StateMachine.Data.ShouldBe(_player.PlayerLogic.Save().Data);
     data.Velocity.ShouldBe(_player.Velocity);
   }
 
@@ -250,6 +251,8 @@ public class PlayerTest : TestClass
     var logic = new PlayerLogic();
     logic.Set(_appRepo);
     logic.Start();
+
+    _player.PlayerLogic = logic;
 
     var data = new PlayerData
     {
