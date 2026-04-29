@@ -40,10 +40,9 @@ public class PlayerLogicStateAliveAirborneJumpingTest : TestClass
   [Test]
   public void Enters()
   {
-
     _gameRepo.Setup(repo => repo.OnJump());
 
-    _state.Enter(new PlayerLogic.BaseState.Jumping());
+    _state.Enter();
 
     _context.Outputs.ShouldBe([
       new PlayerLogic.Output.Animations.Jump()

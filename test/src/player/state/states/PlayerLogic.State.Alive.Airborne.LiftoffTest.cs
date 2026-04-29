@@ -24,7 +24,7 @@ public class PlayerLogicStateAliveAirborneLiftoffTest : TestClass
   [Test]
   public void Enters()
   {
-    _state.Enter(new PlayerLogic.BaseState.Idle());
+    _state.Enter();
 
     _context.Outputs.ShouldBe([
       new PlayerLogic.Output.Animations.Jump()

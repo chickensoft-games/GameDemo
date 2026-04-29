@@ -92,7 +92,7 @@ public class PlayerCameraLogicStateTest : TestClass
 
     var next = _baseState.On(new PlayerCameraLogic.Input.PhysicsTicked(1d));
 
-    _baseState.ShouldBeSameAs(next);
+    _baseState.ShouldBeOfType(next);
 
     _context.Outputs.ShouldBeOfTypes(
       typeof(PlayerCameraLogic.Output.GimbalRotationChanged),

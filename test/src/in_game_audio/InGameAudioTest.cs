@@ -92,7 +92,7 @@ public class InGameAudioTest : TestClass
   [Test]
   public void PlaysMainMenuMusic()
   {
-    _logic.Setup(logic => logic.Start(false));
+    _logic.Setup(logic => logic.Start(true));
     _gameMusic.Setup(music => music.FadeOut());
     _mainMenuMusic.Setup(music => music.Stop());
     _mainMenuMusic.Setup(music => music.FadeIn());
@@ -109,7 +109,7 @@ public class InGameAudioTest : TestClass
   [Test]
   public void PlaysGameMusic()
   {
-    _logic.Setup(logic => logic.Start(false));
+    _logic.Setup(logic => logic.Start(true));
     _gameMusic.Setup(music => music.Stop());
     _gameMusic.Setup(music => music.FadeIn());
     _mainMenuMusic.Setup(music => music.FadeOut());
@@ -126,7 +126,7 @@ public class InGameAudioTest : TestClass
   [Test]
   public void StopsGameMusic()
   {
-    _logic.Setup(logic => logic.Start(false));
+    _logic.Setup(logic => logic.Start(true));
     _gameMusic.Setup(music => music.FadeOut());
 
     _audio.OnResolved();
@@ -139,7 +139,7 @@ public class InGameAudioTest : TestClass
   [Test]
   public void PlaysSounds()
   {
-    _logic.Setup(logic => logic.Start(false));
+    _logic.Setup(logic => logic.Start(true));
     _coinCollected.Setup(sfx => sfx.Play(0));
     _bounce.Setup(sfx => sfx.Play(0));
     _playerDied.Setup(sfx => sfx.Play(0));

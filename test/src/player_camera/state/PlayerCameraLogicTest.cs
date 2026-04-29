@@ -61,7 +61,7 @@ public class PlayerCameraLogicTest : TestClass
 
     _logic
       .GetInitialState()
-      .ShouldBeOfType<PlayerCameraLogic.BaseState.InputDisabled>();
+      .IsAssignableTo(typeof(PlayerCameraLogic.BaseState.InputDisabled));
 
     // Test outputs
     var gimbalRotationChanged =

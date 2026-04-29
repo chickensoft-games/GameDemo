@@ -27,8 +27,8 @@ using Shouldly;
 public class GameTest : TestClass
 {
   private Fixture _fixture = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
+  private IAppRepo _appRepo = default!;
+  private IGameRepo _gameRepo = default!;
   private Mock<IGameLogic> _logic = default!;
 
   private LogicBlock.FakeBinding _binding = default!;
@@ -59,8 +59,8 @@ public class GameTest : TestClass
   {
     _fixture = new(TestScene.GetTree());
 
-    _appRepo = new();
-    _gameRepo = new();
+    _appRepo = new AppRepo();
+    _gameRepo = new GameRepo();
     _logic = new();
     _binding = LogicBlock.CreateFakeBinding();
     _playerCam = new();
@@ -89,7 +89,7 @@ public class GameTest : TestClass
 
     _game = new()
     {
-      GameRepo = _gameRepo.Object,
+      GameRepo = _gameRepo,
       GameLogic = _logic.Object,
       GameBinding = _binding,
       PlayerCamera = _playerCam.Object,
@@ -109,7 +109,7 @@ public class GameTest : TestClass
 
     (_game as IAutoInit).IsTesting = true;
 
-    _game.FakeDependency(_appRepo.Object);
+    _game.FakeDependency(_appRepo);
     _game.FakeDependency(_entityTable);
 
     _game.FakeNodeTree(new()
@@ -132,7 +132,7 @@ public class GameTest : TestClass
   [Test]
   public void Initializes()
   {
-    ((IProvide<IGameRepo>)_game).Value().ShouldBe(_gameRepo.Object);
+    ((IProvide<IGameRepo>)_game).Value().ShouldBe(_gameRepo);
     ((IProvide<ISaveChunk<GameData>>)_game).Value().ShouldBe(_gameChunk.Object);
     ((IProvide<EntityTable>)_game).Value().ShouldBe(_entityTable);
 

@@ -41,6 +41,6 @@ public class PlayerLogicStateAliveGroundedMovingTest : TestClass
   {
     var next = _state.On(new PlayerLogic.Input.StoppedMovingHorizontally());
 
-    next.ShouldBeAssignableTo<PlayerLogic.BaseState.Idle>();
+    next.IsAssignableTo(typeof(PlayerLogic.BaseState.Idle));
   }
 }

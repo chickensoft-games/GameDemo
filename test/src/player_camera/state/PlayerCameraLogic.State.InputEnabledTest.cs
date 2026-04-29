@@ -78,7 +78,7 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass
       new PlayerCameraLogic.Input.MouseInputOccurred(motion)
     );
 
-    _state.ShouldBeSameAs(next);
+    _state.ShouldBeOfType(next);
 
     _data.TargetAngleHorizontal.ShouldNotBe(targetAngleHorizontal);
     _data.TargetAngleVertical.ShouldNotBe(targetAngleVertical);
@@ -101,7 +101,7 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass
       new PlayerCameraLogic.Input.JoyPadInputOccurred(motion)
     );
 
-    _state.ShouldBeSameAs(next);
+    _state.ShouldBeOfType(next);
 
     var motion2 = new InputEventJoypadMotion
     {

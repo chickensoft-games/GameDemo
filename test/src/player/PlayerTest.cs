@@ -22,8 +22,8 @@ using Shouldly;
 public class PlayerTest : TestClass
 {
   private Fixture _fixture = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
+  private IAppRepo _appRepo = default!;
+  private IGameRepo _gameRepo = default!;
   private Mock<IPlayerLogic> _logic = default!;
   private EntityTable _entityTable = default!;
   private Mock<ISaveChunk<GameData>> _gameChunk = default!;
@@ -40,8 +40,8 @@ public class PlayerTest : TestClass
   {
     _fixture = new(TestScene.GetTree());
 
-    _appRepo = new();
-    _gameRepo = new();
+    _appRepo = new AppRepo();
+    _gameRepo = new GameRepo();
     _logic = new();
     _binding = LogicBlock.CreateFakeBinding();
     _settings = new PlayerLogic.Settings(
@@ -73,8 +73,8 @@ public class PlayerTest : TestClass
 
     (_player as IAutoInit).IsTesting = true;
 
-    _player.FakeDependency(_appRepo.Object);
-    _player.FakeDependency(_gameRepo.Object);
+    _player.FakeDependency(_appRepo);
+    _player.FakeDependency(_gameRepo);
     _player.FakeDependency(_entityTable);
     _player.FakeDependency(_gameChunk.Object);
 
@@ -248,7 +248,7 @@ public class PlayerTest : TestClass
     var chunk = new Mock<ISaveChunk<PlayerData>>();
 
     var logic = new PlayerLogic();
-    logic.Set(_appRepo.Object);
+    logic.Set(_appRepo);
     logic.Start();
 
     var data = new PlayerData

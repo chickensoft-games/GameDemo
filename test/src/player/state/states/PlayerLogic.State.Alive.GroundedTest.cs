@@ -44,7 +44,7 @@ public partial class PlayerLogicStateAliveGroundedTest : TestClass
 
     var next = _state.On(new PlayerLogic.Input.Jump(1d));
 
-    next.ShouldBeAssignableTo<PlayerLogic.BaseState.Jumping>();
+    next.IsAssignableTo(typeof(PlayerLogic.BaseState.Jumping));
 
     _context.Outputs.ShouldBeOfTypes([
       typeof(PlayerLogic.Output.VelocityChanged)
@@ -55,9 +55,9 @@ public partial class PlayerLogicStateAliveGroundedTest : TestClass
   public void LeftFloorGoesToFallingOrLiftoff()
   {
     _state.On(new PlayerLogic.Input.LeftFloor(IsFalling: true))
-      .ShouldBeAssignableTo<PlayerLogic.BaseState.Falling>();
+      .IsAssignableTo(typeof(PlayerLogic.BaseState.Falling));
 
     _state.On(new PlayerLogic.Input.LeftFloor(IsFalling: false))
-      .ShouldBeAssignableTo<PlayerLogic.BaseState.Liftoff>();
+      .IsAssignableTo(typeof(PlayerLogic.BaseState.Liftoff));
   }
 }

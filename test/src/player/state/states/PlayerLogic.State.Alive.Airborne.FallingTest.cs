@@ -24,7 +24,7 @@ public class PlayerLogicStateAliveAirborneFallingTest : TestClass
   [Test]
   public void Enters()
   {
-    _state.Enter(new PlayerLogic.BaseState.Falling());
+    _state.Enter();
 
     _context.Outputs.ShouldBe([
       new PlayerLogic.Output.Animations.Fall()

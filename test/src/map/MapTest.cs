@@ -83,7 +83,7 @@ public class MapTest : TestClass
 
     _mapLogic.Verify(logic => logic.Set(It.IsAny<MapLogic.Data>()));
     _mapLogic.Verify(logic => logic.Set(_gameRepo.Object));
-    _mapLogic.Verify(logic => logic.Start(false));
+    _mapLogic.Verify(logic => logic.Start(true));
   }
 
   [Test]

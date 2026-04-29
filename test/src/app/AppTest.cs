@@ -66,7 +66,7 @@ public class AppTest : TestClass
     (_app as IAutoInit).IsTesting = true;
 
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
-    _logic.Setup(logic => logic.Start(false));
+    _logic.Setup(logic => logic.Start(true));
   }
 
   [Test]

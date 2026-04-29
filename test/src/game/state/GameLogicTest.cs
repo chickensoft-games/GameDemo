@@ -18,10 +18,8 @@ using Shouldly;
 public class GameLogicTest : TestClass
 {
   private GameLogic _logic = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private AutoValue<bool> _isMouseCaptured = default!;
-  private AutoValue<bool> _isPaused = default!;
+  private IGameRepo _gameRepo = default!;
+  private IAppRepo _appRepo = default!;
 
   public GameLogicTest(Node testScene) : base(testScene) { }
 
@@ -29,16 +27,11 @@ public class GameLogicTest : TestClass
   public void Setup()
   {
     _logic = new GameLogic();
-    _gameRepo = new();
-    _appRepo = new();
-    _isMouseCaptured = new AutoValue<bool>(false);
-    _isPaused = new AutoValue<bool>(false);
+    _gameRepo = new GameRepo();
+    _appRepo = new AppRepo();
 
-    _gameRepo.Setup(repo => repo.IsMouseCaptured).Returns(_isMouseCaptured);
-    _gameRepo.Setup(repo => repo.IsPaused).Returns(_isPaused);
-
-    _logic.Set(_gameRepo.Object);
-    _logic.Set(_appRepo.Object);
+    _logic.Set(_gameRepo);
+    _logic.Set(_appRepo);
   }
 
   [Test]
@@ -61,9 +54,9 @@ public class GameLogicTest : TestClass
 
     _logic.Start();
 
-    _isMouseCaptured.Value.ShouldBe(false);
+    _gameRepo.IsMouseCaptured.Value.ShouldBe(false);
 
-    _isMouseCaptured.Value = true;
+    _gameRepo.SetIsMouseCaptured(true);
 
     outputs.ShouldContain(new GameLogic.Output.CaptureMouse(true));
   }
@@ -80,9 +73,9 @@ public class GameLogicTest : TestClass
 
     _logic.Start();
 
-    _isPaused.Value.ShouldBe(false);
+    _gameRepo.IsPaused.Value.ShouldBe(false);
 
-    _isPaused.Value = true;
+    _gameRepo.Pause();
 
     outputs.ShouldContain(new GameLogic.Output.SetPauseMode(true));
   }
@@ -98,8 +91,7 @@ public class GameLogicTest : TestClass
   public void Cleanup()
   {
     _logic.Stop();
-
-    _isMouseCaptured.Dispose();
-    _isPaused.Dispose();
+    _gameRepo.Dispose();
+    _appRepo.Dispose();
   }
 }
