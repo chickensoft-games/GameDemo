@@ -6,7 +6,6 @@ using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
-using Chickensoft.SaveFileBuilder;
 using Godot;
 using Moq;
 using Shouldly;
@@ -24,8 +23,6 @@ public class MapTest : TestClass
   private Mock<IGameRepo> _gameRepo = default!;
   private Mock<IMapLogic> _mapLogic = default!;
   private EntityTable _entityTable = default!;
-  private Mock<ISaveChunk<GameData>> _gameChunk = default!;
-  private Mock<ISaveChunk<MapData>> _mapChunk = default!;
   private MapLogic.Data _data = default!;
   private Map _map = default!;
 
@@ -37,21 +34,17 @@ public class MapTest : TestClass
     _coins = new();
     _gameRepo = new();
     _entityTable = new();
-    _gameChunk = new();
     _mapLogic = new();
-    _mapChunk = new();
     _data = new();
 
     _map = new Map
     {
       Coins = _coins.Object,
       MapLogic = _mapLogic.Object,
-      MapChunk = _mapChunk.Object
     };
 
     _map.FakeDependency(_gameRepo.Object);
     _map.FakeDependency(_entityTable);
-    _map.FakeDependency(_gameChunk.Object);
 
     _mapLogic.Setup(m => m.Get<MapLogic.Data>())
       .Returns(_data);
@@ -63,7 +56,6 @@ public class MapTest : TestClass
     _map.Setup();
     _map.MapLogic.ShouldBeOfType<MapLogic>();
     (_map as IProvide<EntityTable>).Value().ShouldBe(_entityTable);
-    (_map as IProvide<ISaveChunk<MapData>>).Value().ShouldBe(_mapChunk.Object);
 
     _map._Notification(-1);
   }
@@ -92,27 +84,23 @@ public class MapTest : TestClass
     var coin1 = new Mock<ICoin>();
     var coin2 = new Mock<ICoin>();
 
-    coin2.Setup(c => c.CoinLogic).Returns(new CoinLogic());
-    coin2.Setup(c => c.GlobalTransform).Returns(Transform3D.Identity);
-
     _entityTable.Set("coin1", coin1.Object);
     _entityTable.Set("coin2", coin2.Object);
-
-    _map.OnResolved();
 
     _data.CoinsBeingCollected.Add("coin2");
     _data.CollectedCoinIds.Add("coin1");
 
-    var mapData = _map.MapChunk.GetSaveData();
+    var mapData = _map.Save();
 
     mapData.CoinsBeingCollected.ShouldContainKey("coin2");
     mapData.CollectedCoinIds.ShouldContain("coin1");
+    coin1.Verify(c => c.Save(), Times.Never());
+    coin2.Verify(c => c.Save());
   }
 
   [Test]
   public void Loads()
   {
-
     var mapData = new MapData()
     {
       CoinsBeingCollected = new Dictionary<string, CoinData>
@@ -132,25 +120,15 @@ public class MapTest : TestClass
     var coinLogic2 = new Mock<ICoinLogic>();
 
     // Coin1 should be removed.
-
-    _coins.Setup(c => c.GetNodeOrNullEx<INode>("coin1"))
-      .Returns(coinNode1.Object);
+    _coins.Setup(c => c.GetNodeOrNullEx<INode>("coin1")).Returns(coinNode1.Object);
     _coins.Setup(c => c.RemoveChildEx(coinNode1.Object));
     coinNode1.Setup(c => c.QueueFree());
 
     // Coin 2 should have its state and transform updated.
+    _coins.Setup(c => c.GetNodeOrNullEx<INode>("coin2")).Returns(coinNode2.Object);
+    coinNode2.Setup(c => c.Load(mapData.CoinsBeingCollected["coin2"]));
 
-    _coins.Setup(c => c.GetNodeOrNullEx<INode>("coin2"))
-      .Returns(coinNode2.Object);
-
-    coinNode2.Setup(c => c.CoinLogic).Returns(coinLogic2.Object);
-    coinLogic2.Setup(c => c.RestoreFrom(mapData.CoinsBeingCollected["coin2"].StateMachine, true));
-    coinLogic2.Setup(c => c.Start());
-    coinNode2.SetupSet(c => c.GlobalTransform = mapData.CoinsBeingCollected["coin2"].GlobalTransform);
-
-    _map.OnResolved();
-
-    _map.MapChunk.LoadSaveData(mapData);
+    _map.Load(mapData);
 
     _coins.VerifyAll();
     coinNode1.VerifyAll();

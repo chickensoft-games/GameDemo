@@ -36,7 +36,7 @@ public partial class App : CanvasLayer, IApp
 
   #region Save
 
-  public ISaveFile SaveFile { get; } = Chickensoft.SaveFileBuilder.SaveFile.CreateGZipJsonFile(
+  public ISaveFile SaveFile { get; set; } = Chickensoft.SaveFileBuilder.SaveFile.CreateGZipJsonFile(
     Path.Join(OS.GetUserDataDir(), "game.json.gz"),
 
     // Create a standard JsonSerializerOptions with our introspective type

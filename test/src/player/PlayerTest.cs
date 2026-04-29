@@ -6,7 +6,6 @@ using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.GoDotTest;
 using Chickensoft.GodotTestDriver;
-using Chickensoft.SaveFileBuilder;
 using Godot;
 using Moq;
 using Shouldly;
@@ -25,7 +24,6 @@ public class PlayerTest : TestClass
   private Mock<IGameRepo> _gameRepo = default!;
   private Mock<IPlayerLogic> _logic = default!;
   private EntityTable _entityTable = default!;
-  private Mock<ISaveChunk<GameData>> _gameChunk = default!;
 
   private PlayerLogic.IFakeBinding _binding = default!;
 
@@ -53,7 +51,6 @@ public class PlayerTest : TestClass
       JumpForce: 1.0f
     );
     _entityTable = new();
-    _gameChunk = new();
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
 
     _player = new()
@@ -75,7 +72,6 @@ public class PlayerTest : TestClass
     _player.FakeDependency(_appRepo.Object);
     _player.FakeDependency(_gameRepo.Object);
     _player.FakeDependency(_entityTable);
-    _player.FakeDependency(_gameChunk.Object);
 
     await _fixture.AddToRoot(_player);
   }
@@ -226,25 +222,32 @@ public class PlayerTest : TestClass
   }
 
   [Test]
-  public void Saves()
+  public async Task Saves()
   {
-    _player.Setup();
+    // This test has to be run in the actual scene tree since it verifies the
+    // coin changes its GlobalPosition.
+    var tree = TestScene.GetTree();
+    var fixture = new Fixture(tree);
+    await fixture.AddToRoot(_player);
 
-    var chunk = new Mock<ISaveChunk<PlayerData>>();
+    _player.GlobalTransform = Transform3D.FlipZ;
+    var data = _player.Save();
 
-    var data = _player.PlayerChunk.OnSave(chunk.Object);
-
-    data.GlobalTransform.ShouldBe(_player.GlobalTransform);
+    data.GlobalTransform.ShouldBe(Transform3D.FlipZ);
     data.StateMachine.ShouldBe(_player.PlayerLogic);
     data.Velocity.ShouldBe(_player.Velocity);
   }
 
   [Test]
-  public void Loads()
+  public async Task Loads()
   {
-    _player.Setup();
+    // This test has to be run in the actual scene tree since it verifies the
+    // coin changes its GlobalPosition.
+    var tree = TestScene.GetTree();
+    var fixture = new Fixture(tree);
+    await fixture.AddToRoot(_player);
 
-    var chunk = new Mock<ISaveChunk<PlayerData>>();
+    _player.Setup();
 
     var logic = new PlayerLogic();
     logic.Set(_appRepo.Object);
@@ -252,14 +255,14 @@ public class PlayerTest : TestClass
 
     var data = new PlayerData
     {
-      GlobalTransform = Transform3D.Identity,
+      GlobalTransform = Transform3D.FlipZ,
       StateMachine = logic,
       Velocity = Vector3.Forward
     };
 
-    _player.PlayerChunk.OnLoad(chunk.Object, data);
+    _player.Load(data);
 
-    _player.GlobalTransform.ShouldBe(Transform3D.Identity);
+    _player.GlobalTransform.ShouldBe(Transform3D.FlipZ);
     _player.Velocity.ShouldBe(Vector3.Forward);
     _player.PlayerLogic.ShouldBeOfType<PlayerLogic>();
   }
