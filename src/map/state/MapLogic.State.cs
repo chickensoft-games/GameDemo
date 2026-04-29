@@ -6,7 +6,7 @@ using Chickensoft.LogicBlocks;
 public partial class MapLogic
 {
   [Meta]
-  public partial record State : LogicBlockState,
+  public partial record BaseState : LogicBlockState,
   IGet<Input.GameLoadedFromSaveFile>
   {
     public Type On(in Input.GameLoadedFromSaveFile input)

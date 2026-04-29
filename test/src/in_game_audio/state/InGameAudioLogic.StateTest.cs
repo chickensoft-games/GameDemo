@@ -1,7 +1,6 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.GoDotTest;
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
@@ -9,28 +8,36 @@ using Shouldly;
 public class InGameAudioLogicStateTest : TestClass
 {
   private StateTester _context = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
-  private InGameAudioLogic.BaseState _baseState = default!;
+  private IAppRepo _appRepo = default!;
+  private IGameRepo _gameRepo = default!;
+  private InGameAudioLogic.BaseState _state = default!;
 
   public InGameAudioLogicStateTest(Node testScene) : base(testScene) { }
 
   [Setup]
   public void Setup()
   {
-    _appRepo = new();
-    _gameRepo = new();
+    _appRepo = new AppRepo();
+    _gameRepo = new GameRepo();
+    _state = new();
+    _context = _state.Test();
+    _context.Set(_appRepo);
+    _context.Set(_gameRepo);
+    InGameAudioLogic.SetupSubscriptions(_appRepo, () => _state);
+    InGameAudioLogic.SetupSubscriptions(_gameRepo, () => _state);
+  }
 
-    _baseState = new();
-    _context = _baseState.Test();
-    _context.Set(_appRepo.Object);
-    _context.Set(_gameRepo.Object);
+  [Cleanup]
+  public void Cleanup()
+  {
+    _appRepo.Dispose();
+    _gameRepo.Dispose();
   }
 
   [Test]
   public void OnCoinCollectionStarted()
   {
-    _baseState.Output(new InGameAudioLogic.Output.PlayCoinCollected());
+    _gameRepo.StartCoinCollection(new Mock<ICoin>().Object);
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.PlayCoinCollected()
@@ -40,7 +47,7 @@ public class InGameAudioLogicStateTest : TestClass
   [Test]
   public void OnJumpshroomUsed()
   {
-    _baseState.Output(new InGameAudioLogic.Output.PlayBounce());
+    _gameRepo.OnJumpshroomUsed();
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.PlayBounce()
@@ -50,8 +57,7 @@ public class InGameAudioLogicStateTest : TestClass
   [Test]
   public void OnGameEndedLost()
   {
-    _baseState.Output(new InGameAudioLogic.Output.StopGameMusic());
-    _baseState.Output(new InGameAudioLogic.Output.PlayPlayerDied());
+    _gameRepo.OnGameEnded(GameOverReason.Lost);
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.StopGameMusic(),
@@ -62,7 +68,7 @@ public class InGameAudioLogicStateTest : TestClass
   [Test]
   public void OnGameEndedOther()
   {
-    _baseState.Output(new InGameAudioLogic.Output.StopGameMusic());
+    _gameRepo.OnGameEnded(GameOverReason.Won);
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.StopGameMusic()
@@ -72,7 +78,7 @@ public class InGameAudioLogicStateTest : TestClass
   [Test]
   public void OnJumped()
   {
-    _baseState.Output(new InGameAudioLogic.Output.PlayJump());
+    _gameRepo.OnJump();
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.PlayJump()
@@ -82,7 +88,7 @@ public class InGameAudioLogicStateTest : TestClass
   [Test]
   public void OnMainMenuEntered()
   {
-    _baseState.Output(new InGameAudioLogic.Output.PlayMainMenuMusic());
+    _appRepo.OnMainMenuEntered();
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.PlayMainMenuMusic()
@@ -92,7 +98,7 @@ public class InGameAudioLogicStateTest : TestClass
   [Test]
   public void OnGameEntered()
   {
-    _baseState.Output(new InGameAudioLogic.Output.PlayGameMusic());
+    _appRepo.OnEnterGame();
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.PlayGameMusic()

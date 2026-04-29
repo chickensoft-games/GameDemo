@@ -20,24 +20,34 @@ public partial class InGameAudioLogic :
 
   public override IEnumerable<IDisposable> OnStartSubscriptions()
   {
-    yield return Get<IAppRepo>().AutoChannel.Bind()
-      .On((in IAppRepo.MainMenuEntered _) => State?.Output(new Output.PlayMainMenuMusic()))
-      .On((in IAppRepo.GameEntered _) => State?.Output(new Output.PlayGameMusic()));
-    yield return Get<IGameRepo>().AutoChannel.Bind()
-      .On((in IGameRepo.CoinCollectionStarted _) => State?.Output(new Output.PlayCoinCollected()))
-      .On((in IGameRepo.JumpshroomUsed _) => State?.Output(new Output.PlayBounce()))
+    yield return SetupSubscriptions(Get<IAppRepo>(), () => State);
+    yield return SetupSubscriptions(Get<IGameRepo>(), () => State);
+  }
+
+  public static IDisposable SetupSubscriptions(IAppRepo appRepo, Func<LogicBlockState?> stateFunc)
+  {
+    return appRepo.AutoChannel.Bind()
+      .On((in IAppRepo.MainMenuEntered _) => stateFunc()?.Output(new Output.PlayMainMenuMusic()))
+      .On((in IAppRepo.GameEntered _) => stateFunc()?.Output(new Output.PlayGameMusic()));
+  }
+
+  public static IDisposable SetupSubscriptions(IGameRepo gameRepo, Func<LogicBlockState?> stateFunc)
+  {
+    return gameRepo.AutoChannel.Bind()
+      .On((in IGameRepo.CoinCollectionStarted _) => stateFunc()?.Output(new Output.PlayCoinCollected()))
+      .On((in IGameRepo.JumpshroomUsed _) => stateFunc()?.Output(new Output.PlayBounce()))
       .On((in IGameRepo.Ended message) =>
       {
-        State?.Output(new Output.StopGameMusic());
+        stateFunc()?.Output(new Output.StopGameMusic());
 
         if (message.Reason is not GameOverReason.Lost)
         {
           return;
         }
 
-        State?.Output(new Output.PlayPlayerDied());
+        stateFunc()?.Output(new Output.PlayPlayerDied());
       })
-      .On((in IGameRepo.Jumped _) => State?.Output(new Output.PlayJump()));
+      .On((in IGameRepo.Jumped _) => stateFunc()?.Output(new Output.PlayJump()));
   }
 
   public static class Output

@@ -1,15 +1,13 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.GoDotTest;
-using Chickensoft.LogicBlocks;
 using Godot;
-using Moq;
 using Shouldly;
 
 public class PlayerLogicStateDisabledTest : TestClass
 {
   private StateTester _context = default!;
-  private Mock<IAppRepo> _appRepo = default!;
+  private IAppRepo _appRepo = default!;
   private PlayerLogic.BaseState.Disabled _state = default!;
 
   public PlayerLogicStateDisabledTest(Node testScene) : base(testScene) { }
@@ -17,12 +15,15 @@ public class PlayerLogicStateDisabledTest : TestClass
   [Setup]
   public void Setup()
   {
-    _appRepo = new();
+    _appRepo = new AppRepo();
     _state = new();
     _context = _state.Test();
-
-    _context.Set(_appRepo.Object);
+    _context.Set(_appRepo);
+    PlayerLogic.SetupSubscriptions(_appRepo, () => _state);
   }
+
+  [Cleanup]
+  public void Cleanup() => _appRepo.Dispose();
 
   [Test]
   public void EntersAndExits()
@@ -39,13 +40,13 @@ public class PlayerLogicStateDisabledTest : TestClass
   {
     var next = _state.On(new PlayerLogic.Input.Enable());
 
-    next.ShouldBeAssignableTo<PlayerLogic.BaseState.Idle>();
+    next.IsAssignableTo(typeof(PlayerLogic.BaseState.Idle)).ShouldBeTrue();
   }
 
   [Test]
   public void OnGameAboutToStartEnables()
   {
-    _state.Input(new PlayerLogic.Input.Enable());
+    _appRepo.OnEnterGame();
 
     _context.Inputs.ShouldBe([new PlayerLogic.Input.Enable()]);
   }
