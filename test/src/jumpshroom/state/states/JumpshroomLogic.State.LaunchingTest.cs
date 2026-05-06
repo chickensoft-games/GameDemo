@@ -11,7 +11,7 @@ public class JumpshroomLogicStateLaunchingTest : TestClass
   private StateTester _context = default!;
   private Mock<IPushEnabled> _target = default!;
   private JumpshroomLogic.Data _data = default!;
-  private JumpshroomLogic.State.Launching _state = default!;
+  private JumpshroomLogic.BaseState.Launching _state = default!;
 
   public JumpshroomLogicStateLaunchingTest(Node testScene) : base(testScene) { }
 
@@ -45,6 +45,6 @@ public class JumpshroomLogicStateLaunchingTest : TestClass
   {
     var next = _state.On(new JumpshroomLogic.Input.LaunchCompleted());
 
-    next.IsAssignableTo(typeof(JumpshroomLogic.State.Cooldown)).ShouldBeTrue();
+    next.IsAssignableTo(typeof(JumpshroomLogic.BaseState.Cooldown)).ShouldBeTrue();
   }
 }

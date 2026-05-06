@@ -21,8 +21,7 @@ public partial class PlayerCameraLogic : AutoBlock, IPlayerCameraLogic
 
   public PlayerCameraLogic()
   {
-    Set(new BaseState.InputDisabled());
-    Set(new BaseState.InputEnabled());
+    Preallocate<BaseState>();
   }
 
   public override void OnStart()

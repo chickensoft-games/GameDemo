@@ -6,10 +6,10 @@ using Chickensoft.LogicBlocks;
 
 public partial class JumpshroomLogic
 {
-  public partial record State
+  public partial record BaseState
   {
     [Meta]
-    public partial record Cooldown : State, IGet<Input.CooldownCompleted>
+    public partial record Cooldown : BaseState, IGet<Input.CooldownCompleted>
     {
       public Cooldown()
       {

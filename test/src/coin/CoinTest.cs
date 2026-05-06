@@ -112,7 +112,7 @@ public partial class CoinTest : TestClass
   public void StartsCollectionProcess()
   {
     _coin.OnResolved();
-    var state = new Mock<CoinLogic.State.Collecting>();
+    var state = new Mock<CoinLogic.BaseState.Collecting>();
     _animPlayer.Setup(player => player.Play("collect", -1, 1, false));
 
     _binding.SetState(state.Object);

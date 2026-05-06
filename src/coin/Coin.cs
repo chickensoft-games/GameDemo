@@ -81,7 +81,7 @@ public partial class Coin : Node3D, ICoin
     CoinBinding = CoinLogic.Bind();
 
     CoinBinding
-      .OnState<CoinLogic.State.Collecting>(_ =>
+      .OnState<CoinLogic.BaseState.Collecting>(_ =>
       {
         // We want to start receiving physics ticks so we can orient ourselves
         // toward the entity that's collecting us.

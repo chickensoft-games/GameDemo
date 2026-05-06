@@ -4,21 +4,17 @@ using System;
 using System.Collections.Generic;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
+using Chickensoft.LogicBlocks.Auto;
 
 public interface IAppLogic : ILogicBlock;
 
 [Meta]
-public partial class AppLogic : LogicBlock, IAppLogic
+public partial class AppLogic : AutoBlock, IAppLogic
 {
   public override Type GetInitialState() => typeof(BaseState.SplashScreen);
   public AppLogic()
   {
-    Set(new BaseState.InGame());
-    Set(new BaseState.LeavingGame());
-    Set(new BaseState.LeavingMenu());
-    Set(new BaseState.LoadingSaveFile());
-    Set(new BaseState.MainMenu());
-    Set(new BaseState.SplashScreen());
+    Preallocate<BaseState>();
   }
 
   public override IEnumerable<IDisposable> OnStartSubscriptions()

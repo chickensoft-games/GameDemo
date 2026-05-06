@@ -7,10 +7,10 @@ using Chickensoft.LogicBlocks;
 
 public partial class CoinLogic
 {
-  public partial record State
+  public partial record BaseState
   {
     [Meta, Id("coin_logic_state_collecting")]
-    public partial record Collecting : State, IGet<Input.PhysicsProcess>
+    public partial record Collecting : BaseState, IGet<Input.PhysicsProcess>
     {
       public Collecting()
       {

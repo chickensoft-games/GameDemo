@@ -3,12 +3,13 @@ namespace GameDemo.Tests;
 using Chickensoft.GoDotTest;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
+using Chickensoft.LogicBlocks.Auto;
 using Godot;
 using Shouldly;
 
 public partial class PlayerLogicStateAliveAirborneTest : TestClass
 {
-  [Meta]
+  [Meta, TestState]
   public partial record TestPlayerState : PlayerLogic.BaseState.Airborne;
 
   private PlayerLogic.BaseState.Airborne _state = default!;

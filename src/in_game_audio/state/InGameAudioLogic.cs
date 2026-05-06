@@ -4,18 +4,19 @@ using System;
 using System.Collections.Generic;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
+using Chickensoft.LogicBlocks.Auto;
 
 public interface IInGameAudioLogic : ILogicBlock;
 
 [Meta]
 public partial class InGameAudioLogic :
-  LogicBlock, IInGameAudioLogic
+  AutoBlock, IInGameAudioLogic
 {
   public override Type GetInitialState() => typeof(BaseState);
 
   public InGameAudioLogic()
   {
-    Set(new BaseState());
+    Preallocate<BaseState>();
   }
 
   public override IEnumerable<IDisposable> OnStartSubscriptions()

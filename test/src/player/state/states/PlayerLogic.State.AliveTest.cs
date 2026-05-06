@@ -3,6 +3,7 @@ namespace GameDemo.Tests;
 using Chickensoft.GoDotTest;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
+using Chickensoft.LogicBlocks.Auto;
 using Chickensoft.Sync.Primitives;
 using Godot;
 using Moq;
@@ -10,7 +11,7 @@ using Shouldly;
 
 public partial class PlayerLogicStateAliveTest : TestClass
 {
-  [Meta]
+  [Meta, TestState]
   public partial record TestPlayerState : PlayerLogic.BaseState.Alive;
 
   private StateTester _context = default!;

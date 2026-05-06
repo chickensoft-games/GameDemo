@@ -3,13 +3,14 @@ namespace GameDemo.Tests;
 using Chickensoft.GoDotTest;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
+using Chickensoft.LogicBlocks.Auto;
 using Godot;
 using Moq;
 using Shouldly;
 
 public partial class PlayerLogicStateAliveGroundedTest : TestClass
 {
-  [Meta]
+  [Meta, TestState]
   public partial record TestPlayerState : PlayerLogic.BaseState.Grounded;
 
   private StateTester _context = default!;

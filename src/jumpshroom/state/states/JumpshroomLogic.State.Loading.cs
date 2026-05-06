@@ -6,10 +6,10 @@ using Chickensoft.LogicBlocks;
 
 public partial class JumpshroomLogic
 {
-  public partial record State
+  public partial record BaseState
   {
     [Meta]
-    public partial record Loading : State, IGet<Input.Launch>
+    public partial record Loading : BaseState, IGet<Input.Launch>
     {
       public Loading()
       {

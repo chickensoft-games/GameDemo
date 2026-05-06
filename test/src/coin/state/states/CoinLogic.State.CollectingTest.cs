@@ -14,7 +14,7 @@ public class CoinLogicStateCollectingTest : TestClass
   private CoinLogic.Settings _settings = default!;
   private Mock<ICoin> _coin = default!;
   private Mock<ICoinCollector> _target = default!;
-  private CoinLogic.State.Collecting _state = default!;
+  private CoinLogic.BaseState.Collecting _state = default!;
   private CoinLogic.Data _data = default!;
   private EntityTable _entityTable = default!;
 

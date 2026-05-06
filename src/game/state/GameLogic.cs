@@ -4,12 +4,13 @@ using System;
 using System.Collections.Generic;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
+using Chickensoft.LogicBlocks.Auto;
 using Chickensoft.Sync.Primitives;
 
 public interface IGameLogic : ILogicBlock;
 
 [Meta]
-public partial class GameLogic : LogicBlock, IGameLogic
+public partial class GameLogic : AutoBlock, IGameLogic
 {
   private AutoValue<bool>.Binding? _isMouseCapturedBinding;
   private AutoValue<bool>.Binding? _isPausedBinding;
@@ -18,15 +19,7 @@ public partial class GameLogic : LogicBlock, IGameLogic
 
   public GameLogic()
   {
-    Set(new BaseState.Lost());
-    Set(new BaseState.MenuBackdrop());
-    Set(new BaseState.Paused());
-    Set(new BaseState.Saving());
-    Set(new BaseState.Playing());
-    Set(new BaseState.Quit());
-    Set(new BaseState.RestartingGame());
-    Set(new BaseState.Resuming());
-    Set(new BaseState.Won());
+    Preallocate<BaseState>();
   }
 
   public override IEnumerable<IDisposable> OnStartSubscriptions()

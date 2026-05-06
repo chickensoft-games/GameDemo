@@ -7,10 +7,10 @@ using Godot;
 
 public partial class JumpshroomLogic
 {
-  public partial record State
+  public partial record BaseState
   {
     [Meta]
-    public partial record Launching : State, IGet<Input.LaunchCompleted>
+    public partial record Launching : BaseState, IGet<Input.LaunchCompleted>
     {
       public Launching()
       {

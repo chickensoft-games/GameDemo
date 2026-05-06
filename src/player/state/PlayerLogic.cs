@@ -16,13 +16,7 @@ public partial class PlayerLogic : AutoBlock, IPlayerLogic
 
   public PlayerLogic()
   {
-    Set(new BaseState.Falling());
-    Set(new BaseState.Jumping());
-    Set(new BaseState.Liftoff());
-    Set(new BaseState.Idle());
-    Set(new BaseState.Moving());
-    Set(new BaseState.Dead());
-    Set(new BaseState.Disabled());
+    Preallocate<BaseState>();
   }
 
   public override IEnumerable<IDisposable> OnStartSubscriptions()

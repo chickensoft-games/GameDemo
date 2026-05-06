@@ -3,19 +3,17 @@ namespace GameDemo;
 using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
+using Chickensoft.LogicBlocks.Auto;
 
 public interface IJumpshroomLogic : ILogicBlock;
 
 [Meta]
-public partial class JumpshroomLogic : LogicBlock, IJumpshroomLogic
+public partial class JumpshroomLogic : AutoBlock, IJumpshroomLogic
 {
-  public override Type GetInitialState() => typeof(State.Idle);
+  public override Type GetInitialState() => typeof(BaseState.Idle);
 
   public JumpshroomLogic()
   {
-    Set(new State.Cooldown());
-    Set(new State.Idle());
-    Set(new State.Launching());
-    Set(new State.Loading());
+    Preallocate<BaseState>();
   }
 }

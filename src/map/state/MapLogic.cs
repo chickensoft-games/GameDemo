@@ -4,17 +4,18 @@ using System;
 using System.Collections.Generic;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
+using Chickensoft.LogicBlocks.Auto;
 
 public interface IMapLogic : ILogicBlock { }
 
 [Meta]
-public partial class MapLogic : LogicBlock, IMapLogic
+public partial class MapLogic : AutoBlock, IMapLogic
 {
   public override Type GetInitialState() => typeof(BaseState);
 
   public MapLogic()
   {
-    Set(new BaseState());
+    Preallocate<BaseState>();
   }
 
   public override IEnumerable<IDisposable> OnStartSubscriptions()
