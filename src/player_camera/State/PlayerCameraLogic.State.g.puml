@@ -1,0 +1,16 @@
+@startuml BaseState
+state "BaseState" as GameDemo_PlayerCameraLogic_BaseState {
+  state "InputDisabled" as GameDemo_PlayerCameraLogic_BaseState_InputDisabled
+  state "InputEnabled" as GameDemo_PlayerCameraLogic_BaseState_InputEnabled
+}
+
+GameDemo_PlayerCameraLogic_BaseState --> GameDemo_PlayerCameraLogic_BaseState : PhysicsTicked
+GameDemo_PlayerCameraLogic_BaseState --> GameDemo_PlayerCameraLogic_BaseState : TargetOffsetChanged
+GameDemo_PlayerCameraLogic_BaseState --> GameDemo_PlayerCameraLogic_BaseState : TargetPositionChanged
+GameDemo_PlayerCameraLogic_BaseState_InputDisabled --> GameDemo_PlayerCameraLogic_BaseState_InputEnabled : EnableInput
+GameDemo_PlayerCameraLogic_BaseState_InputEnabled --> GameDemo_PlayerCameraLogic_BaseState_InputDisabled : DisableInput
+GameDemo_PlayerCameraLogic_BaseState_InputEnabled --> GameDemo_PlayerCameraLogic_BaseState_InputEnabled : JoyPadInputOccurred
+GameDemo_PlayerCameraLogic_BaseState_InputEnabled --> GameDemo_PlayerCameraLogic_BaseState_InputEnabled : MouseInputOccurred
+
+GameDemo_PlayerCameraLogic_BaseState : OnPhysicsTicked → CameraLocalPositionChanged, CameraOffsetChanged, GimbalRotationChanged, GlobalTransformChanged
+@enduml

@@ -5,6 +5,6 @@ using Chickensoft.LogicBlocks;
 
 public partial class PlayerLogic
 {
-  [Meta]
+  [Meta, StateDiagram]
   public abstract partial record BaseState : LogicBlockState;
 }

@@ -1,0 +1,39 @@
+@startuml BaseState
+state "BaseState" as GameDemo_GameLogic_BaseState {
+  state "Lost" as GameDemo_GameLogic_BaseState_Lost
+  state "MenuBackdrop" as GameDemo_GameLogic_BaseState_MenuBackdrop
+  state "Paused" as GameDemo_GameLogic_BaseState_Paused {
+    state "Saving" as GameDemo_GameLogic_BaseState_Saving
+  }
+  state "Playing" as GameDemo_GameLogic_BaseState_Playing
+  state "Quit" as GameDemo_GameLogic_BaseState_Quit
+  state "RestartingGame" as GameDemo_GameLogic_BaseState_RestartingGame
+  state "Resuming" as GameDemo_GameLogic_BaseState_Resuming
+  state "Won" as GameDemo_GameLogic_BaseState_Won
+}
+
+GameDemo_GameLogic_BaseState_Lost --> GameDemo_GameLogic_BaseState_Quit : GoToMainMenu
+GameDemo_GameLogic_BaseState_Lost --> GameDemo_GameLogic_BaseState_RestartingGame : Start
+GameDemo_GameLogic_BaseState_MenuBackdrop --> GameDemo_GameLogic_BaseState_MenuBackdrop : Initialize
+GameDemo_GameLogic_BaseState_MenuBackdrop --> GameDemo_GameLogic_BaseState_Playing : Start
+GameDemo_GameLogic_BaseState_Paused --> GameDemo_GameLogic_BaseState_Quit : GoToMainMenu
+GameDemo_GameLogic_BaseState_Paused --> GameDemo_GameLogic_BaseState_Resuming : PauseButtonPressed
+GameDemo_GameLogic_BaseState_Paused --> GameDemo_GameLogic_BaseState_Saving : SaveRequested
+GameDemo_GameLogic_BaseState_Playing --> GameDemo_GameLogic_BaseState_Lost : EndGame
+GameDemo_GameLogic_BaseState_Playing --> GameDemo_GameLogic_BaseState_Paused : PauseButtonPressed
+GameDemo_GameLogic_BaseState_Playing --> GameDemo_GameLogic_BaseState_Quit : EndGame
+GameDemo_GameLogic_BaseState_Playing --> GameDemo_GameLogic_BaseState_Won : EndGame
+GameDemo_GameLogic_BaseState_Resuming --> GameDemo_GameLogic_BaseState_Playing : PauseMenuTransitioned
+GameDemo_GameLogic_BaseState_Saving --> GameDemo_GameLogic_BaseState_Paused : SaveCompleted
+GameDemo_GameLogic_BaseState_Saving --> GameDemo_GameLogic_BaseState_Saving : PauseButtonPressed
+GameDemo_GameLogic_BaseState_Won --> GameDemo_GameLogic_BaseState_Won : GoToMainMenu
+
+GameDemo_GameLogic_BaseState_Lost : OnEnter → ShowLostScreen
+GameDemo_GameLogic_BaseState_Paused : OnEnter → ShowPauseMenu
+GameDemo_GameLogic_BaseState_Paused : OnExit → ExitPauseMenu
+GameDemo_GameLogic_BaseState_Playing : OnEnter → StartGame
+GameDemo_GameLogic_BaseState_Resuming : OnExit → HidePauseMenu
+GameDemo_GameLogic_BaseState_Saving : OnEnter → ShowPauseSaveOverlay, StartSaving
+GameDemo_GameLogic_BaseState_Saving : OnExit → HidePauseSaveOverlay
+GameDemo_GameLogic_BaseState_Won : OnEnter → ShowWonScreen
+@enduml

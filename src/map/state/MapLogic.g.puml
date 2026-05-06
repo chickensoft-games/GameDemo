@@ -1,5 +1,5 @@
-@startuml InGameUILogic
-state InGameUILogic {
+@startuml MapLogic
+state MapLogic {
   state BaseState
 }
 

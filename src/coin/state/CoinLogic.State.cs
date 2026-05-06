@@ -5,6 +5,6 @@ using Chickensoft.LogicBlocks;
 
 public partial class CoinLogic
 {
-  [Meta]
+  [Meta, StateDiagram]
   public abstract partial record BaseState : LogicBlockState;
 }

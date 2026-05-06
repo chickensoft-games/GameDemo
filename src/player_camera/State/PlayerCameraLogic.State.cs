@@ -11,7 +11,7 @@ public partial class PlayerCameraLogic
   ///   Overall player camera state. This would be abstract, but it's helpful to
   ///   be able to instantiate it by itself for easier testing.
   /// </summary>
-  [Meta]
+  [Meta, StateDiagram]
   public abstract partial record BaseState : LogicBlockState,
     IGet<Input.PhysicsTicked>,
     IGet<Input.TargetPositionChanged>,

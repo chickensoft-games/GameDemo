@@ -5,7 +5,6 @@ using Chickensoft.LogicBlocks;
 
 public partial class JumpshroomLogic
 {
-  [Meta]
-
+  [Meta, StateDiagram]
   public abstract partial record BaseState : LogicBlockState;
 }

@@ -5,7 +5,7 @@ using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 public partial class MapLogic
 {
-  [Meta]
+  [Meta, StateDiagram]
   public partial record BaseState : LogicBlockState,
   IGet<Input.GameLoadedFromSaveFile>
   {

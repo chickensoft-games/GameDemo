@@ -1,0 +1,11 @@
+@startuml BaseState
+state "BaseState" as GameDemo_CoinLogic_BaseState {
+  state "Collecting" as GameDemo_CoinLogic_BaseState_Collecting
+  state "Idle" as GameDemo_CoinLogic_BaseState_Idle
+}
+
+GameDemo_CoinLogic_BaseState_Collecting --> GameDemo_CoinLogic_BaseState_Collecting : PhysicsProcess
+GameDemo_CoinLogic_BaseState_Idle --> GameDemo_CoinLogic_BaseState_Collecting : StartCollection
+
+GameDemo_CoinLogic_BaseState_Collecting : OnPhysicsProcess → Move, SelfDestruct
+@enduml
