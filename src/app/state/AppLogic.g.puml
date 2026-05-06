@@ -4,4 +4,8 @@ state AppLogic {
 }
 
 [*] --> SplashScreen
+
+AppLogic : Dependencies:
+AppLogic : - Data
+AppLogic : - IAppRepo
 @enduml

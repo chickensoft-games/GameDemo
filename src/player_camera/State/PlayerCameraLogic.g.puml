@@ -4,4 +4,12 @@ state PlayerCameraLogic {
 }
 
 [*] --> InputDisabled
+
+PlayerCameraLogic : Dependencies:
+PlayerCameraLogic : - Data
+PlayerCameraLogic : - IGameRepo
+PlayerCameraLogic : - IPlayerCamera
+PlayerCameraLogic : - Mock
+PlayerCameraLogic : - PlayerCamera
+PlayerCameraLogic : - PlayerCameraSettings
 @enduml

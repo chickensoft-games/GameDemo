@@ -4,4 +4,11 @@ state CoinLogic {
 }
 
 [*] --> Idle
+
+CoinLogic : Dependencies:
+CoinLogic : - Data
+CoinLogic : - EntityTable
+CoinLogic : - ICoin
+CoinLogic : - IGameRepo
+CoinLogic : - Settings
 @enduml

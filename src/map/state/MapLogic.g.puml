@@ -4,4 +4,9 @@ state MapLogic {
 }
 
 [*] --> BaseState
+
+MapLogic : Dependencies:
+MapLogic : - Data
+MapLogic : - IGameRepo
+MapLogic : - Mock
 @enduml

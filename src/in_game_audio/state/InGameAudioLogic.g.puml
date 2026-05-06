@@ -4,4 +4,8 @@ state InGameAudioLogic {
 }
 
 [*] --> BaseState
+
+InGameAudioLogic : Dependencies:
+InGameAudioLogic : - IAppRepo
+InGameAudioLogic : - IGameRepo
 @enduml

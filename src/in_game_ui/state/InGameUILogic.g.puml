@@ -4,4 +4,9 @@ state InGameUILogic {
 }
 
 [*] --> BaseState
+
+InGameUILogic : Dependencies:
+InGameUILogic : - IAppRepo
+InGameUILogic : - IGameRepo
+InGameUILogic : - Mock
 @enduml

@@ -4,4 +4,8 @@ state JumpshroomLogic {
 }
 
 [*] --> Idle
+
+JumpshroomLogic : Dependencies:
+JumpshroomLogic : - Data
+JumpshroomLogic : - IGameRepo
 @enduml

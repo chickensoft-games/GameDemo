@@ -4,4 +4,8 @@ state GameLogic {
 }
 
 [*] --> MenuBackdrop
+
+GameLogic : Dependencies:
+GameLogic : - IAppRepo
+GameLogic : - IGameRepo
 @enduml
