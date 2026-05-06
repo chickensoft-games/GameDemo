@@ -31,20 +31,10 @@ public partial class GameLogic : LogicBlock, IGameLogic
 
   public override IEnumerable<IDisposable> OnStartSubscriptions()
   {
-    yield return SetupSubscriptions(Get<IAppRepo>(), () => State);
-    yield return SetupSubscriptions(Get<IGameRepo>(), () => State);
-  }
-
-  public static IDisposable SetupSubscriptions(IAppRepo appRepo, Func<LogicBlockState?> stateFunc)
-  {
-    return appRepo.AutoChannel.Bind()
-      .On((in IAppRepo.GameEntered _) => stateFunc()?.Input(new Input.Start()));
-  }
-
-  public static IDisposable SetupSubscriptions(IGameRepo gameRepo, Func<LogicBlockState?> stateFunc)
-  {
-    return gameRepo.AutoChannel.Bind()
-      .On((in IGameRepo.Ended message) => stateFunc()?.Input(new Input.EndGame(message.Reason)));
+    yield return Get<IAppRepo>().AutoChannel.Bind()
+      .On((in IAppRepo.GameEntered _) => (State as BaseState.MenuBackdrop)?.OnGameEntered());
+    yield return Get<IGameRepo>().AutoChannel.Bind()
+      .On((in IGameRepo.Ended message) => (State as BaseState.Playing)?.OnEnded(message.Reason));
   }
 
   public override void OnStart()

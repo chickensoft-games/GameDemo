@@ -14,5 +14,14 @@ public partial class MapLogic
       Get<IGameRepo>().SetNumCoinsCollected(input.NumCoinsCollected);
       return ToSelf();
     }
+
+    public void OnCoinCollectionStarted(ICoin coin)
+      => Get<Data>().CoinsBeingCollected.Add(coin.Name);
+
+    public void OnCoinCollectionCompleted(ICoin coin)
+    {
+      Get<Data>().CoinsBeingCollected.Remove(coin.Name);
+      Get<Data>().CollectedCoinIds.Add(coin.Name);
+    }
   }
 }

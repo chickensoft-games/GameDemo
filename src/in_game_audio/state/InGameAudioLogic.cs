@@ -20,34 +20,14 @@ public partial class InGameAudioLogic :
 
   public override IEnumerable<IDisposable> OnStartSubscriptions()
   {
-    yield return SetupSubscriptions(Get<IAppRepo>(), () => State);
-    yield return SetupSubscriptions(Get<IGameRepo>(), () => State);
-  }
-
-  public static IDisposable SetupSubscriptions(IAppRepo appRepo, Func<LogicBlockState?> stateFunc)
-  {
-    return appRepo.AutoChannel.Bind()
-      .On((in IAppRepo.MainMenuEntered _) => stateFunc()?.Output(new Output.PlayMainMenuMusic()))
-      .On((in IAppRepo.GameEntered _) => stateFunc()?.Output(new Output.PlayGameMusic()));
-  }
-
-  public static IDisposable SetupSubscriptions(IGameRepo gameRepo, Func<LogicBlockState?> stateFunc)
-  {
-    return gameRepo.AutoChannel.Bind()
-      .On((in IGameRepo.CoinCollectionStarted _) => stateFunc()?.Output(new Output.PlayCoinCollected()))
-      .On((in IGameRepo.JumpshroomUsed _) => stateFunc()?.Output(new Output.PlayBounce()))
-      .On((in IGameRepo.Ended message) =>
-      {
-        stateFunc()?.Output(new Output.StopGameMusic());
-
-        if (message.Reason is not GameOverReason.Lost)
-        {
-          return;
-        }
-
-        stateFunc()?.Output(new Output.PlayPlayerDied());
-      })
-      .On((in IGameRepo.Jumped _) => stateFunc()?.Output(new Output.PlayJump()));
+    yield return Get<IAppRepo>().AutoChannel.Bind()
+      .On((in IAppRepo.MainMenuEntered _) => (State as BaseState)?.OnMainMenuEntered())
+      .On((in IAppRepo.GameEntered _) => (State as BaseState)?.OnGameEntered());
+    yield return Get<IGameRepo>().AutoChannel.Bind()
+      .On((in IGameRepo.CoinCollectionStarted _) => (State as BaseState)?.OnCoinCollected())
+      .On((in IGameRepo.JumpshroomUsed _) => (State as BaseState)?.OnJumpshroomUsed())
+      .On((in IGameRepo.Ended message) => (State as BaseState)?.OnGameEnded(message.Reason))
+      .On((in IGameRepo.Jumped _) => (State as BaseState)?.OnJumped());
   }
 
   public static class Output
@@ -66,7 +46,4 @@ public partial class InGameAudioLogic :
 
     public readonly record struct StopGameMusic;
   }
-
-  [Meta]
-  public partial record BaseState : LogicBlockState;
 }

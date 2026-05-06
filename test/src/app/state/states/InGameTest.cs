@@ -1,16 +1,16 @@
 namespace GameDemo.Tests;
 
-using System.Collections.Generic;
 using System.Linq;
 using Chickensoft.GoDotTest;
 using Godot;
+using Moq;
 using Shouldly;
 
 public class InGameTest : TestClass
 {
   private StateTester _tester = default!;
   private AppLogic.BaseState.InGame _state = default!;
-  private IAppRepo _appRepo = default!;
+  private Mock<IAppRepo> _appRepo = default!;
   private AppLogic.Data _data = default!;
 
   public InGameTest(Node testScene) : base(testScene) { }
@@ -19,28 +19,21 @@ public class InGameTest : TestClass
   public void Setup()
   {
     _state = new();
-    _appRepo = new AppRepo();
+    _appRepo = new ();
     _data = new();
     _tester = _state.Test();
-    _tester.Set(_appRepo);
+    _tester.Set(_appRepo.Object);
     _tester.Set(_data);
-    AppLogic.SetupSubscriptions(_appRepo, () => _state);
   }
-
-  [Cleanup]
-  public void Cleanup() => _appRepo.Dispose();
 
   [Test]
   public void OnEnter()
   {
-    var values = new List<int>();
-
-    using var binding = _appRepo.AutoChannel.Bind()
-      .On((in IAppRepo.GameEntered _) => values.Add(1));
+    _appRepo.Setup(repo => repo.OnEnterGame());
 
     _state.Enter();
 
-    values.ShouldBe([1]);
+    _appRepo.VerifyAll();
     _tester.Outputs[0].ShouldBeOfType<AppLogic.Output.ShowGame>();
   }
 
@@ -66,7 +59,7 @@ public class InGameTest : TestClass
   [Test]
   public void OnGameExited()
   {
-    _appRepo.OnExitGame(PostGameAction.RestartGame);
+    _state.OnGameExited(PostGameAction.RestartGame);
 
     var input = _tester.Inputs.Single()
       .ShouldBeOfType<AppLogic.Input.EndGame>();

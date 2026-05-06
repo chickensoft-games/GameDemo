@@ -3,7 +3,9 @@ namespace GameDemo.Tests;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Chickensoft.GoDotTest;
+using Chickensoft.Sync.Primitives;
 using Godot;
+using Moq;
 using Shouldly;
 
 [
@@ -17,7 +19,9 @@ public class PlayingTest : TestClass
 {
   private StateTester _context = default!;
   private GameLogic.BaseState.Playing _state = default!;
-  private IGameRepo _gameRepo = default!;
+  private Mock<IGameRepo> _gameRepo = default!;
+  private AutoValue<bool> _isMouseCaptured = default!;
+  private AutoValue<bool> _isPaused = default!;
 
   public PlayingTest(Node testScene) : base(testScene) { }
 
@@ -26,20 +30,32 @@ public class PlayingTest : TestClass
   {
     _state = new GameLogic.BaseState.Playing();
     _context = _state.Test();
-    _gameRepo = new GameRepo();
-    _context.Set(_gameRepo);
-    GameLogic.SetupSubscriptions(_gameRepo, () => _state);
+
+    _isMouseCaptured = new(true);
+    _isPaused = new(true);
+
+    _gameRepo = new();
+    _gameRepo.Setup(repo => repo.IsPaused).Returns(_isPaused);
+    _gameRepo.Setup(repo => repo.IsMouseCaptured).Returns(_isMouseCaptured);
+
+    _context.Set(_gameRepo.Object);
   }
 
   [Cleanup]
-  public void Cleanup() => _gameRepo.Dispose();
+  public void Cleanup()
+  {
+    _isPaused.Dispose();
+    _isMouseCaptured.Dispose();
+  }
 
   [Test]
   public void OnEnter()
   {
+    _gameRepo.Reset();
+    _gameRepo.Setup(repo => repo.SetIsMouseCaptured(true));
     _state.Enter();
     _context.Outputs.Single().ShouldBeOfType<GameLogic.Output.StartGame>();
-    _gameRepo.IsMouseCaptured.Value.ShouldBe(true);
+    _gameRepo.VerifyAll();
   }
 
   [Test]
@@ -50,7 +66,7 @@ public class PlayingTest : TestClass
   [Test]
   public void OnEnded()
   {
-    _gameRepo.OnGameEnded(GameOverReason.Won);
+    _state.OnEnded(GameOverReason.Won);
     _context.Inputs.Single().ShouldBeOfType<GameLogic.Input.EndGame>();
   }
 
@@ -58,7 +74,7 @@ public class PlayingTest : TestClass
   public void OnEndGameWins()
   {
     var result = _state.On(new GameLogic.Input.EndGame(GameOverReason.Won));
-    _gameRepo.IsPaused.Value.ShouldBe(true);
+    _gameRepo.Verify(repo => repo.Pause());
     result.ShouldBe(typeof(GameLogic.BaseState.Won));
   }
 
@@ -66,7 +82,7 @@ public class PlayingTest : TestClass
   public void OnEndGameLoses()
   {
     var result = _state.On(new GameLogic.Input.EndGame(GameOverReason.Lost));
-    _gameRepo.IsPaused.Value.ShouldBe(true);
+    _gameRepo.Verify(repo => repo.Pause());
     result.ShouldBe(typeof(GameLogic.BaseState.Lost));
   }
 
@@ -74,7 +90,7 @@ public class PlayingTest : TestClass
   public void OnEndGameQuits()
   {
     var result = _state.On(new GameLogic.Input.EndGame(GameOverReason.Quit));
-    _gameRepo.IsPaused.Value.ShouldBe(true);
+    _gameRepo.Verify(repo => repo.Pause());
     result.ShouldBe(typeof(GameLogic.BaseState.Quit));
   }
 
@@ -82,7 +98,7 @@ public class PlayingTest : TestClass
   public void OnUnknownEndGameQuits()
   {
     var result = _state.On(new GameLogic.Input.EndGame((GameOverReason)25));
-    _gameRepo.IsPaused.Value.ShouldBe(true);
+    _gameRepo.Verify(repo => repo.Pause());
     result.ShouldBe(typeof(GameLogic.BaseState.Quit));
   }
 }

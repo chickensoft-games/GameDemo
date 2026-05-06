@@ -416,7 +416,7 @@ package App-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/InGameAudio.cs:16 CoinCollected]]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/InGameAudio.cs:21 GameMusic]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/DimmableAudioStreamPlayer.cs Script]]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/InGameAudio.cs:37 InGameAudioBinding]]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/InGameAudio.cs:35 InGameAudioLogic]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/state/InGameAudioLogic.cs Script]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/InGameAudio.cs:35 InGameAudioLogic]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/state/InGameAudioLogic.State.cs Script]]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/InGameAudio.cs:20 MainMenuMusic]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/DimmableAudioStreamPlayer.cs Script]]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/InGameAudio.cs:18 PlayerDied]]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/InGameAudio.cs:19 PlayerJumped]]
@@ -441,19 +441,7 @@ package App-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/DimmableAudioStreamPlayer.cs:27 _Ready()]]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/DimmableAudioStreamPlayer.cs:45 SetupFade()]]
             }
-            class InGameAudioLogic  {
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/state/InGameAudioLogic.cs ScriptFile]]
-                [Constructors]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/state/InGameAudioLogic.cs:16 InGameAudioLogic]]()
-                --
-                [Methods]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/state/InGameAudioLogic.cs:14 GetInitialState()]]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/state/InGameAudioLogic.cs:21 OnStartSubscriptions()]]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/state/InGameAudioLogic.cs:27 SetupSubscriptions()]]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/state/InGameAudioLogic.cs:34 SetupSubscriptions()]]
-            }
             InGameAudio::GameMusic ---> DimmableAudioStreamPlayer
-            InGameAudio::InGameAudioLogic ---> InGameAudioLogic
         }
         class DeathMenu  {
             [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/death_menu/DeathMenu.cs ScriptFile]]

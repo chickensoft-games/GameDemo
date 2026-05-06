@@ -18,6 +18,8 @@ public partial class AppLogic
 
       public Type On(in Input.FadeOutFinished input) => To<MainMenu>();
 
+      public void OnSplashScreenSkipped() =>
+        Output(new Output.HideSplashScreen());
     }
   }
 }

@@ -24,6 +24,9 @@ public partial class AppLogic
       public void OnRestartGameRequested() =>
         Input(new Input.EndGame(PostGameAction.RestartGame));
 
+      public void OnGameExited(PostGameAction reason) =>
+        Input(new Input.EndGame(reason));
+
       public Type On(in Input.EndGame input)
       {
         var postGameAction = input.PostGameAction;

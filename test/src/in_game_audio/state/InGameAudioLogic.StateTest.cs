@@ -8,8 +8,8 @@ using Shouldly;
 public class InGameAudioLogicStateTest : TestClass
 {
   private StateTester _context = default!;
-  private IAppRepo _appRepo = default!;
-  private IGameRepo _gameRepo = default!;
+  private Mock<IAppRepo> _appRepo = default!;
+  private Mock<IGameRepo> _gameRepo = default!;
   private InGameAudioLogic.BaseState _state = default!;
 
   public InGameAudioLogicStateTest(Node testScene) : base(testScene) { }
@@ -17,27 +17,19 @@ public class InGameAudioLogicStateTest : TestClass
   [Setup]
   public void Setup()
   {
-    _appRepo = new AppRepo();
-    _gameRepo = new GameRepo();
+    _appRepo = new ();
+    _gameRepo = new ();
+
     _state = new();
     _context = _state.Test();
-    _context.Set(_appRepo);
-    _context.Set(_gameRepo);
-    InGameAudioLogic.SetupSubscriptions(_appRepo, () => _state);
-    InGameAudioLogic.SetupSubscriptions(_gameRepo, () => _state);
-  }
-
-  [Cleanup]
-  public void Cleanup()
-  {
-    _appRepo.Dispose();
-    _gameRepo.Dispose();
+    _context.Set(_appRepo.Object);
+    _context.Set(_gameRepo.Object);
   }
 
   [Test]
   public void OnCoinCollectionStarted()
   {
-    _gameRepo.StartCoinCollection(new Mock<ICoin>().Object);
+    _state.OnCoinCollected();
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.PlayCoinCollected()
@@ -47,7 +39,7 @@ public class InGameAudioLogicStateTest : TestClass
   [Test]
   public void OnJumpshroomUsed()
   {
-    _gameRepo.OnJumpshroomUsed();
+    _state.OnJumpshroomUsed();
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.PlayBounce()
@@ -57,7 +49,7 @@ public class InGameAudioLogicStateTest : TestClass
   [Test]
   public void OnGameEndedLost()
   {
-    _gameRepo.OnGameEnded(GameOverReason.Lost);
+    _state.OnGameEnded(GameOverReason.Lost);
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.StopGameMusic(),
@@ -68,7 +60,7 @@ public class InGameAudioLogicStateTest : TestClass
   [Test]
   public void OnGameEndedOther()
   {
-    _gameRepo.OnGameEnded(GameOverReason.Won);
+    _state.OnGameEnded(GameOverReason.Won);
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.StopGameMusic()
@@ -78,7 +70,7 @@ public class InGameAudioLogicStateTest : TestClass
   [Test]
   public void OnJumped()
   {
-    _gameRepo.OnJump();
+    _state.OnJumped();
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.PlayJump()
@@ -88,7 +80,7 @@ public class InGameAudioLogicStateTest : TestClass
   [Test]
   public void OnMainMenuEntered()
   {
-    _appRepo.OnMainMenuEntered();
+    _state.OnMainMenuEntered();
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.PlayMainMenuMusic()
@@ -98,7 +90,7 @@ public class InGameAudioLogicStateTest : TestClass
   [Test]
   public void OnGameEntered()
   {
-    _appRepo.OnEnterGame();
+    _state.OnGameEntered();
 
     _context.Outputs.ShouldBe([
       new InGameAudioLogic.Output.PlayGameMusic()

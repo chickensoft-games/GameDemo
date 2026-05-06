@@ -8,8 +8,8 @@ using Shouldly;
 public class MapLogicStateTest : TestClass
 {
   private StateTester _context = default!;
-  private IGameRepo _gameRepo = default!;
-  private MapLogic.BaseState _baseState = default!;
+  private Mock<IGameRepo> _gameRepo = default!;
+  private MapLogic.BaseState _state = default!;
   private MapLogic.Data _data = default!;
 
   public MapLogicStateTest(Node testScene) : base(testScene) { }
@@ -17,33 +17,32 @@ public class MapLogicStateTest : TestClass
   [Setup]
   public void Setup()
   {
-    _gameRepo = new GameRepo();
+    _gameRepo = new ();
     _data = new MapLogic.Data();
-    _baseState = new MapLogic.BaseState();
-    _context = _baseState.Test();
-    _context.Set(_gameRepo);
-    _context.Set(_data);
-    MapLogic.SetupSubscriptions(_gameRepo, () => _baseState);
-  }
 
-  [Cleanup]
-  public void Cleanup() => _gameRepo.Dispose();
+    _state = new MapLogic.BaseState();
+    _context = _state.Test();
+
+    _context.Set(_gameRepo.Object);
+    _context.Set(_data);
+  }
 
   [Test]
   public void GameLoadedFromSaveFile()
   {
-    _baseState.On(new MapLogic.Input.GameLoadedFromSaveFile(5));
+    _state.On(new MapLogic.Input.GameLoadedFromSaveFile(5));
 
-    _gameRepo.NumCoinsCollected.Value.ShouldBe(5);
+    _gameRepo.Verify(repo => repo.SetNumCoinsCollected(5));
   }
 
   [Test]
   public void OnCoinCollectionStarted()
   {
     var coin = new Mock<ICoin>();
-    coin.Setup(c => c.Name).Returns("coin1");
 
-    _gameRepo.StartCoinCollection(coin.Object);
+    coin.Setup(coin => coin.Name).Returns("coin1");
+
+    _state.OnCoinCollectionStarted(coin.Object);
 
     _data.CoinsBeingCollected.ShouldContain("coin1");
   }
@@ -52,10 +51,11 @@ public class MapLogicStateTest : TestClass
   public void OnCoinCollectionCompleted()
   {
     var coin = new Mock<ICoin>();
-    coin.Setup(c => c.Name).Returns("coin1");
 
-    _gameRepo.StartCoinCollection(coin.Object);
-    _gameRepo.OnFinishCoinCollection(coin.Object);
+    coin.Setup(coin => coin.Name).Returns("coin1");
+
+    _state.OnCoinCollectionStarted(coin.Object);
+    _state.OnCoinCollectionCompleted(coin.Object);
 
     _data.CoinsBeingCollected.ShouldNotContain("coin1");
     _data.CollectedCoinIds.ShouldContain("coin1");

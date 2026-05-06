@@ -17,6 +17,8 @@ public partial class PlayerLogic
       }
 
       public Type On(in Input.Enable input) => To<Idle>();
+
+      public void OnGameEntered() => Input(new Input.Enable());
     }
   }
 }

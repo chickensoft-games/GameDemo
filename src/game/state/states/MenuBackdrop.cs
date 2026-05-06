@@ -17,6 +17,8 @@ public partial class GameLogic
         this.OnEnter(() => Get<IGameRepo>().SetIsMouseCaptured(false));
       }
 
+      public void OnGameEntered() => Input(new Input.Start());
+
       public Type On(in Input.Start input) => To<Playing>();
 
       public Type On(in Input.Initialize input)

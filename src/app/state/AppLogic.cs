@@ -23,17 +23,8 @@ public partial class AppLogic : LogicBlock, IAppLogic
 
   public override IEnumerable<IDisposable> OnStartSubscriptions()
   {
-    yield return SetupSubscriptions(Get<IAppRepo>(), () => State);
+    yield return Get<IAppRepo>().AutoChannel.Bind()
+      .On((in IAppRepo.GameExited message) => (State as BaseState.InGame)?.OnGameExited(message.Action))
+      .On((in IAppRepo.SplashScreenSkipped _) => (State as BaseState.SplashScreen)?.OnSplashScreenSkipped());
   }
-
-  public static IDisposable SetupSubscriptions(IAppRepo repo, Func<LogicBlockState?> stateFunc) =>
-    repo.AutoChannel.Bind()
-      .On((in IAppRepo.GameExited message) => stateFunc()?.Input(new Input.EndGame(message.Action)))
-      .On((in IAppRepo.SplashScreenSkipped _) =>
-      {
-        if (stateFunc() is BaseState.SplashScreen state)
-        {
-          state.Output(new Output.HideSplashScreen());
-        }
-      });
 }

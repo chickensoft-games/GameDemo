@@ -2,12 +2,13 @@ namespace GameDemo.Tests;
 
 using Chickensoft.GoDotTest;
 using Godot;
+using Moq;
 using Shouldly;
 
 public class PlayerLogicStateDisabledTest : TestClass
 {
   private StateTester _context = default!;
-  private IAppRepo _appRepo = default!;
+  private Mock<IAppRepo> _appRepo = default!;
   private PlayerLogic.BaseState.Disabled _state = default!;
 
   public PlayerLogicStateDisabledTest(Node testScene) : base(testScene) { }
@@ -15,15 +16,12 @@ public class PlayerLogicStateDisabledTest : TestClass
   [Setup]
   public void Setup()
   {
-    _appRepo = new AppRepo();
+    _appRepo = new ();
     _state = new();
     _context = _state.Test();
-    _context.Set(_appRepo);
-    PlayerLogic.SetupSubscriptions(_appRepo, () => _state);
-  }
 
-  [Cleanup]
-  public void Cleanup() => _appRepo.Dispose();
+    _context.Set(_appRepo.Object);
+  }
 
   [Test]
   public void EntersAndExits()
@@ -46,7 +44,7 @@ public class PlayerLogicStateDisabledTest : TestClass
   [Test]
   public void OnGameAboutToStartEnables()
   {
-    _appRepo.OnEnterGame();
+    _state.OnGameEntered();
 
     _context.Inputs.ShouldBe([new PlayerLogic.Input.Enable()]);
   }

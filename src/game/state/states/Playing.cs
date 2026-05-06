@@ -23,6 +23,9 @@ public partial class GameLogic
         );
       }
 
+      public void OnEnded(GameOverReason reason)
+        => Input(new Input.EndGame(reason));
+
       public Type On(in Input.EndGame input)
       {
         Get<IGameRepo>().Pause();

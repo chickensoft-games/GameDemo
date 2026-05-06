@@ -2,12 +2,13 @@ namespace GameDemo.Tests;
 
 using Chickensoft.GoDotTest;
 using Godot;
+using Moq;
 using Shouldly;
 
 public class SplashScreenTest : TestClass
 {
   private StateTester _context = default!;
-  private IAppRepo _appRepo = default!;
+  private Mock<IAppRepo> _appRepo = default!;
   private AppLogic.BaseState.SplashScreen _state = default!;
   private AppLogic.Data _data = default!;
 
@@ -17,16 +18,12 @@ public class SplashScreenTest : TestClass
   public void Setup()
   {
     _state = new();
-    _appRepo = new AppRepo();
+    _appRepo = new();
     _data = new();
     _context = _state.Test();
-    _context.Set(_appRepo);
+    _context.Set(_appRepo.Object);
     _context.Set(_data);
-    AppLogic.SetupSubscriptions(_appRepo, () => _state);
   }
-
-  [Cleanup]
-  public void Cleanup() => _appRepo.Dispose();
 
   [Test]
   public void OnEnter()
@@ -46,7 +43,7 @@ public class SplashScreenTest : TestClass
   [Test]
   public void SkipsSplashScreen()
   {
-    _appRepo.SkipSplashScreen();
+    _state.OnSplashScreenSkipped();
 
     _context.Outputs.ShouldBe([new AppLogic.Output.HideSplashScreen()]);
   }
