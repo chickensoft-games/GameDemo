@@ -88,26 +88,18 @@ public partial class Game : Node3D, IGame
     GameLogic.Set(GameRepo);
     GameLogic.Set(AppRepo);
 
-    // This is how to create JsonSerializerOptions for use with LogicBlocks
-    // and the Chickensoft serialization utilities.
-    var resolver = new SerializableTypeResolver();
-    // Tell our type resolver about the Godot-specific converters.
+    // Tell our type resolver about the Godot-specific & LogicBlock-specific converters.
     GodotSerialization.Setup();
-
-    // Tell our type resolver about the LogicBlock-specific converters.
     LogicBlockSerialization.Setup();
-
-    var upgradeDependencies = new Blackboard();
 
     // Create a standard JsonSerializerOptions with our introspective type
     // resolver and the logic blocks converter.
     JsonOptions = new JsonSerializerOptions
     {
       Converters = {
-        new SerializableTypeConverter(upgradeDependencies),
-        new LogicBlockDataConverter()
+        new SerializableTypeConverter()
       },
-      TypeInfoResolver = resolver,
+      TypeInfoResolver = new SerializableTypeResolver(),
       WriteIndented = true
     };
 
