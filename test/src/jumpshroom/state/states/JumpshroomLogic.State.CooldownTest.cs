@@ -8,7 +8,7 @@ using Shouldly;
 public class JumpshroomLogicStateCooldownTest : TestClass
 {
   private StateTester _context = default!;
-  private JumpshroomLogic.BaseState.Cooldown _state = default!;
+  private JumpshroomLogicState.Cooldown _state = default!;
 
   public JumpshroomLogicStateCooldownTest(Node testScene) : base(testScene) { }
 
@@ -25,15 +25,15 @@ public class JumpshroomLogicStateCooldownTest : TestClass
     _state.Enter();
 
     _context.Outputs.ShouldBe([
-      new JumpshroomLogic.Output.StartCooldownTimer()
+      new JumpshroomLogicState.Output.StartCooldownTimer()
     ]);
   }
 
   [Test]
   public void CooldownCompletedGoesToIdle()
   {
-    var next = _state.On(new JumpshroomLogic.Input.CooldownCompleted());
+    var next = _state.On(new JumpshroomLogicState.Input.CooldownCompleted());
 
-    next.IsAssignableTo(typeof(JumpshroomLogic.BaseState.Idle)).ShouldBeTrue();
+    next.IsAssignableTo(typeof(JumpshroomLogicState.Idle)).ShouldBeTrue();
   }
 }

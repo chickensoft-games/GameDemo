@@ -9,14 +9,14 @@ using Shouldly;
 public class LostTest : TestClass
 {
   private StateTester _context = default!;
-  private GameLogic.BaseState.Lost _state = default!;
+  private GameLogicState.Lost _state = default!;
 
   public LostTest(Node testScene) : base(testScene) { }
 
   [Setup]
   public void Setup()
   {
-    _state = new GameLogic.BaseState.Lost();
+    _state = new GameLogicState.Lost();
     _context = _state.Test();
   }
 
@@ -24,20 +24,20 @@ public class LostTest : TestClass
   public void OnEnter()
   {
     _state.Enter();
-    _context.Outputs.First().ShouldBeOfType<GameLogic.Output.ShowLostScreen>();
+    _context.Outputs.First().ShouldBeOfType<GameLogicState.Output.ShowLostScreen>();
   }
 
   [Test]
   public void OnStartGame()
   {
-    var result = _state.On(new GameLogic.Input.Start());
-    result.ShouldBe(typeof(GameLogic.BaseState.RestartingGame));
+    var result = _state.On(new GameLogicState.Input.Start());
+    result.ShouldBe(typeof(GameLogicState.RestartingGame));
   }
 
   [Test]
   public void OnGoToMainMenu()
   {
-    var result = _state.On(new GameLogic.Input.GoToMainMenu());
-    result.ShouldBe(typeof(GameLogic.BaseState.Quit));
+    var result = _state.On(new GameLogicState.Input.GoToMainMenu());
+    result.ShouldBe(typeof(GameLogicState.Quit));
   }
 }

@@ -120,7 +120,7 @@ public class PlayerTest : TestClass
     _player.OnPhysicsProcess(1d);
 
     _logic.Verify(
-      logic => logic.Input(in It.Ref<PlayerLogic.Input.Jump>.IsAny)
+      logic => logic.Input(in It.Ref<PlayerLogicState.Input.Jump>.IsAny)
     );
   }
 
@@ -129,10 +129,10 @@ public class PlayerTest : TestClass
   {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(in It.Ref<PlayerLogic.Input.PhysicsTick>.IsAny)
+      logic => logic.Input(in It.Ref<PlayerLogicState.Input.PhysicsTick>.IsAny)
     );
     _logic.Setup(
-      logic => logic.Input(in It.Ref<PlayerLogic.Input.Moved>.IsAny)
+      logic => logic.Input(in It.Ref<PlayerLogicState.Input.Moved>.IsAny)
     );
 
     _player.OnPhysicsProcess(1d);
@@ -178,7 +178,7 @@ public class PlayerTest : TestClass
   {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(in It.Ref<PlayerLogic.Input.Pushed>.IsAny)
+      logic => logic.Input(in It.Ref<PlayerLogicState.Input.Pushed>.IsAny)
     );
 
     _player.Push(Vector3.Forward);
@@ -193,7 +193,7 @@ public class PlayerTest : TestClass
   {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(in It.Ref<PlayerLogic.Input.Killed>.IsAny)
+      logic => logic.Input(in It.Ref<PlayerLogicState.Input.Killed>.IsAny)
     );
     _player.Kill();
     _logic.VerifyAll();
@@ -205,7 +205,7 @@ public class PlayerTest : TestClass
     _player.OnResolved();
 
     _binding.Output(
-      new PlayerLogic.Output.MovementComputed(
+      new PlayerLogicState.Output.MovementComputed(
         Basis.Identity, Vector3.Forward, Vector2.Zero, 0d
       )
     );
@@ -220,7 +220,7 @@ public class PlayerTest : TestClass
     _player.OnResolved();
 
     _binding.Output(
-      new PlayerLogic.Output.VelocityChanged(Vector3.Forward)
+      new PlayerLogicState.Output.VelocityChanged(Vector3.Forward)
     );
 
     _player.Velocity.ShouldBe(Vector3.Forward);

@@ -17,11 +17,11 @@ public partial class PlayerCameraLogic : AutoBlock, IPlayerCameraLogic
 
   private AutoValue<Vector3>.Binding? _playerGlobalPositionBinding;
 
-  public override Type GetInitialState() => typeof(BaseState.InputDisabled);
+  public override Type GetInitialState() => typeof(PlayerCameraLogicState.InputDisabled);
 
   public PlayerCameraLogic()
   {
-    Preallocate<BaseState>();
+    Preallocate<PlayerCameraLogicState>();
   }
 
   public override void OnStart()
@@ -32,15 +32,15 @@ public partial class PlayerCameraLogic : AutoBlock, IPlayerCameraLogic
       {
         if (isMouseCaptured)
         {
-          Input(new Input.EnableInput());
+          Input(new PlayerCameraLogicState.Input.EnableInput());
           return;
         }
 
-        Input(new Input.DisableInput());
+        Input(new PlayerCameraLogicState.Input.DisableInput());
       });
 
     _playerGlobalPositionBinding = gameRepo.PlayerGlobalPosition.Bind()
-      .OnValue((playerGlobalPosition) => Input(new Input.TargetPositionChanged(playerGlobalPosition)));
+      .OnValue((playerGlobalPosition) => Input(new PlayerCameraLogicState.Input.TargetPositionChanged(playerGlobalPosition)));
   }
 
   public override void OnStop()

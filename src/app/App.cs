@@ -76,31 +76,31 @@ public partial class App : CanvasLayer, IApp
     AppBinding = AppLogic.Bind();
 
     AppBinding
-      .OnOutput((in AppLogic.Output.ShowSplashScreen _) =>
+      .OnOutput((in AppLogicState.Output.ShowSplashScreen _) =>
       {
         HideMenus();
         BlankScreen.Hide();
         Splash.Show();
       })
-      .OnOutput((in AppLogic.Output.HideSplashScreen _) =>
+      .OnOutput((in AppLogicState.Output.HideSplashScreen _) =>
       {
         BlankScreen.Show();
         FadeToBlack();
       })
-      .OnOutput((in AppLogic.Output.RemoveExistingGame _) =>
+      .OnOutput((in AppLogicState.Output.RemoveExistingGame _) =>
       {
         GamePreview.RemoveChildEx(Game);
         Game.QueueFree();
         Game = default!;
       })
-      .OnOutput((in AppLogic.Output.SetupGameScene _) =>
+      .OnOutput((in AppLogicState.Output.SetupGameScene _) =>
       {
         Game = Instantiator.LoadAndInstantiate<Game>(GAME_SCENE_PATH);
         GamePreview.AddChildEx(Game);
 
         Instantiator.SceneTree.Paused = false;
       })
-      .OnOutput((in AppLogic.Output.ShowMainMenu _) =>
+      .OnOutput((in AppLogicState.Output.ShowMainMenu _) =>
       {
         // Load everything while we're showing a black screen, then fade in.
         HideMenus();
@@ -109,15 +109,15 @@ public partial class App : CanvasLayer, IApp
 
         FadeInFromBlack();
       })
-      .OnOutput((in AppLogic.Output.FadeToBlack _) => FadeToBlack())
-      .OnOutput((in AppLogic.Output.ShowGame _) =>
+      .OnOutput((in AppLogicState.Output.FadeToBlack _) => FadeToBlack())
+      .OnOutput((in AppLogicState.Output.ShowGame _) =>
       {
         HideMenus();
         FadeInFromBlack();
       })
-      .OnOutput((in AppLogic.Output.HideGame _) => FadeToBlack())
+      .OnOutput((in AppLogicState.Output.HideGame _) => FadeToBlack())
       .OnOutput(
-        (in AppLogic.Output.StartLoadingSaveFile _) =>
+        (in AppLogicState.Output.StartLoadingSaveFile _) =>
         {
           Game.SaveFileLoaded += OnSaveFileLoaded;
           Game.LoadExistingGame();
@@ -128,9 +128,9 @@ public partial class App : CanvasLayer, IApp
     AppLogic.Start();
   }
 
-  public void OnNewGame() => AppLogic.Input(new AppLogic.Input.NewGame());
+  public void OnNewGame() => AppLogic.Input(new AppLogicState.Input.NewGame());
 
-  public void OnLoadGame() => AppLogic.Input(new AppLogic.Input.LoadGame());
+  public void OnLoadGame() => AppLogic.Input(new AppLogicState.Input.LoadGame());
 
   public void OnAnimationFinished(StringName animation)
   {
@@ -140,12 +140,12 @@ public partial class App : CanvasLayer, IApp
 
     if (animation == "fade_in")
     {
-      AppLogic.Input(new AppLogic.Input.FadeInFinished());
+      AppLogic.Input(new AppLogicState.Input.FadeInFinished());
       BlankScreen.Hide();
       return;
     }
 
-    AppLogic.Input(new AppLogic.Input.FadeOutFinished());
+    AppLogic.Input(new AppLogicState.Input.FadeOutFinished());
   }
 
   public void FadeInFromBlack()
@@ -181,6 +181,6 @@ public partial class App : CanvasLayer, IApp
   public void OnSaveFileLoaded()
   {
     Game.SaveFileLoaded -= OnSaveFileLoaded;
-    AppLogic.Input(new AppLogic.Input.SaveFileLoaded());
+    AppLogic.Input(new AppLogicState.Input.SaveFileLoaded());
   }
 }

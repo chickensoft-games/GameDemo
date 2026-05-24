@@ -4,18 +4,15 @@ using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class PlayerLogic
+public partial record PlayerLogicState
 {
-  public partial record BaseState
+  [Meta]
+  public abstract partial record Airborne : Alive,
+    IGet<Input.HitFloor>, IGet<Input.StartedFalling>
   {
-    [Meta]
-    public abstract partial record Airborne : Alive,
-      IGet<Input.HitFloor>, IGet<Input.StartedFalling>
-    {
-      public Type On(in Input.HitFloor input) =>
-        input.IsMovingHorizontally ? To<Moving>() : To<Idle>();
+    public Type On(in Input.HitFloor input) =>
+      input.IsMovingHorizontally ? To<Moving>() : To<Idle>();
 
-      public Type On(in Input.StartedFalling input) => To<Falling>();
-    }
+    public Type On(in Input.StartedFalling input) => To<Falling>();
   }
 }

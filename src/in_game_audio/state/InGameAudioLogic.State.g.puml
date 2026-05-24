@@ -1,10 +1,10 @@
 @startuml BaseState
-state "BaseState" as GameDemo_InGameAudioLogic_BaseState
+state "BaseState" as GameDemo_BaseState
 
-GameDemo_InGameAudioLogic_BaseState : OnCoinCollected() → PlayCoinCollected
-GameDemo_InGameAudioLogic_BaseState : OnGameEnded() → PlayPlayerDied, StopGameMusic
-GameDemo_InGameAudioLogic_BaseState : OnGameEntered() → PlayGameMusic
-GameDemo_InGameAudioLogic_BaseState : OnJumped() → PlayJump
-GameDemo_InGameAudioLogic_BaseState : OnJumpshroomUsed() → PlayBounce
-GameDemo_InGameAudioLogic_BaseState : OnMainMenuEntered() → PlayMainMenuMusic
+GameDemo_BaseState : OnCoinCollected() → PlayCoinCollected
+GameDemo_BaseState : OnGameEnded() → PlayPlayerDied, StopGameMusic
+GameDemo_BaseState : OnGameEntered() → PlayGameMusic
+GameDemo_BaseState : OnJumped() → PlayJump
+GameDemo_BaseState : OnJumpshroomUsed() → PlayBounce
+GameDemo_BaseState : OnMainMenuEntered() → PlayMainMenuMusic
 @enduml

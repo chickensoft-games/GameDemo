@@ -12,7 +12,7 @@ public class JumpshroomLogicStateLoadingTest : TestClass
   private Mock<IPushEnabled> _target = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private JumpshroomLogic.Data _data = default!;
-  private JumpshroomLogic.BaseState.Loading _state = default!;
+  private JumpshroomLogicState.Loading _state = default!;
 
   public JumpshroomLogicStateLoadingTest(Node testScene) : base(testScene) { }
 
@@ -41,7 +41,7 @@ public class JumpshroomLogicStateLoadingTest : TestClass
     _state.Enter();
 
     _context.Outputs.ShouldBe([
-      new JumpshroomLogic.Output.Animate()
+      new JumpshroomLogicState.Output.Animate()
     ]);
 
     _gameRepo.VerifyAll();
@@ -50,8 +50,8 @@ public class JumpshroomLogicStateLoadingTest : TestClass
   [Test]
   public void LaunchGoesToLaunching()
   {
-    var next = _state.On(new JumpshroomLogic.Input.Launch());
+    var next = _state.On(new JumpshroomLogicState.Input.Launch());
 
-    next.IsAssignableTo(typeof(JumpshroomLogic.BaseState.Launching)).ShouldBeTrue();
+    next.IsAssignableTo(typeof(JumpshroomLogicState.Launching)).ShouldBeTrue();
   }
 }

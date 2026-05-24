@@ -8,7 +8,7 @@ using Shouldly;
 public class PlayerLogicStateAliveAirborneFallingTest : TestClass
 {
   private StateTester _context = default!;
-  private PlayerLogic.BaseState.Falling _state = default!;
+  private PlayerLogicState.Falling _state = default!;
 
   public PlayerLogicStateAliveAirborneFallingTest(Node testScene) :
     base(testScene)
@@ -27,7 +27,7 @@ public class PlayerLogicStateAliveAirborneFallingTest : TestClass
     _state.Enter();
 
     _context.Outputs.ShouldBe([
-      new PlayerLogic.Output.Animations.Fall()
+      new PlayerLogicState.Output.Animations.Fall()
     ]);
   }
 }

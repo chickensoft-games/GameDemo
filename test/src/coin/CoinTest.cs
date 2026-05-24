@@ -86,7 +86,7 @@ public partial class CoinTest : TestClass
   {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(in It.Ref<CoinLogic.Input.PhysicsProcess>.IsAny)
+      logic => logic.Input(in It.Ref<CoinLogicState.Input.PhysicsProcess>.IsAny)
     );
 
     _coin.OnPhysicsProcess(1f);
@@ -99,7 +99,7 @@ public partial class CoinTest : TestClass
   {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(in It.Ref<CoinLogic.Input.StartCollection>.IsAny)
+      logic => logic.Input(in It.Ref<CoinLogicState.Input.StartCollection>.IsAny)
     );
     var collector = new FakeCoinCollector();
 
@@ -112,7 +112,7 @@ public partial class CoinTest : TestClass
   public void StartsCollectionProcess()
   {
     _coin.OnResolved();
-    var state = new Mock<CoinLogic.BaseState.Collecting>();
+    var state = new Mock<CoinLogicState.Collecting>();
     _animPlayer.Setup(player => player.Play("collect", -1, 1, false));
 
     _binding.SetState(state.Object);
@@ -144,11 +144,11 @@ public partial class CoinTest : TestClass
     var fixture = new Fixture(tree);
     await fixture.AddToRoot(_coin);
 
-    _binding.Output(new CoinLogic.Output.Move(Vector3.One));
+    _binding.Output(new CoinLogicState.Output.Move(Vector3.One));
 
     _coin.GlobalPosition.ShouldBe(Vector3.One);
 
-    _binding.Output(new CoinLogic.Output.SelfDestruct());
+    _binding.Output(new CoinLogicState.Output.SelfDestruct());
 
     _coin.IsQueuedForDeletion().ShouldBeTrue();
 

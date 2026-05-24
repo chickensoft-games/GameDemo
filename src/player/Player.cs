@@ -174,9 +174,9 @@ IProvide<PlayerLogic.Settings>
     GameRepo.SetPlayerGlobalPosition(GlobalPosition);
 
     PlayerBinding
-      .OnOutput((in PlayerLogic.Output.MovementComputed output) =>
+      .OnOutput((in PlayerLogicState.Output.MovementComputed output) =>
         Velocity = output.Velocity)
-      .OnOutput((in PlayerLogic.Output.VelocityChanged output) =>
+      .OnOutput((in PlayerLogicState.Output.VelocityChanged output) =>
         Velocity = output.Velocity
       );
 
@@ -189,7 +189,7 @@ IProvide<PlayerLogic.Settings>
 
   public void OnPhysicsProcess(double delta)
   {
-    PlayerLogic.Input(new PlayerLogic.Input.PhysicsTick(delta));
+    PlayerLogic.Input(new PlayerLogicState.Input.PhysicsTick(delta));
 
     var jumpPressed = Input.IsActionPressed(GameInputs.Jump);
     var jumpJustPressed = Input.IsActionJustPressed(GameInputs.Jump);
@@ -197,13 +197,13 @@ IProvide<PlayerLogic.Settings>
     if (ShouldJump(jumpPressed, jumpJustPressed))
     {
       PlayerLogic.Input(
-        new PlayerLogic.Input.Jump(delta)
+        new PlayerLogicState.Input.Jump(delta)
       );
     }
 
     MoveAndSlide();
 
-    PlayerLogic.Input(new PlayerLogic.Input.Moved(GlobalPosition));
+    PlayerLogic.Input(new PlayerLogicState.Input.Moved(GlobalPosition));
   }
 
   public static bool ShouldJump(bool jumpPressed, bool jumpJustPressed) =>
@@ -257,7 +257,7 @@ IProvide<PlayerLogic.Settings>
   #region IPushEnabled
 
   public void Push(Vector3 force) =>
-    PlayerLogic.Input(new PlayerLogic.Input.Pushed(force));
+    PlayerLogic.Input(new PlayerLogicState.Input.Pushed(force));
 
   #endregion IPushEnabled
 
@@ -269,7 +269,7 @@ IProvide<PlayerLogic.Settings>
 
   #region IKillable
 
-  public void Kill() => PlayerLogic.Input(new PlayerLogic.Input.Killed());
+  public void Kill() => PlayerLogic.Input(new PlayerLogicState.Input.Killed());
 
   #endregion IKillable
 }

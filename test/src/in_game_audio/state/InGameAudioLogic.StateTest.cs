@@ -10,7 +10,7 @@ public class InGameAudioLogicStateTest : TestClass
   private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
-  private InGameAudioLogic.BaseState _state = default!;
+  private InGameAudioLogicState _state = default!;
 
   public InGameAudioLogicStateTest(Node testScene) : base(testScene) { }
 
@@ -32,7 +32,7 @@ public class InGameAudioLogicStateTest : TestClass
     _state.OnCoinCollected();
 
     _context.Outputs.ShouldBe([
-      new InGameAudioLogic.Output.PlayCoinCollected()
+      new InGameAudioLogicState.Output.PlayCoinCollected()
     ]);
   }
 
@@ -42,7 +42,7 @@ public class InGameAudioLogicStateTest : TestClass
     _state.OnJumpshroomUsed();
 
     _context.Outputs.ShouldBe([
-      new InGameAudioLogic.Output.PlayBounce()
+      new InGameAudioLogicState.Output.PlayBounce()
     ]);
   }
 
@@ -52,8 +52,8 @@ public class InGameAudioLogicStateTest : TestClass
     _state.OnGameEnded(GameOverReason.Lost);
 
     _context.Outputs.ShouldBe([
-      new InGameAudioLogic.Output.StopGameMusic(),
-      new InGameAudioLogic.Output.PlayPlayerDied()
+      new InGameAudioLogicState.Output.StopGameMusic(),
+      new InGameAudioLogicState.Output.PlayPlayerDied()
     ]);
   }
 
@@ -63,7 +63,7 @@ public class InGameAudioLogicStateTest : TestClass
     _state.OnGameEnded(GameOverReason.Won);
 
     _context.Outputs.ShouldBe([
-      new InGameAudioLogic.Output.StopGameMusic()
+      new InGameAudioLogicState.Output.StopGameMusic()
     ]);
   }
 
@@ -73,7 +73,7 @@ public class InGameAudioLogicStateTest : TestClass
     _state.OnJumped();
 
     _context.Outputs.ShouldBe([
-      new InGameAudioLogic.Output.PlayJump()
+      new InGameAudioLogicState.Output.PlayJump()
     ]);
   }
 
@@ -83,7 +83,7 @@ public class InGameAudioLogicStateTest : TestClass
     _state.OnMainMenuEntered();
 
     _context.Outputs.ShouldBe([
-      new InGameAudioLogic.Output.PlayMainMenuMusic()
+      new InGameAudioLogicState.Output.PlayMainMenuMusic()
     ]);
   }
 
@@ -93,7 +93,7 @@ public class InGameAudioLogicStateTest : TestClass
     _state.OnGameEntered();
 
     _context.Outputs.ShouldBe([
-      new InGameAudioLogic.Output.PlayGameMusic()
+      new InGameAudioLogicState.Output.PlayGameMusic()
     ]);
   }
 }

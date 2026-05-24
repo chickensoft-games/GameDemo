@@ -107,7 +107,7 @@ public class PlayerCameraTest : TestClass
 
     _logic.Setup(
       logic => logic.Input(
-        in It.Ref<PlayerCameraLogic.Input.PhysicsTicked>.IsAny
+        in It.Ref<PlayerCameraLogicState.Input.PhysicsTicked>.IsAny
       )
     );
     _playerCam.OnPhysicsProcess(1d);
@@ -123,7 +123,7 @@ public class PlayerCameraTest : TestClass
     var motion = new InputEventMouseMotion();
     _logic.Setup(
       logic => logic.Input(
-        in It.Ref<PlayerCameraLogic.Input.MouseInputOccurred>.IsAny
+        in It.Ref<PlayerCameraLogicState.Input.MouseInputOccurred>.IsAny
       )
     );
 
@@ -164,7 +164,7 @@ public class PlayerCameraTest : TestClass
     _playerCam.OnResolved();
 
     _binding.Output(
-      new PlayerCameraLogic.Output.GimbalRotationChanged(
+      new PlayerCameraLogicState.Output.GimbalRotationChanged(
         Vector3.Up, Vector3.Up
       )
     );
@@ -187,7 +187,7 @@ public class PlayerCameraTest : TestClass
     _playerCam.OnResolved();
 
     _binding.Output(
-      new PlayerCameraLogic.Output.GlobalTransformChanged(transform)
+      new PlayerCameraLogicState.Output.GlobalTransformChanged(transform)
     );
 
     _playerCam.GlobalTransform.ShouldBe(transform);
@@ -203,7 +203,7 @@ public class PlayerCameraTest : TestClass
     _playerCam.OnResolved();
 
     _binding.Output(
-      new PlayerCameraLogic.Output.CameraLocalPositionChanged(value)
+      new PlayerCameraLogicState.Output.CameraLocalPositionChanged(value)
     );
 
     _cameraNode.VerifyAll();
@@ -217,7 +217,7 @@ public class PlayerCameraTest : TestClass
     _playerCam.OnResolved();
 
     _binding.Output(
-      new PlayerCameraLogic.Output.CameraOffsetChanged(value)
+      new PlayerCameraLogicState.Output.CameraOffsetChanged(value)
     );
 
     _offsetNode.VerifyAll();

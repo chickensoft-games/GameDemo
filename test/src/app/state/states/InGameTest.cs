@@ -9,7 +9,7 @@ using Shouldly;
 public class InGameTest : TestClass
 {
   private StateTester _tester = default!;
-  private AppLogic.BaseState.InGame _state = default!;
+  private AppLogicState.InGame _state = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private AppLogic.Data _data = default!;
 
@@ -34,7 +34,7 @@ public class InGameTest : TestClass
     _state.Enter();
 
     _appRepo.VerifyAll();
-    _tester.Outputs[0].ShouldBeOfType<AppLogic.Output.ShowGame>();
+    _tester.Outputs[0].ShouldBeOfType<AppLogicState.Output.ShowGame>();
   }
 
   [Test]
@@ -42,7 +42,7 @@ public class InGameTest : TestClass
   {
     _state.Exit();
 
-    _tester.Outputs[0].ShouldBeOfType<AppLogic.Output.HideGame>();
+    _tester.Outputs[0].ShouldBeOfType<AppLogicState.Output.HideGame>();
   }
 
   [Test]
@@ -51,7 +51,7 @@ public class InGameTest : TestClass
     _state.OnRestartGameRequested();
 
     var input = _tester.Inputs.Single()
-      .ShouldBeOfType<AppLogic.Input.EndGame>();
+      .ShouldBeOfType<AppLogicState.Input.EndGame>();
 
     input.PostGameAction.ShouldBe(PostGameAction.RestartGame);
   }
@@ -62,7 +62,7 @@ public class InGameTest : TestClass
     _state.OnGameExited(PostGameAction.RestartGame);
 
     var input = _tester.Inputs.Single()
-      .ShouldBeOfType<AppLogic.Input.EndGame>();
+      .ShouldBeOfType<AppLogicState.Input.EndGame>();
 
     input.PostGameAction.ShouldBe(PostGameAction.RestartGame);
   }
@@ -70,11 +70,11 @@ public class InGameTest : TestClass
   [Test]
   public void OnEndGame()
   {
-    _tester.Set(new AppLogic.BaseState.LeavingGame());
+    _tester.Set(new AppLogicState.LeavingGame());
 
     var result =
-      _state.On(new AppLogic.Input.EndGame(PostGameAction.RestartGame));
+      _state.On(new AppLogicState.Input.EndGame(PostGameAction.RestartGame));
 
-    result.IsAssignableTo(typeof(AppLogic.BaseState.LeavingGame)).ShouldBeTrue();
+    result.IsAssignableTo(typeof(AppLogicState.LeavingGame)).ShouldBeTrue();
   }
 }

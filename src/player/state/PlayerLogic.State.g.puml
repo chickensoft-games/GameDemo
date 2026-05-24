@@ -1,46 +1,46 @@
-@startuml BaseState
-state "BaseState" as GameDemo_PlayerLogic_BaseState {
-  state "Alive" as GameDemo_PlayerLogic_BaseState_Alive {
-    state "Airborne" as GameDemo_PlayerLogic_BaseState_Airborne {
-      state "Falling" as GameDemo_PlayerLogic_BaseState_Falling
-      state "Jumping" as GameDemo_PlayerLogic_BaseState_Jumping
-      state "Liftoff" as GameDemo_PlayerLogic_BaseState_Liftoff
+@startuml PlayerLogicState
+state "PlayerLogicState" as GameDemo_PlayerLogicState {
+  state "Alive" as GameDemo_PlayerLogicState_Alive {
+    state "Airborne" as GameDemo_PlayerLogicState_Airborne {
+      state "Falling" as GameDemo_PlayerLogicState_Falling
+      state "Jumping" as GameDemo_PlayerLogicState_Jumping
+      state "Liftoff" as GameDemo_PlayerLogicState_Liftoff
       state "TestPlayerState" as GameDemo_Tests_PlayerLogicStateAliveAirborneTest_TestPlayerState
     }
-    state "Grounded" as GameDemo_PlayerLogic_BaseState_Grounded {
-      state "Idle" as GameDemo_PlayerLogic_BaseState_Idle
-      state "Moving" as GameDemo_PlayerLogic_BaseState_Moving
+    state "Grounded" as GameDemo_PlayerLogicState_Grounded {
+      state "Idle" as GameDemo_PlayerLogicState_Idle
+      state "Moving" as GameDemo_PlayerLogicState_Moving
       state "TestPlayerState" as GameDemo_Tests_PlayerLogicStateAliveGroundedTest_TestPlayerState
     }
     state "TestPlayerState" as GameDemo_Tests_PlayerLogicStateAliveTest_TestPlayerState
   }
-  state "Dead" as GameDemo_PlayerLogic_BaseState_Dead
-  state "Disabled" as GameDemo_PlayerLogic_BaseState_Disabled
+  state "Dead" as GameDemo_PlayerLogicState_Dead
+  state "Disabled" as GameDemo_PlayerLogicState_Disabled
 }
 
-GameDemo_PlayerLogic_BaseState_Airborne --> GameDemo_PlayerLogic_BaseState_Falling : StartedFalling
-GameDemo_PlayerLogic_BaseState_Airborne --> GameDemo_PlayerLogic_BaseState_Idle : HitFloor
-GameDemo_PlayerLogic_BaseState_Airborne --> GameDemo_PlayerLogic_BaseState_Moving : HitFloor
-GameDemo_PlayerLogic_BaseState_Alive --> GameDemo_PlayerLogic_BaseState_Alive : Moved
-GameDemo_PlayerLogic_BaseState_Alive --> GameDemo_PlayerLogic_BaseState_Alive : PhysicsTick
-GameDemo_PlayerLogic_BaseState_Alive --> GameDemo_PlayerLogic_BaseState_Alive : Pushed
-GameDemo_PlayerLogic_BaseState_Alive --> GameDemo_PlayerLogic_BaseState_Dead : Killed
-GameDemo_PlayerLogic_BaseState_Disabled --> GameDemo_PlayerLogic_BaseState_Idle : Enable
-GameDemo_PlayerLogic_BaseState_Grounded --> GameDemo_PlayerLogic_BaseState_Falling : LeftFloor
-GameDemo_PlayerLogic_BaseState_Grounded --> GameDemo_PlayerLogic_BaseState_Jumping : Jump
-GameDemo_PlayerLogic_BaseState_Grounded --> GameDemo_PlayerLogic_BaseState_Liftoff : LeftFloor
-GameDemo_PlayerLogic_BaseState_Idle --> GameDemo_PlayerLogic_BaseState_Moving : StartedMovingHorizontally
-GameDemo_PlayerLogic_BaseState_Jumping --> GameDemo_PlayerLogic_BaseState_Jumping : Jump
-GameDemo_PlayerLogic_BaseState_Moving --> GameDemo_PlayerLogic_BaseState_Idle : StoppedMovingHorizontally
+GameDemo_PlayerLogicState_Airborne --> GameDemo_PlayerLogicState_Falling : StartedFalling
+GameDemo_PlayerLogicState_Airborne --> GameDemo_PlayerLogicState_Idle : HitFloor
+GameDemo_PlayerLogicState_Airborne --> GameDemo_PlayerLogicState_Moving : HitFloor
+GameDemo_PlayerLogicState_Alive --> GameDemo_PlayerLogicState_Alive : Moved
+GameDemo_PlayerLogicState_Alive --> GameDemo_PlayerLogicState_Alive : PhysicsTick
+GameDemo_PlayerLogicState_Alive --> GameDemo_PlayerLogicState_Alive : Pushed
+GameDemo_PlayerLogicState_Alive --> GameDemo_PlayerLogicState_Dead : Killed
+GameDemo_PlayerLogicState_Disabled --> GameDemo_PlayerLogicState_Idle : Enable
+GameDemo_PlayerLogicState_Grounded --> GameDemo_PlayerLogicState_Falling : LeftFloor
+GameDemo_PlayerLogicState_Grounded --> GameDemo_PlayerLogicState_Jumping : Jump
+GameDemo_PlayerLogicState_Grounded --> GameDemo_PlayerLogicState_Liftoff : LeftFloor
+GameDemo_PlayerLogicState_Idle --> GameDemo_PlayerLogicState_Moving : StartedMovingHorizontally
+GameDemo_PlayerLogicState_Jumping --> GameDemo_PlayerLogicState_Jumping : Jump
+GameDemo_PlayerLogicState_Moving --> GameDemo_PlayerLogicState_Idle : StoppedMovingHorizontally
 
-GameDemo_PlayerLogic_BaseState_Alive : OnPhysicsTick → MovementComputed
-GameDemo_PlayerLogic_BaseState_Alive : OnPushed → VelocityChanged
-GameDemo_PlayerLogic_BaseState_Disabled : OnEnter → Idle
-GameDemo_PlayerLogic_BaseState_Falling : OnEnter → Fall
-GameDemo_PlayerLogic_BaseState_Grounded : OnJump → VelocityChanged
-GameDemo_PlayerLogic_BaseState_Idle : OnEnter → Idle
-GameDemo_PlayerLogic_BaseState_Jumping : OnEnter → Jump
-GameDemo_PlayerLogic_BaseState_Jumping : OnJump → VelocityChanged
-GameDemo_PlayerLogic_BaseState_Liftoff : OnEnter → Jump
-GameDemo_PlayerLogic_BaseState_Moving : OnEnter → Move
+GameDemo_PlayerLogicState_Alive : OnPhysicsTick → MovementComputed
+GameDemo_PlayerLogicState_Alive : OnPushed → VelocityChanged
+GameDemo_PlayerLogicState_Disabled : OnEnter → Idle
+GameDemo_PlayerLogicState_Falling : OnEnter → Fall
+GameDemo_PlayerLogicState_Grounded : OnJump → VelocityChanged
+GameDemo_PlayerLogicState_Idle : OnEnter → Idle
+GameDemo_PlayerLogicState_Jumping : OnEnter → Jump
+GameDemo_PlayerLogicState_Jumping : OnJump → VelocityChanged
+GameDemo_PlayerLogicState_Liftoff : OnEnter → Jump
+GameDemo_PlayerLogicState_Moving : OnEnter → Move
 @enduml

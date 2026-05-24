@@ -3,19 +3,16 @@ namespace GameDemo;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class GameLogic
+public partial record GameLogicState
 {
-  public partial record BaseState
+  [Meta]
+  public partial record Quit : GameLogicState
   {
-    [Meta]
-    public partial record Quit : BaseState
+    public Quit()
     {
-      public Quit()
-      {
-        this.OnEnter(
-          () => Get<IAppRepo>().OnExitGame(PostGameAction.GoToMainMenu)
-        );
-      }
+      this.OnEnter(
+        () => Get<IAppRepo>().OnExitGame(PostGameAction.GoToMainMenu)
+      );
     }
   }
 }

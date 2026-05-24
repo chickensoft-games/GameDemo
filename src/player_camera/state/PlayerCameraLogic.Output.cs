@@ -2,7 +2,7 @@ namespace GameDemo;
 
 using Godot;
 
-public partial class PlayerCameraLogic
+public abstract partial record PlayerCameraLogicState
 {
   public static class Output
   {

@@ -39,7 +39,7 @@ public class GameLogicTest : TestClass
   {
     _logic
       .GetInitialState()
-      .IsAssignableTo(typeof(GameLogic.BaseState)).ShouldBeTrue();
+      .IsAssignableTo(typeof(GameLogicState)).ShouldBeTrue();
   }
 
   [Test]
@@ -49,7 +49,7 @@ public class GameLogicTest : TestClass
     using var binding = _logic.Bind();
 
     binding.OnOutput(
-      (in GameLogic.Output.CaptureMouse output) => outputs.Add(output)
+      (in GameLogicState.Output.CaptureMouse output) => outputs.Add(output)
     );
 
     _logic.Start();
@@ -58,7 +58,7 @@ public class GameLogicTest : TestClass
 
     _gameRepo.SetIsMouseCaptured(true);
 
-    outputs.ShouldContain(new GameLogic.Output.CaptureMouse(true));
+    outputs.ShouldContain(new GameLogicState.Output.CaptureMouse(true));
   }
 
   [Test]
@@ -68,7 +68,7 @@ public class GameLogicTest : TestClass
     using var binding = _logic.Bind();
 
     binding.OnOutput(
-      (in GameLogic.Output.SetPauseMode output) => outputs.Add(output)
+      (in GameLogicState.Output.SetPauseMode output) => outputs.Add(output)
     );
 
     _logic.Start();
@@ -77,7 +77,7 @@ public class GameLogicTest : TestClass
 
     _gameRepo.Pause();
 
-    outputs.ShouldContain(new GameLogic.Output.SetPauseMode(true));
+    outputs.ShouldContain(new GameLogicState.Output.SetPauseMode(true));
   }
 
   [Test]

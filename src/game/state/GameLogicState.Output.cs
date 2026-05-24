@@ -1,6 +1,6 @@
 namespace GameDemo;
 
-public partial class GameLogic
+public partial record GameLogicState
 {
   public static class Output
   {

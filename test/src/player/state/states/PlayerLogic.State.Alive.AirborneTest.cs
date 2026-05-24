@@ -10,9 +10,9 @@ using Shouldly;
 public partial class PlayerLogicStateAliveAirborneTest : TestClass
 {
   [Meta, TestState]
-  public partial record TestPlayerState : PlayerLogic.BaseState.Airborne;
+  public partial record TestPlayerState : PlayerLogicState.Airborne;
 
-  private PlayerLogic.BaseState.Airborne _state = default!;
+  private PlayerLogicState.Airborne _state = default!;
 
   public PlayerLogicStateAliveAirborneTest(Node testScene) :
     base(testScene)
@@ -28,24 +28,24 @@ public partial class PlayerLogicStateAliveAirborneTest : TestClass
   [Test]
   public void HitFloorGoesToMoving()
   {
-    var next = _state.On(new PlayerLogic.Input.HitFloor(true));
+    var next = _state.On(new PlayerLogicState.Input.HitFloor(true));
 
-    next.IsAssignableTo(typeof(PlayerLogic.BaseState.Moving)).ShouldBeTrue();
+    next.IsAssignableTo(typeof(PlayerLogicState.Moving)).ShouldBeTrue();
   }
 
   [Test]
   public void HitFloorGoesToIdle()
   {
-    var next = _state.On(new PlayerLogic.Input.HitFloor(false));
+    var next = _state.On(new PlayerLogicState.Input.HitFloor(false));
 
-    next.IsAssignableTo(typeof(PlayerLogic.BaseState.Idle)).ShouldBeTrue();
+    next.IsAssignableTo(typeof(PlayerLogicState.Idle)).ShouldBeTrue();
   }
 
   [Test]
   public void StartedFallingGoesToFalling()
   {
-    var next = _state.On(new PlayerLogic.Input.StartedFalling());
+    var next = _state.On(new PlayerLogicState.Input.StartedFalling());
 
-    next.IsAssignableTo(typeof(PlayerLogic.BaseState.Falling)).ShouldBeTrue();
+    next.IsAssignableTo(typeof(PlayerLogicState.Falling)).ShouldBeTrue();
   }
 }

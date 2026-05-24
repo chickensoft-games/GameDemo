@@ -11,13 +11,13 @@ using Shouldly;
 public partial class PlayerLogicStateAliveGroundedTest : TestClass
 {
   [Meta, TestState]
-  public partial record TestPlayerState : PlayerLogic.BaseState.Grounded;
+  public partial record TestPlayerState : PlayerLogicState.Grounded;
 
   private StateTester _context = default!;
   private Mock<IPlayer> _player = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private PlayerLogic.Settings _settings = default!;
-  private PlayerLogic.BaseState.Grounded _state = default!;
+  private PlayerLogicState.Grounded _state = default!;
 
   public PlayerLogicStateAliveGroundedTest(Node testScene) :
     base(testScene)
@@ -43,22 +43,22 @@ public partial class PlayerLogicStateAliveGroundedTest : TestClass
   {
     _player.Setup(player => player.Velocity).Returns(Vector3.Zero);
 
-    var next = _state.On(new PlayerLogic.Input.Jump(1d));
+    var next = _state.On(new PlayerLogicState.Input.Jump(1d));
 
-    next.IsAssignableTo(typeof(PlayerLogic.BaseState.Jumping));
+    next.IsAssignableTo(typeof(PlayerLogicState.Jumping));
 
     _context.Outputs.ShouldBeOfTypes([
-      typeof(PlayerLogic.Output.VelocityChanged)
+      typeof(PlayerLogicState.Output.VelocityChanged)
     ]);
   }
 
   [Test]
   public void LeftFloorGoesToFallingOrLiftoff()
   {
-    _state.On(new PlayerLogic.Input.LeftFloor(IsFalling: true))
-      .IsAssignableTo(typeof(PlayerLogic.BaseState.Falling));
+    _state.On(new PlayerLogicState.Input.LeftFloor(IsFalling: true))
+      .IsAssignableTo(typeof(PlayerLogicState.Falling));
 
-    _state.On(new PlayerLogic.Input.LeftFloor(IsFalling: false))
-      .IsAssignableTo(typeof(PlayerLogic.BaseState.Liftoff));
+    _state.On(new PlayerLogicState.Input.LeftFloor(IsFalling: false))
+      .IsAssignableTo(typeof(PlayerLogicState.Liftoff));
   }
 }

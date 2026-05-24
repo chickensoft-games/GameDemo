@@ -10,7 +10,7 @@ public class LeavingGameTest : TestClass
 {
   private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
-  private AppLogic.BaseState.LeavingGame _state = default!;
+  private AppLogicState.LeavingGame _state = default!;
   private AppLogic.Data _data = default!;
 
   public LeavingGameTest(Node testScene) : base(testScene) { }
@@ -29,36 +29,36 @@ public class LeavingGameTest : TestClass
   [Test]
   public void OnFadeOutFinishedGoesToMainMenu()
   {
-    var state = new AppLogic.BaseState.LeavingGame();
+    var state = new AppLogicState.LeavingGame();
     var context = state.Test();
     context.Set(new AppLogic.Data()
     {
       PostGameAction = PostGameAction.GoToMainMenu
     });
 
-    var result = state.On(new AppLogic.Input.FadeOutFinished());
+    var result = state.On(new AppLogicState.Input.FadeOutFinished());
 
-    result.IsAssignableTo(typeof(AppLogic.BaseState.MainMenu)).ShouldBeTrue();
+    result.IsAssignableTo(typeof(AppLogicState.MainMenu)).ShouldBeTrue();
     context.Outputs
-      .ShouldBe([new AppLogic.Output.RemoveExistingGame()]);
+      .ShouldBe([new AppLogicState.Output.RemoveExistingGame()]);
   }
 
   [Test]
   public void OnFadeOutFinishedRestartsGame()
   {
-    var state = new AppLogic.BaseState.LeavingGame();
+    var state = new AppLogicState.LeavingGame();
     var context = state.Test();
     context.Set(new AppLogic.Data()
     {
       PostGameAction = PostGameAction.RestartGame
     });
 
-    var result = state.On(new AppLogic.Input.FadeOutFinished());
+    var result = state.On(new AppLogicState.Input.FadeOutFinished());
 
-    result.IsAssignableTo(typeof(AppLogic.BaseState.InGame)).ShouldBeTrue();
+    result.IsAssignableTo(typeof(AppLogicState.InGame)).ShouldBeTrue();
     context.Outputs.ShouldBe([
-      new AppLogic.Output.RemoveExistingGame(),
-      new AppLogic.Output.SetupGameScene()
+      new AppLogicState.Output.RemoveExistingGame(),
+      new AppLogicState.Output.SetupGameScene()
     ]);
   }
 }

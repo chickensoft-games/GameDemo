@@ -18,6 +18,6 @@ public class PlayerLogicTest : TestClass
   {
     _logic
       .GetInitialState()
-      .IsAssignableTo(typeof(PlayerLogic.BaseState)).ShouldBeTrue();
+      .IsAssignableTo(typeof(PlayerLogicState)).ShouldBeTrue();
   }
 }

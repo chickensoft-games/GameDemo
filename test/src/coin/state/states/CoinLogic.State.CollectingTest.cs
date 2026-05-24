@@ -14,7 +14,7 @@ public class CoinLogicStateCollectingTest : TestClass
   private CoinLogic.Settings _settings = default!;
   private Mock<ICoin> _coin = default!;
   private Mock<ICoinCollector> _target = default!;
-  private CoinLogic.BaseState.Collecting _state = default!;
+  private CoinLogicState.Collecting _state = default!;
   private CoinLogic.Data _data = default!;
   private EntityTable _entityTable = default!;
 
@@ -56,7 +56,7 @@ public class CoinLogicStateCollectingTest : TestClass
   [Test]
   public void ComputesNextPositionOnPhysicsProcess()
   {
-    var input = new CoinLogic.Input.PhysicsProcess(
+    var input = new CoinLogicState.Input.PhysicsProcess(
       1.0f,
       GlobalPosition: Vector3.Zero
     );
@@ -67,8 +67,8 @@ public class CoinLogicStateCollectingTest : TestClass
     _state.On(input).ShouldBe(_state.GetType());
 
     _context.Outputs.ShouldBeOfTypes(
-      typeof(CoinLogic.Output.SelfDestruct),
-      typeof(CoinLogic.Output.Move)
+      typeof(CoinLogicState.Output.SelfDestruct),
+      typeof(CoinLogicState.Output.Move)
     );
   }
 }

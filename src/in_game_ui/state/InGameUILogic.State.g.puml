@@ -1,3 +1,0 @@
-@startuml BaseState
-state "BaseState" as GameDemo_InGameUILogic_BaseState
-@enduml

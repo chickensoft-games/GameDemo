@@ -10,7 +10,7 @@ public class MainMenuTest : TestClass
 {
   private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
-  private AppLogic.BaseState.MainMenu _state = default!;
+  private AppLogicState.MainMenu _state = default!;
   private AppLogic.Data _data = default!;
 
 
@@ -33,25 +33,25 @@ public class MainMenuTest : TestClass
     _state.Enter();
 
     _context.Outputs.ShouldBe([
-      new AppLogic.Output.SetupGameScene(),
-      new AppLogic.Output.ShowMainMenu()
+      new AppLogicState.Output.SetupGameScene(),
+      new AppLogicState.Output.ShowMainMenu()
     ]);
   }
 
   [Test]
   public void StartsGame()
   {
-    var next = _state.On(new AppLogic.Input.NewGame());
+    var next = _state.On(new AppLogicState.Input.NewGame());
 
-    next.IsAssignableTo(typeof(AppLogic.BaseState.LeavingMenu)).ShouldBeTrue();
+    next.IsAssignableTo(typeof(AppLogicState.LeavingMenu)).ShouldBeTrue();
   }
 
   [Test]
   public void LeavesMenuOnLoadGame()
   {
-    var next = _state.On(new AppLogic.Input.LoadGame());
+    var next = _state.On(new AppLogicState.Input.LoadGame());
 
-    next.IsAssignableTo(typeof(AppLogic.BaseState.LeavingMenu)).ShouldBeTrue();
+    next.IsAssignableTo(typeof(AppLogicState.LeavingMenu)).ShouldBeTrue();
 
     _data.ShouldLoadExistingGame.ShouldBeTrue();
   }

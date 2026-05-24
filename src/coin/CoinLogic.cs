@@ -11,11 +11,11 @@ public interface ICoinLogic : IAutoLogicBlock;
 [Meta, Id("coin_logic")]
 public partial class CoinLogic : AutoBlock, ICoinLogic
 {
-  public override Type GetInitialState() => typeof(BaseState.Idle);
+  public override Type GetInitialState() => typeof(CoinLogicState.Idle);
 
   public CoinLogic()
   {
-    Preallocate<BaseState>();
+    Preallocate<CoinLogicState>();
   }
 
   public record Settings(double CollectionTimeInSeconds);

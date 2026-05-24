@@ -10,7 +10,7 @@ using Shouldly;
 public class WonTest : TestClass
 {
   private StateTester _context = default!;
-  private GameLogic.BaseState.Won _state = default!;
+  private GameLogicState.Won _state = default!;
   private Mock<IAppRepo> _appRepo = default!;
 
   public WonTest(Node testScene) : base(testScene) { }
@@ -18,7 +18,7 @@ public class WonTest : TestClass
   [Setup]
   public void Setup()
   {
-    _state = new GameLogic.BaseState.Won();
+    _state = new GameLogicState.Won();
     _context = _state.Test();
 
     _appRepo = new Mock<IAppRepo>();
@@ -29,7 +29,7 @@ public class WonTest : TestClass
   public void OnEnter()
   {
     _state.Enter();
-    _context.Outputs.First().ShouldBeOfType<GameLogic.Output.ShowWonScreen>();
+    _context.Outputs.First().ShouldBeOfType<GameLogicState.Output.ShowWonScreen>();
   }
 
   [Test]
@@ -37,7 +37,7 @@ public class WonTest : TestClass
   {
     _appRepo.Setup(repo => repo.OnExitGame(PostGameAction.GoToMainMenu));
 
-    var result = _state.On(new GameLogic.Input.GoToMainMenu());
+    var result = _state.On(new GameLogicState.Input.GoToMainMenu());
 
     _appRepo.VerifyAll();
     result.ShouldBe(_state.GetType());

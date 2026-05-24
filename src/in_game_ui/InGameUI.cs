@@ -48,7 +48,7 @@ public partial class InGameUI : Control, IInGameUI
     InGameUIBinding = InGameUILogic.Bind();
 
     InGameUIBinding
-      .OnOutput((in InGameUILogic.Output.NumCoinsChanged output) =>
+      .OnOutput((in InGameUILogicState.Output.NumCoinsChanged output) =>
         SetCoinsLabel(
           output.NumCoinsCollected, output.NumCoinsAtStart
         )

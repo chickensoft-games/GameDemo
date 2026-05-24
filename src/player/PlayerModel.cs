@@ -69,24 +69,24 @@ public partial class PlayerModel : Node3D
     PlayerBinding = PlayerLogic.Bind();
 
     PlayerBinding
-      .OnOutput((in PlayerLogic.Output.Animations.Idle output) =>
+      .OnOutput((in PlayerLogicState.Output.Animations.Idle output) =>
         AnimationStateMachine.Travel("idle")
       )
-      .OnOutput((in PlayerLogic.Output.Animations.Move output) =>
+      .OnOutput((in PlayerLogicState.Output.Animations.Move output) =>
         AnimationStateMachine.Travel("run")
       )
-      .OnOutput((in PlayerLogic.Output.Animations.Jump output) =>
+      .OnOutput((in PlayerLogicState.Output.Animations.Jump output) =>
         AnimationStateMachine.Travel("jump")
       )
-      .OnOutput((in PlayerLogic.Output.Animations.Fall output) =>
+      .OnOutput((in PlayerLogicState.Output.Animations.Fall output) =>
         AnimationStateMachine.Travel("fall")
       )
-      .OnOutput((in PlayerLogic.Output.MoveSpeedChanged output) =>
+      .OnOutput((in PlayerLogicState.Output.MoveSpeedChanged output) =>
         AnimationTree.Set(
           "parameters/main_animations/move/blend_position", output.Speed
         )
       )
-      .OnOutput((in PlayerLogic.Output.MovementComputed output) =>
+      .OnOutput((in PlayerLogicState.Output.MovementComputed output) =>
       {
         var rotation = output.Rotation.GetEuler();
         var direction = output.Direction * -1;
@@ -113,7 +113,7 @@ public partial class PlayerModel : Node3D
 
   public static float GetTarget(float angleDiff, LogicBlockState? state)
   {
-    if (state is PlayerLogic.BaseState.Grounded)
+    if (state is PlayerLogicState.Grounded)
     {
       return angleDiff;
     }

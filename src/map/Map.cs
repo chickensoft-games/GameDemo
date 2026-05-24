@@ -113,7 +113,7 @@ public partial class Map : Node3D, IMap
           data.CoinsBeingCollected.Count;
 
         MapLogic.Input(
-          new MapLogic.Input.GameLoadedFromSaveFile(
+          new MapLogicState.Input.GameLoadedFromSaveFile(
             NumCoinsCollected: numCoinsCollected
           )
         );

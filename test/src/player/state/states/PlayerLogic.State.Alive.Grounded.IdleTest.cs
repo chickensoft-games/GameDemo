@@ -8,7 +8,7 @@ using Shouldly;
 public class PlayerLogicStateAliveGroundedIdleTest : TestClass
 {
   private StateTester _context = default!;
-  private PlayerLogic.BaseState.Idle _state = default!;
+  private PlayerLogicState.Idle _state = default!;
 
   public PlayerLogicStateAliveGroundedIdleTest(Node testScene) :
     base(testScene)
@@ -27,15 +27,15 @@ public class PlayerLogicStateAliveGroundedIdleTest : TestClass
     _state.Enter();
 
     _context.Outputs.ShouldBe([
-      new PlayerLogic.Output.Animations.Idle()
+      new PlayerLogicState.Output.Animations.Idle()
     ]);
   }
 
   [Test]
   public void OnStartedMovingHorizontallyGoesToMoving()
   {
-    var next = _state.On(new PlayerLogic.Input.StartedMovingHorizontally());
+    var next = _state.On(new PlayerLogicState.Input.StartedMovingHorizontally());
 
-    next.IsAssignableTo(typeof(PlayerLogic.BaseState.Moving));
+    next.IsAssignableTo(typeof(PlayerLogicState.Moving));
   }
 }

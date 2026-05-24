@@ -8,7 +8,7 @@ using Moq;
 public class RestartingGameTest : TestClass
 {
   private StateTester _context = default!;
-  private GameLogic.BaseState.RestartingGame _state = default!;
+  private GameLogicState.RestartingGame _state = default!;
   private Mock<IAppRepo> _appRepo = default!;
 
   public RestartingGameTest(Node testScene) : base(testScene) { }
@@ -16,7 +16,7 @@ public class RestartingGameTest : TestClass
   [Setup]
   public void Setup()
   {
-    _state = new GameLogic.BaseState.RestartingGame();
+    _state = new GameLogicState.RestartingGame();
     _context = _state.Test();
 
     _appRepo = new Mock<IAppRepo>();

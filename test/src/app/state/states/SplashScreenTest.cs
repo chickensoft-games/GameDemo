@@ -9,7 +9,7 @@ public class SplashScreenTest : TestClass
 {
   private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
-  private AppLogic.BaseState.SplashScreen _state = default!;
+  private AppLogicState.SplashScreen _state = default!;
   private AppLogic.Data _data = default!;
 
   public SplashScreenTest(Node testScene) : base(testScene) { }
@@ -29,15 +29,15 @@ public class SplashScreenTest : TestClass
   public void OnEnter()
   {
     _state.Enter();
-    _context.Outputs.ShouldBe([new AppLogic.Output.ShowSplashScreen()]);
+    _context.Outputs.ShouldBe([new AppLogicState.Output.ShowSplashScreen()]);
   }
 
   [Test]
   public void RespondsToFadeOutFinished()
   {
-    var next = _state.On(new AppLogic.Input.FadeOutFinished());
+    var next = _state.On(new AppLogicState.Input.FadeOutFinished());
 
-    next.IsAssignableTo(typeof(AppLogic.BaseState.MainMenu)).ShouldBeTrue();
+    next.IsAssignableTo(typeof(AppLogicState.MainMenu)).ShouldBeTrue();
   }
 
   [Test]
@@ -45,6 +45,6 @@ public class SplashScreenTest : TestClass
   {
     _state.OnSplashScreenSkipped();
 
-    _context.Outputs.ShouldBe([new AppLogic.Output.HideSplashScreen()]);
+    _context.Outputs.ShouldBe([new AppLogicState.Output.HideSplashScreen()]);
   }
 }

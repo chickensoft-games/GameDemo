@@ -2,7 +2,7 @@ namespace GameDemo;
 
 using Godot;
 
-public partial class PlayerLogic
+public abstract partial record PlayerLogicState
 {
   public static class Input
   {

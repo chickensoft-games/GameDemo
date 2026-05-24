@@ -10,7 +10,7 @@ public class JumpshroomLogicStateIdleTest : TestClass
 {
   private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
-  private JumpshroomLogic.BaseState.Idle _state = default!;
+  private JumpshroomLogicState.Idle _state = default!;
 
   public JumpshroomLogicStateIdleTest(Node testScene) : base(testScene) { }
 
@@ -29,9 +29,9 @@ public class JumpshroomLogicStateIdleTest : TestClass
   public void HitGoesToLoading()
   {
     var target = new Mock<IPushEnabled>();
-    var next = _state.On(new JumpshroomLogic.Input.Hit(target.Object));
+    var next = _state.On(new JumpshroomLogicState.Input.Hit(target.Object));
 
-    next.IsAssignableTo(typeof(JumpshroomLogic.BaseState.Loading)).ShouldBeTrue();
+    next.IsAssignableTo(typeof(JumpshroomLogicState.Loading)).ShouldBeTrue();
     _state.Get<JumpshroomLogic.Data>().Target.ShouldBe(target.Object);
 
     _appRepo.VerifyAll();

@@ -10,7 +10,7 @@ using Shouldly;
 public class PausedTest : TestClass
 {
   private StateTester _context = default!;
-  private GameLogic.BaseState.Paused _state = default!;
+  private GameLogicState.Paused _state = default!;
   private Mock<IGameRepo> _gameRepo = default!;
 
   public PausedTest(Node testScene) : base(testScene) { }
@@ -18,7 +18,7 @@ public class PausedTest : TestClass
   [Setup]
   public void Setup()
   {
-    _state = new GameLogic.BaseState.Paused();
+    _state = new GameLogicState.Paused();
     _context = _state.Test();
 
     _gameRepo = new();
@@ -30,7 +30,7 @@ public class PausedTest : TestClass
   {
     _gameRepo.Setup(repo => repo.Pause());
     _state.Enter();
-    _context.Outputs.Single().ShouldBeOfType<GameLogic.Output.ShowPauseMenu>();
+    _context.Outputs.Single().ShouldBeOfType<GameLogicState.Output.ShowPauseMenu>();
     _gameRepo.VerifyAll();
   }
 
@@ -38,27 +38,27 @@ public class PausedTest : TestClass
   public void OnExit()
   {
     _state.Exit();
-    _context.Outputs.Single().ShouldBeOfType<GameLogic.Output.ExitPauseMenu>();
+    _context.Outputs.Single().ShouldBeOfType<GameLogicState.Output.ExitPauseMenu>();
   }
 
   [Test]
   public void OnPauseButtonPressed()
   {
-    var result = _state.On(new GameLogic.Input.PauseButtonPressed());
-    result.ShouldBe(typeof(GameLogic.BaseState.Resuming));
+    var result = _state.On(new GameLogicState.Input.PauseButtonPressed());
+    result.ShouldBe(typeof(GameLogicState.Resuming));
   }
 
   [Test]
   public void OnGameSaveRequested()
   {
-    var result = _state.On(new GameLogic.Input.SaveRequested());
-    result.ShouldBe(typeof(GameLogic.BaseState.Saving));
+    var result = _state.On(new GameLogicState.Input.SaveRequested());
+    result.ShouldBe(typeof(GameLogicState.Saving));
   }
 
   [Test]
   public void OnGoToMainMenu()
   {
-    var result = _state.On(new GameLogic.Input.GoToMainMenu());
-    result.ShouldBe(typeof(GameLogic.BaseState.Quit));
+    var result = _state.On(new GameLogicState.Input.GoToMainMenu());
+    result.ShouldBe(typeof(GameLogicState.Quit));
   }
 }

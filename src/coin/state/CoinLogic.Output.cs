@@ -2,7 +2,7 @@ namespace GameDemo;
 
 using Godot;
 
-public partial class CoinLogic
+public abstract partial record CoinLogicState
 {
   public static class Output
   {

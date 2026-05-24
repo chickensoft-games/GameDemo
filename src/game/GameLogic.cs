@@ -15,28 +15,28 @@ public partial class GameLogic : AutoBlock, IGameLogic
   private AutoValue<bool>.Binding? _isMouseCapturedBinding;
   private AutoValue<bool>.Binding? _isPausedBinding;
 
-  public override Type GetInitialState() => typeof(BaseState.MenuBackdrop);
+  public override Type GetInitialState() => typeof(GameLogicState.MenuBackdrop);
 
   public GameLogic()
   {
-    Preallocate<BaseState>();
+    Preallocate<GameLogicState>();
   }
 
   public override IEnumerable<IDisposable> OnStartSubscriptions()
   {
     yield return Get<IAppRepo>().AutoChannel.Bind()
-      .On((in IAppRepo.GameEntered _) => (State as BaseState.MenuBackdrop)?.OnGameEntered());
+      .On((in IAppRepo.GameEntered _) => (State as GameLogicState.MenuBackdrop)?.OnGameEntered());
     yield return Get<IGameRepo>().AutoChannel.Bind()
-      .On((in IGameRepo.Ended message) => (State as BaseState.Playing)?.OnEnded(message.Reason));
+      .On((in IGameRepo.Ended message) => (State as GameLogicState.Playing)?.OnEnded(message.Reason));
   }
 
   public override void OnStart()
   {
     var gameRepo = Get<IGameRepo>();
     _isMouseCapturedBinding = gameRepo.IsMouseCaptured.Bind()
-      .OnValue((isMouseCaptured) => State?.Output(new Output.CaptureMouse(isMouseCaptured)));
+      .OnValue((isMouseCaptured) => State?.Output(new GameLogicState.Output.CaptureMouse(isMouseCaptured)));
     _isPausedBinding = gameRepo.IsPaused.Bind()
-      .OnValue((isPaused) => State?.Output(new Output.SetPauseMode(isPaused)));
+      .OnValue((isPaused) => State?.Output(new GameLogicState.Output.SetPauseMode(isPaused)));
   }
 
   public override void OnStop()

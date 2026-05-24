@@ -13,7 +13,7 @@ public class PlayerLogicStateAliveAirborneJumpingTest : TestClass
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private PlayerLogic.Settings _settings = default!;
-  private PlayerLogic.BaseState.Jumping _state = default!;
+  private PlayerLogicState.Jumping _state = default!;
 
   public PlayerLogicStateAliveAirborneJumpingTest(Node testScene) :
     base(testScene)
@@ -45,7 +45,7 @@ public class PlayerLogicStateAliveAirborneJumpingTest : TestClass
     _state.Enter();
 
     _context.Outputs.ShouldBe([
-      new PlayerLogic.Output.Animations.Jump()
+      new PlayerLogicState.Output.Animations.Jump()
     ]);
 
     _gameRepo.VerifyAll();
@@ -56,10 +56,10 @@ public class PlayerLogicStateAliveAirborneJumpingTest : TestClass
   {
     _player.Setup(player => player.Velocity).Returns(Vector3.Up);
 
-    _state.On(new PlayerLogic.Input.Jump(1));
+    _state.On(new PlayerLogicState.Input.Jump(1));
 
     _context.Outputs.ShouldBe([
-      new PlayerLogic.Output.VelocityChanged(Vector3.Up + Vector3.Up)
+      new PlayerLogicState.Output.VelocityChanged(Vector3.Up + Vector3.Up)
     ]);
   }
 }

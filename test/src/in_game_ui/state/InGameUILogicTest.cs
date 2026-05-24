@@ -43,7 +43,7 @@ public class InGameUILogicTest : TestClass
   {
     _logic
       .GetInitialState()
-      .IsAssignableTo(typeof(InGameUILogic.BaseState)).ShouldBeTrue();
+      .IsAssignableTo(typeof(InGameUILogicState)).ShouldBeTrue();
   }
 
   [Test]
@@ -53,7 +53,7 @@ public class InGameUILogicTest : TestClass
     using var binding = _logic.Bind();
 
     binding.OnOutput(
-      (in InGameUILogic.Output.NumCoinsChanged output) => outputs.Add(output)
+      (in InGameUILogicState.Output.NumCoinsChanged output) => outputs.Add(output)
     );
 
     _logic.Start();
@@ -62,7 +62,7 @@ public class InGameUILogicTest : TestClass
 
     _numCoinsCollected.Value = 5;
 
-    outputs.ShouldContain(new InGameUILogic.Output.NumCoinsChanged(5, 0));
+    outputs.ShouldContain(new InGameUILogicState.Output.NumCoinsChanged(5, 0));
   }
 
   [Test]
@@ -72,7 +72,7 @@ public class InGameUILogicTest : TestClass
     using var binding = _logic.Bind();
 
     binding.OnOutput(
-      (in InGameUILogic.Output.NumCoinsChanged output) => outputs.Add(output)
+      (in InGameUILogicState.Output.NumCoinsChanged output) => outputs.Add(output)
     );
 
     _logic.Start();
@@ -81,7 +81,7 @@ public class InGameUILogicTest : TestClass
 
     _numCoinsAtStart.Value = 10;
 
-    outputs.ShouldContain(new InGameUILogic.Output.NumCoinsChanged(0, 10));
+    outputs.ShouldContain(new InGameUILogicState.Output.NumCoinsChanged(0, 10));
   }
 
   [Test]

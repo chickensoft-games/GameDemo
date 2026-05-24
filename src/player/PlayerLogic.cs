@@ -12,17 +12,17 @@ public interface IPlayerLogic : IAutoLogicBlock;
 [Meta, Id("player_logic")]
 public partial class PlayerLogic : AutoBlock, IPlayerLogic
 {
-  public override Type GetInitialState() => typeof(BaseState.Disabled);
+  public override Type GetInitialState() => typeof(PlayerLogicState.Disabled);
 
   public PlayerLogic()
   {
-    Preallocate<BaseState>();
+    Preallocate<PlayerLogicState>();
   }
 
   public override IEnumerable<IDisposable> OnStartSubscriptions()
   {
     yield return Get<IAppRepo>().AutoChannel.Bind()
-      .On((in IAppRepo.GameEntered _) => (State as BaseState.Disabled)?.OnGameEntered());
+      .On((in IAppRepo.GameEntered _) => (State as PlayerLogicState.Disabled)?.OnGameEntered());
   }
 
   public override ILogicBlockSaveData GetSaveData(LogicBlockData data) =>

@@ -10,7 +10,7 @@ public class LoadingSaveFileTest : TestClass
 {
   private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
-  private AppLogic.BaseState.LoadingSaveFile _state = default!;
+  private AppLogicState.LoadingSaveFile _state = default!;
   private AppLogic.Data _data = default!;
 
   public LoadingSaveFileTest(Node testScene) : base(testScene) { }
@@ -32,15 +32,15 @@ public class LoadingSaveFileTest : TestClass
     _state.Enter();
 
     _context.Outputs.ShouldBe(
-      [new AppLogic.Output.StartLoadingSaveFile()]
+      [new AppLogicState.Output.StartLoadingSaveFile()]
     );
   }
 
   [Test]
   public void GoesToInGameOnSaveFileLoaded()
   {
-    var next = _state.On(new AppLogic.Input.SaveFileLoaded());
+    var next = _state.On(new AppLogicState.Input.SaveFileLoaded());
 
-    next.IsAssignableTo(typeof(AppLogic.BaseState.InGame)).ShouldBeTrue();
+    next.IsAssignableTo(typeof(AppLogicState.InGame)).ShouldBeTrue();
   }
 }

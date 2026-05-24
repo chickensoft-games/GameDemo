@@ -4,24 +4,21 @@ using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class JumpshroomLogic
+public partial record JumpshroomLogicState
 {
-  public partial record BaseState
+  [Meta]
+  public partial record Loading : JumpshroomLogicState, IGet<Input.Launch>
   {
-    [Meta]
-    public partial record Loading : BaseState, IGet<Input.Launch>
+    public Loading()
     {
-      public Loading()
+      this.OnEnter(() =>
       {
-        this.OnEnter(() =>
-        {
-          Get<IGameRepo>().OnJumpshroomUsed();
-          Output(new Output.Animate());
-        });
-      }
-
-      // Springy top is fully compressed, so it is ready to launch.
-      public Type On(in Input.Launch input) => To<Launching>();
+        Get<IGameRepo>().OnJumpshroomUsed();
+        Output(new Output.Animate());
+      });
     }
+
+    // Springy top is fully compressed, so it is ready to launch.
+    public Type On(in Input.Launch input) => To<Launching>();
   }
 }

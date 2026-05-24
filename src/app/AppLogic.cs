@@ -11,16 +11,16 @@ public interface IAppLogic : ILogicBlock;
 [Meta]
 public partial class AppLogic : AutoBlock, IAppLogic
 {
-  public override Type GetInitialState() => typeof(BaseState.SplashScreen);
+  public override Type GetInitialState() => typeof(AppLogicState.SplashScreen);
   public AppLogic()
   {
-    Preallocate<BaseState>();
+    Preallocate<AppLogicState>();
   }
 
   public override IEnumerable<IDisposable> OnStartSubscriptions()
   {
     yield return Get<IAppRepo>().AutoChannel.Bind()
-      .On((in IAppRepo.GameExited message) => (State as BaseState.InGame)?.OnGameExited(message.Action))
-      .On((in IAppRepo.SplashScreenSkipped _) => (State as BaseState.SplashScreen)?.OnSplashScreenSkipped());
+      .On((in IAppRepo.GameExited message) => (State as AppLogicState.InGame)?.OnGameExited(message.Action))
+      .On((in IAppRepo.SplashScreenSkipped _) => (State as AppLogicState.SplashScreen)?.OnSplashScreenSkipped());
   }
 }

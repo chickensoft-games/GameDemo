@@ -150,7 +150,7 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
         CameraNode.Position = data.LocalPosition;
         OffsetNode.Position = data.OffsetPosition;
 
-        CameraLogic.Input(new PlayerCameraLogic.Input.PhysicsTicked(0d));
+        CameraLogic.Input(new PlayerCameraLogicState.Input.PhysicsTicked(0d));
       }
     );
 
@@ -163,19 +163,19 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
 
     CameraBinding = CameraLogic.Bind();
     CameraBinding
-      .OnOutput((in PlayerCameraLogic.Output.GimbalRotationChanged output) =>
+      .OnOutput((in PlayerCameraLogicState.Output.GimbalRotationChanged output) =>
       {
         GimbalHorizontalNode.Rotation = output.GimbalRotationHorizontal;
         GimbalVerticalNode.Rotation = output.GimbalRotationVertical;
       })
-      .OnOutput((in PlayerCameraLogic.Output.GlobalTransformChanged output) =>
+      .OnOutput((in PlayerCameraLogicState.Output.GlobalTransformChanged output) =>
         GlobalTransform = output.GlobalTransform
       )
       .OnOutput(
-        (in PlayerCameraLogic.Output.CameraLocalPositionChanged output) =>
+        (in PlayerCameraLogicState.Output.CameraLocalPositionChanged output) =>
           CameraNode.Position = output.CameraLocalPosition
       )
-      .OnOutput((in PlayerCameraLogic.Output.CameraOffsetChanged output) =>
+      .OnOutput((in PlayerCameraLogicState.Output.CameraOffsetChanged output) =>
         OffsetNode.Position = output.Offset
       );
 
@@ -190,7 +190,7 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
 
     if (xMotion is not null)
     {
-      CameraLogic.Input(new PlayerCameraLogic.Input.JoyPadInputOccurred(xMotion));
+      CameraLogic.Input(new PlayerCameraLogicState.Input.JoyPadInputOccurred(xMotion));
     }
 
     var yMotion = InputUtilities.GetJoyPadActionPressedMotion(
@@ -199,11 +199,11 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
 
     if (yMotion is not null)
     {
-      CameraLogic.Input(new PlayerCameraLogic.Input.JoyPadInputOccurred(yMotion));
+      CameraLogic.Input(new PlayerCameraLogicState.Input.JoyPadInputOccurred(yMotion));
     }
 
     CameraLogic.Input(
-      new PlayerCameraLogic.Input.PhysicsTicked(delta)
+      new PlayerCameraLogicState.Input.PhysicsTicked(delta)
     );
   }
 
@@ -211,7 +211,7 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
   {
     if (@event is InputEventMouseMotion motion)
     {
-      CameraLogic.Input(new PlayerCameraLogic.Input.MouseInputOccurred(motion));
+      CameraLogic.Input(new PlayerCameraLogicState.Input.MouseInputOccurred(motion));
     }
   }
 

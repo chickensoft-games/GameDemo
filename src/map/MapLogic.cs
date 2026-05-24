@@ -11,17 +11,17 @@ public interface IMapLogic : ILogicBlock { }
 [Meta]
 public partial class MapLogic : AutoBlock, IMapLogic
 {
-  public override Type GetInitialState() => typeof(BaseState);
+  public override Type GetInitialState() => typeof(MapLogicState);
 
   public MapLogic()
   {
-    Preallocate<BaseState>();
+    Preallocate<MapLogicState>();
   }
 
   public override IEnumerable<IDisposable> OnStartSubscriptions()
   {
     yield return Get<IGameRepo>().AutoChannel.Bind()
-      .On((in IGameRepo.CoinCollectionStarted message) => (State as BaseState)?.OnCoinCollectionStarted(message.Coin))
-      .On((in IGameRepo.CoinCollectionCompleted message) => (State as BaseState)?.OnCoinCollectionCompleted(message.Coin));
+      .On((in IGameRepo.CoinCollectionStarted message) => (State as MapLogicState)?.OnCoinCollectionStarted(message.Coin))
+      .On((in IGameRepo.CoinCollectionCompleted message) => (State as MapLogicState)?.OnCoinCollectionCompleted(message.Coin));
   }
 }

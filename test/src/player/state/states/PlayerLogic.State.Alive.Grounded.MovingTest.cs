@@ -10,7 +10,7 @@ public class PlayerLogicStateAliveGroundedMovingTest : TestClass
 {
   private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
-  private PlayerLogic.BaseState.Moving _state = default!;
+  private PlayerLogicState.Moving _state = default!;
 
   public PlayerLogicStateAliveGroundedMovingTest(Node testScene) :
     base(testScene)
@@ -29,18 +29,18 @@ public class PlayerLogicStateAliveGroundedMovingTest : TestClass
   [Test]
   public void Enters()
   {
-    _state.Enter(new PlayerLogic.BaseState.Idle());
+    _state.Enter(new PlayerLogicState.Idle());
 
     _context.Outputs.ShouldBe([
-      new PlayerLogic.Output.Animations.Move()
+      new PlayerLogicState.Output.Animations.Move()
     ]);
   }
 
   [Test]
   public void OnStoppedMovingHorizontallyIdles()
   {
-    var next = _state.On(new PlayerLogic.Input.StoppedMovingHorizontally());
+    var next = _state.On(new PlayerLogicState.Input.StoppedMovingHorizontally());
 
-    next.IsAssignableTo(typeof(PlayerLogic.BaseState.Idle));
+    next.IsAssignableTo(typeof(PlayerLogicState.Idle));
   }
 }

@@ -18,7 +18,7 @@ public class AppLogicTest : TestClass
   {
     _logic
       .GetInitialState()
-      .IsAssignableTo(typeof(AppLogic.BaseState))
+      .IsAssignableTo(typeof(AppLogicState))
       .ShouldBeTrue();
   }
 }

@@ -98,7 +98,7 @@ public class PlayerModelTest : TestClass
     _animStateMachine.Setup(sm => sm.Travel("idle", true));
 
     _model.OnResolved();
-    _playerBinding.Output(new PlayerLogic.Output.Animations.Idle());
+    _playerBinding.Output(new PlayerLogicState.Output.Animations.Idle());
     _animStateMachine.VerifyAll();
   }
 
@@ -107,7 +107,7 @@ public class PlayerModelTest : TestClass
   {
     _animStateMachine.Setup(sm => sm.Travel("run", true));
     _model.OnResolved();
-    _playerBinding.Output(new PlayerLogic.Output.Animations.Move());
+    _playerBinding.Output(new PlayerLogicState.Output.Animations.Move());
     _animStateMachine.VerifyAll();
   }
 
@@ -116,7 +116,7 @@ public class PlayerModelTest : TestClass
   {
     _animStateMachine.Setup(sm => sm.Travel("jump", true));
     _model.OnResolved();
-    _playerBinding.Output(new PlayerLogic.Output.Animations.Jump());
+    _playerBinding.Output(new PlayerLogicState.Output.Animations.Jump());
     _animStateMachine.VerifyAll();
   }
 
@@ -125,7 +125,7 @@ public class PlayerModelTest : TestClass
   {
     _animStateMachine.Setup(sm => sm.Travel("fall", true));
     _model.OnResolved();
-    _playerBinding.Output(new PlayerLogic.Output.Animations.Fall());
+    _playerBinding.Output(new PlayerLogicState.Output.Animations.Fall());
     _animStateMachine.VerifyAll();
   }
 
@@ -138,7 +138,7 @@ public class PlayerModelTest : TestClass
       "parameters/main_animations/move/blend_position", 0.5f
     ));
     _model.OnResolved();
-    _playerBinding.Output(new PlayerLogic.Output.MoveSpeedChanged(0.5f));
+    _playerBinding.Output(new PlayerLogicState.Output.MoveSpeedChanged(0.5f));
     _animationTree.VerifyAll();
   }
 
@@ -147,14 +147,14 @@ public class PlayerModelTest : TestClass
   {
     _model.OnResolved();
     _playerBinding.Output(
-      new PlayerLogic.Output.MovementComputed(
+      new PlayerLogicState.Output.MovementComputed(
         Basis.Identity, Vector3.Forward, Vector2.Up, 1d
       )
     );
 
     _playerLogic
       .Setup(logic => logic.State)
-      .Returns(new PlayerLogic.BaseState.Idle());
+      .Returns(new PlayerLogicState.Idle());
 
     _animationTree.Verify(
       tree => tree.Set(PlayerModel.LEAN_ADD, It.IsAny<Variant>())
@@ -168,8 +168,8 @@ public class PlayerModelTest : TestClass
   [Test]
   public void GetTarget()
   {
-    PlayerModel.GetTarget(1, new PlayerLogic.BaseState.Jumping()).ShouldBe(0);
-    PlayerModel.GetTarget(1, new PlayerLogic.BaseState.Idle()).ShouldBe(1);
+    PlayerModel.GetTarget(1, new PlayerLogicState.Jumping()).ShouldBe(0);
+    PlayerModel.GetTarget(1, new PlayerLogicState.Idle()).ShouldBe(1);
   }
 
   [Test]

@@ -91,10 +91,11 @@ public partial class Game : Node3D, IGame
     // This is how to create JsonSerializerOptions for use with LogicBlocks
     // and the Chickensoft serialization utilities.
     var resolver = new SerializableTypeResolver();
-    // Tell our type type resolver about the Godot-specific converters.
+    // Tell our type resolver about the Godot-specific converters.
     GodotSerialization.Setup();
 
-    Serializer.AddConverter(new LogicBlockDataConverter());
+    // Tell our type resolver about the LogicBlock-specific converters.
+    LogicBlockSerialization.Setup();
 
     var upgradeDependencies = new Blackboard();
 
@@ -176,53 +177,53 @@ public partial class Game : Node3D, IGame
     GameBinding = GameLogic.Bind();
     GameBinding
       .OnOutput(
-        (in GameLogic.Output.StartGame _) =>
+        (in GameLogicState.Output.StartGame _) =>
         {
           PlayerCamera.UsePlayerCamera();
           InGameUi.Show();
         })
       .OnOutput(
-        (in GameLogic.Output.SetPauseMode output) =>
+        (in GameLogicState.Output.SetPauseMode output) =>
           CallDeferred(nameof(SetPauseMode), output.IsPaused)
       )
       .OnOutput(
-        (in GameLogic.Output.CaptureMouse output) =>
+        (in GameLogicState.Output.CaptureMouse output) =>
           Input.MouseMode = output.IsMouseCaptured
             ? Input.MouseModeEnum.Captured
             : Input.MouseModeEnum.Visible
       )
-      .OnOutput((in GameLogic.Output.ShowLostScreen _) =>
+      .OnOutput((in GameLogicState.Output.ShowLostScreen _) =>
       {
         DeathMenu.Show();
         DeathMenu.FadeIn();
         DeathMenu.Animate();
       })
-      .OnOutput((in GameLogic.Output.ExitLostScreen _) => DeathMenu.FadeOut())
-      .OnOutput((in GameLogic.Output.ShowPauseMenu _) =>
+      .OnOutput((in GameLogicState.Output.ExitLostScreen _) => DeathMenu.FadeOut())
+      .OnOutput((in GameLogicState.Output.ShowPauseMenu _) =>
       {
         PauseMenu.Show();
         PauseMenu.FadeIn();
       })
-      .OnOutput((in GameLogic.Output.ShowWonScreen _) =>
+      .OnOutput((in GameLogicState.Output.ShowWonScreen _) =>
       {
         WinMenu.Show();
         WinMenu.FadeIn();
       })
-      .OnOutput((in GameLogic.Output.ExitWonScreen _) => WinMenu.FadeOut())
-      .OnOutput((in GameLogic.Output.ExitPauseMenu _) => PauseMenu.FadeOut())
-      .OnOutput((in GameLogic.Output.HidePauseMenu _) => PauseMenu.Hide())
-      .OnOutput((in GameLogic.Output.ShowPauseSaveOverlay _) =>
+      .OnOutput((in GameLogicState.Output.ExitWonScreen _) => WinMenu.FadeOut())
+      .OnOutput((in GameLogicState.Output.ExitPauseMenu _) => PauseMenu.FadeOut())
+      .OnOutput((in GameLogicState.Output.HidePauseMenu _) => PauseMenu.Hide())
+      .OnOutput((in GameLogicState.Output.ShowPauseSaveOverlay _) =>
         PauseMenu.OnSaveStarted()
       )
-      .OnOutput((in GameLogic.Output.HidePauseSaveOverlay _) =>
+      .OnOutput((in GameLogicState.Output.HidePauseSaveOverlay _) =>
         PauseMenu.OnSaveCompleted()
       )
-      .OnOutput((in GameLogic.Output.StartSaving _) =>
+      .OnOutput((in GameLogicState.Output.StartSaving _) =>
         SaveFile.Save().ContinueWith(
           // Saving is async. The game node is always around, so kicking off
           // an async process is safe. Plus, we block input while saving, so
           // no interruptions.
-          (task) => GameLogic.Input(new GameLogic.Input.SaveCompleted())
+          (task) => GameLogic.Input(new GameLogicState.Input.SaveCompleted())
         )
       );
 
@@ -231,7 +232,7 @@ public partial class Game : Node3D, IGame
     GameLogic.Start();
 
     GameLogic.Input(
-      new GameLogic.Input.Initialize(NumCoinsInWorld: Map.GetCoinCount())
+      new GameLogicState.Input.Initialize(NumCoinsInWorld: Map.GetCoinCount())
     );
 
     this.Provide();
@@ -241,30 +242,30 @@ public partial class Game : Node3D, IGame
   {
     if (Input.IsActionJustPressed("ui_cancel"))
     {
-      GameLogic.Input(new GameLogic.Input.PauseButtonPressed());
+      GameLogic.Input(new GameLogicState.Input.PauseButtonPressed());
     }
   }
 
   public void OnMainMenu() =>
-    GameLogic.Input(new GameLogic.Input.GoToMainMenu());
+    GameLogic.Input(new GameLogicState.Input.GoToMainMenu());
 
   public void OnResume() =>
-    GameLogic.Input(new GameLogic.Input.PauseButtonPressed());
+    GameLogic.Input(new GameLogicState.Input.PauseButtonPressed());
 
   public void OnStart() =>
-    GameLogic.Input(new GameLogic.Input.Start());
+    GameLogic.Input(new GameLogicState.Input.Start());
 
   public void OnWinMenuTransitioned() =>
-    GameLogic.Input(new GameLogic.Input.WinMenuTransitioned());
+    GameLogic.Input(new GameLogicState.Input.WinMenuTransitioned());
 
   public void OnPauseMenuTransitioned() =>
-    GameLogic.Input(new GameLogic.Input.PauseMenuTransitioned());
+    GameLogic.Input(new GameLogicState.Input.PauseMenuTransitioned());
 
   public void OnPauseMenuSaveRequested() =>
-    GameLogic.Input(new GameLogic.Input.SaveRequested());
+    GameLogic.Input(new GameLogicState.Input.SaveRequested());
 
   public void OnDeathMenuTransitioned() =>
-    GameLogic.Input(new GameLogic.Input.DeathMenuTransitioned());
+    GameLogic.Input(new GameLogicState.Input.DeathMenuTransitioned());
 
   public void OnExitTree()
   {

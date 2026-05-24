@@ -4,18 +4,15 @@ using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class AppLogic
+public partial record AppLogicState
 {
-  public partial record BaseState
+  [Meta]
+  public partial record LoadingSaveFile : AppLogicState, IGet<Input.SaveFileLoaded>
   {
-    [Meta]
-    public partial record LoadingSaveFile : BaseState, IGet<Input.SaveFileLoaded>
+    public LoadingSaveFile()
     {
-      public LoadingSaveFile()
-      {
-        this.OnEnter(() => Output(new Output.StartLoadingSaveFile()));
-      }
-      public Type On(in Input.SaveFileLoaded input) => To<InGame>();
+      this.OnEnter(() => Output(new Output.StartLoadingSaveFile()));
     }
+    public Type On(in Input.SaveFileLoaded input) => To<InGame>();
   }
 }

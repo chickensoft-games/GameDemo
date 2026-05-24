@@ -10,7 +10,7 @@ public class LeavingMenuTest : TestClass
 {
   private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
-  private AppLogic.BaseState.LeavingMenu _state = default!;
+  private AppLogicState.LeavingMenu _state = default!;
   private AppLogic.Data _data = default!;
 
   public LeavingMenuTest(Node testScene) : base(testScene) { }
@@ -32,16 +32,16 @@ public class LeavingMenuTest : TestClass
     _state.Enter();
 
     _context.Outputs.ShouldBe(
-      [new AppLogic.Output.FadeToBlack()]
+      [new AppLogicState.Output.FadeToBlack()]
     );
   }
 
   [Test]
   public void StartsGameOnFadeOutFinished()
   {
-    var next = _state.On(new AppLogic.Input.FadeOutFinished());
+    var next = _state.On(new AppLogicState.Input.FadeOutFinished());
 
-    next.IsAssignableTo(typeof(AppLogic.BaseState.InGame)).ShouldBeTrue();
+    next.IsAssignableTo(typeof(AppLogicState.InGame)).ShouldBeTrue();
   }
 
   [Test]
@@ -49,8 +49,8 @@ public class LeavingMenuTest : TestClass
   {
     _data.ShouldLoadExistingGame = true;
 
-    var next = _state.On(new AppLogic.Input.FadeOutFinished());
+    var next = _state.On(new AppLogicState.Input.FadeOutFinished());
 
-    next.IsAssignableTo(typeof(AppLogic.BaseState.LoadingSaveFile)).ShouldBeTrue();
+    next.IsAssignableTo(typeof(AppLogicState.LoadingSaveFile)).ShouldBeTrue();
   }
 }

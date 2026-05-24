@@ -10,7 +10,7 @@ using Shouldly;
 public class PausedSavingTest : TestClass
 {
   private StateTester _context = default!;
-  private GameLogic.BaseState.Saving _state = default!;
+  private GameLogicState.Saving _state = default!;
   private Mock<IGameRepo> _gameRepo = default!;
 
   public PausedSavingTest(Node testScene) : base(testScene) { }
@@ -29,10 +29,10 @@ public class PausedSavingTest : TestClass
   [Test]
   public void OnEnter()
   {
-    _state.Enter(new GameLogic.BaseState.Paused());
+    _state.Enter(new GameLogicState.Paused());
     _context.Outputs.ShouldBeOfTypes(
-      typeof(GameLogic.Output.ShowPauseSaveOverlay),
-      typeof(GameLogic.Output.StartSaving)
+      typeof(GameLogicState.Output.ShowPauseSaveOverlay),
+      typeof(GameLogicState.Output.StartSaving)
     );
     _gameRepo.VerifyAll();
   }
@@ -40,17 +40,17 @@ public class PausedSavingTest : TestClass
   [Test]
   public void OnExit()
   {
-    _state.Exit(new GameLogic.BaseState.Paused());
-    _context.Outputs.Single().ShouldBeOfType<GameLogic.Output.HidePauseSaveOverlay>();
+    _state.Exit(new GameLogicState.Paused());
+    _context.Outputs.Single().ShouldBeOfType<GameLogicState.Output.HidePauseSaveOverlay>();
   }
 
   [Test]
   public void OnInputSaveCompleted() =>
-    _state.On(new GameLogic.Input.SaveCompleted())
-      .ShouldBe(typeof(GameLogic.BaseState.Paused));
+    _state.On(new GameLogicState.Input.SaveCompleted())
+      .ShouldBe(typeof(GameLogicState.Paused));
 
   [Test]
   public void OnPauseButtonPressed() =>
-    _state.On(new GameLogic.Input.PauseButtonPressed())
+    _state.On(new GameLogicState.Input.PauseButtonPressed())
       .ShouldBe(_state.GetType());
 }

@@ -18,6 +18,6 @@ public class MapLogicTest : TestClass
   {
     _logic
       .GetInitialState()
-      .IsAssignableTo(typeof(MapLogic.BaseState)).ShouldBeTrue();
+      .IsAssignableTo(typeof(MapLogicState)).ShouldBeTrue();
   }
 }

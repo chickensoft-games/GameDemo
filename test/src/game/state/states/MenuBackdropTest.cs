@@ -17,7 +17,7 @@ using Shouldly;
 public class MenuBackdropTest : TestClass
 {
   private StateTester _context = default!;
-  private GameLogic.BaseState.MenuBackdrop _state = default!;
+  private GameLogicState.MenuBackdrop _state = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
 
@@ -29,7 +29,7 @@ public class MenuBackdropTest : TestClass
     _appRepo = new ();
     _gameRepo = new ();
 
-    _state = new GameLogic.BaseState.MenuBackdrop();
+    _state = new GameLogicState.MenuBackdrop();
 
     _context = _state.Test();
 
@@ -56,14 +56,14 @@ public class MenuBackdropTest : TestClass
   {
     _state.OnGameEntered();
 
-    _context.Inputs.ShouldBe([new GameLogic.Input.Start()]);
+    _context.Inputs.ShouldBe([new GameLogicState.Input.Start()]);
   }
 
   [Test]
   public void OnStartGame()
   {
-    var result = _state.On(new GameLogic.Input.Start());
-    result.ShouldBe(typeof(GameLogic.BaseState.Playing));
+    var result = _state.On(new GameLogicState.Input.Start());
+    result.ShouldBe(typeof(GameLogicState.Playing));
   }
 
   [Test]
@@ -73,7 +73,7 @@ public class MenuBackdropTest : TestClass
     _gameRepo.Reset();
     _gameRepo.Setup(repo => repo.SetNumCoinsAtStart(numCoins));
 
-    var result = _state.On(new GameLogic.Input.Initialize(numCoins));
+    var result = _state.On(new GameLogicState.Input.Initialize(numCoins));
 
     result.ShouldBe(_state.GetType());
     _gameRepo.VerifyAll();

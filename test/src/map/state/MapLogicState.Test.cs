@@ -9,7 +9,7 @@ public class MapLogicStateTest : TestClass
 {
   private StateTester _context = default!;
   private Mock<IGameRepo> _gameRepo = default!;
-  private MapLogic.BaseState _state = default!;
+  private MapLogicState _state = default!;
   private MapLogic.Data _data = default!;
 
   public MapLogicStateTest(Node testScene) : base(testScene) { }
@@ -20,7 +20,7 @@ public class MapLogicStateTest : TestClass
     _gameRepo = new ();
     _data = new MapLogic.Data();
 
-    _state = new MapLogic.BaseState();
+    _state = new MapLogicState();
     _context = _state.Test();
 
     _context.Set(_gameRepo.Object);
@@ -30,7 +30,7 @@ public class MapLogicStateTest : TestClass
   [Test]
   public void GameLoadedFromSaveFile()
   {
-    _state.On(new MapLogic.Input.GameLoadedFromSaveFile(5));
+    _state.On(new MapLogicState.Input.GameLoadedFromSaveFile(5));
 
     _gameRepo.Verify(repo => repo.SetNumCoinsCollected(5));
   }

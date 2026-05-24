@@ -1,6 +1,6 @@
 namespace GameDemo;
 
-public partial class AppLogic
+public abstract partial record AppLogicState
 {
   public static class Input
   {

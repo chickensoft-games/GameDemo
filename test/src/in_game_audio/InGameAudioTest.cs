@@ -99,7 +99,7 @@ public class InGameAudioTest : TestClass
 
     _audio.OnResolved();
 
-    _binding.Output(new InGameAudioLogic.Output.PlayMainMenuMusic());
+    _binding.Output(new InGameAudioLogicState.Output.PlayMainMenuMusic());
 
     _logic.VerifyAll();
     _gameMusic.VerifyAll();
@@ -116,7 +116,7 @@ public class InGameAudioTest : TestClass
 
     _audio.OnResolved();
 
-    _binding.Output(new InGameAudioLogic.Output.PlayGameMusic());
+    _binding.Output(new InGameAudioLogicState.Output.PlayGameMusic());
 
     _logic.VerifyAll();
     _gameMusic.VerifyAll();
@@ -131,7 +131,7 @@ public class InGameAudioTest : TestClass
 
     _audio.OnResolved();
 
-    _binding.Output(new InGameAudioLogic.Output.StopGameMusic());
+    _binding.Output(new InGameAudioLogicState.Output.StopGameMusic());
 
     _gameMusic.VerifyAll();
   }
@@ -147,10 +147,10 @@ public class InGameAudioTest : TestClass
 
     _audio.OnResolved();
 
-    _binding.Output(new InGameAudioLogic.Output.PlayCoinCollected());
-    _binding.Output(new InGameAudioLogic.Output.PlayBounce());
-    _binding.Output(new InGameAudioLogic.Output.PlayPlayerDied());
-    _binding.Output(new InGameAudioLogic.Output.PlayJump());
+    _binding.Output(new InGameAudioLogicState.Output.PlayCoinCollected());
+    _binding.Output(new InGameAudioLogicState.Output.PlayBounce());
+    _binding.Output(new InGameAudioLogicState.Output.PlayPlayerDied());
+    _binding.Output(new InGameAudioLogicState.Output.PlayJump());
 
     _coinCollected.VerifyAll();
     _bounce.VerifyAll();

@@ -10,7 +10,7 @@ using Shouldly;
 public class ResumingTest : TestClass
 {
   private StateTester _context = default!;
-  private GameLogic.BaseState.Resuming _state = default!;
+  private GameLogicState.Resuming _state = default!;
   private Mock<IGameRepo> _gameRepo = default!;
 
   public ResumingTest(Node testScene) : base(testScene) { }
@@ -18,7 +18,7 @@ public class ResumingTest : TestClass
   [Setup]
   public void Setup()
   {
-    _state = new GameLogic.BaseState.Resuming();
+    _state = new GameLogicState.Resuming();
     _context = _state.Test();
 
     _gameRepo = new();
@@ -37,13 +37,13 @@ public class ResumingTest : TestClass
   public void OnExit()
   {
     _state.Exit();
-    _context.Outputs.Single().ShouldBeOfType<GameLogic.Output.HidePauseMenu>();
+    _context.Outputs.Single().ShouldBeOfType<GameLogicState.Output.HidePauseMenu>();
   }
 
   [Test]
   public void OnPauseMenuTransitioned()
   {
-    var result = _state.On(new GameLogic.Input.PauseMenuTransitioned());
-    result.ShouldBe(typeof(GameLogic.BaseState.Playing));
+    var result = _state.On(new GameLogicState.Input.PauseMenuTransitioned());
+    result.ShouldBe(typeof(GameLogicState.Playing));
   }
 }

@@ -1,6 +1,10 @@
 namespace GameDemo;
 
-public partial class InGameUILogic
+using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
+
+[Meta, StateDiagram]
+public partial record InGameUILogicState : LogicBlockState
 {
   public static class Output
   {

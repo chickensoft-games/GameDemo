@@ -104,7 +104,7 @@ public partial class JumpshroomTest : TestClass
   {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(It.IsAny<JumpshroomLogic.Input.Launch>())
+      logic => logic.Input(It.IsAny<JumpshroomLogicState.Input.Launch>())
     );
     _shroom.OnShroomLoaded();
     _logic.VerifyAll();
@@ -115,7 +115,7 @@ public partial class JumpshroomTest : TestClass
   {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(It.IsAny<JumpshroomLogic.Input.LaunchCompleted>())
+      logic => logic.Input(It.IsAny<JumpshroomLogicState.Input.LaunchCompleted>())
     );
     _shroom.OnAnimationFinished("launch");
     _logic.VerifyAll();
@@ -127,7 +127,7 @@ public partial class JumpshroomTest : TestClass
     _logic.Reset();
     var target = new FakePushEnabled();
     _logic.Setup(
-      logic => logic.Input(in It.Ref<JumpshroomLogic.Input.Hit>.IsAny)
+      logic => logic.Input(in It.Ref<JumpshroomLogicState.Input.Hit>.IsAny)
     );
     _shroom.OnAreaBodyEntered(target);
 
@@ -140,7 +140,7 @@ public partial class JumpshroomTest : TestClass
     _logic.Reset();
     _logic.Setup(
       logic => logic.Input(
-        in It.Ref<JumpshroomLogic.Input.CooldownCompleted>.IsAny
+        in It.Ref<JumpshroomLogicState.Input.CooldownCompleted>.IsAny
       )
     );
     _shroom.OnCooldownTimeout();
@@ -153,7 +153,7 @@ public partial class JumpshroomTest : TestClass
     _animPlayer.Setup(player => player.Play("bounce", -1, 1, false));
 
     _shroom.OnResolved();
-    _binding.Output(new JumpshroomLogic.Output.Animate());
+    _binding.Output(new JumpshroomLogicState.Output.Animate());
 
     _animPlayer.VerifyAll();
   }
@@ -164,7 +164,7 @@ public partial class JumpshroomTest : TestClass
     _cooldownTimer.Setup(timer => timer.Start(-1));
 
     _shroom.OnResolved();
-    _binding.Output(new JumpshroomLogic.Output.StartCooldownTimer());
+    _binding.Output(new JumpshroomLogicState.Output.StartCooldownTimer());
 
     _cooldownTimer.VerifyAll();
   }

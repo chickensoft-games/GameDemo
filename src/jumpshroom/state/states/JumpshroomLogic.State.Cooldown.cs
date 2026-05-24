@@ -4,19 +4,16 @@ using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class JumpshroomLogic
+public partial record JumpshroomLogicState
 {
-  public partial record BaseState
+  [Meta]
+  public partial record Cooldown : JumpshroomLogicState, IGet<Input.CooldownCompleted>
   {
-    [Meta]
-    public partial record Cooldown : BaseState, IGet<Input.CooldownCompleted>
+    public Cooldown()
     {
-      public Cooldown()
-      {
-        this.OnEnter(() => Output(new Output.StartCooldownTimer()));
-      }
-
-      public Type On(in Input.CooldownCompleted input) => To<Idle>();
+      this.OnEnter(() => Output(new Output.StartCooldownTimer()));
     }
+
+    public Type On(in Input.CooldownCompleted input) => To<Idle>();
   }
 }
