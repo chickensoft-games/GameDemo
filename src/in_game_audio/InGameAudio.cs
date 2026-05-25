@@ -66,7 +66,7 @@ public partial class InGameAudio : Node
         GameMusic.FadeOut()
       );
 
-    InGameAudioLogic.Start();
+    InGameAudioLogic.Start<InGameAudioLogicState>();
   }
 
   public void OnExitTree()

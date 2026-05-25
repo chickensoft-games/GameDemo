@@ -230,7 +230,7 @@ public class PlayerTest : TestClass
   public void Saves()
   {
     _player.Setup();
-    _player.PlayerLogic.Start();
+    _player.PlayerLogic.Start<PlayerLogicState.Disabled>();
 
     var chunk = new Mock<ISaveChunk<PlayerData>>();
 
@@ -250,7 +250,7 @@ public class PlayerTest : TestClass
 
     var logic = new PlayerLogic();
     logic.Set(_appRepo);
-    logic.Start();
+    logic.Start<PlayerLogicState.Disabled>();
 
     _player.PlayerLogic = logic;
 

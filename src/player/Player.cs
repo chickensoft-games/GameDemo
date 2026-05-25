@@ -184,7 +184,7 @@ IProvide<PlayerLogic.Settings>
     this.Provide();
 
     // Start the player state machine last.
-    PlayerLogic.Start();
+    PlayerLogic.Start<PlayerLogicState.Disabled>();
   }
 
   public void OnPhysicsProcess(double delta)

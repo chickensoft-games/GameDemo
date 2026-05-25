@@ -79,7 +79,7 @@ public partial class Jumpshroom : Node3D
           CooldownTimer.Start()
       );
 
-    JumpshroomLogic.Start();
+    JumpshroomLogic.Start<JumpshroomLogicState.Idle>();
   }
 
   public void OnCooldownTimeout() => JumpshroomLogic.Input(new JumpshroomLogicState.Input.CooldownCompleted());

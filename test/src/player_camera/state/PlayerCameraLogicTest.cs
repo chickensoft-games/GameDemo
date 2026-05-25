@@ -59,10 +59,6 @@ public class PlayerCameraLogicTest : TestClass
     data.TargetAngleVertical.ShouldBe(0f);
     data.TargetOffset.ShouldBe(Vector3.Zero);
 
-    _logic
-      .GetInitialState()
-      .IsAssignableTo(typeof(PlayerCameraLogicState.InputDisabled));
-
     // Test outputs
     var gimbalRotationChanged =
       new PlayerCameraLogicState.Output.GimbalRotationChanged(
@@ -87,7 +83,7 @@ public class PlayerCameraLogicTest : TestClass
   [Test]
   public void SubscribesToMouseCaptured()
   {
-    _logic.Start();
+    _logic.Start<PlayerCameraLogicState.InputDisabled>();
 
     _logic.State.ShouldBeOfType<PlayerCameraLogicState.InputDisabled>();
 
@@ -101,7 +97,7 @@ public class PlayerCameraLogicTest : TestClass
   [Test]
   public void SubscribesToPlayerGlobalPosition()
   {
-    _logic.Start();
+    _logic.Start<PlayerCameraLogicState.InputDisabled>();
 
     var targetPos = new Vector3(10, 0, 10);
     _playerGlobalPosition.Value = targetPos;

@@ -35,14 +35,6 @@ public class GameLogicTest : TestClass
   }
 
   [Test]
-  public void Initializes()
-  {
-    _logic
-      .GetInitialState()
-      .IsAssignableTo(typeof(GameLogicState)).ShouldBeTrue();
-  }
-
-  [Test]
   public void SubscribesToIsMouseCaptured()
   {
     var outputs = new List<object>();
@@ -52,7 +44,7 @@ public class GameLogicTest : TestClass
       (in GameLogicState.Output.CaptureMouse output) => outputs.Add(output)
     );
 
-    _logic.Start();
+    _logic.Start<GameLogicState.MenuBackdrop>();
 
     _gameRepo.IsMouseCaptured.Value.ShouldBe(false);
 
@@ -71,7 +63,7 @@ public class GameLogicTest : TestClass
       (in GameLogicState.Output.SetPauseMode output) => outputs.Add(output)
     );
 
-    _logic.Start();
+    _logic.Start<GameLogicState.MenuBackdrop>();
 
     _gameRepo.IsPaused.Value.ShouldBe(false);
 

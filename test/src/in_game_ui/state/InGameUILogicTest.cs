@@ -39,14 +39,6 @@ public class InGameUILogicTest : TestClass
   }
 
   [Test]
-  public void Initializes()
-  {
-    _logic
-      .GetInitialState()
-      .IsAssignableTo(typeof(InGameUILogicState)).ShouldBeTrue();
-  }
-
-  [Test]
   public void SubscribesToNumCoinsCollected()
   {
     var outputs = new List<object>();
@@ -56,7 +48,7 @@ public class InGameUILogicTest : TestClass
       (in InGameUILogicState.Output.NumCoinsChanged output) => outputs.Add(output)
     );
 
-    _logic.Start();
+    _logic.Start<InGameUILogicState>();
 
     _numCoinsCollected.Value.ShouldBe(0);
 
@@ -75,7 +67,7 @@ public class InGameUILogicTest : TestClass
       (in InGameUILogicState.Output.NumCoinsChanged output) => outputs.Add(output)
     );
 
-    _logic.Start();
+    _logic.Start<InGameUILogicState>();
 
     _numCoinsAtStart.Value.ShouldBe(0);
 

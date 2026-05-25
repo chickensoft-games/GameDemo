@@ -125,7 +125,7 @@ public partial class App : CanvasLayer, IApp
       );
 
     // Enter the first state to kick off the binding side effects.
-    AppLogic.Start();
+    AppLogic.Start<AppLogicState.SplashScreen>();
   }
 
   public void OnNewGame() => AppLogic.Input(new AppLogicState.Input.NewGame());

@@ -11,7 +11,6 @@ public interface IAppLogic : ILogicBlock;
 [Meta]
 public partial class AppLogic : AutoBlock, IAppLogic
 {
-  public override Type GetInitialState() => typeof(AppLogicState.SplashScreen);
   public AppLogic()
   {
     Preallocate<AppLogicState>();

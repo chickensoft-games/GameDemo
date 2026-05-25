@@ -100,7 +100,7 @@ public partial class Coin : Node3D, ICoin
         (in CoinLogicState.Output.SelfDestruct output) => QueueFree()
       );
 
-    CoinLogic.Start();
+    CoinLogic.Start<CoinLogicState.Idle>();
   }
 
   // This doesn't get called unless we're in the Collecting state, since that's

@@ -237,7 +237,7 @@ public class PlayerCameraTest : TestClass
   public void Saves()
   {
     _playerCam.Setup();
-    _playerCam.CameraLogic.Start();
+    _playerCam.CameraLogic.Start<PlayerCameraLogicState.InputDisabled>();
 
     var chunk = new Mock<ISaveChunk<PlayerCameraData>>();
 
@@ -274,7 +274,7 @@ public class PlayerCameraTest : TestClass
       TargetOffset = Vector3.Zero
     });
 
-    logic.Start();
+    logic.Start<PlayerCameraLogicState.InputDisabled>();
     _playerCam.CameraLogic = logic;
 
     var data = new PlayerCameraData

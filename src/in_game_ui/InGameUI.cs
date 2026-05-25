@@ -54,7 +54,7 @@ public partial class InGameUI : Control, IInGameUI
         )
       );
 
-    InGameUILogic.Start();
+    InGameUILogic.Start<InGameUILogicState>();
   }
 
   public void SetCoinsLabel(int coins, int totalCoins) =>

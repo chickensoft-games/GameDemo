@@ -10,8 +10,6 @@ public interface IJumpshroomLogic : ILogicBlock;
 [Meta]
 public partial class JumpshroomLogic : AutoBlock, IJumpshroomLogic
 {
-  public override Type GetInitialState() => typeof(JumpshroomLogicState.Idle);
-
   public JumpshroomLogic()
   {
     Preallocate<JumpshroomLogicState>();

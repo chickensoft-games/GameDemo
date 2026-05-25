@@ -12,8 +12,6 @@ public interface IPlayerLogic : IAutoLogicBlock;
 [Meta, Id("player_logic")]
 public partial class PlayerLogic : AutoBlock, IPlayerLogic
 {
-  public override Type GetInitialState() => typeof(PlayerLogicState.Disabled);
-
   public PlayerLogic()
   {
     Preallocate<PlayerLogicState>();

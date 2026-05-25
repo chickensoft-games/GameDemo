@@ -12,8 +12,6 @@ public interface IInGameAudioLogic : ILogicBlock;
 public partial class InGameAudioLogic :
   AutoBlock, IInGameAudioLogic
 {
-  public override Type GetInitialState() => typeof(InGameAudioLogicState);
-
   public InGameAudioLogic()
   {
     Preallocate<InGameAudioLogicState>();

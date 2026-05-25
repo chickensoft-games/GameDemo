@@ -9,7 +9,7 @@ package App-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/
         [Properties]
         [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/App.cs:51 AnimationPlayer]]
         [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/App.cs:42 AppBinding]]
-        [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/App.cs:40 AppLogic]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/AppLogic.cs Script]]
+        [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/App.cs:40 AppLogic]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/AppLogic.Data.cs Script]]
         [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/App.cs:39 AppRepo]]
         [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/App.cs:50 BlankScreen]]
         [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/App.cs:26 Game]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs Script]]
@@ -56,15 +56,6 @@ package App-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/
         [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/menu/splash/Splash.cs:28 OnExitTree()]]
         [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/menu/splash/Splash.cs:25 OnReady()]]
     }
-    class AppLogic  {
-        [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/AppLogic.cs ScriptFile]]
-        [Constructors]
-        [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/AppLogic.cs:15 AppLogic]]()
-        --
-        [Methods]
-        [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/AppLogic.cs:14 GetInitialState()]]
-        [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/AppLogic.cs:20 OnStartSubscriptions()]]
-    }
     package Game-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.tscn]] {
         class Game  {
             [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs ScriptFile]]
@@ -97,21 +88,21 @@ package App-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/
             [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:63 WinMenu]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/win_menu/WinMenu.cs Script]]
             --
             [Interface Methods]
-            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:285 LoadExistingGame()]]
+            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:277 LoadExistingGame()]]
             [Methods]
-            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:241 _Input()]]
+            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:233 _Input()]]
             [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:28 _Notification()]]
-            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:291 FinishedLoadingSaveFile()]]
-            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:267 OnDeathMenuTransitioned()]]
-            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:270 OnExitTree()]]
-            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:249 OnMainMenu()]]
-            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:264 OnPauseMenuSaveRequested()]]
-            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:261 OnPauseMenuTransitioned()]]
-            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:153 OnResolved()]]
-            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:252 OnResume()]]
-            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:255 OnStart()]]
-            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:258 OnWinMenuTransitioned()]]
-            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:294 SetPauseMode()]]
+            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:283 FinishedLoadingSaveFile()]]
+            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:259 OnDeathMenuTransitioned()]]
+            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:262 OnExitTree()]]
+            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:241 OnMainMenu()]]
+            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:256 OnPauseMenuSaveRequested()]]
+            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:253 OnPauseMenuTransitioned()]]
+            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:145 OnResolved()]]
+            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:244 OnResume()]]
+            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:247 OnStart()]]
+            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:250 OnWinMenuTransitioned()]]
+            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:286 SetPauseMode()]]
             [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/Game.cs:80 Setup()]]
         }
         package PlayerCamera-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCamera.tscn]] {
@@ -120,11 +111,10 @@ package App-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/
                 [Interface Properties]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCamera.cs:114 CameraBasis]]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCamera.cs:110 CameraLocalPosition]]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCamera.cs:75 CameraLogic]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCameraLogic.cs Script]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCamera.cs:75 CameraLogic]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCameraLogic.Data.cs Script]]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCamera.cs:111 GimbalRotationHorizontal]]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCamera.cs:112 GimbalRotationVertical]]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCamera.cs:83 Offset]]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCamera.cs:117 OffsetPosition]]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCamera.cs:109 SpringArmTargetPosition]]
                 [Properties]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCamera.cs:77 CameraBinding]]
@@ -132,6 +122,7 @@ package App-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCamera.cs:94 GimbalHorizontalNode]]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCamera.cs:97 GimbalVerticalNode]]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCamera.cs:92 OffsetNode]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCamera.cs:117 OffsetPosition]]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCamera.cs:69 PlayerCameraChunk]]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCamera.cs:85 Settings]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCameraSettings.cs Script]]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCamera.cs:102 SpringArmTarget]]
@@ -146,17 +137,6 @@ package App-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCamera.cs:160 OnResolved()]]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCamera.cs:121 Setup()]]
             }
-            class PlayerCameraLogic  {
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCameraLogic.cs ScriptFile]]
-                [Constructors]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCameraLogic.cs:22 PlayerCameraLogic]]()
-                --
-                [Methods]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCameraLogic.cs:20 GetInitialState()]]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCameraLogic.cs:52 GetSaveData()]]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCameraLogic.cs:27 OnStart()]]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCameraLogic.cs:46 OnStop()]]
-            }
             class PlayerCameraSettings  {
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCameraSettings.cs ScriptFile]]
                 [Properties]
@@ -165,17 +145,16 @@ package App-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCameraSettings.cs:17 VerticalMax]]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player_camera/PlayerCameraSettings.cs:23 VerticalMin]]
             }
-            PlayerCamera::PlayerCameraLogic ---> PlayerCameraLogic
             PlayerCamera::PlayerCameraSettings ---> PlayerCameraSettings
         }
         package Player-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player/Player.tscn]] {
             class Player  {
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player/Player.cs ScriptFile]]
                 [Provisions]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player/Player.cs:60 IPlayerLogic]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player/PlayerLogic.Data.cs Script]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player/Player.cs:60 IPlayerLogic]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player/PlayerLogic.Settings.cs Script]]
                 --
                 [Interface Properties]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player/Player.cs:111 PlayerLogic]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player/PlayerLogic.Data.cs Script]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player/Player.cs:111 PlayerLogic]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player/PlayerLogic.Settings.cs Script]]
                 [Nodes]
                 PlayerModel - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/player/PlayerModel.tscn Script]]
                 [Properties]
@@ -329,7 +308,7 @@ package App-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/
                 [Properties]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/map/Map.cs:37 Coins]]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/map/Map.cs:30 MapChunk]]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/map/Map.cs:44 MapLogic]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/map/MapLogic.cs Script]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/map/Map.cs:44 MapLogic]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/map/MapLogic.Data.cs Script]]
                 --
                 [Interface Methods]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/map/Map.cs:48 GetCoinCount()]]
@@ -351,84 +330,51 @@ package App-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/death_plane/DeathPlane.cs:14 OnExitTree()]]
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/death_plane/DeathPlane.cs:12 OnReady()]]
             }
-            package Jumpshroom-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.tscn]] {
-                class Jumpshroom  {
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs ScriptFile]]
-                    [Properties]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:43 AnimationPlayer]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:44 Area3D]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:45 CooldownTimer]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:36 ImpulseStrength]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:33 JumpshroomBinding]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:31 JumpshroomLogic]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/JumpshroomLogic.cs Script]]
-                    --
-                    [Methods]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:20 _Notification()]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:105 OnAnimationFinished()]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:87 OnAreaBodyEntered()]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:85 OnCooldownTimeout()]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:108 OnExitTree()]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:61 OnResolved()]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:97 OnShroomLoaded()]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:55 Setup()]]
-                }
-                class JumpshroomLogic  {
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/JumpshroomLogic.cs ScriptFile]]
-                    [Constructors]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/JumpshroomLogic.cs:15 JumpshroomLogic]]()
-                    --
-                    [Methods]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/JumpshroomLogic.cs:13 GetInitialState()]]
-                }
-                Jumpshroom::JumpshroomLogic ---> JumpshroomLogic
-            }
-            package Coin-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.tscn]] {
-                class Coin  {
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs ScriptFile]]
-                    [Interface Properties]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:37 CoinLogic]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/CoinLogic.cs Script]]
-                    [Properties]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:22 AnimationPlayer]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:40 CoinBinding]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:23 CoinModel]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:29 CollectionTimeInSeconds]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:46 CollectorDetector]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:38 Settings]]
-                    --
-                    [Methods]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:18 _Notification()]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:111 OnCollectorDetectorBodyEntered()]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:121 OnExitTree()]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:108 OnPhysicsProcess()]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:63 OnReady()]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:78 OnResolved()]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:51 Setup()]]
-                }
-                class CoinLogic  {
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/CoinLogic.cs ScriptFile]]
-                    [Constructors]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/CoinLogic.cs:16 CoinLogic]]()
-                    --
-                    [Methods]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/CoinLogic.cs:14 GetInitialState()]]
-                    [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/CoinLogic.cs:23 GetSaveData()]]
-                }
-                Coin::CoinLogic ---> CoinLogic
-            }
-            class MapLogic  {
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/map/MapLogic.cs ScriptFile]]
-                [Constructors]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/map/MapLogic.cs:16 MapLogic]]()
+            class Jumpshroom  {
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs ScriptFile]]
+                [Properties]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:43 AnimationPlayer]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:44 Area3D]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:45 CooldownTimer]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:36 ImpulseStrength]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:33 JumpshroomBinding]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:31 JumpshroomLogic]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/JumpshroomLogic.Data.cs Script]]
                 --
                 [Methods]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/map/MapLogic.cs:14 GetInitialState()]]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/map/MapLogic.cs:21 OnStartSubscriptions()]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:20 _Notification()]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:105 OnAnimationFinished()]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:87 OnAreaBodyEntered()]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:85 OnCooldownTimeout()]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:108 OnExitTree()]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:61 OnResolved()]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:97 OnShroomLoaded()]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/jumpshroom/Jumpshroom.cs:55 Setup()]]
+            }
+            class Coin  {
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs ScriptFile]]
+                [Interface Properties]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:37 CoinLogic]] - [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/CoinLogic.Data.cs Script]]
+                [Properties]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:22 AnimationPlayer]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:40 CoinBinding]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:23 CoinModel]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:29 CollectionTimeInSeconds]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:46 CollectorDetector]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:38 Settings]]
+                --
+                [Methods]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:18 _Notification()]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:111 OnCollectorDetectorBodyEntered()]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:121 OnExitTree()]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:108 OnPhysicsProcess()]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:63 OnReady()]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:78 OnResolved()]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/coin/Coin.cs:51 Setup()]]
             }
             Map::terrain ---> terrain
             Map::DeathPlane ---> DeathPlane
             Map::Jumpshroom2 ---> Jumpshroom
             Map::Coin ---> Coin
-            Map::MapLogic ---> MapLogic
         }
         package InGameUI-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_ui/InGameUI.tscn]] {
             class InGameUI  {
@@ -460,12 +406,11 @@ package App-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/
             class InGameUILogic  {
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_ui/InGameUILogic.cs ScriptFile]]
                 [Constructors]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_ui/InGameUILogic.cs:21 InGameUILogic]]()
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_ui/InGameUILogic.cs:19 InGameUILogic]]()
                 --
                 [Methods]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_ui/InGameUILogic.cs:19 GetInitialState()]]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_ui/InGameUILogic.cs:26 OnStart()]]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_ui/InGameUILogic.cs:35 OnStop()]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_ui/InGameUILogic.cs:24 OnStart()]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_ui/InGameUILogic.cs:33 OnStop()]]
             }
             InGameUI::CoinScene ---> CoinScene
             InGameUI::InGameUILogic ---> InGameUILogic
@@ -509,11 +454,10 @@ package App-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/
             class InGameAudioLogic  {
                 [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/InGameAudioLogic.cs ScriptFile]]
                 [Constructors]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/InGameAudioLogic.cs:17 InGameAudioLogic]]()
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/InGameAudioLogic.cs:15 InGameAudioLogic]]()
                 --
                 [Methods]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/InGameAudioLogic.cs:15 GetInitialState()]]
-                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/InGameAudioLogic.cs:22 OnStartSubscriptions()]]
+                [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/in_game_audio/InGameAudioLogic.cs:20 OnStartSubscriptions()]]
             }
             InGameAudio::GameMusic ---> DimmableAudioStreamPlayer
             InGameAudio::InGameAudioLogic ---> InGameAudioLogic
@@ -582,13 +526,12 @@ package App-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/
         class GameLogic  {
             [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/GameLogic.cs ScriptFile]]
             [Constructors]
-            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/GameLogic.cs:20 GameLogic]]()
+            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/GameLogic.cs:18 GameLogic]]()
             --
             [Methods]
-            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/GameLogic.cs:18 GetInitialState()]]
-            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/GameLogic.cs:33 OnStart()]]
-            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/GameLogic.cs:25 OnStartSubscriptions()]]
-            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/GameLogic.cs:42 OnStop()]]
+            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/GameLogic.cs:31 OnStart()]]
+            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/GameLogic.cs:23 OnStartSubscriptions()]]
+            [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/game/GameLogic.cs:40 OnStop()]]
         }
         Game::PlayerCamera ---> PlayerCamera
         Game::Player ---> Player
@@ -610,7 +553,6 @@ package App-Scene [[vscode://file//Users/bastani/RiderProjects/GameDemo/src/app/
     }
     App::Menu ---> Menu
     App::Splash ---> Splash
-    App::AppLogic ---> AppLogic
     App::Game ---> Game
     App::Instantiator ---> Instantiator
 }

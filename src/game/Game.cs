@@ -221,7 +221,7 @@ public partial class Game : Node3D, IGame
 
     // Trigger the first state's OnEnter callbacks so our bindings run.
     // Keeps everything in sync from the moment we start!
-    GameLogic.Start();
+    GameLogic.Start<GameLogicState.MenuBackdrop>();
 
     GameLogic.Input(
       new GameLogicState.Input.Initialize(NumCoinsInWorld: Map.GetCoinCount())

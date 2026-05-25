@@ -83,7 +83,7 @@ public class MapTest : TestClass
 
     _mapLogic.Verify(logic => logic.Set(It.IsAny<MapLogic.Data>()));
     _mapLogic.Verify(logic => logic.Set(_gameRepo.Object));
-    _mapLogic.Verify(logic => logic.Start(true));
+    _mapLogic.Verify(logic => logic.Start<MapLogicState>(true));
   }
 
   [Test]
@@ -93,7 +93,7 @@ public class MapTest : TestClass
     var coin2 = new Mock<ICoin>();
 
     var coinLogic = new CoinLogic();
-    coinLogic.Start();
+    coinLogic.Start<CoinLogicState.Idle>();
     coin2.Setup(c => c.CoinLogic).Returns(coinLogic);
     coin2.Setup(c => c.GlobalTransform).Returns(Transform3D.Identity);
 
@@ -115,7 +115,7 @@ public class MapTest : TestClass
   public void Loads()
   {
     var logic = new CoinLogic();
-    logic.Start();
+    logic.Start<CoinLogicState.Idle>();
     var mapData = new MapData()
     {
       CoinsBeingCollected = new Dictionary<string, CoinData>

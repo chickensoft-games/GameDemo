@@ -15,8 +15,6 @@ public partial class GameLogic : AutoBlock, IGameLogic
   private AutoValue<bool>.Binding? _isMouseCapturedBinding;
   private AutoValue<bool>.Binding? _isPausedBinding;
 
-  public override Type GetInitialState() => typeof(GameLogicState.MenuBackdrop);
-
   public GameLogic()
   {
     Preallocate<GameLogicState>();

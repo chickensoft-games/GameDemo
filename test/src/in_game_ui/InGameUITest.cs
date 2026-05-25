@@ -40,7 +40,7 @@ public class InGameUITest : TestClass
     _binding = LogicBlock.CreateFakeBinding();
 
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
-    _logic.Setup(logic => logic.Start(true));
+    _logic.Setup(logic => logic.Start<InGameUILogicState>(true));
 
     _ui = new()
     {

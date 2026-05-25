@@ -179,7 +179,7 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
         OffsetNode.Position = output.Offset
       );
 
-    CameraLogic.Start();
+    CameraLogic.Start<PlayerCameraLogicState.InputDisabled>();
   }
 
   public void OnPhysicsProcess(double delta)

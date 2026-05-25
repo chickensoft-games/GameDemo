@@ -17,8 +17,6 @@ public partial class PlayerCameraLogic : AutoBlock, IPlayerCameraLogic
 
   private AutoValue<Vector3>.Binding? _playerGlobalPositionBinding;
 
-  public override Type GetInitialState() => typeof(PlayerCameraLogicState.InputDisabled);
-
   public PlayerCameraLogic()
   {
     Preallocate<PlayerCameraLogicState>();

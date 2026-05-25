@@ -11,8 +11,6 @@ public interface IMapLogic : ILogicBlock { }
 [Meta]
 public partial class MapLogic : AutoBlock, IMapLogic
 {
-  public override Type GetInitialState() => typeof(MapLogicState);
-
   public MapLogic()
   {
     Preallocate<MapLogicState>();

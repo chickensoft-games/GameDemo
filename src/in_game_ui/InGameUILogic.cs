@@ -16,8 +16,6 @@ public partial class InGameUILogic : LogicBlock, IInGameUILogic
   private AutoValue<int>.Binding? _numCoinsCollectedBinding;
   private AutoValue<int>.Binding? _numCoinsAtStartBinding;
 
-  public override Type GetInitialState() => typeof(InGameUILogicState);
-
   public InGameUILogic()
   {
     Set(new InGameUILogicState());
