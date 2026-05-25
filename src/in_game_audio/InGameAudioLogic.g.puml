@@ -1,9 +1,9 @@
 @startuml InGameAudioLogic
 state InGameAudioLogic {
-  state BaseState
+  state InGameAudioLogicState
 }
 
-[*] --> BaseState
+[*] --> InGameAudioLogicState
 
 InGameAudioLogic : Dependencies:
 InGameAudioLogic : - IAppRepo

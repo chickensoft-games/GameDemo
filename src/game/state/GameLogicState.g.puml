@@ -1,0 +1,39 @@
+@startuml GameLogicState
+state "GameLogicState" as GameDemo_GameLogicState {
+  state "Lost" as GameDemo_GameLogicState_Lost
+  state "MenuBackdrop" as GameDemo_GameLogicState_MenuBackdrop
+  state "Paused" as GameDemo_GameLogicState_Paused {
+    state "Saving" as GameDemo_GameLogicState_Saving
+  }
+  state "Playing" as GameDemo_GameLogicState_Playing
+  state "Quit" as GameDemo_GameLogicState_Quit
+  state "RestartingGame" as GameDemo_GameLogicState_RestartingGame
+  state "Resuming" as GameDemo_GameLogicState_Resuming
+  state "Won" as GameDemo_GameLogicState_Won
+}
+
+GameDemo_GameLogicState_Lost --> GameDemo_GameLogicState_Quit : GoToMainMenu
+GameDemo_GameLogicState_Lost --> GameDemo_GameLogicState_RestartingGame : Start
+GameDemo_GameLogicState_MenuBackdrop --> GameDemo_GameLogicState_MenuBackdrop : Initialize
+GameDemo_GameLogicState_MenuBackdrop --> GameDemo_GameLogicState_Playing : Start
+GameDemo_GameLogicState_Paused --> GameDemo_GameLogicState_Quit : GoToMainMenu
+GameDemo_GameLogicState_Paused --> GameDemo_GameLogicState_Resuming : PauseButtonPressed
+GameDemo_GameLogicState_Paused --> GameDemo_GameLogicState_Saving : SaveRequested
+GameDemo_GameLogicState_Playing --> GameDemo_GameLogicState_Lost : EndGame
+GameDemo_GameLogicState_Playing --> GameDemo_GameLogicState_Paused : PauseButtonPressed
+GameDemo_GameLogicState_Playing --> GameDemo_GameLogicState_Quit : EndGame
+GameDemo_GameLogicState_Playing --> GameDemo_GameLogicState_Won : EndGame
+GameDemo_GameLogicState_Resuming --> GameDemo_GameLogicState_Playing : PauseMenuTransitioned
+GameDemo_GameLogicState_Saving --> GameDemo_GameLogicState_Paused : SaveCompleted
+GameDemo_GameLogicState_Saving --> GameDemo_GameLogicState_Saving : PauseButtonPressed
+GameDemo_GameLogicState_Won --> GameDemo_GameLogicState_Won : GoToMainMenu
+
+GameDemo_GameLogicState_Lost : OnEnter → ShowLostScreen
+GameDemo_GameLogicState_Paused : OnEnter → ShowPauseMenu
+GameDemo_GameLogicState_Paused : OnExit → ExitPauseMenu
+GameDemo_GameLogicState_Playing : OnEnter → StartGame
+GameDemo_GameLogicState_Resuming : OnExit → HidePauseMenu
+GameDemo_GameLogicState_Saving : OnEnter → ShowPauseSaveOverlay, StartSaving
+GameDemo_GameLogicState_Saving : OnExit → HidePauseSaveOverlay
+GameDemo_GameLogicState_Won : OnEnter → ShowWonScreen
+@enduml

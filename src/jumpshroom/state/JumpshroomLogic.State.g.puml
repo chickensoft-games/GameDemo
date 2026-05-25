@@ -1,3 +1,0 @@
-@startuml JumpshroomLogicState
-state "JumpshroomLogicState" as GameDemo_JumpshroomLogicState
-@enduml

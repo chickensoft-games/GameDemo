@@ -1,0 +1,5 @@
+@startuml MapLogicState
+state "MapLogicState" as GameDemo_MapLogicState
+
+GameDemo_MapLogicState --> GameDemo_MapLogicState : GameLoadedFromSaveFile
+@enduml
