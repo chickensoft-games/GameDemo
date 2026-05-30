@@ -29,7 +29,7 @@ public class InGameTest : TestClass
   [Test]
   public void OnEnter()
   {
-    _appRepo.Setup(repo => repo.OnEnterGame());
+    _appRepo.Setup(repo => repo.OnEnteringGame());
 
     _state.Enter();
 
@@ -48,7 +48,7 @@ public class InGameTest : TestClass
   [Test]
   public void OnRestartGameRequested()
   {
-    _state.OnRestartGameRequested();
+    _state.OnGameExited(PostGameAction.RestartGame);
 
     var input = _tester.Inputs.Single()
       .ShouldBeOfType<AppLogicState.Input.EndGame>();

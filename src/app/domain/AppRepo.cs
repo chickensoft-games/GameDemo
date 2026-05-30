@@ -14,7 +14,7 @@ public interface IAppRepo : IDisposable
   /// <summary>
   ///   Event invoked when the game is about to start.
   /// </summary>
-  readonly record struct GameEntered;
+  readonly record struct GameEntering;
 
   /// <summary>
   ///   Event invoked when the game is about to end.
@@ -25,17 +25,17 @@ public interface IAppRepo : IDisposable
   readonly record struct SplashScreenSkipped;
 
   /// <summary>Event invoked when the main menu is entered.</summary>
-  readonly record struct MainMenuEntered;
+  readonly record struct MainMenuEntering;
 
   /// <summary>Inform the app that the game should be shown.</summary>
-  void OnEnterGame();
+  void OnEnteringGame();
 
   /// <summary>Inform the app that the game should be exited.</summary>
   /// <param name="action">Action to take following the end of the game.</param>
   void OnExitGame(PostGameAction action);
 
   /// <summary>Tells the app that the main menu was entered.</summary>
-  void OnMainMenuEntered();
+  void OnMainMenuEntering();
 
   /// <summary>Skips the splash screen.</summary>
   void SkipSplashScreen();
@@ -54,9 +54,9 @@ public class AppRepo : IAppRepo
 
   public void SkipSplashScreen() => _autoChannel.Send(new IAppRepo.SplashScreenSkipped());
 
-  public void OnMainMenuEntered() => _autoChannel.Send(new IAppRepo.MainMenuEntered());
+  public void OnMainMenuEntering() => _autoChannel.Send(new IAppRepo.MainMenuEntering());
 
-  public void OnEnterGame() => _autoChannel.Send(new IAppRepo.GameEntered());
+  public void OnEnteringGame() => _autoChannel.Send(new IAppRepo.GameEntering());
   public void OnExitGame(PostGameAction action) => _autoChannel.Send(new IAppRepo.GameExited(action));
 
   #region Internals

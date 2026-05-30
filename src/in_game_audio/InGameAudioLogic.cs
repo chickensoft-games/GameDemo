@@ -20,8 +20,8 @@ public partial class InGameAudioLogic :
   public override IEnumerable<IDisposable> OnStartSubscriptions()
   {
     yield return Get<IAppRepo>().AutoChannel.Bind()
-      .On((in IAppRepo.MainMenuEntered _) => (State as InGameAudioLogicState)?.OnMainMenuEntered())
-      .On((in IAppRepo.GameEntered _) => (State as InGameAudioLogicState)?.OnGameEntered());
+      .On((in IAppRepo.MainMenuEntering _) => (State as InGameAudioLogicState)?.OnMainMenuEntered())
+      .On((in IAppRepo.GameEntering _) => (State as InGameAudioLogicState)?.OnGameEntered());
     yield return Get<IGameRepo>().AutoChannel.Bind()
       .On((in IGameRepo.CoinCollectionStarted _) => (State as InGameAudioLogicState)?.OnCoinCollected())
       .On((in IGameRepo.JumpshroomUsed _) => (State as InGameAudioLogicState)?.OnJumpshroomUsed())

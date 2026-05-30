@@ -51,9 +51,9 @@ public class AppRepoTest : TestClass
   {
     var called = 0;
 
-    _repo.OnMainMenuEntered();
-    _repo.AutoChannel.Bind().On((in IAppRepo.MainMenuEntered _) => called++);
-    _repo.OnMainMenuEntered();
+    _repo.OnMainMenuEntering();
+    _repo.AutoChannel.Bind().On((in IAppRepo.MainMenuEntering _) => called++);
+    _repo.OnMainMenuEntering();
 
     called.ShouldBe(1);
   }
@@ -63,9 +63,9 @@ public class AppRepoTest : TestClass
   {
     var called = 0;
 
-    _repo.OnEnterGame();
-    _repo.AutoChannel.Bind().On((in IAppRepo.GameEntered _) => called++);
-    _repo.OnEnterGame();
+    _repo.OnEnteringGame();
+    _repo.AutoChannel.Bind().On((in IAppRepo.GameEntering _) => called++);
+    _repo.OnEnteringGame();
 
     called.ShouldBe(1);
   }

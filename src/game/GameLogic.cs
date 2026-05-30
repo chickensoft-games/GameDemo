@@ -23,7 +23,7 @@ public partial class GameLogic : AutoBlock, IGameLogic
   public override IEnumerable<IDisposable> OnStartSubscriptions()
   {
     yield return Get<IAppRepo>().AutoChannel.Bind()
-      .On((in IAppRepo.GameEntered _) => (State as GameLogicState.MenuBackdrop)?.OnGameEntered());
+      .On((in IAppRepo.GameEntering _) => (State as GameLogicState.MenuBackdrop)?.OnGameEntered());
     yield return Get<IGameRepo>().AutoChannel.Bind()
       .On((in IGameRepo.Ended message) => (State as GameLogicState.Playing)?.OnEnded(message.Reason));
   }

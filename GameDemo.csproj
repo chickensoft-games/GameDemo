@@ -50,6 +50,7 @@
 
   <ItemGroup>
     <AdditionalFiles Include="**/*.tscn" />
+    <None Include="**/*.g.puml" />
   </ItemGroup>
 
   <ItemGroup>

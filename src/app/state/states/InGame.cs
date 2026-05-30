@@ -13,14 +13,11 @@ public partial record AppLogicState
     {
       this.OnEnter(() =>
       {
-        Get<IAppRepo>().OnEnterGame();
+        Get<IAppRepo>().OnEnteringGame();
         Output(new Output.ShowGame());
       });
       this.OnExit(() => Output(new Output.HideGame()));
     }
-
-    public void OnRestartGameRequested() =>
-      Input(new Input.EndGame(PostGameAction.RestartGame));
 
     public void OnGameExited(PostGameAction reason) =>
       Input(new Input.EndGame(reason));
@@ -29,6 +26,7 @@ public partial record AppLogicState
     {
       var postGameAction = input.PostGameAction;
       Get<AppLogic.Data>().PostGameAction = postGameAction;
+
       return To<LeavingGame>();
     }
   }

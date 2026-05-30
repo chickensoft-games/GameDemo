@@ -20,7 +20,7 @@ public partial class PlayerLogic : AutoBlock, IPlayerLogic
   public override IEnumerable<IDisposable> OnStartSubscriptions()
   {
     yield return Get<IAppRepo>().AutoChannel.Bind()
-      .On((in IAppRepo.GameEntered _) => (State as PlayerLogicState.Disabled)?.OnGameEntered());
+      .On((in IAppRepo.GameEntering _) => (State as PlayerLogicState.Disabled)?.OnGameEntered());
   }
 
   public override ILogicBlockSaveData GetSaveData(LogicBlockData data) =>

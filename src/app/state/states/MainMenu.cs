@@ -15,18 +15,21 @@ public partial record AppLogicState
       this.OnEnter(
         () =>
         {
-          Get<AppLogic.Data>().ShouldLoadExistingGame = false;
-
           Output(new Output.SetupGameScene());
 
-          Get<IAppRepo>().OnMainMenuEntered();
+          Get<IAppRepo>().OnMainMenuEntering();
 
           Output(new Output.ShowMainMenu());
         }
       );
     }
 
-    public Type On(in Input.NewGame input) => To<LeavingMenu>();
+    public Type On(in Input.NewGame input)
+    {
+      Get<AppLogic.Data>().ShouldLoadExistingGame = false;
+
+      return To<LeavingMenu>();
+    }
 
     public Type On(in Input.LoadGame input)
     {
