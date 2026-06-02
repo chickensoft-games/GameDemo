@@ -1,41 +1,33 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class AppLogic
+public partial record AppLogicState
 {
-  public partial record State
+  [Meta]
+  public partial record InGame : AppLogicState, IGet<Input.EndGame>
   {
-    [Meta]
-    public partial record InGame : State, IGet<Input.EndGame>
+    public InGame()
     {
-      public InGame()
+      this.OnEnter(() =>
       {
-        this.OnEnter(() =>
-        {
-          Get<IAppRepo>().OnEnterGame();
-          Output(new Output.ShowGame());
-        });
-        this.OnExit(() => Output(new Output.HideGame()));
+        Get<IAppRepo>().OnEnteringGame();
+        Output(new Output.ShowGame());
+      });
+      this.OnExit(() => Output(new Output.HideGame()));
+    }
 
-        OnAttach(() => Get<IAppRepo>().GameExited += OnGameExited);
-        OnDetach(() => Get<IAppRepo>().GameExited -= OnGameExited);
-      }
+    public void OnGameExited(PostGameAction reason) =>
+      Input(new Input.EndGame(reason));
 
-      public void OnRestartGameRequested() =>
-        Input(new Input.EndGame(PostGameAction.RestartGame));
+    public Type On(in Input.EndGame input)
+    {
+      var postGameAction = input.PostGameAction;
+      Get<AppLogic.Data>().PostGameAction = postGameAction;
 
-      public void OnGameExited(PostGameAction reason) =>
-        Input(new Input.EndGame(reason));
-
-      public Transition On(in Input.EndGame input)
-      {
-        var postGameAction = input.PostGameAction;
-        return To<LeavingGame>().With(
-          (state) => ((LeavingGame)state).PostGameAction = postGameAction
-        );
-      }
+      return To<LeavingGame>();
     }
   }
 }

@@ -6,6 +6,7 @@ using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.GoDotTest;
 using Chickensoft.GodotTestDriver;
+using Chickensoft.LogicBlocks;
 using Chickensoft.SaveFileBuilder;
 using Godot;
 using Moq;
@@ -21,13 +22,13 @@ using Shouldly;
 public class PlayerTest : TestClass
 {
   private Fixture _fixture = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
+  private IAppRepo _appRepo = default!;
+  private IGameRepo _gameRepo = default!;
   private Mock<IPlayerLogic> _logic = default!;
   private EntityTable _entityTable = default!;
   private Mock<ISaveChunk<GameData>> _gameChunk = default!;
 
-  private PlayerLogic.IFakeBinding _binding = default!;
+  private LogicBlock.FakeBinding _binding = default!;
 
   private PlayerLogic.Settings _settings = default!;
   private Player _player = default!;
@@ -39,10 +40,10 @@ public class PlayerTest : TestClass
   {
     _fixture = new(TestScene.GetTree());
 
-    _appRepo = new();
-    _gameRepo = new();
+    _appRepo = new AppRepo();
+    _gameRepo = new GameRepo();
     _logic = new();
-    _binding = PlayerLogic.CreateFakeBinding();
+    _binding = LogicBlock.CreateFakeBinding();
     _settings = new PlayerLogic.Settings(
       RotationSpeed: 1.0f,
       StoppingSpeed: 1.0f,
@@ -72,8 +73,8 @@ public class PlayerTest : TestClass
 
     (_player as IAutoInit).IsTesting = true;
 
-    _player.FakeDependency(_appRepo.Object);
-    _player.FakeDependency(_gameRepo.Object);
+    _player.FakeDependency(_appRepo);
+    _player.FakeDependency(_gameRepo);
     _player.FakeDependency(_entityTable);
     _player.FakeDependency(_gameChunk.Object);
 
@@ -119,7 +120,7 @@ public class PlayerTest : TestClass
     _player.OnPhysicsProcess(1d);
 
     _logic.Verify(
-      logic => logic.Input(in It.Ref<PlayerLogic.Input.Jump>.IsAny)
+      logic => logic.Input(in It.Ref<PlayerLogicState.Input.Jump>.IsAny)
     );
   }
 
@@ -128,10 +129,10 @@ public class PlayerTest : TestClass
   {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(in It.Ref<PlayerLogic.Input.PhysicsTick>.IsAny)
+      logic => logic.Input(in It.Ref<PlayerLogicState.Input.PhysicsTick>.IsAny)
     );
     _logic.Setup(
-      logic => logic.Input(in It.Ref<PlayerLogic.Input.Moved>.IsAny)
+      logic => logic.Input(in It.Ref<PlayerLogicState.Input.Moved>.IsAny)
     );
 
     _player.OnPhysicsProcess(1d);
@@ -177,7 +178,7 @@ public class PlayerTest : TestClass
   {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(in It.Ref<PlayerLogic.Input.Pushed>.IsAny)
+      logic => logic.Input(in It.Ref<PlayerLogicState.Input.Pushed>.IsAny)
     );
 
     _player.Push(Vector3.Forward);
@@ -192,7 +193,7 @@ public class PlayerTest : TestClass
   {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(in It.Ref<PlayerLogic.Input.Killed>.IsAny)
+      logic => logic.Input(in It.Ref<PlayerLogicState.Input.Killed>.IsAny)
     );
     _player.Kill();
     _logic.VerifyAll();
@@ -204,7 +205,7 @@ public class PlayerTest : TestClass
     _player.OnResolved();
 
     _binding.Output(
-      new PlayerLogic.Output.MovementComputed(
+      new PlayerLogicState.Output.MovementComputed(
         Basis.Identity, Vector3.Forward, Vector2.Zero, 0d
       )
     );
@@ -219,7 +220,7 @@ public class PlayerTest : TestClass
     _player.OnResolved();
 
     _binding.Output(
-      new PlayerLogic.Output.VelocityChanged(Vector3.Forward)
+      new PlayerLogicState.Output.VelocityChanged(Vector3.Forward)
     );
 
     _player.Velocity.ShouldBe(Vector3.Forward);
@@ -229,13 +230,14 @@ public class PlayerTest : TestClass
   public void Saves()
   {
     _player.Setup();
+    _player.PlayerLogic.Start<PlayerLogicState.Disabled>();
 
     var chunk = new Mock<ISaveChunk<PlayerData>>();
 
     var data = _player.PlayerChunk.OnSave(chunk.Object);
 
     data.GlobalTransform.ShouldBe(_player.GlobalTransform);
-    data.StateMachine.ShouldBe(_player.PlayerLogic);
+    data.StateMachine.Data.ShouldBe(_player.PlayerLogic.Save().Data);
     data.Velocity.ShouldBe(_player.Velocity);
   }
 
@@ -247,13 +249,15 @@ public class PlayerTest : TestClass
     var chunk = new Mock<ISaveChunk<PlayerData>>();
 
     var logic = new PlayerLogic();
-    logic.Set(_appRepo.Object);
-    logic.Start();
+    logic.Set(_appRepo);
+    logic.Start<PlayerLogicState.Disabled>();
+
+    _player.PlayerLogic = logic;
 
     var data = new PlayerData
     {
       GlobalTransform = Transform3D.Identity,
-      StateMachine = logic,
+      StateMachine = logic.Save(),
       Velocity = Vector3.Forward
     };
 

@@ -1,0 +1,12 @@
+@startuml MapLogic
+state MapLogic {
+  state MapLogicState
+}
+
+[*] --> MapLogicState
+
+MapLogic : Dependencies:
+MapLogic : - Data
+MapLogic : - IGameRepo
+MapLogic : - Mock
+@enduml

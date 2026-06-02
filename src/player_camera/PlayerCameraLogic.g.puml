@@ -1,0 +1,15 @@
+@startuml PlayerCameraLogic
+state PlayerCameraLogic {
+  state InputDisabled
+}
+
+[*] --> InputDisabled
+
+PlayerCameraLogic : Dependencies:
+PlayerCameraLogic : - Data
+PlayerCameraLogic : - IGameRepo
+PlayerCameraLogic : - IPlayerCamera
+PlayerCameraLogic : - Mock
+PlayerCameraLogic : - PlayerCamera
+PlayerCameraLogic : - PlayerCameraSettings
+@enduml

@@ -8,9 +8,9 @@ using Shouldly;
 
 public class MainMenuTest : TestClass
 {
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
-  private AppLogic.State.MainMenu _state = default!;
+  private AppLogicState.MainMenu _state = default!;
   private AppLogic.Data _data = default!;
 
 
@@ -22,7 +22,7 @@ public class MainMenuTest : TestClass
     _state = new();
     _appRepo = new();
     _data = new();
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
     _context.Set(_appRepo.Object);
     _context.Set(_data);
   }
@@ -33,25 +33,25 @@ public class MainMenuTest : TestClass
     _state.Enter();
 
     _context.Outputs.ShouldBe([
-      new AppLogic.Output.SetupGameScene(),
-      new AppLogic.Output.ShowMainMenu()
+      new AppLogicState.Output.SetupGameScene(),
+      new AppLogicState.Output.ShowMainMenu()
     ]);
   }
 
   [Test]
   public void StartsGame()
   {
-    var next = _state.On(new AppLogic.Input.NewGame());
+    var next = _state.On(new AppLogicState.Input.NewGame());
 
-    next.State.ShouldBeOfType<AppLogic.State.LeavingMenu>();
+    next.IsAssignableTo(typeof(AppLogicState.LeavingMenu)).ShouldBeTrue();
   }
 
   [Test]
   public void LeavesMenuOnLoadGame()
   {
-    var next = _state.On(new AppLogic.Input.LoadGame());
+    var next = _state.On(new AppLogicState.Input.LoadGame());
 
-    next.State.ShouldBeOfType<AppLogic.State.LeavingMenu>();
+    next.IsAssignableTo(typeof(AppLogicState.LeavingMenu)).ShouldBeTrue();
 
     _data.ShouldLoadExistingGame.ShouldBeTrue();
   }

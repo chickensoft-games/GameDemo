@@ -3,7 +3,6 @@ namespace GameDemo.Tests;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Chickensoft.GoDotTest;
-using Chickensoft.LogicBlocks;
 using Chickensoft.Sync.Primitives;
 using Godot;
 using Moq;
@@ -18,8 +17,8 @@ using Shouldly;
 ]
 public class PlayingTest : TestClass
 {
-  private IFakeContext _context = default!;
-  private GameLogic.State.Playing _state = default!;
+  private StateTester _context = default!;
+  private GameLogicState.Playing _state = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private AutoValue<bool> _isMouseCaptured = default!;
   private AutoValue<bool> _isPaused = default!;
@@ -29,8 +28,8 @@ public class PlayingTest : TestClass
   [Setup]
   public void Setup()
   {
-    _state = new GameLogic.State.Playing();
-    _context = _state.CreateFakeContext();
+    _state = new GameLogicState.Playing();
+    _context = _state.Test();
 
     _isMouseCaptured = new(true);
     _isPaused = new(true);
@@ -55,63 +54,51 @@ public class PlayingTest : TestClass
     _gameRepo.Reset();
     _gameRepo.Setup(repo => repo.SetIsMouseCaptured(true));
     _state.Enter();
-    _context.Outputs.Single().ShouldBeOfType<GameLogic.Output.StartGame>();
+    _context.Outputs.Single().ShouldBeOfType<GameLogicState.Output.StartGame>();
     _gameRepo.VerifyAll();
   }
 
   [Test]
-  public void Subscribes()
-  {
-    _state.Attach(_context);
-
-    _gameRepo.VerifyAdd(repo => repo.Ended += _state.OnEnded);
-
-    _state.Detach();
-
-    _gameRepo.VerifyRemove(repo => repo.Ended -= _state.OnEnded);
-  }
-
-  [Test]
   public void OnPauseButtonPressed() =>
-    _state.On(new GameLogic.Input.PauseButtonPressed()).State
-      .ShouldBeOfType<GameLogic.State.Paused>();
+    _state.On(new GameLogicState.Input.PauseButtonPressed())
+      .ShouldBe(typeof(GameLogicState.Paused));
 
   [Test]
   public void OnEnded()
   {
     _state.OnEnded(GameOverReason.Won);
-    _context.Inputs.Single().ShouldBeOfType<GameLogic.Input.EndGame>();
+    _context.Inputs.Single().ShouldBeOfType<GameLogicState.Input.EndGame>();
   }
 
   [Test]
   public void OnEndGameWins()
   {
-    var result = _state.On(new GameLogic.Input.EndGame(GameOverReason.Won));
+    var result = _state.On(new GameLogicState.Input.EndGame(GameOverReason.Won));
     _gameRepo.Verify(repo => repo.Pause());
-    result.State.ShouldBeOfType<GameLogic.State.Won>();
+    result.ShouldBe(typeof(GameLogicState.Won));
   }
 
   [Test]
   public void OnEndGameLoses()
   {
-    var result = _state.On(new GameLogic.Input.EndGame(GameOverReason.Lost));
+    var result = _state.On(new GameLogicState.Input.EndGame(GameOverReason.Lost));
     _gameRepo.Verify(repo => repo.Pause());
-    result.State.ShouldBeOfType<GameLogic.State.Lost>();
+    result.ShouldBe(typeof(GameLogicState.Lost));
   }
 
   [Test]
   public void OnEndGameQuits()
   {
-    var result = _state.On(new GameLogic.Input.EndGame(GameOverReason.Quit));
+    var result = _state.On(new GameLogicState.Input.EndGame(GameOverReason.Quit));
     _gameRepo.Verify(repo => repo.Pause());
-    result.State.ShouldBeOfType<GameLogic.State.Quit>();
+    result.ShouldBe(typeof(GameLogicState.Quit));
   }
 
   [Test]
   public void OnUnknownEndGameQuits()
   {
-    var result = _state.On(new GameLogic.Input.EndGame((GameOverReason)25));
+    var result = _state.On(new GameLogicState.Input.EndGame((GameOverReason)25));
     _gameRepo.Verify(repo => repo.Pause());
-    result.State.ShouldBeOfType<GameLogic.State.Quit>();
+    result.ShouldBe(typeof(GameLogicState.Quit));
   }
 }

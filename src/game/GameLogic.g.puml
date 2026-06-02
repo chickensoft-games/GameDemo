@@ -1,0 +1,11 @@
+@startuml GameLogic
+state GameLogic {
+  state MenuBackdrop
+}
+
+[*] --> MenuBackdrop
+
+GameLogic : Dependencies:
+GameLogic : - IAppRepo
+GameLogic : - IGameRepo
+@enduml

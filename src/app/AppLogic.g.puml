@@ -1,0 +1,11 @@
+@startuml AppLogic
+state AppLogic {
+  state SplashScreen
+}
+
+[*] --> SplashScreen
+
+AppLogic : Dependencies:
+AppLogic : - Data
+AppLogic : - IAppRepo
+@enduml

@@ -6,18 +6,19 @@ using Godot;
 
 public interface IGameRepo : IDisposable
 {
+  IAutoChannel AutoChannel { get; }
   /// <summary>Event invoked when the game ends.</summary>
-  event Action<GameOverReason>? Ended;
+  readonly record struct Ended(GameOverReason Reason);
 
   /// <summary>Event invoked when a coin is collected.</summary>
-  event Action<ICoin>? CoinCollectionStarted;
-  event Action<ICoin>? CoinCollectionCompleted;
+  readonly record struct CoinCollectionStarted(ICoin Coin);
+  readonly record struct CoinCollectionCompleted(ICoin Coin);
 
   /// <summary>Event invoked when a jumpshroom is used to bounce.</summary>
-  event Action? JumpshroomUsed;
+  readonly record struct JumpshroomUsed;
 
   /// <summary>Event invoked whenever the player jumps.</summary>
-  event Action? Jumped;
+  readonly record struct Jumped;
 
   /// <summary>Mouse captured status.</summary>
   IAutoValue<bool> IsMouseCaptured { get; }
@@ -96,6 +97,9 @@ public interface IGameRepo : IDisposable
 /// </summary>
 public class GameRepo : IGameRepo
 {
+  private readonly AutoChannel _autoChannel = new();
+  public IAutoChannel AutoChannel => _autoChannel;
+
   public IAutoValue<bool> IsMouseCaptured => _isMouseCaptured;
   private readonly AutoValue<bool> _isMouseCaptured;
   public IAutoValue<bool> IsPaused => _isPaused;
@@ -112,11 +116,6 @@ public class GameRepo : IGameRepo
   private readonly AutoValue<int> _numCoinsCollected;
   public IAutoValue<int> NumCoinsAtStart => _numCoinsAtStart;
   private readonly AutoValue<int> _numCoinsAtStart;
-  public event Action<ICoin>? CoinCollectionCompleted;
-  public event Action<ICoin>? CoinCollectionStarted;
-  public event Action? JumpshroomUsed;
-  public event Action<GameOverReason>? Ended;
-  public event Action? Jumped;
 
   private int _coinsBeingCollected;
   private bool _disposedValue;
@@ -161,13 +160,13 @@ public class GameRepo : IGameRepo
   {
     _coinsBeingCollected++;
     _numCoinsCollected.Value = _numCoinsCollected.Value + 1;
-    CoinCollectionStarted?.Invoke(coin);
+    _autoChannel.Send(new IGameRepo.CoinCollectionStarted(coin));
   }
 
   public void OnFinishCoinCollection(ICoin coin)
   {
     _coinsBeingCollected--;
-    CoinCollectionCompleted?.Invoke(coin);
+    _autoChannel.Send(new IGameRepo.CoinCollectionCompleted(coin));
 
     if (
       _coinsBeingCollected == 0 &&
@@ -178,13 +177,13 @@ public class GameRepo : IGameRepo
     }
   }
 
-  public void OnJump() => Jumped?.Invoke();
+  public void OnJump() => _autoChannel.Send(new IGameRepo.Jumped());
 
   public void OnGameEnded(GameOverReason reason)
   {
     _isMouseCaptured.Value = false;
     Pause();
-    Ended?.Invoke(reason);
+    _autoChannel.Send(new IGameRepo.Ended(reason));
   }
 
   public void Pause()
@@ -199,7 +198,7 @@ public class GameRepo : IGameRepo
     _isPaused.Value = false;
   }
 
-  public void OnJumpshroomUsed() => JumpshroomUsed?.Invoke();
+  public void OnJumpshroomUsed() => _autoChannel.Send(new IGameRepo.JumpshroomUsed());
 
   public void SetNumCoinsAtStart(int numCoinsAtStart) =>
     _numCoinsAtStart.Value = numCoinsAtStart;

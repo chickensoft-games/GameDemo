@@ -59,49 +59,45 @@ public class PlayerCameraLogicTest : TestClass
     data.TargetAngleVertical.ShouldBe(0f);
     data.TargetOffset.ShouldBe(Vector3.Zero);
 
-    _logic
-      .GetInitialState().State
-      .ShouldBeOfType<PlayerCameraLogic.State.InputDisabled>();
-
     // Test outputs
     var gimbalRotationChanged =
-      new PlayerCameraLogic.Output.GimbalRotationChanged(
+      new PlayerCameraLogicState.Output.GimbalRotationChanged(
         Vector3.Zero, Vector3.Zero
       );
     gimbalRotationChanged.GimbalRotationHorizontal.ShouldBe(Vector3.Zero);
     gimbalRotationChanged.GimbalRotationVertical.ShouldBe(Vector3.Zero);
 
     var globalTransformChanged =
-      new PlayerCameraLogic.Output.GlobalTransformChanged(Transform3D.Identity);
+      new PlayerCameraLogicState.Output.GlobalTransformChanged(Transform3D.Identity);
     globalTransformChanged.GlobalTransform.ShouldBe(Transform3D.Identity);
 
     var cameraLocalPositionChanged =
-      new PlayerCameraLogic.Output.CameraLocalPositionChanged(Vector3.Zero);
+      new PlayerCameraLogicState.Output.CameraLocalPositionChanged(Vector3.Zero);
     cameraLocalPositionChanged.CameraLocalPosition.ShouldBe(Vector3.Zero);
 
     var cameraOffsetChanged =
-      new PlayerCameraLogic.Output.CameraOffsetChanged(Vector3.Zero);
+      new PlayerCameraLogicState.Output.CameraOffsetChanged(Vector3.Zero);
     cameraOffsetChanged.Offset.ShouldBe(Vector3.Zero);
   }
 
   [Test]
   public void SubscribesToMouseCaptured()
   {
-    _logic.Start();
+    _logic.Start<PlayerCameraLogicState.InputDisabled>();
 
-    _logic.Value.ShouldBeOfType<PlayerCameraLogic.State.InputDisabled>();
+    _logic.State.ShouldBeOfType<PlayerCameraLogicState.InputDisabled>();
 
     _isMouseCaptured.Value = true;
-    _logic.Value.ShouldBeOfType<PlayerCameraLogic.State.InputEnabled>();
+    _logic.State.ShouldBeOfType<PlayerCameraLogicState.InputEnabled>();
 
     _isMouseCaptured.Value = false;
-    _logic.Value.ShouldBeOfType<PlayerCameraLogic.State.InputDisabled>();
+    _logic.State.ShouldBeOfType<PlayerCameraLogicState.InputDisabled>();
   }
 
   [Test]
   public void SubscribesToPlayerGlobalPosition()
   {
-    _logic.Start();
+    _logic.Start<PlayerCameraLogicState.InputDisabled>();
 
     var targetPos = new Vector3(10, 0, 10);
     _playerGlobalPosition.Value = targetPos;
@@ -116,13 +112,13 @@ public class PlayerCameraLogicTest : TestClass
     _camera.Setup(c => c.CameraBasis).Returns(Basis.Identity);
 
     using var binding = _logic.Bind();
-    PlayerCameraLogic.Output.GlobalTransformChanged? lastOutput = null;
+    PlayerCameraLogicState.Output.GlobalTransformChanged? lastOutput = null;
 
-    binding.Handle(
-      (in PlayerCameraLogic.Output.GlobalTransformChanged o) => lastOutput = o
+    binding.OnOutput(
+      (in PlayerCameraLogicState.Output.GlobalTransformChanged o) => lastOutput = o
     );
 
-    _logic.Input(new PlayerCameraLogic.Input.PhysicsTicked(1.0));
+    _logic.Input(new PlayerCameraLogicState.Input.PhysicsTicked(1.0));
 
     lastOutput.ShouldNotBeNull();
     lastOutput.Value.GlobalTransform.Origin.ShouldNotBe(Vector3.Zero);

@@ -9,12 +9,12 @@ using Shouldly;
 
 public class CoinLogicStateCollectingTest : TestClass
 {
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private CoinLogic.Settings _settings = default!;
   private Mock<ICoin> _coin = default!;
   private Mock<ICoinCollector> _target = default!;
-  private CoinLogic.State.Collecting _state = default!;
+  private CoinLogicState.Collecting _state = default!;
   private CoinLogic.Data _data = default!;
   private EntityTable _entityTable = default!;
 
@@ -31,7 +31,7 @@ public class CoinLogicStateCollectingTest : TestClass
     _data = new() { Target = "target_id" };
     _entityTable = new();
 
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
 
     _entityTable.Set("target_id", _target.Object);
 
@@ -56,7 +56,7 @@ public class CoinLogicStateCollectingTest : TestClass
   [Test]
   public void ComputesNextPositionOnPhysicsProcess()
   {
-    var input = new CoinLogic.Input.PhysicsProcess(
+    var input = new CoinLogicState.Input.PhysicsProcess(
       1.0f,
       GlobalPosition: Vector3.Zero
     );
@@ -64,11 +64,11 @@ public class CoinLogicStateCollectingTest : TestClass
     _gameRepo.Setup(repo => repo.OnFinishCoinCollection(_coin.Object));
     _target.Setup(target => target.CenterOfMass).Returns(Vector3.One);
 
-    _state.On(input).State.ShouldBe(_state);
+    _state.On(input).ShouldBe(_state.GetType());
 
     _context.Outputs.ShouldBeOfTypes(
-      typeof(CoinLogic.Output.SelfDestruct),
-      typeof(CoinLogic.Output.Move)
+      typeof(CoinLogicState.Output.SelfDestruct),
+      typeof(CoinLogicState.Output.Move)
     );
   }
 }

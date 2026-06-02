@@ -1,29 +1,24 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class JumpshroomLogic
+public partial record JumpshroomLogicState
 {
-  public partial record State
+  [Meta]
+  public partial record Loading : JumpshroomLogicState, IGet<Input.Launch>
   {
-    [Meta]
-    public partial record Loading : State, IGet<Input.Launch>
+    public Loading()
     {
-      public IPushEnabled Target { get; set; } = default!;
-
-      public Loading()
+      this.OnEnter(() =>
       {
-        this.OnEnter(() =>
-        {
-          Get<IGameRepo>().OnJumpshroomUsed();
-          Output(new Output.Animate());
-        });
-      }
-
-      // Springy top is fully compressed, so it is ready to launch.
-      public Transition On(in Input.Launch input) => To<Launching>()
-        .With(state => ((Launching)state).Target = Target);
+        Get<IGameRepo>().OnJumpshroomUsed();
+        Output(new Output.Animate());
+      });
     }
+
+    // Springy top is fully compressed, so it is ready to launch.
+    public Type On(in Input.Launch input) => To<Launching>();
   }
 }

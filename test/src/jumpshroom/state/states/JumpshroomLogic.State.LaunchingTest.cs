@@ -8,10 +8,10 @@ using Shouldly;
 
 public class JumpshroomLogicStateLaunchingTest : TestClass
 {
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private Mock<IPushEnabled> _target = default!;
   private JumpshroomLogic.Data _data = default!;
-  private JumpshroomLogic.State.Launching _state = default!;
+  private JumpshroomLogicState.Launching _state = default!;
 
   public JumpshroomLogicStateLaunchingTest(Node testScene) : base(testScene) { }
 
@@ -19,10 +19,13 @@ public class JumpshroomLogicStateLaunchingTest : TestClass
   public void Setup()
   {
     _target = new Mock<IPushEnabled>();
-    _data = new(1.0f);
+    _data = new(1.0f)
+    {
+      Target = _target.Object
+    };
 
-    _state = new() { Target = _target.Object };
-    _context = _state.CreateFakeContext();
+    _state = new();
+    _context = _state.Test();
 
     _context.Set(_data);
   }
@@ -40,8 +43,8 @@ public class JumpshroomLogicStateLaunchingTest : TestClass
   [Test]
   public void LaunchCompletedGoesToCooldown()
   {
-    var next = _state.On(new JumpshroomLogic.Input.LaunchCompleted());
+    var next = _state.On(new JumpshroomLogicState.Input.LaunchCompleted());
 
-    next.State.ShouldBeOfType<JumpshroomLogic.State.Cooldown>();
+    next.IsAssignableTo(typeof(JumpshroomLogicState.Cooldown)).ShouldBeTrue();
   }
 }

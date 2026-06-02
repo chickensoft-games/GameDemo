@@ -3,6 +3,7 @@ namespace GameDemo;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 using Godot;
 
 public interface IInGameUI : IControl
@@ -32,7 +33,7 @@ public partial class InGameUI : Control, IInGameUI
 
   public IInGameUILogic InGameUILogic { get; set; } = default!;
 
-  public InGameUILogic.IBinding InGameUIBinding { get; set; } = default!;
+  public LogicBlock.Binding InGameUIBinding { get; set; } = default!;
 
   #endregion State
 
@@ -47,13 +48,13 @@ public partial class InGameUI : Control, IInGameUI
     InGameUIBinding = InGameUILogic.Bind();
 
     InGameUIBinding
-      .Handle((in InGameUILogic.Output.NumCoinsChanged output) =>
+      .OnOutput((in InGameUILogicState.Output.NumCoinsChanged output) =>
         SetCoinsLabel(
           output.NumCoinsCollected, output.NumCoinsAtStart
         )
       );
 
-    InGameUILogic.Start();
+    InGameUILogic.Start<InGameUILogicState>();
   }
 
   public void SetCoinsLabel(int coins, int totalCoins) =>

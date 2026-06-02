@@ -1,0 +1,14 @@
+@startuml PlayerLogic
+state PlayerLogic {
+  state Disabled
+}
+
+[*] --> Disabled
+
+PlayerLogic : Dependencies:
+PlayerLogic : - Data
+PlayerLogic : - IAppRepo
+PlayerLogic : - IGameRepo
+PlayerLogic : - IPlayer
+PlayerLogic : - Settings
+@enduml

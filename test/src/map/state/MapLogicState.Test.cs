@@ -1,16 +1,15 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.GoDotTest;
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
 public class MapLogicStateTest : TestClass
 {
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private Mock<IGameRepo> _gameRepo = default!;
-  private MapLogic.State _state = default!;
+  private MapLogicState _state = default!;
   private MapLogic.Data _data = default!;
 
   public MapLogicStateTest(Node testScene) : base(testScene) { }
@@ -18,42 +17,20 @@ public class MapLogicStateTest : TestClass
   [Setup]
   public void Setup()
   {
-    _gameRepo = new Mock<IGameRepo>();
+    _gameRepo = new ();
     _data = new MapLogic.Data();
 
-    _state = new MapLogic.State();
-    _context = _state.CreateFakeContext();
+    _state = new MapLogicState();
+    _context = _state.Test();
 
     _context.Set(_gameRepo.Object);
     _context.Set(_data);
   }
 
   [Test]
-  public void Subscribes()
-  {
-    _state.Attach(_context);
-
-    _gameRepo.VerifyAdd(
-      repo => repo.CoinCollectionStarted += _state.OnCoinCollectionStarted
-    );
-    _gameRepo.VerifyAdd(
-      repo => repo.CoinCollectionCompleted += _state.OnCoinCollectionCompleted
-    );
-
-    _state.Detach();
-
-    _gameRepo.VerifyRemove(
-      repo => repo.CoinCollectionStarted -= _state.OnCoinCollectionStarted
-    );
-    _gameRepo.VerifyRemove(
-      repo => repo.CoinCollectionCompleted -= _state.OnCoinCollectionCompleted
-    );
-  }
-
-  [Test]
   public void GameLoadedFromSaveFile()
   {
-    _state.On(new MapLogic.Input.GameLoadedFromSaveFile(5));
+    _state.On(new MapLogicState.Input.GameLoadedFromSaveFile(5));
 
     _gameRepo.Verify(repo => repo.SetNumCoinsCollected(5));
   }

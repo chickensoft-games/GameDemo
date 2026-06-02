@@ -1,20 +1,19 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 
-public partial class JumpshroomLogic
+public partial record JumpshroomLogicState
 {
-  public partial record State
+  [Meta]
+  public partial record Idle : JumpshroomLogicState, IGet<Input.Hit>
   {
-    [Meta]
-    public partial record Idle : State, IGet<Input.Hit>
+    public Type On(in Input.Hit input)
     {
-      public Transition On(in Input.Hit input)
-      {
-        var target = input.Target;
-        return To<Loading>()
-        .With(state => ((Loading)state).Target = target);
-      }
+      var target = input.Target;
+      Get<JumpshroomLogic.Data>().Target = target;
+      return To<Loading>();
     }
   }
 }

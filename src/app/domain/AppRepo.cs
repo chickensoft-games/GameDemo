@@ -1,6 +1,7 @@
 namespace GameDemo;
 
 using System;
+using Chickensoft.Sync.Primitives;
 
 /// <summary>
 ///   Pure application game logic repository shared between view-specific logic
@@ -8,31 +9,33 @@ using System;
 /// </summary>
 public interface IAppRepo : IDisposable
 {
+  IAutoChannel AutoChannel { get; }
+
   /// <summary>
   ///   Event invoked when the game is about to start.
   /// </summary>
-  event Action? GameEntered;
+  readonly record struct GameEntering;
 
   /// <summary>
   ///   Event invoked when the game is about to end.
   /// </summary>
-  event Action<PostGameAction>? GameExited;
+  readonly record struct GameExited(PostGameAction Action);
 
   /// <summary>Event invoked when the splash screen is skipped.</summary>
-  event Action? SplashScreenSkipped;
+  readonly record struct SplashScreenSkipped;
 
   /// <summary>Event invoked when the main menu is entered.</summary>
-  event Action? MainMenuEntered;
+  readonly record struct MainMenuEntering;
 
   /// <summary>Inform the app that the game should be shown.</summary>
-  void OnEnterGame();
+  void OnEnteringGame();
 
   /// <summary>Inform the app that the game should be exited.</summary>
   /// <param name="action">Action to take following the end of the game.</param>
   void OnExitGame(PostGameAction action);
 
   /// <summary>Tells the app that the main menu was entered.</summary>
-  void OnMainMenuEntered();
+  void OnMainMenuEntering();
 
   /// <summary>Skips the splash screen.</summary>
   void SkipSplashScreen();
@@ -44,19 +47,17 @@ public interface IAppRepo : IDisposable
 /// </summary>
 public class AppRepo : IAppRepo
 {
-  public event Action? SplashScreenSkipped;
-  public event Action? MainMenuEntered;
-  public event Action? GameEntered;
-  public event Action<PostGameAction>? GameExited;
+  private readonly AutoChannel _autoChannel = new();
+  public IAutoChannel AutoChannel => _autoChannel;
 
   private bool _disposedValue;
 
-  public void SkipSplashScreen() => SplashScreenSkipped?.Invoke();
+  public void SkipSplashScreen() => _autoChannel.Send(new IAppRepo.SplashScreenSkipped());
 
-  public void OnMainMenuEntered() => MainMenuEntered?.Invoke();
+  public void OnMainMenuEntering() => _autoChannel.Send(new IAppRepo.MainMenuEntering());
 
-  public void OnEnterGame() => GameEntered?.Invoke();
-  public void OnExitGame(PostGameAction action) => GameExited?.Invoke(action);
+  public void OnEnteringGame() => _autoChannel.Send(new IAppRepo.GameEntering());
+  public void OnExitGame(PostGameAction action) => _autoChannel.Send(new IAppRepo.GameExited(action));
 
   #region Internals
 
@@ -66,11 +67,7 @@ public class AppRepo : IAppRepo
     {
       if (disposing)
       {
-        // Dispose managed objects.
-        SplashScreenSkipped = null;
-        MainMenuEntered = null;
-        GameEntered = null;
-        GameExited = null;
+        _autoChannel.Dispose();
       }
 
       _disposedValue = true;

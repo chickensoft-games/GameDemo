@@ -69,7 +69,7 @@ public partial class Map : Node3D, IMap
               var coin = EntityTable.Get<ICoin>(coinName)!;
               return new CoinData()
               {
-                StateMachine = coin.CoinLogic,
+                StateMachine = coin.CoinLogic.Save(),
                 GlobalTransform = coin.GlobalTransform
               };
             }
@@ -95,8 +95,8 @@ public partial class Map : Node3D, IMap
           var child = Coins.GetNodeOrNullEx<INode>(coinName);
           if (child is ICoin coin)
           {
-            coin.CoinLogic.RestoreFrom(coinData.StateMachine);
-            coin.CoinLogic.Start();
+            coin.CoinLogic.Stop();
+            coin.CoinLogic.Start(coinData.StateMachine.Data);
             coin.GlobalTransform = coinData.GlobalTransform;
           }
         }
@@ -113,7 +113,7 @@ public partial class Map : Node3D, IMap
           data.CoinsBeingCollected.Count;
 
         MapLogic.Input(
-          new MapLogic.Input.GameLoadedFromSaveFile(
+          new MapLogicState.Input.GameLoadedFromSaveFile(
             NumCoinsCollected: numCoinsCollected
           )
         );
@@ -127,7 +127,7 @@ public partial class Map : Node3D, IMap
     MapLogic.Set(new MapLogic.Data());
     MapLogic.Set(GameRepo);
 
-    MapLogic.Start();
+    MapLogic.Start<MapLogicState>();
 
     this.Provide();
   }

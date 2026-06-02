@@ -3,15 +3,16 @@ namespace GameDemo.Tests;
 using Chickensoft.GoDotTest;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
+using Chickensoft.LogicBlocks.Auto;
 using Godot;
 using Shouldly;
 
 public partial class PlayerLogicStateAliveAirborneTest : TestClass
 {
   [Meta, TestState]
-  public partial record TestPlayerState : PlayerLogic.State.Airborne;
+  public partial record TestPlayerState : PlayerLogicState.Airborne;
 
-  private PlayerLogic.State.Airborne _state = default!;
+  private PlayerLogicState.Airborne _state = default!;
 
   public PlayerLogicStateAliveAirborneTest(Node testScene) :
     base(testScene)
@@ -21,30 +22,30 @@ public partial class PlayerLogicStateAliveAirborneTest : TestClass
   public void Setup()
   {
     _state = new TestPlayerState();
-    _state.CreateFakeContext();
+    _state.Test();
   }
 
   [Test]
   public void HitFloorGoesToMoving()
   {
-    var next = _state.On(new PlayerLogic.Input.HitFloor(true));
+    var next = _state.On(new PlayerLogicState.Input.HitFloor(true));
 
-    next.State.ShouldBeOfType<PlayerLogic.State.Moving>();
+    next.IsAssignableTo(typeof(PlayerLogicState.Moving)).ShouldBeTrue();
   }
 
   [Test]
   public void HitFloorGoesToIdle()
   {
-    var next = _state.On(new PlayerLogic.Input.HitFloor(false));
+    var next = _state.On(new PlayerLogicState.Input.HitFloor(false));
 
-    next.State.ShouldBeOfType<PlayerLogic.State.Idle>();
+    next.IsAssignableTo(typeof(PlayerLogicState.Idle)).ShouldBeTrue();
   }
 
   [Test]
   public void StartedFallingGoesToFalling()
   {
-    var next = _state.On(new PlayerLogic.Input.StartedFalling());
+    var next = _state.On(new PlayerLogicState.Input.StartedFalling());
 
-    next.State.ShouldBeOfType<PlayerLogic.State.Falling>();
+    next.IsAssignableTo(typeof(PlayerLogicState.Falling)).ShouldBeTrue();
   }
 }

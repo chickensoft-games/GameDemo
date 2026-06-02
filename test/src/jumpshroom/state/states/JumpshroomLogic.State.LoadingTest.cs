@@ -8,11 +8,11 @@ using Shouldly;
 
 public class JumpshroomLogicStateLoadingTest : TestClass
 {
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private Mock<IPushEnabled> _target = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private JumpshroomLogic.Data _data = default!;
-  private JumpshroomLogic.State.Loading _state = default!;
+  private JumpshroomLogicState.Loading _state = default!;
 
   public JumpshroomLogicStateLoadingTest(Node testScene) : base(testScene) { }
 
@@ -21,10 +21,13 @@ public class JumpshroomLogicStateLoadingTest : TestClass
   {
     _target = new();
     _gameRepo = new();
-    _data = new(1.0f);
+    _data = new(1.0f)
+    {
+      Target = _target.Object
+    };
 
-    _state = new() { Target = _target.Object };
-    _context = _state.CreateFakeContext();
+    _state = new();
+    _context = _state.Test();
 
     _context.Set(_gameRepo.Object);
     _context.Set(_data);
@@ -38,7 +41,7 @@ public class JumpshroomLogicStateLoadingTest : TestClass
     _state.Enter();
 
     _context.Outputs.ShouldBe([
-      new JumpshroomLogic.Output.Animate()
+      new JumpshroomLogicState.Output.Animate()
     ]);
 
     _gameRepo.VerifyAll();
@@ -47,8 +50,8 @@ public class JumpshroomLogicStateLoadingTest : TestClass
   [Test]
   public void LaunchGoesToLaunching()
   {
-    var next = _state.On(new JumpshroomLogic.Input.Launch());
+    var next = _state.On(new JumpshroomLogicState.Input.Launch());
 
-    next.State.ShouldBeOfType<JumpshroomLogic.State.Launching>();
+    next.IsAssignableTo(typeof(JumpshroomLogicState.Launching)).ShouldBeTrue();
   }
 }

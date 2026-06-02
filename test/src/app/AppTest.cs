@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
@@ -21,7 +22,7 @@ public class AppTest : TestClass
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IAppLogic> _logic = default!;
 
-  private AppLogic.IFakeBinding _binding = default!;
+  private LogicBlock.FakeBinding _binding = default!;
 
   private Mock<IInstantiator> _instantiator = default!;
   private Mock<IGame> _game = default!;
@@ -38,7 +39,7 @@ public class AppTest : TestClass
   {
     _appRepo = new();
     _logic = new();
-    _binding = AppLogic.CreateFakeBinding();
+    _binding = LogicBlock.CreateFakeBinding();
 
     _instantiator = new();
 
@@ -65,7 +66,7 @@ public class AppTest : TestClass
     (_app as IAutoInit).IsTesting = true;
 
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
-    _logic.Setup(logic => logic.Start());
+    _logic.Setup(logic => logic.Start<AppLogicState.SplashScreen>(true));
   }
 
   [Test]
@@ -114,7 +115,7 @@ public class AppTest : TestClass
 
     _app.OnReady();
 
-    _binding.Output(new AppLogic.Output.ShowSplashScreen());
+    _binding.Output(new AppLogicState.Output.ShowSplashScreen());
 
     _blankScreen.VerifyAll();
     _splash.VerifyAll();
@@ -128,7 +129,7 @@ public class AppTest : TestClass
 
     _app.OnReady();
 
-    _binding.Output(new AppLogic.Output.HideSplashScreen());
+    _binding.Output(new AppLogicState.Output.HideSplashScreen());
 
     _blankScreen.VerifyAll();
   }
@@ -143,7 +144,7 @@ public class AppTest : TestClass
 
     _app.OnReady();
 
-    _binding.Output(new AppLogic.Output.RemoveExistingGame());
+    _binding.Output(new AppLogicState.Output.RemoveExistingGame());
 
     _gamePreview.VerifyAll();
 
@@ -167,7 +168,7 @@ public class AppTest : TestClass
 
     _app.OnReady();
 
-    _binding.Output(new AppLogic.Output.SetupGameScene());
+    _binding.Output(new AppLogicState.Output.SetupGameScene());
 
     _instantiator.VerifyAll();
     _gamePreview.VerifyAll();
@@ -183,7 +184,7 @@ public class AppTest : TestClass
 
     _app.OnReady();
 
-    _binding.Output(new AppLogic.Output.ShowMainMenu());
+    _binding.Output(new AppLogicState.Output.ShowMainMenu());
 
     _menu.VerifyAll();
     _game.VerifyAll();
@@ -198,7 +199,7 @@ public class AppTest : TestClass
 
     _app.OnReady();
 
-    _binding.Output(new AppLogic.Output.FadeToBlack());
+    _binding.Output(new AppLogicState.Output.FadeToBlack());
 
     VerifyFade();
   }
@@ -212,7 +213,7 @@ public class AppTest : TestClass
 
     _app.OnReady();
 
-    _binding.Output(new AppLogic.Output.ShowGame());
+    _binding.Output(new AppLogicState.Output.ShowGame());
 
     VerifyFade();
   }
@@ -224,7 +225,7 @@ public class AppTest : TestClass
 
     _app.OnReady();
 
-    _binding.Output(new AppLogic.Output.HideGame());
+    _binding.Output(new AppLogicState.Output.HideGame());
 
     VerifyFade();
   }
@@ -234,7 +235,7 @@ public class AppTest : TestClass
   {
     _app.OnReady();
 
-    _binding.Output(new AppLogic.Output.StartLoadingSaveFile());
+    _binding.Output(new AppLogicState.Output.StartLoadingSaveFile());
 
     _game.VerifyAdd(game => game.SaveFileLoaded += _app.OnSaveFileLoaded);
     _game.Verify(game => game.LoadExistingGame());
@@ -244,7 +245,7 @@ public class AppTest : TestClass
   public void OnNewGameWorks()
   {
     _logic.Reset();
-    _logic.Setup(logic => logic.Input(It.IsAny<AppLogic.Input.NewGame>()));
+    _logic.Setup(logic => logic.Input(It.IsAny<AppLogicState.Input.NewGame>()));
     _app.OnNewGame();
     _logic.VerifyAll();
   }
@@ -253,7 +254,7 @@ public class AppTest : TestClass
   public void OnLoadGameWorks()
   {
     _logic.Reset();
-    _logic.Setup(logic => logic.Input(It.IsAny<AppLogic.Input.LoadGame>()));
+    _logic.Setup(logic => logic.Input(It.IsAny<AppLogicState.Input.LoadGame>()));
     _app.OnLoadGame();
     _logic.VerifyAll();
   }
@@ -263,7 +264,7 @@ public class AppTest : TestClass
   {
     _logic.Reset();
     _logic
-      .Setup(logic => logic.Input(It.IsAny<AppLogic.Input.FadeInFinished>()));
+      .Setup(logic => logic.Input(It.IsAny<AppLogicState.Input.FadeInFinished>()));
     _blankScreen.Setup(screen => screen.Hide());
 
     _app.OnAnimationFinished("fade_in");
@@ -277,7 +278,7 @@ public class AppTest : TestClass
   {
     _logic.Reset();
     _logic
-      .Setup(logic => logic.Input(It.IsAny<AppLogic.Input.FadeOutFinished>()));
+      .Setup(logic => logic.Input(It.IsAny<AppLogicState.Input.FadeOutFinished>()));
 
     _app.OnAnimationFinished("fade_out");
 
@@ -290,7 +291,7 @@ public class AppTest : TestClass
 
     _app.OnSaveFileLoaded();
 
-    _logic.Verify(logic => logic.Input(It.IsAny<AppLogic.Input.SaveFileLoaded>()));
+    _logic.Verify(logic => logic.Input(It.IsAny<AppLogicState.Input.SaveFileLoaded>()));
 
     _game.VerifyRemove(game => game.SaveFileLoaded -= _app.OnSaveFileLoaded);
   }

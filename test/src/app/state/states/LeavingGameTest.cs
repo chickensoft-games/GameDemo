@@ -8,9 +8,9 @@ using Shouldly;
 
 public class LeavingGameTest : TestClass
 {
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
-  private AppLogic.State.LeavingGame _state = default!;
+  private AppLogicState.LeavingGame _state = default!;
   private AppLogic.Data _data = default!;
 
   public LeavingGameTest(Node testScene) : base(testScene) { }
@@ -21,7 +21,7 @@ public class LeavingGameTest : TestClass
     _state = new();
     _appRepo = new();
     _data = new();
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
     _context.Set(_appRepo.Object);
     _context.Set(_data);
   }
@@ -29,34 +29,36 @@ public class LeavingGameTest : TestClass
   [Test]
   public void OnFadeOutFinishedGoesToMainMenu()
   {
-    var state = new AppLogic.State.LeavingGame()
+    var state = new AppLogicState.LeavingGame();
+    var context = state.Test();
+    context.Set(new AppLogic.Data()
     {
       PostGameAction = PostGameAction.GoToMainMenu
-    };
-    var context = state.CreateFakeContext();
+    });
 
-    var result = state.On(new AppLogic.Input.FadeOutFinished());
+    var result = state.On(new AppLogicState.Input.FadeOutFinished());
 
-    result.State.ShouldBeOfType<AppLogic.State.MainMenu>();
+    result.IsAssignableTo(typeof(AppLogicState.MainMenu)).ShouldBeTrue();
     context.Outputs
-      .ShouldBe([new AppLogic.Output.RemoveExistingGame()]);
+      .ShouldBe([new AppLogicState.Output.RemoveExistingGame()]);
   }
 
   [Test]
   public void OnFadeOutFinishedRestartsGame()
   {
-    var state = new AppLogic.State.LeavingGame()
+    var state = new AppLogicState.LeavingGame();
+    var context = state.Test();
+    context.Set(new AppLogic.Data()
     {
       PostGameAction = PostGameAction.RestartGame
-    };
-    var context = state.CreateFakeContext();
+    });
 
-    var result = state.On(new AppLogic.Input.FadeOutFinished());
+    var result = state.On(new AppLogicState.Input.FadeOutFinished());
 
-    result.State.ShouldBeOfType<AppLogic.State.InGame>();
+    result.IsAssignableTo(typeof(AppLogicState.InGame)).ShouldBeTrue();
     context.Outputs.ShouldBe([
-      new AppLogic.Output.RemoveExistingGame(),
-      new AppLogic.Output.SetupGameScene()
+      new AppLogicState.Output.RemoveExistingGame(),
+      new AppLogicState.Output.SetupGameScene()
     ]);
   }
 }

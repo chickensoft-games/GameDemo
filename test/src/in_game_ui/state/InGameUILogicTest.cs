@@ -39,30 +39,22 @@ public class InGameUILogicTest : TestClass
   }
 
   [Test]
-  public void Initializes()
-  {
-    _logic
-      .GetInitialState().State
-      .ShouldBeAssignableTo<InGameUILogic.State>();
-  }
-
-  [Test]
   public void SubscribesToNumCoinsCollected()
   {
     var outputs = new List<object>();
     using var binding = _logic.Bind();
 
-    binding.Handle(
-      (in InGameUILogic.Output.NumCoinsChanged output) => outputs.Add(output)
+    binding.OnOutput(
+      (in InGameUILogicState.Output.NumCoinsChanged output) => outputs.Add(output)
     );
 
-    _logic.Start();
+    _logic.Start<InGameUILogicState>();
 
     _numCoinsCollected.Value.ShouldBe(0);
 
     _numCoinsCollected.Value = 5;
 
-    outputs.ShouldContain(new InGameUILogic.Output.NumCoinsChanged(5, 0));
+    outputs.ShouldContain(new InGameUILogicState.Output.NumCoinsChanged(5, 0));
   }
 
   [Test]
@@ -71,17 +63,17 @@ public class InGameUILogicTest : TestClass
     var outputs = new List<object>();
     using var binding = _logic.Bind();
 
-    binding.Handle(
-      (in InGameUILogic.Output.NumCoinsChanged output) => outputs.Add(output)
+    binding.OnOutput(
+      (in InGameUILogicState.Output.NumCoinsChanged output) => outputs.Add(output)
     );
 
-    _logic.Start();
+    _logic.Start<InGameUILogicState>();
 
     _numCoinsAtStart.Value.ShouldBe(0);
 
     _numCoinsAtStart.Value = 10;
 
-    outputs.ShouldContain(new InGameUILogic.Output.NumCoinsChanged(0, 10));
+    outputs.ShouldContain(new InGameUILogicState.Output.NumCoinsChanged(0, 10));
   }
 
   [Test]

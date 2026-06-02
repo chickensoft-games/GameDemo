@@ -4,6 +4,7 @@ using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 using Chickensoft.SaveFileBuilder;
 using Godot;
 using Compiler = System.Runtime.CompilerServices;
@@ -110,7 +111,7 @@ IProvide<PlayerLogic.Settings>
   public IPlayerLogic PlayerLogic { get; set; } = default!;
   public PlayerLogic.Settings Settings { get; set; } = default!;
 
-  public PlayerLogic.IBinding PlayerBinding { get; set; } = default!;
+  public LogicBlock.Binding PlayerBinding { get; set; } = default!;
 
   #endregion State
 
@@ -132,21 +133,21 @@ IProvide<PlayerLogic.Settings>
     PlayerLogic.Set(Settings);
     PlayerLogic.Set(AppRepo);
     PlayerLogic.Set(GameRepo);
-    PlayerLogic.Save(() => new PlayerLogic.Data());
+    PlayerLogic.Set(new PlayerLogic.Data());
 
     PlayerChunk = new SaveChunk<PlayerData>(
       onSave: (chunk) => new PlayerData()
       {
         GlobalTransform = GlobalTransform,
-        StateMachine = PlayerLogic,
+        StateMachine = PlayerLogic.Save(),
         Velocity = Velocity
       },
       onLoad: (chunk, data) =>
       {
         GlobalTransform = data.GlobalTransform;
         Velocity = data.Velocity;
-        PlayerLogic.RestoreFrom(data.StateMachine);
-        PlayerLogic.Start();
+        PlayerLogic.Stop();
+        PlayerLogic.Start(data.StateMachine.Data);
       }
     );
   }
@@ -173,9 +174,9 @@ IProvide<PlayerLogic.Settings>
     GameRepo.SetPlayerGlobalPosition(GlobalPosition);
 
     PlayerBinding
-      .Handle((in PlayerLogic.Output.MovementComputed output) =>
+      .OnOutput((in PlayerLogicState.Output.MovementComputed output) =>
         Velocity = output.Velocity)
-      .Handle((in PlayerLogic.Output.VelocityChanged output) =>
+      .OnOutput((in PlayerLogicState.Output.VelocityChanged output) =>
         Velocity = output.Velocity
       );
 
@@ -183,12 +184,12 @@ IProvide<PlayerLogic.Settings>
     this.Provide();
 
     // Start the player state machine last.
-    PlayerLogic.Start();
+    PlayerLogic.Start<PlayerLogicState.Disabled>();
   }
 
   public void OnPhysicsProcess(double delta)
   {
-    PlayerLogic.Input(new PlayerLogic.Input.PhysicsTick(delta));
+    PlayerLogic.Input(new PlayerLogicState.Input.PhysicsTick(delta));
 
     var jumpPressed = Input.IsActionPressed(GameInputs.Jump);
     var jumpJustPressed = Input.IsActionJustPressed(GameInputs.Jump);
@@ -196,13 +197,13 @@ IProvide<PlayerLogic.Settings>
     if (ShouldJump(jumpPressed, jumpJustPressed))
     {
       PlayerLogic.Input(
-        new PlayerLogic.Input.Jump(delta)
+        new PlayerLogicState.Input.Jump(delta)
       );
     }
 
     MoveAndSlide();
 
-    PlayerLogic.Input(new PlayerLogic.Input.Moved(GlobalPosition));
+    PlayerLogic.Input(new PlayerLogicState.Input.Moved(GlobalPosition));
   }
 
   public static bool ShouldJump(bool jumpPressed, bool jumpJustPressed) =>
@@ -256,7 +257,7 @@ IProvide<PlayerLogic.Settings>
   #region IPushEnabled
 
   public void Push(Vector3 force) =>
-    PlayerLogic.Input(new PlayerLogic.Input.Pushed(force));
+    PlayerLogic.Input(new PlayerLogicState.Input.Pushed(force));
 
   #endregion IPushEnabled
 
@@ -268,7 +269,7 @@ IProvide<PlayerLogic.Settings>
 
   #region IKillable
 
-  public void Kill() => PlayerLogic.Input(new PlayerLogic.Input.Killed());
+  public void Kill() => PlayerLogic.Input(new PlayerLogicState.Input.Killed());
 
   #endregion IKillable
 }

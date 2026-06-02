@@ -16,12 +16,12 @@ using Shouldly;
 ]
 public class PlayerCameraLogicStateInputEnabledTest : TestClass
 {
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private PlayerCameraSettings _settings = default!;
   private PlayerCameraLogic.Data _data = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
-  private PlayerCameraLogic.State.InputEnabled _state = default!;
+  private PlayerCameraLogicState.InputEnabled _state = default!;
 
   public PlayerCameraLogicStateInputEnabledTest(Node testScene) :
     base(testScene)
@@ -31,7 +31,7 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass
   public void Setup()
   {
     _state = new();
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
     _settings = new();
     _data = new()
     {
@@ -58,9 +58,9 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass
   [Test]
   public void GoesToInputDisabled()
   {
-    var next = _state.On(new PlayerCameraLogic.Input.DisableInput());
+    var next = _state.On(new PlayerCameraLogicState.Input.DisableInput());
 
-    next.State.ShouldBeOfType<PlayerCameraLogic.State.InputDisabled>();
+    next.IsAssignableTo(typeof(PlayerCameraLogicState.InputDisabled)).ShouldBeTrue();
   }
 
   [Test]
@@ -75,10 +75,10 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass
     };
 
     var next = _state.On(
-      new PlayerCameraLogic.Input.MouseInputOccurred(motion)
+      new PlayerCameraLogicState.Input.MouseInputOccurred(motion)
     );
 
-    _state.ShouldBeSameAs(next.State);
+    _state.ShouldBeOfType(next);
 
     _data.TargetAngleHorizontal.ShouldNotBe(targetAngleHorizontal);
     _data.TargetAngleVertical.ShouldNotBe(targetAngleVertical);
@@ -98,10 +98,10 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass
     };
 
     var next = _state.On(
-      new PlayerCameraLogic.Input.JoyPadInputOccurred(motion)
+      new PlayerCameraLogicState.Input.JoyPadInputOccurred(motion)
     );
 
-    _state.ShouldBeSameAs(next.State);
+    _state.ShouldBeOfType(next);
 
     var motion2 = new InputEventJoypadMotion
     {
@@ -111,10 +111,10 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass
     };
 
     var next2 = _state.On(
-      new PlayerCameraLogic.Input.JoyPadInputOccurred(motion2)
+      new PlayerCameraLogicState.Input.JoyPadInputOccurred(motion2)
     );
 
-    _state.ShouldBeSameAs(next2.State);
+    _state.ShouldBeOfType(next2);
 
     _data.TargetAngleHorizontal.ShouldNotBe(targetAngleHorizontal);
     _data.TargetAngleVertical.ShouldNotBe(targetAngleVertical);

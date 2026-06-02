@@ -1,85 +1,38 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.GoDotTest;
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
 public class InGameAudioLogicStateTest : TestClass
 {
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
-  private InGameAudioLogic.State _state = default!;
+  private InGameAudioLogicState _state = default!;
 
   public InGameAudioLogicStateTest(Node testScene) : base(testScene) { }
 
   [Setup]
   public void Setup()
   {
-    _appRepo = new();
-    _gameRepo = new();
+    _appRepo = new ();
+    _gameRepo = new ();
 
     _state = new();
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
     _context.Set(_appRepo.Object);
     _context.Set(_gameRepo.Object);
   }
 
   [Test]
-  public void Subscribes()
-  {
-    _state.Attach(_context);
-
-    _gameRepo.VerifyAdd(
-      repo => repo.CoinCollectionStarted += _state.OnCoinCollectionStarted
-    );
-    _gameRepo.VerifyAdd(
-      repo => repo.JumpshroomUsed += _state.OnJumpshroomUsed
-    );
-    _gameRepo.VerifyAdd(
-      repo => repo.Ended += _state.OnGameEnded
-    );
-    _gameRepo.VerifyAdd(
-      repo => repo.Jumped += _state.OnJumped
-    );
-    _appRepo.VerifyAdd(
-      repo => repo.MainMenuEntered += _state.OnMainMenuEntered
-    );
-    _appRepo.VerifyAdd(
-      repo => repo.GameEntered += _state.OnGameEntered
-    );
-
-    _state.Detach();
-
-    _gameRepo.VerifyRemove(
-      repo => repo.CoinCollectionStarted -= _state.OnCoinCollectionStarted
-    );
-    _gameRepo.VerifyRemove(
-      repo => repo.JumpshroomUsed -= _state.OnJumpshroomUsed
-    );
-    _gameRepo.VerifyRemove(
-      repo => repo.Ended -= _state.OnGameEnded
-    );
-    _gameRepo.VerifyRemove(
-      repo => repo.Jumped -= _state.OnJumped
-    );
-    _appRepo.VerifyRemove(
-      repo => repo.MainMenuEntered -= _state.OnMainMenuEntered
-    );
-    _appRepo.VerifyRemove(
-      repo => repo.GameEntered -= _state.OnGameEntered
-    );
-  }
-
-  [Test]
   public void OnCoinCollectionStarted()
   {
-    _state.OnCoinCollectionStarted(new Mock<ICoin>().Object);
+    _state.OnCoinCollected();
 
     _context.Outputs.ShouldBe([
-      new InGameAudioLogic.Output.PlayCoinCollected()
+      new InGameAudioLogicState.Output.PlayCoinCollected()
     ]);
   }
 
@@ -89,7 +42,7 @@ public class InGameAudioLogicStateTest : TestClass
     _state.OnJumpshroomUsed();
 
     _context.Outputs.ShouldBe([
-      new InGameAudioLogic.Output.PlayBounce()
+      new InGameAudioLogicState.Output.PlayBounce()
     ]);
   }
 
@@ -99,18 +52,18 @@ public class InGameAudioLogicStateTest : TestClass
     _state.OnGameEnded(GameOverReason.Lost);
 
     _context.Outputs.ShouldBe([
-      new InGameAudioLogic.Output.StopGameMusic(),
-      new InGameAudioLogic.Output.PlayPlayerDied()
+      new InGameAudioLogicState.Output.StopGameMusic(),
+      new InGameAudioLogicState.Output.PlayPlayerDied()
     ]);
   }
 
   [Test]
   public void OnGameEndedOther()
   {
-    _state.OnGameEnded(GameOverReason.Quit);
+    _state.OnGameEnded(GameOverReason.Won);
 
     _context.Outputs.ShouldBe([
-      new InGameAudioLogic.Output.StopGameMusic()
+      new InGameAudioLogicState.Output.StopGameMusic()
     ]);
   }
 
@@ -120,7 +73,7 @@ public class InGameAudioLogicStateTest : TestClass
     _state.OnJumped();
 
     _context.Outputs.ShouldBe([
-      new InGameAudioLogic.Output.PlayJump()
+      new InGameAudioLogicState.Output.PlayJump()
     ]);
   }
 
@@ -130,7 +83,7 @@ public class InGameAudioLogicStateTest : TestClass
     _state.OnMainMenuEntered();
 
     _context.Outputs.ShouldBe([
-      new InGameAudioLogic.Output.PlayMainMenuMusic()
+      new InGameAudioLogicState.Output.PlayMainMenuMusic()
     ]);
   }
 
@@ -140,7 +93,7 @@ public class InGameAudioLogicStateTest : TestClass
     _state.OnGameEntered();
 
     _context.Outputs.ShouldBe([
-      new InGameAudioLogic.Output.PlayGameMusic()
+      new InGameAudioLogicState.Output.PlayGameMusic()
     ]);
   }
 }
