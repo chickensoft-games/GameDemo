@@ -3,6 +3,7 @@ namespace GameDemo.Tests;
 using Chickensoft.GoDotTest;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
+using Chickensoft.LogicBlocks.Auto;
 using Chickensoft.Sync.Primitives;
 using Godot;
 using Moq;
@@ -11,15 +12,15 @@ using Shouldly;
 public partial class PlayerLogicStateAliveTest : TestClass
 {
   [Meta, TestState]
-  public partial record TestPlayerState : PlayerLogic.State.Alive;
+  public partial record TestPlayerState : PlayerLogicState.Alive;
 
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private PlayerLogic.Data _data = default!;
   private Mock<IPlayer> _player = default!;
   private PlayerLogic.Settings _settings = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private Mock<IAppRepo> _appRepo = default!;
-  private PlayerLogic.State.Alive _state = default!;
+  private PlayerLogicState.Alive _state = default!;
 
   public PlayerLogicStateAliveTest(Node testScene) :
     base(testScene)
@@ -36,7 +37,7 @@ public partial class PlayerLogicStateAliveTest : TestClass
     _appRepo = new Mock<IAppRepo>();
 
     _state = new TestPlayerState();
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
 
     _context.Set(_data);
     _context.Set(_player.Object);
@@ -50,16 +51,16 @@ public partial class PlayerLogicStateAliveTest : TestClass
   {
     _gameRepo.Setup(repo => repo.OnGameEnded(GameOverReason.Lost));
 
-    var next = _state.On(new PlayerLogic.Input.Killed());
+    var next = _state.On(new PlayerLogicState.Input.Killed());
 
     _gameRepo.VerifyAll();
-    next.State.ShouldBeOfType<PlayerLogic.State.Dead>();
+    next.IsAssignableTo(typeof(PlayerLogicState.Dead)).ShouldBeTrue();
   }
 
   [Test]
   public void PhysicsUpdatesLastStrongDirection()
   {
-    var input = new PlayerLogic.Input.PhysicsTick(1);
+    var input = new PlayerLogicState.Input.PhysicsTick(1);
 
     var cameraBasis = new AutoValue<Basis>(Basis.Identity);
     _gameRepo.Setup(repo => repo.CameraBasis).Returns(cameraBasis);
@@ -80,7 +81,7 @@ public partial class PlayerLogicStateAliveTest : TestClass
   [Test]
   public void PhysicsStopsIfVelocityIsLessThanStoppingSpeed()
   {
-    var input = new PlayerLogic.Input.PhysicsTick(1);
+    var input = new PlayerLogicState.Input.PhysicsTick(1);
 
     var cameraBasis = new AutoValue<Basis>(Basis.Identity);
     _gameRepo.Setup(repo => repo.CameraBasis).Returns(cameraBasis);
@@ -96,7 +97,7 @@ public partial class PlayerLogicStateAliveTest : TestClass
     _state.On(input);
 
     _context.Outputs.ShouldBe([
-      new PlayerLogic.Output.MovementComputed(
+      new PlayerLogicState.Output.MovementComputed(
         Basis.Identity, Vector3.Up, Vector2.Up, 1d
       )
     ]);
@@ -105,7 +106,7 @@ public partial class PlayerLogicStateAliveTest : TestClass
   [Test]
   public void MovedInputsHitFloor()
   {
-    var input = new PlayerLogic.Input.Moved();
+    var input = new PlayerLogicState.Input.Moved();
 
     _gameRepo.Setup(repo => repo.SetPlayerGlobalPosition(It.IsAny<Vector3>()));
     _player.Setup(player => player.Velocity).Returns(Vector3.Zero);
@@ -120,14 +121,14 @@ public partial class PlayerLogicStateAliveTest : TestClass
     _state.On(input);
 
     _context.Inputs.ShouldBe([
-      new PlayerLogic.Input.HitFloor(IsMovingHorizontally: false)
+      new PlayerLogicState.Input.HitFloor(IsMovingHorizontally: false)
     ]);
   }
 
   [Test]
   public void MovedInputsLeftFloor()
   {
-    var input = new PlayerLogic.Input.Moved();
+    var input = new PlayerLogicState.Input.Moved();
 
     _gameRepo.Setup(repo => repo.SetPlayerGlobalPosition(It.IsAny<Vector3>()));
     _player.Setup(player => player.Velocity).Returns(Vector3.Up); // jump
@@ -142,14 +143,14 @@ public partial class PlayerLogicStateAliveTest : TestClass
     _state.On(input);
 
     _context.Inputs.ShouldBe([
-      new PlayerLogic.Input.LeftFloor(IsFalling: false)
+      new PlayerLogicState.Input.LeftFloor(IsFalling: false)
     ]);
   }
 
   [Test]
   public void MovedInputsStartedFalling()
   {
-    var input = new PlayerLogic.Input.Moved();
+    var input = new PlayerLogicState.Input.Moved();
 
     _gameRepo.Setup(repo => repo.SetPlayerGlobalPosition(It.IsAny<Vector3>()));
     _player.Setup(player => player.Velocity).Returns(Vector3.Down); // fall
@@ -164,14 +165,14 @@ public partial class PlayerLogicStateAliveTest : TestClass
     _state.On(input);
 
     _context.Inputs.ShouldBe([
-      new PlayerLogic.Input.StartedFalling()
+      new PlayerLogicState.Input.StartedFalling()
     ]);
   }
 
   [Test]
   public void MovedInputsStartedMovingHorizontally()
   {
-    var input = new PlayerLogic.Input.Moved();
+    var input = new PlayerLogicState.Input.Moved();
 
     _gameRepo.Setup(repo => repo.SetPlayerGlobalPosition(It.IsAny<Vector3>()));
     _player.Setup(player => player.Velocity).Returns(Vector3.Right); // move
@@ -186,14 +187,14 @@ public partial class PlayerLogicStateAliveTest : TestClass
     _state.On(input);
 
     _context.Inputs.ShouldBe([
-      new PlayerLogic.Input.StartedMovingHorizontally()
+      new PlayerLogicState.Input.StartedMovingHorizontally()
     ]);
   }
 
   [Test]
   public void MovedInputsStoppedMovingHorizontally()
   {
-    var input = new PlayerLogic.Input.Moved();
+    var input = new PlayerLogicState.Input.Moved();
 
     _gameRepo.Setup(repo => repo.SetPlayerGlobalPosition(It.IsAny<Vector3>()));
     _player.Setup(player => player.Velocity).Returns(Vector3.Zero); // stop
@@ -208,14 +209,14 @@ public partial class PlayerLogicStateAliveTest : TestClass
     _state.On(input);
 
     _context.Inputs.ShouldBe([
-      new PlayerLogic.Input.StoppedMovingHorizontally()
+      new PlayerLogicState.Input.StoppedMovingHorizontally()
     ]);
   }
 
   [Test]
   public void PushedChangesVelocity()
   {
-    var input = new PlayerLogic.Input.Pushed(
+    var input = new PlayerLogicState.Input.Pushed(
       GlobalForceImpulseVector: Vector3.Forward * 10
     );
 
@@ -224,7 +225,7 @@ public partial class PlayerLogicStateAliveTest : TestClass
     _state.On(input);
 
     _context.Outputs.ShouldBe([
-      new PlayerLogic.Output.VelocityChanged(Vector3.Forward * 10)
+      new PlayerLogicState.Output.VelocityChanged(Vector3.Forward * 10)
     ]);
   }
 }

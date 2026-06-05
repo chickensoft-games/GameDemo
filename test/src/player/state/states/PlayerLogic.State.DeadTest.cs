@@ -11,7 +11,7 @@ public class PlayerLogicStateDeadTest : TestClass
   [Test]
   public void Initializes()
   {
-    var state = new PlayerLogic.State.Dead();
+    var state = new PlayerLogicState.Dead();
 
     state.ShouldNotBeNull();
   }

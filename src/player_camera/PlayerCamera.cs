@@ -3,6 +3,7 @@ namespace GameDemo;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 using Chickensoft.SaveFileBuilder;
 using Godot;
 
@@ -78,7 +79,7 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
     CameraNode.Position = data.LocalPosition;
     OffsetNode.Position = data.OffsetPosition;
 
-    CameraLogic.Input(new PlayerCameraLogic.Input.PhysicsTicked(0d));
+    CameraLogic.Input(new PlayerCameraLogicState.Input.PhysicsTicked(0d));
   }
 
   #endregion Save
@@ -88,7 +89,7 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
 
   public IPlayerCameraLogic CameraLogic { get; set; } = default!;
 
-  public PlayerCameraLogic.IBinding CameraBinding { get; set; } = default!;
+  public LogicBlock.Binding CameraBinding { get; set; } = default!;
 
   #endregion State
 
@@ -140,15 +141,13 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
     CameraLogic.Set(Settings);
     CameraLogic.Set(GameRepo);
 
-    CameraLogic.Save(
-      () => new PlayerCameraLogic.Data
-      {
-        TargetPosition = Vector3.Zero,
-        TargetAngleHorizontal = 0f,
-        TargetAngleVertical = 0f,
-        TargetOffset = Vector3.Zero
-      }
-    );
+    CameraLogic.Set(new PlayerCameraLogic.Data
+    {
+      TargetPosition = Vector3.Zero,
+      TargetAngleHorizontal = 0f,
+      TargetAngleVertical = 0f,
+      TargetOffset = Vector3.Zero
+    });
 
     SetPhysicsProcess(true);
   }
@@ -156,23 +155,23 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
   public void OnResolved()
   {
     CameraBinding = CameraLogic.Bind()
-      .Handle((in PlayerCameraLogic.Output.GimbalRotationChanged output) =>
+      .OnOutput((in PlayerCameraLogicState.Output.GimbalRotationChanged output) =>
       {
         GimbalHorizontalNode.Rotation = output.GimbalRotationHorizontal;
         GimbalVerticalNode.Rotation = output.GimbalRotationVertical;
       })
-      .Handle((in PlayerCameraLogic.Output.GlobalTransformChanged output) =>
+      .OnOutput((in PlayerCameraLogicState.Output.GlobalTransformChanged output) =>
         GlobalTransform = output.GlobalTransform
       )
-      .Handle(
-        (in PlayerCameraLogic.Output.CameraLocalPositionChanged output) =>
+      .OnOutput(
+        (in PlayerCameraLogicState.Output.CameraLocalPositionChanged output) =>
           CameraNode.Position = output.CameraLocalPosition
       )
-      .Handle((in PlayerCameraLogic.Output.CameraOffsetChanged output) =>
+      .OnOutput((in PlayerCameraLogicState.Output.CameraOffsetChanged output) =>
         OffsetNode.Position = output.Offset
       );
 
-    CameraLogic.Start();
+    CameraLogic.Start<PlayerCameraLogicState.InputDisabled>();
   }
 
   public void OnPhysicsProcess(double delta)
@@ -183,7 +182,7 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
 
     if (xMotion is not null)
     {
-      CameraLogic.Input(new PlayerCameraLogic.Input.JoyPadInputOccurred(xMotion));
+      CameraLogic.Input(new PlayerCameraLogicState.Input.JoyPadInputOccurred(xMotion));
     }
 
     var yMotion = InputUtilities.GetJoyPadActionPressedMotion(
@@ -192,17 +191,17 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
 
     if (yMotion is not null)
     {
-      CameraLogic.Input(new PlayerCameraLogic.Input.JoyPadInputOccurred(yMotion));
+      CameraLogic.Input(new PlayerCameraLogicState.Input.JoyPadInputOccurred(yMotion));
     }
 
-    CameraLogic.Input(new PlayerCameraLogic.Input.PhysicsTicked(delta));
+    CameraLogic.Input(new PlayerCameraLogicState.Input.PhysicsTicked(delta));
   }
 
   public override void _Input(InputEvent @event)
   {
     if (@event is InputEventMouseMotion motion)
     {
-      CameraLogic.Input(new PlayerCameraLogic.Input.MouseInputOccurred(motion));
+      CameraLogic.Input(new PlayerCameraLogicState.Input.MouseInputOccurred(motion));
     }
   }
 

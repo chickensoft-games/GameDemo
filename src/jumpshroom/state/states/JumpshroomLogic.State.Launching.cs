@@ -1,27 +1,28 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 using Godot;
 
-public partial class JumpshroomLogic
+public partial record JumpshroomLogicState
 {
-  public partial record State
+  [Meta]
+  public partial record Launching : JumpshroomLogicState, IGet<Input.LaunchCompleted>
   {
-    [Meta]
-    public partial record Launching : State, IGet<Input.LaunchCompleted>
+    public Launching()
     {
-      public IPushEnabled Target { get; set; } = default!;
-      public Launching()
-      {
-        // We are colliding with something we can push at the moment of
-        // launch, so push it.
-        this.OnEnter(
-          () => Target.Push(Vector3.Up * Get<Data>().ImpulseStrength)
-        );
-      }
+      // We are colliding with something we can push at the moment of
+      // launch, so push it.
+      this.OnEnter(
+        () => Get<JumpshroomLogic.Data>().Target?.Push(Vector3.Up * Get<JumpshroomLogic.Data>().ImpulseStrength)
+      );
 
-      public Transition On(in Input.LaunchCompleted input) => To<Cooldown>();
+      this.OnExit(
+        () => Get<JumpshroomLogic.Data>().Target = null
+      );
     }
+
+    public Type On(in Input.LaunchCompleted input) => To<Cooldown>();
   }
 }

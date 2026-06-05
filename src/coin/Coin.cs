@@ -5,6 +5,7 @@ using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
 using Chickensoft.SaveFileBuilder;
+using Chickensoft.LogicBlocks;
 using Godot;
 
 public interface ICoin : INode3D, ISaveable<CoinData>;
@@ -51,7 +52,7 @@ public partial class Coin : Node3D, ICoin
   public ICoinLogic CoinLogic { get; set; } = default!;
   public CoinLogic.Settings Settings { get; set; } = default!;
 
-  public CoinLogic.IBinding CoinBinding { get; set; } = default!;
+  public LogicBlock.Binding CoinBinding { get; set; } = default!;
 
   #endregion State
 
@@ -70,7 +71,7 @@ public partial class Coin : Node3D, ICoin
     CoinLogic.Set(this as ICoin);
     CoinLogic.Set(Settings);
     CoinLogic.Set(GameRepo);
-    CoinLogic.Save(() => new CoinLogic.Data());
+    CoinLogic.Set(new CoinLogic.Data());
     CoinLogic.Set(EntityTable);
   }
 
@@ -94,7 +95,7 @@ public partial class Coin : Node3D, ICoin
     EntityTable.Set(Name, this);
 
     CoinBinding = CoinLogic.Bind()
-      .When<CoinLogic.State.Collecting>(_ =>
+      .OnState<CoinLogicState.Collecting>(_ =>
       {
         // We want to start receiving physics ticks so we can orient ourselves
         // toward the entity that's collecting us.
@@ -103,16 +104,16 @@ public partial class Coin : Node3D, ICoin
         // process of being collected.
         AnimationPlayer.Play("collect");
       })
-      .Handle((in CoinLogic.Output.Move output) => GlobalPosition = output.GlobalPosition)
-      .Handle((in CoinLogic.Output.SelfDestruct output) => QueueFree());
+      .OnOutput((in CoinLogicState.Output.Move output) => GlobalPosition = output.GlobalPosition)
+      .OnOutput((in CoinLogicState.Output.SelfDestruct output) => QueueFree());
 
-    CoinLogic.Start();
+    CoinLogic.Start<CoinLogicState.Idle>();
   }
 
   // This doesn't get called unless we're in the Collecting state, since that's
   // the only state that cares about physics ticks.
   public void OnPhysicsProcess(double delta) =>
-    CoinLogic.Input(new CoinLogic.Input.PhysicsProcess(delta, GlobalPosition));
+    CoinLogic.Input(new CoinLogicState.Input.PhysicsProcess(delta, GlobalPosition));
 
   public void OnCollectorDetectorBodyEntered(Node body)
   {
@@ -120,7 +121,7 @@ public partial class Coin : Node3D, ICoin
     {
       // Whenever we come into contact with a coin collector, we begin the
       // collection process.
-      CoinLogic.Input(new CoinLogic.Input.StartCollection(target));
+      CoinLogic.Input(new CoinLogicState.Input.StartCollection(target));
     }
   }
 

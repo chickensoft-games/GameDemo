@@ -20,8 +20,8 @@ public class PlayerCameraLogicStateTest : TestClass
   private PlayerCameraSettings _settings = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private PlayerCameraLogic.Data _data = default!;
-  private IFakeContext _context = default!;
-  private PlayerCameraLogic.State _state = default!;
+  private StateTester _context = default!;
+  private PlayerCameraLogicState _playerCameraLogicState = default!;
 
   public PlayerCameraLogicStateTest(Node testScene) : base(testScene) { }
 
@@ -38,8 +38,8 @@ public class PlayerCameraLogicStateTest : TestClass
       TargetAngleVertical = 0,
       TargetOffset = Vector3.Zero
     };
-    _state = new PlayerCameraLogic.State.InputEnabled();
-    _context = _state.CreateFakeContext();
+    _playerCameraLogicState = new PlayerCameraLogicState.InputEnabled();
+    _context = _playerCameraLogicState.Test();
 
     // Automatically mock the logic block context to provide mock versions
     // of everything the state needs.
@@ -56,10 +56,10 @@ public class PlayerCameraLogicStateTest : TestClass
   public void OnCameraTargetOffsetChanged()
   {
     // Make sure it updates the camera offset when the player moves.
-    _state.OnCameraTargetOffsetChanged(Vector3.Zero);
+    _playerCameraLogicState.OnCameraTargetOffsetChanged(Vector3.Zero);
 
     _context.Inputs.ShouldBe([
-      new PlayerCameraLogic.Input.TargetOffsetChanged(Vector3.Zero)
+      new PlayerCameraLogicState.Input.TargetOffsetChanged(Vector3.Zero)
     ]);
   }
 
@@ -89,15 +89,15 @@ public class PlayerCameraLogicStateTest : TestClass
 
     _gameRepo.Setup(repo => repo.SetCameraBasis(It.IsAny<Basis>()));
 
-    var next = _state.On(new PlayerCameraLogic.Input.PhysicsTicked(1d));
+    var next = _playerCameraLogicState.On(new PlayerCameraLogicState.Input.PhysicsTicked(1d));
 
-    _state.ShouldBeSameAs(next.State);
+    _playerCameraLogicState.ShouldBeOfType(next);
 
     _context.Outputs.ShouldBeOfTypes(
-      typeof(PlayerCameraLogic.Output.GimbalRotationChanged),
-      typeof(PlayerCameraLogic.Output.GlobalTransformChanged),
-      typeof(PlayerCameraLogic.Output.CameraLocalPositionChanged),
-      typeof(PlayerCameraLogic.Output.CameraOffsetChanged));
+      typeof(PlayerCameraLogicState.Output.GimbalRotationChanged),
+      typeof(PlayerCameraLogicState.Output.GlobalTransformChanged),
+      typeof(PlayerCameraLogicState.Output.CameraLocalPositionChanged),
+      typeof(PlayerCameraLogicState.Output.CameraOffsetChanged));
 
     _camera.VerifyAll();
   }
@@ -107,7 +107,7 @@ public class PlayerCameraLogicStateTest : TestClass
   {
     var newTargetPosition = Vector3.Up;
 
-    _state.On(new PlayerCameraLogic.Input.TargetPositionChanged(
+    _playerCameraLogicState.On(new PlayerCameraLogicState.Input.TargetPositionChanged(
       newTargetPosition
     ));
 
@@ -119,7 +119,7 @@ public class PlayerCameraLogicStateTest : TestClass
   {
     var newTargetOffset = Vector3.Up;
 
-    _state.On(new PlayerCameraLogic.Input.TargetOffsetChanged(
+    _playerCameraLogicState.On(new PlayerCameraLogicState.Input.TargetOffsetChanged(
       newTargetOffset
     ));
 

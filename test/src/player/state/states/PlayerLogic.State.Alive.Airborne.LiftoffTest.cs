@@ -7,8 +7,8 @@ using Shouldly;
 
 public class PlayerLogicStateAliveAirborneLiftoffTest : TestClass
 {
-  private IFakeContext _context = default!;
-  private PlayerLogic.State.Liftoff _state = default!;
+  private StateTester _context = default!;
+  private PlayerLogicState.Liftoff _state = default!;
 
   public PlayerLogicStateAliveAirborneLiftoffTest(Node testScene) :
     base(testScene)
@@ -18,16 +18,16 @@ public class PlayerLogicStateAliveAirborneLiftoffTest : TestClass
   public void Setup()
   {
     _state = new();
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
   }
 
   [Test]
   public void Enters()
   {
-    _state.Enter<PlayerLogic.State.Airborne>();
+    _state.Enter();
 
     _context.Outputs.ShouldBe([
-      new PlayerLogic.Output.Animations.Jump()
+      new PlayerLogicState.Output.Animations.Jump()
     ]);
   }
 }

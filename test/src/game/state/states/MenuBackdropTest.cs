@@ -1,17 +1,23 @@
 namespace GameDemo.Tests;
 
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 using Chickensoft.GoDotTest;
-using Chickensoft.LogicBlocks;
 using Chickensoft.Sync.Primitives;
 using Godot;
 using Moq;
 using Shouldly;
 
+[
+  SuppressMessage(
+    "Design",
+    "CA1001",
+    Justification = "Disposable fields are disposed in cleanup"
+  )
+]
 public class MenuBackdropTest : TestClass
 {
-  private IFakeContext _context = default!;
-  private GameLogic.State.MenuBackdrop _state = default!;
+  private StateTester _context = default!;
+  private GameLogicState.MenuBackdrop _state = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
 
@@ -20,29 +26,18 @@ public class MenuBackdropTest : TestClass
   [Setup]
   public void Setup()
   {
-    _appRepo = new();
-    _gameRepo = new();
+    _appRepo = new ();
+    _gameRepo = new ();
 
-    _state = new GameLogic.State.MenuBackdrop();
+    _state = new GameLogicState.MenuBackdrop();
 
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
+
     _context.Set(_appRepo.Object);
     _context.Set(_gameRepo.Object);
 
     _gameRepo.Setup(repo => repo.IsMouseCaptured).Returns(new Mock<IAutoValue<bool>>().Object);
     _gameRepo.Setup(repo => repo.IsPaused).Returns(new Mock<IAutoValue<bool>>().Object);
-  }
-
-  [Test]
-  public void Subscribes()
-  {
-    _state.Attach(_context);
-
-    _appRepo.VerifyAdd(x => x.GameEntered += _state.OnGameEntered);
-
-    _state.Detach();
-
-    _appRepo.VerifyRemove(x => x.GameEntered -= _state.OnGameEntered);
   }
 
   [Test]
@@ -59,18 +54,16 @@ public class MenuBackdropTest : TestClass
   [Test]
   public void OnGameEntered()
   {
-    _state.Attach(_context);
-
     _state.OnGameEntered();
 
-    _context.Inputs.First().ShouldBeOfType<GameLogic.Input.Start>();
+    _context.Inputs.ShouldBe([new GameLogicState.Input.Start()]);
   }
 
   [Test]
   public void OnStartGame()
   {
-    var result = _state.On(new GameLogic.Input.Start());
-    result.State.ShouldBeOfType<GameLogic.State.Playing>();
+    var result = _state.On(new GameLogicState.Input.Start());
+    result.ShouldBe(typeof(GameLogicState.Playing));
   }
 
   [Test]
@@ -80,9 +73,9 @@ public class MenuBackdropTest : TestClass
     _gameRepo.Reset();
     _gameRepo.Setup(repo => repo.SetNumCoinsAtStart(numCoins));
 
-    var result = _state.On(new GameLogic.Input.Initialize(numCoins));
+    var result = _state.On(new GameLogicState.Input.Initialize(numCoins));
 
-    result.State.ShouldBe(_state);
+    result.ShouldBe(_state.GetType());
     _gameRepo.VerifyAll();
   }
 }

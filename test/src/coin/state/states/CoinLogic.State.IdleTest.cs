@@ -9,8 +9,8 @@ using Shouldly;
 
 public class CoinLogicStateIdleTest : TestClass
 {
-  private IFakeContext _context = default!;
-  private CoinLogic.State.Idle _state = default!;
+  private StateTester _context = default!;
+  private CoinLogicState.Idle _state = default!;
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<ICoinCollector> _target = default!;
   private Mock<ICoin> _coin = default!;
@@ -33,7 +33,7 @@ public class CoinLogicStateIdleTest : TestClass
 
     _target.Setup(target => target.Name).Returns("target_id");
 
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
 
     _context.Set(_coin.Object);
     _context.Set(_appRepo.Object);
@@ -44,7 +44,7 @@ public class CoinLogicStateIdleTest : TestClass
   [Test]
   public void GoesToCollectingOnStartCollection()
   {
-    var next = _state.On(new CoinLogic.Input.StartCollection(_target.Object));
-    next.State.ShouldBeAssignableTo<CoinLogic.State.Collecting>();
+    var next = _state.On(new CoinLogicState.Input.StartCollection(_target.Object));
+    next.IsAssignableTo(typeof(CoinLogicState.Collecting)).ShouldBeTrue();
   }
 }

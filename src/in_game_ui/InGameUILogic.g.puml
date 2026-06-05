@@ -1,0 +1,12 @@
+@startuml InGameUILogic
+state InGameUILogic {
+  state InGameUILogicState
+}
+
+[*] --> InGameUILogicState
+
+InGameUILogic : Dependencies:
+InGameUILogic : - IAppRepo
+InGameUILogic : - IGameRepo
+InGameUILogic : - Mock
+@enduml

@@ -1,20 +1,18 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class AppLogic
+public partial record AppLogicState
 {
-  public partial record State
+  [Meta]
+  public partial record LoadingSaveFile : AppLogicState, IGet<Input.SaveFileLoaded>
   {
-    [Meta]
-    public partial record LoadingSaveFile : State, IGet<Input.SaveFileLoaded>
+    public LoadingSaveFile()
     {
-      public LoadingSaveFile()
-      {
-        this.OnEnter(() => Output(new Output.StartLoadingSaveFile()));
-      }
-      public Transition On(in Input.SaveFileLoaded input) => To<InGame>();
+      this.OnEnter(() => Output(new Output.StartLoadingSaveFile()));
     }
+    public Type On(in Input.SaveFileLoaded input) => To<InGame>();
   }
 }

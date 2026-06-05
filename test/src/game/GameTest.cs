@@ -7,6 +7,7 @@ using Chickensoft.Collections;
 using Chickensoft.GoDotTest;
 using Chickensoft.GodotTestDriver;
 using Chickensoft.GodotTestDriver.Util;
+using Chickensoft.LogicBlocks;
 using Chickensoft.SaveFileBuilder;
 using Chickensoft.Serialization.Godot;
 using Godot;
@@ -23,11 +24,11 @@ using Shouldly;
 public class GameTest : TestClass
 {
   private Fixture _fixture = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
+  private IAppRepo _appRepo = default!;
+  private IGameRepo _gameRepo = default!;
   private Mock<IGameLogic> _logic = default!;
 
-  private GameLogic.IFakeBinding _binding = default!;
+  private LogicBlock.FakeBinding _binding = default!;
 
   private Mock<IPlayerCamera> _playerCam = default!;
   private Mock<IPlayer> _player = default!;
@@ -51,10 +52,10 @@ public class GameTest : TestClass
   {
     _fixture = new(TestScene.GetTree());
 
-    _appRepo = new();
-    _gameRepo = new();
+    _appRepo = new AppRepo();
+    _gameRepo = new GameRepo();
     _logic = new();
-    _binding = GameLogic.CreateFakeBinding();
+    _binding = LogicBlock.CreateFakeBinding();
     _playerCam = new();
     _player = new();
     _map = new();
@@ -69,7 +70,7 @@ public class GameTest : TestClass
 
     _game = new()
     {
-      GameRepo = _gameRepo.Object,
+      GameRepo = _gameRepo,
       GameLogic = _logic.Object,
       GameBinding = _binding,
       PlayerCamera = _playerCam.Object,
@@ -84,7 +85,7 @@ public class GameTest : TestClass
 
     (_game as IAutoInit).IsTesting = true;
 
-    _game.FakeDependency(_appRepo.Object);
+    _game.FakeDependency(_appRepo);
     _game.FakeDependency(_entityTable);
     _game.FakeDependency(_saveFile.Object);
 
@@ -124,11 +125,11 @@ public class GameTest : TestClass
   [Test]
   public void StartsGame()
   {
-    _logic.Setup(logic => logic.Input(It.IsAny<GameLogic.Input.Initialize>()));
+    _logic.Setup(logic => logic.Input(It.IsAny<GameLogicState.Input.Initialize>()));
     _game.OnResolved();
     _playerCam.Setup(cam => cam.UsePlayerCamera());
 
-    _binding.Output(new GameLogic.Output.StartGame());
+    _binding.Output(new GameLogicState.Output.StartGame());
 
     _logic.VerifyAll();
     _playerCam.VerifyAll();
@@ -141,7 +142,7 @@ public class GameTest : TestClass
     var tree = TestScene.GetTree();
     tree.Paused.ShouldBeFalse();
 
-    _binding.Output(new GameLogic.Output.SetPauseMode(IsPaused: true));
+    _binding.Output(new GameLogicState.Output.SetPauseMode(IsPaused: true));
 
     await tree.NextFrame();
 
@@ -154,10 +155,10 @@ public class GameTest : TestClass
   {
     _game.OnResolved();
 
-    _binding.Output(new GameLogic.Output.CaptureMouse(true));
+    _binding.Output(new GameLogicState.Output.CaptureMouse(true));
     Input.MouseMode.ShouldBe(Input.MouseModeEnum.Captured);
 
-    _binding.Output(new GameLogic.Output.CaptureMouse(false));
+    _binding.Output(new GameLogicState.Output.CaptureMouse(false));
     Input.MouseMode.ShouldBe(Input.MouseModeEnum.Visible);
   }
 
@@ -170,7 +171,7 @@ public class GameTest : TestClass
 
     _game.OnResolved();
 
-    _binding.Output(new GameLogic.Output.ShowLostScreen());
+    _binding.Output(new GameLogicState.Output.ShowLostScreen());
 
     _deathMenu.VerifyAll();
   }
@@ -180,7 +181,7 @@ public class GameTest : TestClass
   {
     _game.OnResolved();
 
-    _binding.Output(new GameLogic.Output.ExitLostScreen());
+    _binding.Output(new GameLogicState.Output.ExitLostScreen());
 
     _deathMenu.Verify(menu => menu.FadeOut());
   }
@@ -193,7 +194,7 @@ public class GameTest : TestClass
 
     _game.OnResolved();
 
-    _binding.Output(new GameLogic.Output.ShowPauseMenu());
+    _binding.Output(new GameLogicState.Output.ShowPauseMenu());
 
     _pauseMenu.VerifyAll();
   }
@@ -206,7 +207,7 @@ public class GameTest : TestClass
 
     _game.OnResolved();
 
-    _binding.Output(new GameLogic.Output.ShowWonScreen());
+    _binding.Output(new GameLogicState.Output.ShowWonScreen());
 
     _winMenu.VerifyAll();
   }
@@ -216,7 +217,7 @@ public class GameTest : TestClass
   {
     _game.OnResolved();
 
-    _binding.Output(new GameLogic.Output.ExitWonScreen());
+    _binding.Output(new GameLogicState.Output.ExitWonScreen());
 
     _winMenu.Verify(menu => menu.FadeOut());
   }
@@ -226,7 +227,7 @@ public class GameTest : TestClass
   {
     _game.OnResolved();
 
-    _binding.Output(new GameLogic.Output.ExitPauseMenu());
+    _binding.Output(new GameLogicState.Output.ExitPauseMenu());
 
     _pauseMenu.Verify(menu => menu.FadeOut());
   }
@@ -236,7 +237,7 @@ public class GameTest : TestClass
   {
     _game.OnResolved();
 
-    _binding.Output(new GameLogic.Output.HidePauseMenu());
+    _binding.Output(new GameLogicState.Output.HidePauseMenu());
 
     _pauseMenu.Verify(menu => menu.Hide());
   }
@@ -246,7 +247,7 @@ public class GameTest : TestClass
   {
     _game.OnResolved();
 
-    _binding.Output(new GameLogic.Output.ShowPauseSaveOverlay());
+    _binding.Output(new GameLogicState.Output.ShowPauseSaveOverlay());
 
     _pauseMenu.Verify(menu => menu.OnSaveStarted());
   }
@@ -256,7 +257,7 @@ public class GameTest : TestClass
   {
     _game.OnResolved();
 
-    _binding.Output(new GameLogic.Output.HidePauseSaveOverlay());
+    _binding.Output(new GameLogicState.Output.HidePauseSaveOverlay());
 
     _pauseMenu.Verify(menu => menu.OnSaveCompleted());
   }
@@ -266,17 +267,17 @@ public class GameTest : TestClass
   {
     _saveFile.Setup(file => file.SaveAsync(It.IsAny<GameData>())).Returns(ValueTask.CompletedTask);
 
-    _binding.Output(new GameLogic.Output.StartSaving());
+    _binding.Output(new GameLogicState.Output.StartSaving());
 
     _saveFile.VerifyAll();
-    _logic.Verify(logic => logic.Input(It.IsAny<GameLogic.Input.SaveCompleted>()));
+    _logic.Verify(logic => logic.Input(It.IsAny<GameLogicState.Input.SaveCompleted>()));
   }
 
   [Test]
   public void InputsPauseButtonPressed()
   {
     _logic.Setup(
-      logic => logic.Input(It.IsAny<GameLogic.Input.PauseButtonPressed>())
+      logic => logic.Input(It.IsAny<GameLogicState.Input.PauseButtonPressed>())
     );
     Input.ActionPress("ui_cancel");
 
@@ -291,7 +292,7 @@ public class GameTest : TestClass
     _game.OnMainMenu();
 
     _logic.Verify(
-      logic => logic.Input(It.IsAny<GameLogic.Input.GoToMainMenu>())
+      logic => logic.Input(It.IsAny<GameLogicState.Input.GoToMainMenu>())
     );
   }
 
@@ -301,7 +302,7 @@ public class GameTest : TestClass
     _game.OnResume();
 
     _logic.Verify(
-      logic => logic.Input(It.IsAny<GameLogic.Input.PauseButtonPressed>())
+      logic => logic.Input(It.IsAny<GameLogicState.Input.PauseButtonPressed>())
     );
   }
 
@@ -310,7 +311,7 @@ public class GameTest : TestClass
   {
     _game.OnStart();
 
-    _logic.Verify(logic => logic.Input(It.IsAny<GameLogic.Input.Start>()));
+    _logic.Verify(logic => logic.Input(It.IsAny<GameLogicState.Input.Start>()));
   }
 
   [Test]
@@ -319,7 +320,7 @@ public class GameTest : TestClass
     _game.OnWinMenuTransitioned();
 
     _logic.Verify(
-      logic => logic.Input(It.IsAny<GameLogic.Input.WinMenuTransitioned>())
+      logic => logic.Input(It.IsAny<GameLogicState.Input.WinMenuTransitioned>())
     );
   }
 
@@ -329,7 +330,7 @@ public class GameTest : TestClass
     _game.OnPauseMenuTransitioned();
 
     _logic.Verify(
-      logic => logic.Input(It.IsAny<GameLogic.Input.PauseMenuTransitioned>())
+      logic => logic.Input(It.IsAny<GameLogicState.Input.PauseMenuTransitioned>())
     );
   }
 
@@ -339,7 +340,7 @@ public class GameTest : TestClass
     _game.OnPauseMenuSaveRequested();
 
     _logic.Verify(
-      logic => logic.Input(It.IsAny<GameLogic.Input.SaveRequested>())
+      logic => logic.Input(It.IsAny<GameLogicState.Input.SaveRequested>())
     );
   }
 
@@ -349,7 +350,7 @@ public class GameTest : TestClass
     _game.OnDeathMenuTransitioned();
 
     _logic.Verify(
-      logic => logic.Input(It.IsAny<GameLogic.Input.DeathMenuTransitioned>())
+      logic => logic.Input(It.IsAny<GameLogicState.Input.DeathMenuTransitioned>())
     );
   }
 

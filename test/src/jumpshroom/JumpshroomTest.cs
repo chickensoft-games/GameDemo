@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
@@ -22,7 +23,7 @@ public partial class JumpshroomTest : TestClass
     public void Push(Vector3 force) { }
   }
 
-  private JumpshroomLogic.IFakeBinding _binding = default!;
+  private LogicBlock.FakeBinding _binding = default!;
 
   private Mock<IJumpshroomLogic> _logic = default!;
   private Mock<IGameRepo> _gameRepo = default!;
@@ -36,7 +37,7 @@ public partial class JumpshroomTest : TestClass
   [Setup]
   public void Setup()
   {
-    _binding = JumpshroomLogic.CreateFakeBinding();
+    _binding = LogicBlock.CreateFakeBinding();
 
     _logic = new();
     _gameRepo = new();
@@ -103,7 +104,7 @@ public partial class JumpshroomTest : TestClass
   {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(It.IsAny<JumpshroomLogic.Input.Launch>())
+      logic => logic.Input(It.IsAny<JumpshroomLogicState.Input.Launch>())
     );
     _shroom.OnShroomLoaded();
     _logic.VerifyAll();
@@ -114,7 +115,7 @@ public partial class JumpshroomTest : TestClass
   {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(It.IsAny<JumpshroomLogic.Input.LaunchCompleted>())
+      logic => logic.Input(It.IsAny<JumpshroomLogicState.Input.LaunchCompleted>())
     );
     _shroom.OnAnimationFinished("launch");
     _logic.VerifyAll();
@@ -126,7 +127,7 @@ public partial class JumpshroomTest : TestClass
     _logic.Reset();
     var target = new FakePushEnabled();
     _logic.Setup(
-      logic => logic.Input(in It.Ref<JumpshroomLogic.Input.Hit>.IsAny)
+      logic => logic.Input(in It.Ref<JumpshroomLogicState.Input.Hit>.IsAny)
     );
     _shroom.OnAreaBodyEntered(target);
 
@@ -139,7 +140,7 @@ public partial class JumpshroomTest : TestClass
     _logic.Reset();
     _logic.Setup(
       logic => logic.Input(
-        in It.Ref<JumpshroomLogic.Input.CooldownCompleted>.IsAny
+        in It.Ref<JumpshroomLogicState.Input.CooldownCompleted>.IsAny
       )
     );
     _shroom.OnCooldownTimeout();
@@ -152,7 +153,7 @@ public partial class JumpshroomTest : TestClass
     _animPlayer.Setup(player => player.Play("bounce", -1, 1, false));
 
     _shroom.OnResolved();
-    _binding.Output(new JumpshroomLogic.Output.Animate());
+    _binding.Output(new JumpshroomLogicState.Output.Animate());
 
     _animPlayer.VerifyAll();
   }
@@ -163,7 +164,7 @@ public partial class JumpshroomTest : TestClass
     _cooldownTimer.Setup(timer => timer.Start(-1));
 
     _shroom.OnResolved();
-    _binding.Output(new JumpshroomLogic.Output.StartCooldownTimer());
+    _binding.Output(new JumpshroomLogicState.Output.StartCooldownTimer());
 
     _cooldownTimer.VerifyAll();
   }

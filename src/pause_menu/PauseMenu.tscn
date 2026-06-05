@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://conmng5ejji6f"]
 
 [ext_resource type="Script" uid="uid://cfjst4n7fctli" path="res://src/pause_menu/PauseMenu.cs" id="1_6kvog"]
-[ext_resource type="Shader" uid="uid://b3evm7o6dacv" path="res://src/pause_menu/PauseMenu.gdshader" id="1_m43vi"]
+[ext_resource type="Shader" uid="uid://clbrfuec0mlo" path="res://src/pause_menu/PauseMenu.gdshader" id="1_m43vi"]
 [ext_resource type="Texture2D" uid="uid://xwhtaovxqalw" path="res://src/pause_menu/assets/spinner.png" id="3_w1cw3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r4f68"]

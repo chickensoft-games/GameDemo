@@ -10,6 +10,7 @@ using Chickensoft.Introspection;
 using Chickensoft.SaveFileBuilder;
 using Chickensoft.Serialization;
 using Chickensoft.Serialization.Godot;
+using Chickensoft.LogicBlocks;
 using Chickensoft.UMLGenerator;
 using Godot;
 
@@ -65,7 +66,7 @@ public partial class App : CanvasLayer, IApp
   public IAppRepo AppRepo { get; set; } = default!;
   public IAppLogic AppLogic { get; set; } = default!;
 
-  public AppLogic.IBinding AppBinding { get; set; } = default!;
+  public LogicBlock.Binding AppBinding { get; set; } = default!;
 
   #endregion State
 
@@ -102,50 +103,51 @@ public partial class App : CanvasLayer, IApp
   {
     // Tell our type type resolver about the Godot-specific converters.
     GodotSerialization.Setup();
+    LogicBlocksSerialization.Setup();
 
     AppBinding = AppLogic.Bind()
-      .Handle((in AppLogic.Output.ShowSplashScreen _) =>
+      .OnOutput((in AppLogicState.Output.ShowSplashScreen _) =>
       {
         HideMenus();
         BlankScreen.Hide();
         Splash.Show();
       })
-      .Handle((in AppLogic.Output.HideSplashScreen _) =>
+      .OnOutput((in AppLogicState.Output.HideSplashScreen _) =>
       {
         BlankScreen.Show();
         FadeToBlack();
       })
-      .Handle((in AppLogic.Output.RemoveExistingGame _) =>
+      .OnOutput((in AppLogicState.Output.RemoveExistingGame _) =>
       {
         GamePreview.RemoveChildEx(Game);
         Game.QueueFree();
         Game = default!;
       })
-      .Handle((in AppLogic.Output.SetupGameScene _) =>
+      .OnOutput((in AppLogicState.Output.SetupGameScene _) =>
       {
         Game = Instantiator.LoadAndInstantiate<Game>(GAME_SCENE_PATH);
         GamePreview.AddChildEx(Game);
 
         Instantiator.SceneTree.Paused = false;
       })
-      .Handle((in AppLogic.Output.ShowMainMenu _) => ShowMainMenu().AsTask())
-      .Handle((in AppLogic.Output.FadeToBlack _) => FadeToBlack())
-      .Handle((in AppLogic.Output.ShowGame _) =>
+      .OnOutput((in AppLogicState.Output.ShowMainMenu _) => ShowMainMenu().AsTask())
+      .OnOutput((in AppLogicState.Output.FadeToBlack _) => FadeToBlack())
+      .OnOutput((in AppLogicState.Output.ShowGame _) =>
       {
         HideMenus();
         FadeInFromBlack();
       })
-      .Handle((in AppLogic.Output.HideGame _) => FadeToBlack())
-      .Handle((in AppLogic.Output.StartLoadingSaveFile _) => LoadSaveFile().AsTask())
-      .Handle((in AppLogic.Output.StartDeletingSaveFile _) => DeleteSaveFile().AsTask());
+      .OnOutput((in AppLogicState.Output.HideGame _) => FadeToBlack())
+      .OnOutput((in AppLogicState.Output.StartLoadingSaveFile _) => LoadSaveFile().AsTask())
+      .OnOutput((in AppLogicState.Output.StartDeletingSaveFile _) => DeleteSaveFile().AsTask());
 
     // Enter the first state to kick off the binding side effects.
-    AppLogic.Start();
+    AppLogic.Start<AppLogicState.SplashScreen>();
   }
 
-  public void OnNewGame() => AppLogic.Input(new AppLogic.Input.NewGame());
+  public void OnNewGame() => AppLogic.Input(new AppLogicState.Input.NewGame());
 
-  public void OnLoadGame() => AppLogic.Input(new AppLogic.Input.LoadGame());
+  public void OnLoadGame() => AppLogic.Input(new AppLogicState.Input.LoadGame());
 
   public void OnDeleteGame() => AppLogic.Input(new AppLogic.Input.DeleteGame());
 
@@ -157,12 +159,12 @@ public partial class App : CanvasLayer, IApp
 
     if (animation == "fade_in")
     {
-      AppLogic.Input(new AppLogic.Input.FadeInFinished());
+      AppLogic.Input(new AppLogicState.Input.FadeInFinished());
       BlankScreen.Hide();
       return;
     }
 
-    AppLogic.Input(new AppLogic.Input.FadeOutFinished());
+    AppLogic.Input(new AppLogicState.Input.FadeOutFinished());
   }
 
   public void FadeInFromBlack()
@@ -217,7 +219,7 @@ public partial class App : CanvasLayer, IApp
       Game.Load(data);
     }
 
-    AppLogic.Input(new AppLogic.Input.SaveFileLoaded());
+    AppLogic.Input(new AppLogicState.Input.SaveFileLoaded());
   }
 
   private async ValueTask DeleteSaveFile()

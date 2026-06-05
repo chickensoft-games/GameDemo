@@ -36,12 +36,10 @@ public class AppRepoTest : TestClass
   {
     var called = false;
 
-    void splashScreenSkipped() => called = true;
-
     // invoke event without handlers to cover null check
     _repo.SkipSplashScreen();
 
-    _repo.SplashScreenSkipped += splashScreenSkipped;
+    _repo.AutoChannel.Bind().On((in IAppRepo.SplashScreenSkipped _) => called = true);
 
     _repo.SkipSplashScreen();
 
@@ -53,11 +51,9 @@ public class AppRepoTest : TestClass
   {
     var called = 0;
 
-    void onMainMenuEntered() => called++;
-
-    _repo.OnMainMenuEntered();
-    _repo.MainMenuEntered += onMainMenuEntered;
-    _repo.OnMainMenuEntered();
+    _repo.OnMainMenuEntering();
+    _repo.AutoChannel.Bind().On((in IAppRepo.MainMenuEntering _) => called++);
+    _repo.OnMainMenuEntering();
 
     called.ShouldBe(1);
   }
@@ -67,11 +63,9 @@ public class AppRepoTest : TestClass
   {
     var called = 0;
 
-    void onEnterGame() => called++;
-
-    _repo.OnEnterGame();
-    _repo.GameEntered += onEnterGame;
-    _repo.OnEnterGame();
+    _repo.OnEnteringGame();
+    _repo.AutoChannel.Bind().On((in IAppRepo.GameEntering _) => called++);
+    _repo.OnEnteringGame();
 
     called.ShouldBe(1);
   }
@@ -82,14 +76,13 @@ public class AppRepoTest : TestClass
     var called = 0;
     var action = PostGameAction.GoToMainMenu;
 
-    void onExitGame(PostGameAction a)
+    _repo.OnExitGame(action);
+
+    _repo.AutoChannel.Bind().On((in IAppRepo.GameExited message) =>
     {
       called++;
-      a.ShouldBe(action);
-    }
-
-    _repo.OnExitGame(action);
-    _repo.GameExited += onExitGame;
+      message.Action.ShouldBe(action);
+    });
     _repo.OnExitGame(action);
 
     called.ShouldBe(1);

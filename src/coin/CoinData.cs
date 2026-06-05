@@ -1,6 +1,7 @@
 namespace GameDemo;
 
 using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks.Auto;
 using Chickensoft.Serialization;
 using Godot;
 
@@ -8,7 +9,7 @@ using Godot;
 public partial record CoinData
 {
   [Save("state_machine")]
-  public required ICoinLogic StateMachine { get; init; }
+  public required ILogicBlockSaveData StateMachine { get; init; }
   [Save("global_transform")]
   public required Transform3D GlobalTransform { get; init; }
 }

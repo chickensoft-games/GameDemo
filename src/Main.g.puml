@@ -1,0 +1,9 @@
+@startuml LightSwitchState
+state "LightSwitchState" as GameDemo_LightSwitchState {
+  state "PoweredOff" as GameDemo_LightSwitchState_PoweredOff
+  state "PoweredOn" as GameDemo_LightSwitchState_PoweredOn
+}
+
+GameDemo_LightSwitchState_PoweredOff --> GameDemo_LightSwitchState_PoweredOn : Toggle
+GameDemo_LightSwitchState_PoweredOn --> GameDemo_LightSwitchState_PoweredOff : Toggle
+@enduml

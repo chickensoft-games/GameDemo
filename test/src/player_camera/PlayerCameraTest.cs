@@ -6,6 +6,8 @@ using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
 using Chickensoft.GodotTestDriver;
+using Chickensoft.LogicBlocks;
+using Chickensoft.Sync.Primitives;
 using Godot;
 using Moq;
 using Shouldly;
@@ -21,7 +23,7 @@ public class PlayerCameraTest : TestClass
 {
   private PlayerCamera _playerCam = default!;
   private Mock<IPlayerCameraLogic> _logic = default!;
-  private PlayerCameraLogic.IFakeBinding _binding = default!;
+  private LogicBlock.FakeBinding _binding = default!;
   private PlayerCameraSettings _settings = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private Mock<IAppRepo> _appRepo = default!;
@@ -40,7 +42,7 @@ public class PlayerCameraTest : TestClass
   public void Setup()
   {
     _logic = new();
-    _binding = PlayerCameraLogic.CreateFakeBinding();
+    _binding = LogicBlock.CreateFakeBinding();
     _settings = new();
     _gameRepo = new();
     _appRepo = new();
@@ -73,6 +75,9 @@ public class PlayerCameraTest : TestClass
       ["%SpringArmTarget"] = _springArmTarget.Object
     });
 
+    _gameRepo.Setup(repo => repo.IsMouseCaptured).Returns(new AutoValue<bool>(false));
+    _gameRepo.Setup(repo => repo.PlayerGlobalPosition).Returns(new AutoValue<Vector3>(Vector3.Zero));
+
     _playerCam.FakeDependency(_gameRepo.Object);
     _playerCam.FakeDependency(_appRepo.Object);
 
@@ -98,7 +103,7 @@ public class PlayerCameraTest : TestClass
 
     _logic.Setup(
       logic => logic.Input(
-        in It.Ref<PlayerCameraLogic.Input.PhysicsTicked>.IsAny
+        in It.Ref<PlayerCameraLogicState.Input.PhysicsTicked>.IsAny
       )
     );
     _playerCam.OnPhysicsProcess(1d);
@@ -114,7 +119,7 @@ public class PlayerCameraTest : TestClass
     var motion = new InputEventMouseMotion();
     _logic.Setup(
       logic => logic.Input(
-        in It.Ref<PlayerCameraLogic.Input.MouseInputOccurred>.IsAny
+        in It.Ref<PlayerCameraLogicState.Input.MouseInputOccurred>.IsAny
       )
     );
 
@@ -155,7 +160,7 @@ public class PlayerCameraTest : TestClass
     _playerCam.OnResolved();
 
     _binding.Output(
-      new PlayerCameraLogic.Output.GimbalRotationChanged(
+      new PlayerCameraLogicState.Output.GimbalRotationChanged(
         Vector3.Up, Vector3.Up
       )
     );
@@ -178,7 +183,7 @@ public class PlayerCameraTest : TestClass
     _playerCam.OnResolved();
 
     _binding.Output(
-      new PlayerCameraLogic.Output.GlobalTransformChanged(transform)
+      new PlayerCameraLogicState.Output.GlobalTransformChanged(transform)
     );
 
     _playerCam.GlobalTransform.ShouldBe(transform);
@@ -194,7 +199,7 @@ public class PlayerCameraTest : TestClass
     _playerCam.OnResolved();
 
     _binding.Output(
-      new PlayerCameraLogic.Output.CameraLocalPositionChanged(value)
+      new PlayerCameraLogicState.Output.CameraLocalPositionChanged(value)
     );
 
     _cameraNode.VerifyAll();
@@ -208,7 +213,7 @@ public class PlayerCameraTest : TestClass
     _playerCam.OnResolved();
 
     _binding.Output(
-      new PlayerCameraLogic.Output.CameraOffsetChanged(value)
+      new PlayerCameraLogicState.Output.CameraOffsetChanged(value)
     );
 
     _offsetNode.VerifyAll();
@@ -228,7 +233,7 @@ public class PlayerCameraTest : TestClass
   public async Task Saves()
   {
     // This test has to be run in the actual scene tree since it verifies the
-    // coin changes its GlobalPosition.
+    // player camera changes its GlobalPosition.
     var tree = TestScene.GetTree();
     var fixture = new Fixture(tree);
     await fixture.AddToRoot(_playerCam);
@@ -242,7 +247,7 @@ public class PlayerCameraTest : TestClass
     var data = _playerCam.Save();
 
     data.GlobalTransform.ShouldBe(Transform3D.FlipZ);
-    data.StateMachine.ShouldBe(logic);
+    data.StateMachine.Data.ShouldBe(logic.Save().Data);
     data.LocalPosition.ShouldBe(Vector3.Right);
     data.OffsetPosition.ShouldBe(Vector3.Left);
   }
@@ -251,7 +256,7 @@ public class PlayerCameraTest : TestClass
   public async Task Loads()
   {
     // This test has to be run in the actual scene tree since it verifies the
-    // coin changes its GlobalPosition.
+    // player camera changes its GlobalPosition.
     var tree = TestScene.GetTree();
     var fixture = new Fixture(tree);
     await fixture.AddToRoot(_playerCam);
@@ -260,7 +265,7 @@ public class PlayerCameraTest : TestClass
     var data = new PlayerCameraData()
     {
       GlobalTransform = Transform3D.FlipZ,
-      StateMachine = logic,
+      StateMachine = logic.Save(),
       LocalPosition = Vector3.Right,
       OffsetPosition = Vector3.Left,
     };

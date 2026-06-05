@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
+using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
@@ -19,7 +20,7 @@ using Shouldly;
 public class PlayerModelTest : TestClass
 {
   private Mock<IPlayerLogic> _playerLogic = default!;
-  private PlayerLogic.IFakeBinding _playerBinding = default!;
+  private LogicBlock.FakeBinding _playerBinding = default!;
   private Mock<IAnimationTree> _animationTree = default!;
   private Mock<IAnimationNodeStateMachinePlayback> _animStateMachine = default!;
   private Mock<INode3D> _visualRoot = default!;
@@ -34,7 +35,7 @@ public class PlayerModelTest : TestClass
   public void Setup()
   {
     _playerLogic = new Mock<IPlayerLogic>();
-    _playerBinding = PlayerLogic.CreateFakeBinding();
+    _playerBinding = LogicBlock.CreateFakeBinding();
     _animationTree = new Mock<IAnimationTree>();
     _animStateMachine = new Mock<IAnimationNodeStateMachinePlayback>();
     _visualRoot = new Mock<INode3D>();
@@ -97,7 +98,7 @@ public class PlayerModelTest : TestClass
     _animStateMachine.Setup(sm => sm.Travel("idle", true));
 
     _model.OnResolved();
-    _playerBinding.Output(new PlayerLogic.Output.Animations.Idle());
+    _playerBinding.Output(new PlayerLogicState.Output.Animations.Idle());
     _animStateMachine.VerifyAll();
   }
 
@@ -106,7 +107,7 @@ public class PlayerModelTest : TestClass
   {
     _animStateMachine.Setup(sm => sm.Travel("run", true));
     _model.OnResolved();
-    _playerBinding.Output(new PlayerLogic.Output.Animations.Move());
+    _playerBinding.Output(new PlayerLogicState.Output.Animations.Move());
     _animStateMachine.VerifyAll();
   }
 
@@ -115,7 +116,7 @@ public class PlayerModelTest : TestClass
   {
     _animStateMachine.Setup(sm => sm.Travel("jump", true));
     _model.OnResolved();
-    _playerBinding.Output(new PlayerLogic.Output.Animations.Jump());
+    _playerBinding.Output(new PlayerLogicState.Output.Animations.Jump());
     _animStateMachine.VerifyAll();
   }
 
@@ -124,7 +125,7 @@ public class PlayerModelTest : TestClass
   {
     _animStateMachine.Setup(sm => sm.Travel("fall", true));
     _model.OnResolved();
-    _playerBinding.Output(new PlayerLogic.Output.Animations.Fall());
+    _playerBinding.Output(new PlayerLogicState.Output.Animations.Fall());
     _animStateMachine.VerifyAll();
   }
 
@@ -137,7 +138,7 @@ public class PlayerModelTest : TestClass
       "parameters/main_animations/move/blend_position", 0.5f
     ));
     _model.OnResolved();
-    _playerBinding.Output(new PlayerLogic.Output.MoveSpeedChanged(0.5f));
+    _playerBinding.Output(new PlayerLogicState.Output.MoveSpeedChanged(0.5f));
     _animationTree.VerifyAll();
   }
 
@@ -146,14 +147,14 @@ public class PlayerModelTest : TestClass
   {
     _model.OnResolved();
     _playerBinding.Output(
-      new PlayerLogic.Output.MovementComputed(
+      new PlayerLogicState.Output.MovementComputed(
         Basis.Identity, Vector3.Forward, Vector2.Up, 1d
       )
     );
 
     _playerLogic
-      .Setup(logic => logic.Value)
-      .Returns(new PlayerLogic.State.Idle());
+      .Setup(logic => logic.State)
+      .Returns(new PlayerLogicState.Idle());
 
     _animationTree.Verify(
       tree => tree.Set(PlayerModel.LEAN_ADD, It.IsAny<Variant>())
@@ -167,8 +168,8 @@ public class PlayerModelTest : TestClass
   [Test]
   public void GetTarget()
   {
-    PlayerModel.GetTarget(1, new PlayerLogic.State.Jumping()).ShouldBe(0);
-    PlayerModel.GetTarget(1, new PlayerLogic.State.Idle()).ShouldBe(1);
+    PlayerModel.GetTarget(1, new PlayerLogicState.Jumping()).ShouldBe(0);
+    PlayerModel.GetTarget(1, new PlayerLogicState.Idle()).ShouldBe(1);
   }
 
   [Test]

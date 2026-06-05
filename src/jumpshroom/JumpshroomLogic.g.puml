@@ -1,0 +1,11 @@
+@startuml JumpshroomLogic
+state JumpshroomLogic {
+  state Idle
+}
+
+[*] --> Idle
+
+JumpshroomLogic : Dependencies:
+JumpshroomLogic : - Data
+JumpshroomLogic : - IGameRepo
+@enduml

@@ -1,16 +1,15 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.GoDotTest;
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
 public class SplashScreenTest : TestClass
 {
-  private IFakeContext _context = default!;
+  private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
-  private AppLogic.State.SplashScreen _state = default!;
+  private AppLogicState.SplashScreen _state = default!;
   private AppLogic.Data _data = default!;
 
   public SplashScreenTest(Node testScene) : base(testScene) { }
@@ -21,7 +20,7 @@ public class SplashScreenTest : TestClass
     _state = new();
     _appRepo = new();
     _data = new();
-    _context = _state.CreateFakeContext();
+    _context = _state.Test();
     _context.Set(_appRepo.Object);
     _context.Set(_data);
   }
@@ -30,34 +29,15 @@ public class SplashScreenTest : TestClass
   public void OnEnter()
   {
     _state.Enter();
-    _context.Outputs.ShouldBe([new AppLogic.Output.ShowSplashScreen()]);
-  }
-
-  [Test]
-  public void Subscribes()
-  {
-    _state.Attach(_context);
-
-    _appRepo.VerifyAdd(
-      repo => repo.SplashScreenSkipped += _state.OnSplashScreenSkipped
-    );
-
-    // Likewise, we pass the parent class to the exit method as the next state
-    // to prevent us from "leaving" the current state, which prevents the parent
-    // exit callbacks from running.
-    _state.Detach();
-
-    _appRepo.VerifyRemove(
-      repo => repo.SplashScreenSkipped -= _state.OnSplashScreenSkipped
-    );
+    _context.Outputs.ShouldBe([new AppLogicState.Output.ShowSplashScreen()]);
   }
 
   [Test]
   public void RespondsToFadeOutFinished()
   {
-    var next = _state.On(new AppLogic.Input.FadeOutFinished());
+    var next = _state.On(new AppLogicState.Input.FadeOutFinished());
 
-    next.State.ShouldBeOfType<AppLogic.State.MainMenu>();
+    next.IsAssignableTo(typeof(AppLogicState.MainMenu)).ShouldBeTrue();
   }
 
   [Test]
@@ -65,6 +45,6 @@ public class SplashScreenTest : TestClass
   {
     _state.OnSplashScreenSkipped();
 
-    _context.Outputs.ShouldBe([new AppLogic.Output.HideSplashScreen()]);
+    _context.Outputs.ShouldBe([new AppLogicState.Output.HideSplashScreen()]);
   }
 }

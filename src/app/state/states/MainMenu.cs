@@ -1,49 +1,50 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class AppLogic
+public partial record AppLogicState
 {
-  public partial record State
+  [Meta]
+  public partial record MainMenu : State
+    , IGet<Input.NewGame>
+    , IGet<Input.LoadGame>
+    , IGet<Input.DeleteGame>
   {
-    [Meta]
-    public partial record MainMenu : State
-      , IGet<Input.NewGame>
-      , IGet<Input.LoadGame>
-      , IGet<Input.DeleteGame>
+    public MainMenu()
     {
-      public MainMenu()
+      this.OnEnter(() =>
       {
-        this.OnEnter(
-          () =>
-          {
-            Get<Data>().ShouldLoadExistingGame = false;
+        Get<Data>().ShouldLoadExistingGame = false;
 
-            Output(new Output.SetupGameScene());
+        Output(new Output.SetupGameScene());
 
-            Get<IAppRepo>().OnMainMenuEntered();
+        Get<IAppRepo>().OnMainMenuEntering();
 
-            Output(new Output.ShowMainMenu());
-          }
-        );
+        Output(new Output.ShowMainMenu());
       }
+    );
+  }
 
-      public Transition On(in Input.NewGame input) => To<LeavingMenu>();
+  public Type On(in Input.NewGame input)
+  {
+    Get<AppLogic.Data>().ShouldLoadExistingGame = false;
 
-      public Transition On(in Input.LoadGame input)
-      {
-        Get<Data>().ShouldLoadExistingGame = true;
+    return To<LeavingMenu>();
+  }
 
-        return To<LeavingMenu>();
-      }
+  public Type On(in Input.LoadGame input)
+  {
+    Get<AppLogic.Data>().ShouldLoadExistingGame = true;
 
-      public Transition On(in Input.DeleteGame input)
-      {
-        Output(new Output.StartDeletingSaveFile());
+    return To<LeavingMenu>();
+  }
 
-        return ToSelf();
-      }
-    }
+  public Type On(in Input.DeleteGame input)
+  {
+    Output(new Output.StartDeletingSaveFile());
+
+    return ToSelf();
   }
 }

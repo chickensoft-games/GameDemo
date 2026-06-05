@@ -1,23 +1,21 @@
 namespace GameDemo;
 
+using System;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 
-public partial class GameLogic
+public partial record GameLogicState
 {
-  public partial record State
+  [Meta]
+  public partial record Resuming : GameLogicState, IGet<Input.PauseMenuTransitioned>
   {
-    [Meta]
-    public partial record Resuming : State, IGet<Input.PauseMenuTransitioned>
+    public Resuming()
     {
-      public Resuming()
-      {
-        this.OnEnter(() => Get<IGameRepo>().Resume());
-        this.OnExit(() => Output(new Output.HidePauseMenu()));
-      }
-
-      public Transition On(in Input.PauseMenuTransitioned input) =>
-        To<Playing>();
+      this.OnEnter(() => Get<IGameRepo>().Resume());
+      this.OnExit(() => Output(new Output.HidePauseMenu()));
     }
+
+    public Type On(in Input.PauseMenuTransitioned input) =>
+      To<Playing>();
   }
 }

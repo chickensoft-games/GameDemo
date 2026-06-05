@@ -102,7 +102,7 @@ public partial class Map : Node3D, IMap
     MapLogic.Set(new MapLogic.Data());
     MapLogic.Set(GameRepo);
 
-    MapLogic.Start();
+    MapLogic.Start<MapLogicState>();
 
     this.Provide();
   }

@@ -1,0 +1,11 @@
+@startuml InGameAudioLogic
+state InGameAudioLogic {
+  state InGameAudioLogicState
+}
+
+[*] --> InGameAudioLogicState
+
+InGameAudioLogic : Dependencies:
+InGameAudioLogic : - IAppRepo
+InGameAudioLogic : - IGameRepo
+@enduml

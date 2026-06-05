@@ -3,6 +3,7 @@ namespace GameDemo;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 using Godot;
 
 public interface IJumpshroom
@@ -29,7 +30,7 @@ public partial class Jumpshroom : Node3D
 
   public IJumpshroomLogic JumpshroomLogic { get; set; } = default!;
 
-  public JumpshroomLogic.IBinding JumpshroomBinding { get; set; }
+  public LogicBlock.Binding JumpshroomBinding { get; set; }
     = default!;
 
   [Export(PropertyHint.Range, "1,100,0.5")]
@@ -69,17 +70,19 @@ public partial class Jumpshroom : Node3D
     CooldownTimer.Timeout += OnCooldownTimeout;
 
     JumpshroomBinding
-      .Handle(
-        (in JumpshroomLogic.Output.Animate output) =>
+      .OnOutput(
+        (in JumpshroomLogicState.Output.Animate output) =>
           AnimationPlayer.Play("bounce")
       )
-      .Handle(
-        (in JumpshroomLogic.Output.StartCooldownTimer output) =>
+      .OnOutput(
+        (in JumpshroomLogicState.Output.StartCooldownTimer output) =>
           CooldownTimer.Start()
       );
+
+    JumpshroomLogic.Start<JumpshroomLogicState.Idle>();
   }
 
-  public void OnCooldownTimeout() => JumpshroomLogic.Input(new JumpshroomLogic.Input.CooldownCompleted());
+  public void OnCooldownTimeout() => JumpshroomLogic.Input(new JumpshroomLogicState.Input.CooldownCompleted());
 
   public void OnAreaBodyEntered(Node3D body)
   {
@@ -87,7 +90,7 @@ public partial class Jumpshroom : Node3D
     {
       // Whenever a push-enabled body comes into contact with us, we can
       // immediately start the launch process (if the state allows it).
-      JumpshroomLogic.Input(new JumpshroomLogic.Input.Hit(target));
+      JumpshroomLogic.Input(new JumpshroomLogicState.Input.Hit(target));
     }
   }
 
@@ -95,12 +98,12 @@ public partial class Jumpshroom : Node3D
     // We finished the windup part of the animation, now it's time to launch
     // whatever push-enabled object we are colliding with.
     JumpshroomLogic.Input(
-      new JumpshroomLogic.Input.Launch()
+      new JumpshroomLogicState.Input.Launch()
     );
 
   // Tell the state machine we finished animating so it can go back to idle.
   public void OnAnimationFinished(StringName animationName) =>
-    JumpshroomLogic.Input(new JumpshroomLogic.Input.LaunchCompleted());
+    JumpshroomLogic.Input(new JumpshroomLogicState.Input.LaunchCompleted());
 
   public void OnExitTree()
   {

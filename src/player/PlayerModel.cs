@@ -3,6 +3,7 @@ namespace GameDemo;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
 using Godot;
 
 public interface IPlayerModel;
@@ -25,7 +26,7 @@ public partial class PlayerModel : Node3D
   public PlayerLogic.Settings Settings => this.DependOn<PlayerLogic.Settings>();
   #endregion Dependencies
 
-  public PlayerLogic.IBinding PlayerBinding { get; set; } =
+  public LogicBlock.Binding PlayerBinding { get; set; } =
     default!;
 
   #region Nodes
@@ -68,24 +69,24 @@ public partial class PlayerModel : Node3D
     PlayerBinding = PlayerLogic.Bind();
 
     PlayerBinding
-      .Handle((in PlayerLogic.Output.Animations.Idle output) =>
+      .OnOutput((in PlayerLogicState.Output.Animations.Idle output) =>
         AnimationStateMachine.Travel("idle")
       )
-      .Handle((in PlayerLogic.Output.Animations.Move output) =>
+      .OnOutput((in PlayerLogicState.Output.Animations.Move output) =>
         AnimationStateMachine.Travel("run")
       )
-      .Handle((in PlayerLogic.Output.Animations.Jump output) =>
+      .OnOutput((in PlayerLogicState.Output.Animations.Jump output) =>
         AnimationStateMachine.Travel("jump")
       )
-      .Handle((in PlayerLogic.Output.Animations.Fall output) =>
+      .OnOutput((in PlayerLogicState.Output.Animations.Fall output) =>
         AnimationStateMachine.Travel("fall")
       )
-      .Handle((in PlayerLogic.Output.MoveSpeedChanged output) =>
+      .OnOutput((in PlayerLogicState.Output.MoveSpeedChanged output) =>
         AnimationTree.Set(
           "parameters/main_animations/move/blend_position", output.Speed
         )
       )
-      .Handle((in PlayerLogic.Output.MovementComputed output) =>
+      .OnOutput((in PlayerLogicState.Output.MovementComputed output) =>
       {
         var rotation = output.Rotation.GetEuler();
         var direction = output.Direction * -1;
@@ -102,7 +103,7 @@ public partial class PlayerModel : Node3D
 
         var angleDiff = Mathf.AngleDifference(VisualRoot.Rotation.Y, targetAngle);
         _lean = Mathf.MoveToward(
-          _lean, GetTarget(angleDiff, PlayerLogic.Value), 2f * (float)output.Delta
+          _lean, GetTarget(angleDiff, PlayerLogic.State), 2f * (float)output.Delta
         );
 
         AnimationTree.Set(LEAN_ADD, Mathf.Abs(_lean));
@@ -110,9 +111,9 @@ public partial class PlayerModel : Node3D
       });
   }
 
-  public static float GetTarget(float angleDiff, PlayerLogic.State state)
+  public static float GetTarget(float angleDiff, LogicBlockState? state)
   {
-    if (state is PlayerLogic.State.Grounded)
+    if (state is PlayerLogicState.Grounded)
     {
       return angleDiff;
     }

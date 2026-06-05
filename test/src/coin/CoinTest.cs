@@ -7,6 +7,7 @@ using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
 using Chickensoft.GodotTestDriver;
+using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
@@ -32,7 +33,7 @@ public partial class CoinTest : TestClass
   private Mock<ICoinLogic> _logic = default!;
   private EntityTable _entityTable = default!;
 
-  private CoinLogic.IFakeBinding _binding = default!;
+  private LogicBlock.FakeBinding _binding = default!;
 
   private Coin _coin = default!;
 
@@ -45,7 +46,7 @@ public partial class CoinTest : TestClass
     _animPlayer = new();
     _coinModel = new();
     _logic = new();
-    _binding = CoinLogic.CreateFakeBinding();
+    _binding = LogicBlock.CreateFakeBinding();
     _entityTable = new EntityTable();
 
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
@@ -85,7 +86,7 @@ public partial class CoinTest : TestClass
   {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(in It.Ref<CoinLogic.Input.PhysicsProcess>.IsAny)
+      logic => logic.Input(in It.Ref<CoinLogicState.Input.PhysicsProcess>.IsAny)
     );
 
     _coin.OnPhysicsProcess(1f);
@@ -98,7 +99,7 @@ public partial class CoinTest : TestClass
   {
     _logic.Reset();
     _logic.Setup(
-      logic => logic.Input(in It.Ref<CoinLogic.Input.StartCollection>.IsAny)
+      logic => logic.Input(in It.Ref<CoinLogicState.Input.StartCollection>.IsAny)
     );
     var collector = new FakeCoinCollector();
 
@@ -111,7 +112,7 @@ public partial class CoinTest : TestClass
   public void StartsCollectionProcess()
   {
     _coin.OnResolved();
-    var state = new Mock<CoinLogic.State.Collecting>();
+    var state = new Mock<CoinLogicState.Collecting>();
     _animPlayer.Setup(player => player.Play("collect", -1, 1, false));
 
     _binding.SetState(state.Object);
@@ -143,11 +144,11 @@ public partial class CoinTest : TestClass
     var fixture = new Fixture(tree);
     await fixture.AddToRoot(_coin);
 
-    _binding.Output(new CoinLogic.Output.Move(Vector3.One));
+    _binding.Output(new CoinLogicState.Output.Move(Vector3.One));
 
     _coin.GlobalPosition.ShouldBe(Vector3.One);
 
-    _binding.Output(new CoinLogic.Output.SelfDestruct());
+    _binding.Output(new CoinLogicState.Output.SelfDestruct());
 
     _coin.IsQueuedForDeletion().ShouldBeTrue();
 
