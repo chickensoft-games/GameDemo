@@ -57,7 +57,7 @@ IProvide<PlayerLogic.Settings>
   public PlayerData Save() => new()
   {
     GlobalTransform = GlobalTransform,
-    StateMachine = PlayerLogic,
+    StateMachine = PlayerLogic.Save(),
     Velocity = Velocity
   };
 
@@ -65,8 +65,8 @@ IProvide<PlayerLogic.Settings>
   {
     GlobalTransform = data.GlobalTransform;
     Velocity = data.Velocity;
-    PlayerLogic.RestoreFrom(data.StateMachine);
-    PlayerLogic.Start();
+    PlayerLogic.Stop();
+    PlayerLogic.Start(data.StateMachine.Data);
   }
 
   #endregion Save
@@ -149,7 +149,7 @@ IProvide<PlayerLogic.Settings>
     PlayerLogic.Set(Settings);
     PlayerLogic.Set(AppRepo);
     PlayerLogic.Set(GameRepo);
-    PlayerLogic.Save(() => new PlayerLogic.Data());
+    PlayerLogic.Set(new PlayerLogic.Data());
   }
 
   public void OnReady() => SetPhysicsProcess(true);
@@ -164,7 +164,6 @@ IProvide<PlayerLogic.Settings>
   public void OnResolved()
   {
     EntityTable.Set(Name, this);
-
 
     GameRepo.SetPlayerGlobalPosition(GlobalPosition);
 

@@ -7,10 +7,11 @@ using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
+using Chickensoft.LogicBlocks.Auto;
 using Chickensoft.SaveFileBuilder;
 using Chickensoft.Serialization;
 using Chickensoft.Serialization.Godot;
-using Chickensoft.LogicBlocks;
 using Chickensoft.UMLGenerator;
 using Godot;
 
@@ -103,7 +104,7 @@ public partial class App : CanvasLayer, IApp
   {
     // Tell our type type resolver about the Godot-specific converters.
     GodotSerialization.Setup();
-    LogicBlocksSerialization.Setup();
+    LogicBlockSerialization.Setup();
 
     AppBinding = AppLogic.Bind()
       .OnOutput((in AppLogicState.Output.ShowSplashScreen _) =>
@@ -149,7 +150,7 @@ public partial class App : CanvasLayer, IApp
 
   public void OnLoadGame() => AppLogic.Input(new AppLogicState.Input.LoadGame());
 
-  public void OnDeleteGame() => AppLogic.Input(new AppLogic.Input.DeleteGame());
+  public void OnDeleteGame() => AppLogic.Input(new AppLogicState.Input.DeleteGame());
 
   public void OnAnimationFinished(StringName animation)
   {

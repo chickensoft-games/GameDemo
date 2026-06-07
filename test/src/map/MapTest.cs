@@ -101,6 +101,8 @@ public class MapTest : TestClass
   [Test]
   public void Loads()
   {
+    var logic = new CoinLogic();
+    logic.Start<CoinLogicState.Idle>();
     var mapData = new MapData()
     {
       CoinsBeingCollected = new Dictionary<string, CoinData>

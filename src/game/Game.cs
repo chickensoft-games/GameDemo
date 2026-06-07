@@ -6,7 +6,6 @@ using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
-using Chickensoft.LogicBlocks.Auto;
 using Chickensoft.SaveFileBuilder;
 using Godot;
 
@@ -198,7 +197,7 @@ public partial class Game : Node3D, IGame
   private async ValueTask SaveGame()
   {
     await SaveFile.SaveAsync(Save());
-    GameLogic.Input(new GameLogic.Input.SaveCompleted());
+    GameLogic.Input(new GameLogicState.Input.SaveCompleted());
   }
 
   private void SetPauseMode(bool isPaused) => GetTree().Paused = isPaused;

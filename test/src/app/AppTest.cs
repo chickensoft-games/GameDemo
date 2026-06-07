@@ -4,8 +4,8 @@ using System.Diagnostics.CodeAnalysis;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
-using Chickensoft.SaveFileBuilder;
 using Chickensoft.LogicBlocks;
+using Chickensoft.SaveFileBuilder;
 using Godot;
 using Moq;
 using Shouldly;
@@ -243,7 +243,7 @@ public class AppTest : TestClass
     _saveFile.Setup(sf => sf.ExistsAsync()).ReturnsAsync(true);
     _saveFile.Setup(sf => sf.LoadAsync<GameData>()).ReturnsAsync(gameData.Object);
     _game.Setup(game => game.Load(gameData.Object));
-    _logic.Setup(l => l.Input(new AppLogic.Input.SaveFileLoaded()));
+    _logic.Setup(l => l.Input(new AppLogicState.Input.SaveFileLoaded()));
 
     _binding.Output(new AppLogicState.Output.StartLoadingSaveFile());
 

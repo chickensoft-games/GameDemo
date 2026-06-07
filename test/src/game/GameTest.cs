@@ -109,7 +109,7 @@ public class GameTest : TestClass
   [Test]
   public void Initializes()
   {
-    ((IProvide<IGameRepo>)_game).Value().ShouldBe(_gameRepo.Object);
+    ((IProvide<IGameRepo>)_game).Value().ShouldBe(_gameRepo);
     ((IProvide<EntityTable>)_game).Value().ShouldBe(_entityTable);
 
     _game.Setup();

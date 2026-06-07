@@ -66,7 +66,7 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
 
   public PlayerCameraData Save() => new()
   {
-    StateMachine = CameraLogic,
+    StateMachine = CameraLogic.Save(),
     GlobalTransform = GlobalTransform,
     LocalPosition = CameraNode.Position,
     OffsetPosition = OffsetNode.Position,
@@ -74,7 +74,8 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
 
   public void Load(in PlayerCameraData data)
   {
-    CameraLogic.RestoreFrom(data.StateMachine);
+    CameraLogic.Stop();
+    CameraLogic.Start(data.StateMachine.Data);
     GlobalTransform = data.GlobalTransform;
     CameraNode.Position = data.LocalPosition;
     OffsetNode.Position = data.OffsetPosition;

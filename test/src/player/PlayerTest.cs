@@ -231,11 +231,14 @@ public class PlayerTest : TestClass
     var fixture = new Fixture(tree);
     await fixture.AddToRoot(_player);
 
+    _player.Setup();
+    _player.PlayerLogic.Start<PlayerLogicState.Disabled>();
+
     _player.GlobalTransform = Transform3D.FlipZ;
     var data = _player.Save();
 
     data.GlobalTransform.ShouldBe(Transform3D.FlipZ);
-    data.StateMachine.ShouldBe(_player.PlayerLogic);
+    data.StateMachine.Data.ShouldBe(_player.PlayerLogic.Save().Data);
     data.Velocity.ShouldBe(_player.Velocity);
   }
 

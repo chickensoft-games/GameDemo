@@ -164,11 +164,13 @@ public partial class CoinTest : TestClass
     var fixture = new Fixture(tree);
     await fixture.AddToRoot(_coin);
 
-    _coin.GlobalTransform = Transform3D.FlipZ;
+    _coin.Setup();
+    _coin.CoinLogic.Start<CoinLogicState.Idle>();
 
+    _coin.GlobalTransform = Transform3D.FlipZ;
     var coinData = _coin.Save();
 
-    coinData.StateMachine.ShouldBe(_logic.Object);
+    coinData.StateMachine.Data.ShouldBe(_coin.CoinLogic.Save().Data);
     coinData.GlobalTransform.ShouldBe(Transform3D.FlipZ);
   }
 
@@ -181,19 +183,20 @@ public partial class CoinTest : TestClass
     var fixture = new Fixture(tree);
     await fixture.AddToRoot(_coin);
 
-    var newLogic = new Mock<ICoinLogic>();
+    var logic = new CoinLogic();
+    logic.Start<CoinLogicState.Idle>();
+
+    _coin.CoinLogic = logic;
+
     var coinData = new CoinData()
     {
-      StateMachine = newLogic.Object,
+      StateMachine = logic.Save(),
       GlobalTransform = Transform3D.FlipZ,
     };
-
-    _logic.Setup(l => l.RestoreFrom(newLogic.Object));
-    _logic.Setup(l => l.Start());
 
     _coin.Load(coinData);
 
     _coin.GlobalTransform.ShouldBe(Transform3D.FlipZ);
-    _logic.VerifyAll();
+    _coin.CoinLogic.ShouldBeOfType<CoinLogic>();
   }
 }

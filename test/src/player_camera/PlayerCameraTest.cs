@@ -239,6 +239,19 @@ public class PlayerCameraTest : TestClass
     await fixture.AddToRoot(_playerCam);
 
     var logic = new PlayerCameraLogic();
+    logic.Set(_gameRepo.Object);
+    logic.Set<IPlayerCamera>(_playerCam);
+    logic.Set(_settings);
+    logic.Set(new PlayerCameraLogic.Data
+    {
+      TargetPosition = Vector3.Zero,
+      TargetAngleHorizontal = 0f,
+      TargetAngleVertical = 0f,
+      TargetOffset = Vector3.Zero
+    });
+
+    logic.Start<PlayerCameraLogicState.InputDisabled>();
+
     _playerCam.GlobalTransform = Transform3D.FlipZ;
     _playerCam.CameraLogic = logic;
     _cameraNode.Setup(n => n.Position).Returns(Vector3.Right);
@@ -261,7 +274,22 @@ public class PlayerCameraTest : TestClass
     var fixture = new Fixture(tree);
     await fixture.AddToRoot(_playerCam);
 
+    _playerCam.Setup();
+
     var logic = new PlayerCameraLogic();
+    logic.Set(_gameRepo.Object);
+    logic.Set<IPlayerCamera>(_playerCam);
+    logic.Set(_settings);
+    logic.Set(new PlayerCameraLogic.Data
+    {
+      TargetPosition = Vector3.Zero,
+      TargetAngleHorizontal = 0f,
+      TargetAngleVertical = 0f,
+      TargetOffset = Vector3.Zero
+    });
+
+    logic.Start<PlayerCameraLogicState.InputDisabled>();
+
     var data = new PlayerCameraData()
     {
       GlobalTransform = Transform3D.FlipZ,
@@ -270,11 +298,11 @@ public class PlayerCameraTest : TestClass
       OffsetPosition = Vector3.Left,
     };
 
+    _playerCam.CameraLogic = logic;
     _playerCam.Load(data);
 
     _playerCam.GlobalTransform.ShouldBe(Transform3D.FlipZ);
-    _logic.Verify(l => l.RestoreFrom(logic));
-    _logic.Verify(l => l.Start());
+    _playerCam.CameraLogic.GetData().ShouldBe(data.StateMachine.Data);
     _cameraNode.VerifySet(n => n.Position = Vector3.Right);
     _offsetNode.VerifySet(n => n.Position = Vector3.Left);
   }
