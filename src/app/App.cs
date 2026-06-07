@@ -1,13 +1,21 @@
 namespace GameDemo;
 
+using System.IO;
+using System.Text.Json;
+using System.Threading.Tasks;
 using Chickensoft.AutoInject;
+using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
+using Chickensoft.LogicBlocks.Auto;
+using Chickensoft.SaveFileBuilder;
+using Chickensoft.Serialization;
+using Chickensoft.Serialization.Godot;
 using Chickensoft.UMLGenerator;
 using Godot;
 
-public interface IApp : ICanvasLayer, IProvide<IAppRepo>;
+public interface IApp : ICanvasLayer, IProvide<IAppRepo>, IProvide<ISaveFile>;
 
 [Meta(typeof(IAutoNode))]
 [ClassDiagram(UseVSCodePaths = true)]
@@ -28,9 +36,29 @@ public partial class App : CanvasLayer, IApp
 
   #endregion External
 
+  #region Save
+
+  public ISaveFile SaveFile { get; set; } = Chickensoft.SaveFileBuilder.SaveFile.CreateGZipJsonFile(
+    Path.Join(OS.GetUserDataDir(), "game.json.gz"),
+
+    // Create a standard JsonSerializerOptions with our introspective type
+    // resolver and the logic blocks converter.
+    new JsonSerializerOptions()
+    {
+      Converters = {
+        new SerializableTypeConverter(new Blackboard())
+      },
+      TypeInfoResolver = new SerializableTypeResolver(),
+      WriteIndented = true
+    }
+  );
+
+  #endregion Save
+
   #region Provisions
 
   IAppRepo IProvide<IAppRepo>.Value() => AppRepo;
+  ISaveFile IProvide<ISaveFile>.Value() => SaveFile;
 
   #endregion Provisions
 
@@ -65,6 +93,7 @@ public partial class App : CanvasLayer, IApp
     // for the overall app's state machine.
     Menu.NewGame += OnNewGame;
     Menu.LoadGame += OnLoadGame;
+    Menu.DeleteGame += OnDeleteGame;
 
     AnimationPlayer.AnimationFinished += OnAnimationFinished;
 
@@ -73,9 +102,11 @@ public partial class App : CanvasLayer, IApp
 
   public void OnReady()
   {
-    AppBinding = AppLogic.Bind();
+    // Tell our type type resolver about the Godot-specific converters.
+    GodotSerialization.Setup();
+    LogicBlockSerialization.Setup();
 
-    AppBinding
+    AppBinding = AppLogic.Bind()
       .OnOutput((in AppLogicState.Output.ShowSplashScreen _) =>
       {
         HideMenus();
@@ -100,15 +131,7 @@ public partial class App : CanvasLayer, IApp
 
         Instantiator.SceneTree.Paused = false;
       })
-      .OnOutput((in AppLogicState.Output.ShowMainMenu _) =>
-      {
-        // Load everything while we're showing a black screen, then fade in.
-        HideMenus();
-        Menu.Show();
-        Game.Show();
-
-        FadeInFromBlack();
-      })
+      .OnOutput((in AppLogicState.Output.ShowMainMenu _) => ShowMainMenu().AsTask())
       .OnOutput((in AppLogicState.Output.FadeToBlack _) => FadeToBlack())
       .OnOutput((in AppLogicState.Output.ShowGame _) =>
       {
@@ -116,13 +139,8 @@ public partial class App : CanvasLayer, IApp
         FadeInFromBlack();
       })
       .OnOutput((in AppLogicState.Output.HideGame _) => FadeToBlack())
-      .OnOutput(
-        (in AppLogicState.Output.StartLoadingSaveFile _) =>
-        {
-          Game.SaveFileLoaded += OnSaveFileLoaded;
-          Game.LoadExistingGame();
-        }
-      );
+      .OnOutput((in AppLogicState.Output.StartLoadingSaveFile _) => LoadSaveFile().AsTask())
+      .OnOutput((in AppLogicState.Output.StartDeletingSaveFile _) => DeleteSaveFile().AsTask());
 
     // Enter the first state to kick off the binding side effects.
     AppLogic.Start<AppLogicState.SplashScreen>();
@@ -131,6 +149,8 @@ public partial class App : CanvasLayer, IApp
   public void OnNewGame() => AppLogic.Input(new AppLogicState.Input.NewGame());
 
   public void OnLoadGame() => AppLogic.Input(new AppLogicState.Input.LoadGame());
+
+  public void OnDeleteGame() => AppLogic.Input(new AppLogicState.Input.DeleteGame());
 
   public void OnAnimationFinished(StringName animation)
   {
@@ -174,13 +194,38 @@ public partial class App : CanvasLayer, IApp
     AppRepo.Dispose();
 
     Menu.NewGame -= OnNewGame;
+    Menu.LoadGame -= OnLoadGame;
+    Menu.DeleteGame -= OnDeleteGame;
 
     AnimationPlayer.AnimationFinished -= OnAnimationFinished;
   }
 
-  public void OnSaveFileLoaded()
+  private async ValueTask ShowMainMenu()
   {
-    Game.SaveFileLoaded -= OnSaveFileLoaded;
+    // Load everything while we're showing a black screen, then fade in.
+    HideMenus();
+    Menu.Show();
+    Game.Show();
+
+    Menu.SetGameExists(await SaveFile.ExistsAsync());
+
+    FadeInFromBlack();
+  }
+
+  private async ValueTask LoadSaveFile()
+  {
+    if (await SaveFile.ExistsAsync()
+      && await SaveFile.LoadAsync<GameData>() is { } data)
+    {
+      Game.Load(data);
+    }
+
     AppLogic.Input(new AppLogicState.Input.SaveFileLoaded());
+  }
+
+  private async ValueTask DeleteSaveFile()
+  {
+    Menu.SetGameExists(false);
+    await SaveFile.DeleteAsync();
   }
 }

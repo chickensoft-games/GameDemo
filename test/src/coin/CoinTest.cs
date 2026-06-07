@@ -154,4 +154,49 @@ public partial class CoinTest : TestClass
 
     await fixture.Cleanup();
   }
+
+  [Test]
+  public async Task Saves()
+  {
+    // This test has to be run in the actual scene tree since it verifies the
+    // coin changes its GlobalPosition.
+    var tree = TestScene.GetTree();
+    var fixture = new Fixture(tree);
+    await fixture.AddToRoot(_coin);
+
+    _coin.Setup();
+    _coin.CoinLogic.Start<CoinLogicState.Idle>();
+
+    _coin.GlobalTransform = Transform3D.FlipZ;
+    var coinData = _coin.Save();
+
+    coinData.StateMachine.Data.ShouldBe(_coin.CoinLogic.Save().Data);
+    coinData.GlobalTransform.ShouldBe(Transform3D.FlipZ);
+  }
+
+  [Test]
+  public async Task Loads()
+  {
+    // This test has to be run in the actual scene tree since it verifies the
+    // coin changes its GlobalPosition.
+    var tree = TestScene.GetTree();
+    var fixture = new Fixture(tree);
+    await fixture.AddToRoot(_coin);
+
+    var logic = new CoinLogic();
+    logic.Start<CoinLogicState.Idle>();
+
+    _coin.CoinLogic = logic;
+
+    var coinData = new CoinData()
+    {
+      StateMachine = logic.Save(),
+      GlobalTransform = Transform3D.FlipZ,
+    };
+
+    _coin.Load(coinData);
+
+    _coin.GlobalTransform.ShouldBe(Transform3D.FlipZ);
+    _coin.CoinLogic.ShouldBeOfType<CoinLogic>();
+  }
 }

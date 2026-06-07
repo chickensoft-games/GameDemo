@@ -5,6 +5,7 @@ using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
 using Chickensoft.LogicBlocks;
+using Chickensoft.SaveFileBuilder;
 using Godot;
 using Moq;
 using Shouldly;
@@ -25,6 +26,7 @@ public class AppTest : TestClass
   private LogicBlock.FakeBinding _binding = default!;
 
   private Mock<IInstantiator> _instantiator = default!;
+  private Mock<ISaveFile> _saveFile = default!;
   private Mock<IGame> _game = default!;
   private Mock<IMenu> _menu = default!;
   private Mock<ISubViewport> _gamePreview = default!;
@@ -42,7 +44,7 @@ public class AppTest : TestClass
     _binding = LogicBlock.CreateFakeBinding();
 
     _instantiator = new();
-
+    _saveFile = new();
     _game = new();
     _menu = new();
     _gamePreview = new();
@@ -54,6 +56,7 @@ public class AppTest : TestClass
     {
       AppRepo = _appRepo.Object,
       AppLogic = _logic.Object,
+      SaveFile = _saveFile.Object,
       Game = _game.Object,
       Instantiator = _instantiator.Object,
       Menu = _menu.Object,
@@ -235,10 +238,18 @@ public class AppTest : TestClass
   {
     _app.OnReady();
 
+    var gameData = new Mock<GameData>();
+
+    _saveFile.Setup(sf => sf.ExistsAsync()).ReturnsAsync(true);
+    _saveFile.Setup(sf => sf.LoadAsync<GameData>()).ReturnsAsync(gameData.Object);
+    _game.Setup(game => game.Load(gameData.Object));
+    _logic.Setup(l => l.Input(new AppLogicState.Input.SaveFileLoaded()));
+
     _binding.Output(new AppLogicState.Output.StartLoadingSaveFile());
 
-    _game.VerifyAdd(game => game.SaveFileLoaded += _app.OnSaveFileLoaded);
-    _game.Verify(game => game.LoadExistingGame());
+    _saveFile.VerifyAll();
+    _game.VerifyAll();
+    _logic.VerifyAll();
   }
 
   [Test]
@@ -283,17 +294,6 @@ public class AppTest : TestClass
     _app.OnAnimationFinished("fade_out");
 
     _logic.VerifyAll();
-  }
-
-  [Test]
-  public void OnSaveFileLoaded()
-  {
-
-    _app.OnSaveFileLoaded();
-
-    _logic.Verify(logic => logic.Input(It.IsAny<AppLogicState.Input.SaveFileLoaded>()));
-
-    _game.VerifyRemove(game => game.SaveFileLoaded -= _app.OnSaveFileLoaded);
   }
 
   // Mocking helpers

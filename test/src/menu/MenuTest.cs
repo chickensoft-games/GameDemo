@@ -19,6 +19,7 @@ public class MenuTest : TestClass
 {
   private Mock<IButton> _newGameButton = default!;
   private Mock<IButton> _loadGameButton = default!;
+  private Mock<IButton> _deleteGameButton = default!;
   private Menu _menu = default!;
 
   public MenuTest(Node testScene) : base(testScene) { }
@@ -28,11 +29,13 @@ public class MenuTest : TestClass
   {
     _newGameButton = new Mock<IButton>();
     _loadGameButton = new Mock<IButton>();
+    _deleteGameButton = new Mock<IButton>();
 
     _menu = new Menu
     {
       NewGameButton = _newGameButton.Object,
-      LoadGameButton = _loadGameButton.Object
+      LoadGameButton = _loadGameButton.Object,
+      DeleteGameButton = _deleteGameButton.Object,
     };
 
     _menu._Notification(-1);
@@ -55,7 +58,6 @@ public class MenuTest : TestClass
     var signal = _menu.ToSignal(_menu, Menu.SignalName.NewGame);
 
     _menu.OnNewGamePressed();
-
     await signal;
 
     signal.IsCompleted.ShouldBeTrue();
@@ -67,7 +69,17 @@ public class MenuTest : TestClass
     var signal = _menu.ToSignal(_menu, Menu.SignalName.LoadGame);
 
     _menu.OnLoadGamePressed();
+    await signal;
 
+    signal.IsCompleted.ShouldBeTrue();
+  }
+
+  [Test]
+  public async Task SignalDeleteGameButtonPressed()
+  {
+    var signal = _menu.ToSignal(_menu, Menu.SignalName.DeleteGame);
+
+    _menu.OnDeleteGamePressed();
     await signal;
 
     signal.IsCompleted.ShouldBeTrue();

@@ -154,8 +154,8 @@ dotnet_style_null_propagation = true:warning
 dotnet_style_prefer_is_null_check_over_reference_equality_method = true:warning
 
 # Unused parameters and methods
-dotnet_diagnostic.IDE0060.severity = warn
-dotnet_diagnostic.IDE0051.severity = warn
+dotnet_diagnostic.IDE0060.severity = warning
+dotnet_diagnostic.IDE0051.severity = warning
 
 # File header preferences
 # Keep operators at end of line when wrapping.

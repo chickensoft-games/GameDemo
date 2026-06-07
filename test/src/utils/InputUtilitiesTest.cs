@@ -6,8 +6,8 @@ using Shouldly;
 
 public class InputUtilitiesTest : TestClass
 {
-  private float _deadZoneX = default!;
-  private float _deadZoneY = default!;
+  private float _deadZoneX;
+  private float _deadZoneY;
 
   public InputUtilitiesTest(Node testScene) :
   base(testScene)

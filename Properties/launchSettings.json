@@ -3,14 +3,14 @@
     "🕹 Debug Game": {
       "commandName": "Executable",
       "executablePath": "%GODOT%",
-      "workingDirectory": "$(SolutionDir)",
-      "commandLineArgs": "--path \"./\""
+      "commandLineArgs": "--path \"./\"",
+      "workingDirectory": "$(SolutionDir)"
     },
     "🧪 Debug Tests": {
       "commandName": "Executable",
       "executablePath": "%GODOT%",
-      "workingDirectory": "$(SolutionDir)",
-      "commandLineArgs": "--path \"./\" --run-tests --quit-on-finish"
+      "commandLineArgs": "--path \"./\" --run-tests --listen-trace --quit-on-finish",
+      "workingDirectory": "$(SolutionDir)"
     }
   }
 }
