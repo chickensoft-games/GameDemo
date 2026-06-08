@@ -1,8 +1,6 @@
 namespace GameDemo.Tests;
 
-using System.Linq;
 using Chickensoft.GoDotTest;
-using Chickensoft.LogicBlocks;
 using Godot;
 using Shouldly;
 
@@ -24,7 +22,7 @@ public class LostTest : TestClass
   public void OnEnter()
   {
     _state.Enter();
-    _context.Outputs.First().ShouldBeOfType<GameLogicState.Output.ShowLostScreen>();
+    _context.Outputs[0].ShouldBeOfType<GameLogicState.Output.ShowLostScreen>();
   }
 
   [Test]

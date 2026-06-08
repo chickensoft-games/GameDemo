@@ -3,9 +3,7 @@ namespace GameDemo.Tests;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Chickensoft.GoDotTest;
-using Chickensoft.Sync.Primitives;
 using Godot;
-using Moq;
 using Shouldly;
 
 [
@@ -18,8 +16,8 @@ using Shouldly;
 public class GameLogicTest : TestClass
 {
   private GameLogic _logic = default!;
-  private IGameRepo _gameRepo = default!;
-  private IAppRepo _appRepo = default!;
+  private GameRepo _gameRepo = default!;
+  private AppRepo _appRepo = default!;
 
   public GameLogicTest(Node testScene) : base(testScene) { }
 
