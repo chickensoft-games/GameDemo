@@ -1,0 +1,40 @@
+name: 🧪 Unit Tests
+on:
+  push:
+  pull_request:
+
+jobs:
+  unit_tests:
+    name: 🧪 Unit Tests
+    runs-on: ubuntu-latest
+    # Only run the workflow if it's not a PR or if it's a PR from a fork.
+    # This prevents duplicate workflows from running on PR's that originate
+    # from the repository itself.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+      DOTNET_NOLOGO: true
+    defaults:
+      run:
+        # Use bash shells on all platforms.
+        shell: bash
+    steps:
+      - name: 🧾 Checkout
+        uses: actions/checkout@v6
+        with:
+          # If using git-lfs (large file storage), this ensures that your files
+          # are checked out properly.
+          lfs: true
+          # Make sure any git submodules are checked out as well.
+          submodules: "recursive"
+
+      - name: 💽 Setup .NET SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          global-json-file: src/GameDemo/global.json
+
+      - name: 📦 Restore Dependencies
+        run: dotnet restore
+
+      - name: 🧑‍🔬 Run Unit Tests
+        run: dotnet test
