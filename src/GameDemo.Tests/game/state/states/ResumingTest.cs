@@ -1,12 +1,11 @@
 namespace GameDemo.Tests;
 
 using System.Linq;
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
-public class ResumingTest : TestClass
+public class ResumingTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private GameLogicState.Resuming _state = default!;
@@ -24,7 +23,7 @@ public class ResumingTest : TestClass
     _context.Set(_gameRepo.Object);
   }
 
-  [Test]
+  [Fact]
   public void OnEnter()
   {
     _gameRepo.Setup(repo => repo.Resume());
@@ -32,14 +31,14 @@ public class ResumingTest : TestClass
     _gameRepo.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void OnExit()
   {
     _state.Exit();
     _context.Outputs.Single().ShouldBeOfType<GameLogicState.Output.HidePauseMenu>();
   }
 
-  [Test]
+  [Fact]
   public void OnPauseMenuTransitioned()
   {
     var result = _state.On(new GameLogicState.Input.PauseMenuTransitioned());

@@ -1,8 +1,6 @@
 namespace GameDemo.Tests;
 
 using System.Diagnostics.CodeAnalysis;
-using Chickensoft.LogicBlocks;
-using Chickensoft.Sync.Primitives;
 using Godot;
 using Moq;
 using Shouldly;
@@ -14,7 +12,7 @@ using Shouldly;
     Justification = "Disposable field is disposed in cleanup"
   )
 ]
-public class PlayerCameraLogicStateTest : TestClass
+public class PlayerCameraLogicStateTest(GodotHeadlessFixture godot)
 {
   private Mock<IPlayerCamera> _camera = default!;
   private PlayerCameraSettings _settings = default!;
@@ -52,7 +50,7 @@ public class PlayerCameraLogicStateTest : TestClass
   [Cleanup]
   public void Cleanup() => _settings.Dispose();
 
-  [Test]
+  [Fact]
   public void OnCameraTargetOffsetChanged()
   {
     // Make sure it updates the camera offset when the player moves.
@@ -63,7 +61,7 @@ public class PlayerCameraLogicStateTest : TestClass
     ]);
   }
 
-  [Test]
+  [Fact]
   public void OnPhysicsTicked()
   {
     _camera.Setup(cam => cam.GimbalRotationHorizontal).Returns(Vector3.Zero);
@@ -102,7 +100,7 @@ public class PlayerCameraLogicStateTest : TestClass
     _camera.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void OnTargetPositionChanged()
   {
     var newTargetPosition = Vector3.Up;
@@ -114,7 +112,7 @@ public class PlayerCameraLogicStateTest : TestClass
     _data.TargetPosition.ShouldBe(newTargetPosition);
   }
 
-  [Test]
+  [Fact]
   public void TargetOffsetChanged()
   {
     var newTargetOffset = Vector3.Up;

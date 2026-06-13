@@ -4,7 +4,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
-using Chickensoft.GodotTestDriver;
 using Chickensoft.LogicBlocks;
 using Chickensoft.SaveFileBuilder;
 using Godot;
@@ -18,7 +17,7 @@ using Shouldly;
     Justification = "Disposable field is added to TestDriver fixture"
   )
 ]
-public class PlayerTest : TestClass
+public class PlayerTest(GodotHeadlessFixture godot)
 {
   private Fixture _fixture = default!;
   private IAppRepo _appRepo = default!;
@@ -83,7 +82,7 @@ public class PlayerTest : TestClass
   [Cleanup]
   public async Task Cleanup() => await _fixture.Cleanup();
 
-  [Test]
+  [Fact]
   public void Initializes()
   {
     _player.Setup();
@@ -94,14 +93,14 @@ public class PlayerTest : TestClass
     ((IProvide<PlayerLogic.Settings>)_player).Value().ShouldBe(_settings);
   }
 
-  [Test]
+  [Fact]
   public void OnReady()
   {
     _player.OnReady();
     _player.IsPhysicsProcessing().ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public void OnExitTree()
   {
     _logic.Setup(logic => logic.Stop());
@@ -111,7 +110,7 @@ public class PlayerTest : TestClass
     _logic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void OnPhysicsProcessJumpsOnInput()
   {
     Input.ActionPress(GameInputs.Jump);
@@ -123,7 +122,7 @@ public class PlayerTest : TestClass
     );
   }
 
-  [Test]
+  [Fact]
   public void OnPhysicsProcess()
   {
     _logic.Reset();
@@ -139,7 +138,7 @@ public class PlayerTest : TestClass
     _logic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void ShouldJump()
   {
     Player.ShouldJump(true, false).ShouldBe(true);
@@ -147,7 +146,7 @@ public class PlayerTest : TestClass
     Player.ShouldJump(false, false).ShouldBe(false);
   }
 
-  [Test]
+  [Fact]
   public void GetGlobalInputVector()
   {
     var cameraBasis = Basis.Identity;
@@ -156,7 +155,7 @@ public class PlayerTest : TestClass
     _player.GetGlobalInputVector(cameraBasis).ShouldBe(expected);
   }
 
-  [Test]
+  [Fact]
   public void GetNextRotationBasis()
   {
     var direction = Vector3.Forward;
@@ -165,14 +164,14 @@ public class PlayerTest : TestClass
     _player.GetNextRotationBasis(direction, 0d, 0f).ShouldBe(expected);
   }
 
-  [Test]
+  [Fact]
   public void IsMovingChecks()
   {
     _player.Velocity = Vector3.Forward * 10;
     _player.IsMovingHorizontally().ShouldBe(true);
   }
 
-  [Test]
+  [Fact]
   public void Pushed()
   {
     _logic.Reset();
@@ -184,10 +183,10 @@ public class PlayerTest : TestClass
     _logic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void CoinCollector() => _player.CenterOfMass.ShouldBeOfType<Vector3>();
 
-  [Test]
+  [Fact]
   public void Dies()
   {
     _logic.Reset();
@@ -198,7 +197,7 @@ public class PlayerTest : TestClass
     _logic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void ChangesVelocityAfterMovementIsComputed()
   {
     _player.OnResolved();
@@ -213,7 +212,7 @@ public class PlayerTest : TestClass
     _player.Transform.Basis.ShouldBe(Basis.Identity);
   }
 
-  [Test]
+  [Fact]
   public void ChangesVelocityWhenTold()
   {
     _player.OnResolved();
@@ -225,7 +224,7 @@ public class PlayerTest : TestClass
     _player.Velocity.ShouldBe(Vector3.Forward);
   }
 
-  [Test]
+  [Fact]
   public void Saves()
   {
     _player.Setup();
@@ -240,7 +239,7 @@ public class PlayerTest : TestClass
     data.Velocity.ShouldBe(_player.Velocity);
   }
 
-  [Test]
+  [Fact]
   public void Loads()
   {
     _player.Setup();

@@ -1,12 +1,11 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.Collections;
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
-public class CoinLogicStateIdleTest : TestClass
+public class CoinLogicStateIdleTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private CoinLogicState.Idle _state = default!;
@@ -40,7 +39,7 @@ public class CoinLogicStateIdleTest : TestClass
     _context.Set(_entityTable);
   }
 
-  [Test]
+  [Fact]
   public void GoesToCollectingOnStartCollection()
   {
     var next = _state.On(new CoinLogicState.Input.StartCollection(_target.Object));

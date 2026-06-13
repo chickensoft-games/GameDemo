@@ -1,14 +1,13 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.Introspection;
-using Chickensoft.LogicBlocks;
 using Chickensoft.LogicBlocks.Auto;
 using Chickensoft.Sync.Primitives;
 using Godot;
 using Moq;
 using Shouldly;
 
-public partial class PlayerLogicStateAliveTest : TestClass
+public partial class PlayerLogicStateAliveTest(GodotHeadlessFixture godot)
 {
   [Meta, TestState]
   public partial record TestPlayerState : PlayerLogicState.Alive;
@@ -45,7 +44,7 @@ public partial class PlayerLogicStateAliveTest : TestClass
     _context.Set(_appRepo.Object);
   }
 
-  [Test]
+  [Fact]
   public void Dies()
   {
     _gameRepo.Setup(repo => repo.OnGameEnded(GameOverReason.Lost));
@@ -56,7 +55,7 @@ public partial class PlayerLogicStateAliveTest : TestClass
     next.IsAssignableTo(typeof(PlayerLogicState.Dead)).ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public void PhysicsUpdatesLastStrongDirection()
   {
     var input = new PlayerLogicState.Input.PhysicsTick(1);
@@ -77,7 +76,7 @@ public partial class PlayerLogicStateAliveTest : TestClass
     _data.LastStrongDirection.ShouldBe(Vector3.Forward);
   }
 
-  [Test]
+  [Fact]
   public void PhysicsStopsIfVelocityIsLessThanStoppingSpeed()
   {
     var input = new PlayerLogicState.Input.PhysicsTick(1);
@@ -102,7 +101,7 @@ public partial class PlayerLogicStateAliveTest : TestClass
     ]);
   }
 
-  [Test]
+  [Fact]
   public void MovedInputsHitFloor()
   {
     var input = new PlayerLogicState.Input.Moved();
@@ -124,7 +123,7 @@ public partial class PlayerLogicStateAliveTest : TestClass
     ]);
   }
 
-  [Test]
+  [Fact]
   public void MovedInputsLeftFloor()
   {
     var input = new PlayerLogicState.Input.Moved();
@@ -146,7 +145,7 @@ public partial class PlayerLogicStateAliveTest : TestClass
     ]);
   }
 
-  [Test]
+  [Fact]
   public void MovedInputsStartedFalling()
   {
     var input = new PlayerLogicState.Input.Moved();
@@ -168,7 +167,7 @@ public partial class PlayerLogicStateAliveTest : TestClass
     ]);
   }
 
-  [Test]
+  [Fact]
   public void MovedInputsStartedMovingHorizontally()
   {
     var input = new PlayerLogicState.Input.Moved();
@@ -190,7 +189,7 @@ public partial class PlayerLogicStateAliveTest : TestClass
     ]);
   }
 
-  [Test]
+  [Fact]
   public void MovedInputsStoppedMovingHorizontally()
   {
     var input = new PlayerLogicState.Input.Moved();
@@ -212,7 +211,7 @@ public partial class PlayerLogicStateAliveTest : TestClass
     ]);
   }
 
-  [Test]
+  [Fact]
   public void PushedChangesVelocity()
   {
     var input = new PlayerLogicState.Input.Pushed(

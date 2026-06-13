@@ -13,7 +13,7 @@ using Moq;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-public class SplashTest : TestClass
+public class SplashTest(GodotHeadlessFixture godot)
 {
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IAnimationPlayer> _animationPlayer = default!;
@@ -36,7 +36,7 @@ public class SplashTest : TestClass
     _splash._Notification(-1);
   }
 
-  [Test]
+  [Fact]
   public void PlaysSplashScreen()
   {
     _splash.OnReady();
@@ -55,7 +55,7 @@ public class SplashTest : TestClass
     );
   }
 
-  [Test]
+  [Fact]
   public void SkipsSplashScreen()
   {
     _splash.OnReady();

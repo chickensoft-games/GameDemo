@@ -1,12 +1,11 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.Introspection;
-using Chickensoft.LogicBlocks;
 using Chickensoft.LogicBlocks.Auto;
 using Godot;
 using Shouldly;
 
-public partial class PlayerLogicStateAliveAirborneTest : TestClass
+public partial class PlayerLogicStateAliveAirborneTest(GodotHeadlessFixture godot)
 {
   [Meta, TestState]
   public partial record TestPlayerState : PlayerLogicState.Airborne;
@@ -24,7 +23,7 @@ public partial class PlayerLogicStateAliveAirborneTest : TestClass
     _state.Test();
   }
 
-  [Test]
+  [Fact]
   public void HitFloorGoesToMoving()
   {
     var next = _state.On(new PlayerLogicState.Input.HitFloor(true));
@@ -32,7 +31,7 @@ public partial class PlayerLogicStateAliveAirborneTest : TestClass
     next.IsAssignableTo(typeof(PlayerLogicState.Moving)).ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public void HitFloorGoesToIdle()
   {
     var next = _state.On(new PlayerLogicState.Input.HitFloor(false));
@@ -40,7 +39,7 @@ public partial class PlayerLogicStateAliveAirborneTest : TestClass
     next.IsAssignableTo(typeof(PlayerLogicState.Idle)).ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public void StartedFallingGoesToFalling()
   {
     var next = _state.On(new PlayerLogicState.Input.StartedFalling());

@@ -1,12 +1,11 @@
 namespace GameDemo.Tests;
 
 using System.Linq;
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
-public class WonTest : TestClass
+public class WonTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private GameLogicState.Won _state = default!;
@@ -24,14 +23,14 @@ public class WonTest : TestClass
     _context.Set(_appRepo.Object);
   }
 
-  [Test]
+  [Fact]
   public void OnEnter()
   {
     _state.Enter();
     _context.Outputs.First().ShouldBeOfType<GameLogicState.Output.ShowWonScreen>();
   }
 
-  [Test]
+  [Fact]
   public void OnGoToMainMenu()
   {
     _appRepo.Setup(repo => repo.OnExitGame(PostGameAction.GoToMainMenu));

@@ -1,13 +1,12 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.Introspection;
-using Chickensoft.LogicBlocks;
 using Chickensoft.LogicBlocks.Auto;
 using Godot;
 using Moq;
 using Shouldly;
 
-public partial class PlayerLogicStateAliveGroundedTest : TestClass
+public partial class PlayerLogicStateAliveGroundedTest(GodotHeadlessFixture godot)
 {
   [Meta, TestState]
   public partial record TestPlayerState : PlayerLogicState.Grounded;
@@ -37,7 +36,7 @@ public partial class PlayerLogicStateAliveGroundedTest : TestClass
     _context.Set(_settings);
   }
 
-  [Test]
+  [Fact]
   public void JumpGoesToJumping()
   {
     _player.Setup(player => player.Velocity).Returns(Vector3.Zero);
@@ -51,7 +50,7 @@ public partial class PlayerLogicStateAliveGroundedTest : TestClass
     ]);
   }
 
-  [Test]
+  [Fact]
   public void LeftFloorGoesToFallingOrLiftoff()
   {
     _state.On(new PlayerLogicState.Input.LeftFloor(IsFalling: true))

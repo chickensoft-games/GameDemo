@@ -1,10 +1,9 @@
 namespace GameDemo.Tests;
 
-using Chickensoft.LogicBlocks;
 using Godot;
 using Shouldly;
 
-public class PlayerLogicStateAliveAirborneLiftoffTest : TestClass
+public class PlayerLogicStateAliveAirborneLiftoffTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private PlayerLogicState.Liftoff _state = default!;
@@ -20,7 +19,7 @@ public class PlayerLogicStateAliveAirborneLiftoffTest : TestClass
     _context = _state.Test();
   }
 
-  [Test]
+  [Fact]
   public void Enters()
   {
     _state.Enter();

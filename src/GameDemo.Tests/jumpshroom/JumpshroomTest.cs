@@ -15,7 +15,7 @@ using Shouldly;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-public partial class JumpshroomTest : TestClass
+public partial class JumpshroomTest(GodotHeadlessFixture godot)
 {
   public partial class FakePushEnabled : Node3D, IPushEnabled
   {
@@ -62,7 +62,7 @@ public partial class JumpshroomTest : TestClass
     _shroom._Notification(-1);
   }
 
-  [Test]
+  [Fact]
   public void InitializesValues()
   {
     _shroom.Setup();
@@ -70,7 +70,7 @@ public partial class JumpshroomTest : TestClass
     _shroom.JumpshroomLogic.ShouldNotBeNull();
   }
 
-  [Test]
+  [Fact]
   public void Subscribes()
   {
     _shroom.OnResolved();
@@ -98,7 +98,7 @@ public partial class JumpshroomTest : TestClass
     );
   }
 
-  [Test]
+  [Fact]
   public void ShroomLoadedLaunches()
   {
     _logic.Reset();
@@ -109,7 +109,7 @@ public partial class JumpshroomTest : TestClass
     _logic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void OnAnimationFinishedCompletesLaunch()
   {
     _logic.Reset();
@@ -120,7 +120,7 @@ public partial class JumpshroomTest : TestClass
     _logic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void OnAreaBodyEnteredHitsIfPushEnabled()
   {
     _logic.Reset();
@@ -133,7 +133,7 @@ public partial class JumpshroomTest : TestClass
     _logic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void OnCooldownTimeoutCompletesCooldown()
   {
     _logic.Reset();
@@ -146,7 +146,7 @@ public partial class JumpshroomTest : TestClass
     _logic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void AnimatesBounce()
   {
     _animPlayer.Setup(player => player.Play("bounce", -1, 1, false));
@@ -157,7 +157,7 @@ public partial class JumpshroomTest : TestClass
     _animPlayer.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void StartsCooldownTimer()
   {
     _cooldownTimer.Setup(timer => timer.Start(-1));

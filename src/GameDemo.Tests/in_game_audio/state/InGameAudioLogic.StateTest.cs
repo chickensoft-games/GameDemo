@@ -4,7 +4,7 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class InGameAudioLogicStateTest : TestClass
+public class InGameAudioLogicStateTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
@@ -25,7 +25,7 @@ public class InGameAudioLogicStateTest : TestClass
     _context.Set(_gameRepo.Object);
   }
 
-  [Test]
+  [Fact]
   public void OnCoinCollectionStarted()
   {
     _state.OnCoinCollected();
@@ -35,7 +35,7 @@ public class InGameAudioLogicStateTest : TestClass
     ]);
   }
 
-  [Test]
+  [Fact]
   public void OnJumpshroomUsed()
   {
     _state.OnJumpshroomUsed();
@@ -45,7 +45,7 @@ public class InGameAudioLogicStateTest : TestClass
     ]);
   }
 
-  [Test]
+  [Fact]
   public void OnGameEndedLost()
   {
     _state.OnGameEnded(GameOverReason.Lost);
@@ -56,7 +56,7 @@ public class InGameAudioLogicStateTest : TestClass
     ]);
   }
 
-  [Test]
+  [Fact]
   public void OnGameEndedOther()
   {
     _state.OnGameEnded(GameOverReason.Won);
@@ -66,7 +66,7 @@ public class InGameAudioLogicStateTest : TestClass
     ]);
   }
 
-  [Test]
+  [Fact]
   public void OnJumped()
   {
     _state.OnJumped();
@@ -76,7 +76,7 @@ public class InGameAudioLogicStateTest : TestClass
     ]);
   }
 
-  [Test]
+  [Fact]
   public void OnMainMenuEntered()
   {
     _state.OnMainMenuEntered();
@@ -86,7 +86,7 @@ public class InGameAudioLogicStateTest : TestClass
     ]);
   }
 
-  [Test]
+  [Fact]
   public void OnGameEntered()
   {
     _state.OnGameEntered();

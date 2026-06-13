@@ -13,7 +13,7 @@ using Shouldly;
     Justification = "Disposable fields are disposed in cleanup"
   )
 ]
-public class MenuBackdropTest : TestClass
+public class MenuBackdropTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private GameLogicState.MenuBackdrop _state = default!;
@@ -39,7 +39,7 @@ public class MenuBackdropTest : TestClass
     _gameRepo.Setup(repo => repo.IsPaused).Returns(new Mock<IAutoValue<bool>>().Object);
   }
 
-  [Test]
+  [Fact]
   public void OnEnter()
   {
     _gameRepo.Reset();
@@ -50,7 +50,7 @@ public class MenuBackdropTest : TestClass
     _gameRepo.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void OnGameEntered()
   {
     _state.OnGameEntered();
@@ -58,14 +58,14 @@ public class MenuBackdropTest : TestClass
     _context.Inputs.ShouldBe([new GameLogicState.Input.Start()]);
   }
 
-  [Test]
+  [Fact]
   public void OnStartGame()
   {
     var result = _state.On(new GameLogicState.Input.Start());
     result.ShouldBe(typeof(GameLogicState.Playing));
   }
 
-  [Test]
+  [Fact]
   public void OnInitialize()
   {
     var numCoins = 10;

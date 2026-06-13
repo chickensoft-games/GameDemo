@@ -4,7 +4,7 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class SplashScreenTest : TestClass
+public class SplashScreenTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
@@ -24,14 +24,14 @@ public class SplashScreenTest : TestClass
     _context.Set(_data);
   }
 
-  [Test]
+  [Fact]
   public void OnEnter()
   {
     _state.Enter();
     _context.Outputs.ShouldBe([new AppLogicState.Output.ShowSplashScreen()]);
   }
 
-  [Test]
+  [Fact]
   public void RespondsToFadeOutFinished()
   {
     var next = _state.On(new AppLogicState.Input.FadeOutFinished());
@@ -39,7 +39,7 @@ public class SplashScreenTest : TestClass
     next.IsAssignableTo(typeof(AppLogicState.MainMenu)).ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public void SkipsSplashScreen()
   {
     _state.OnSplashScreenSkipped();

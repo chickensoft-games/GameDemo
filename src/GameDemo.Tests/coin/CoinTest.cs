@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.GodotTestDriver;
 using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
@@ -18,7 +17,7 @@ using Shouldly;
     Justification = "Disposable field is a Godot object; Godot will dispose"
   )
 ]
-public partial class CoinTest : TestClass
+public partial class CoinTest(GodotHeadlessFixture godot)
 {
   public partial class FakeCoinCollector : Node3D, ICoinCollector
   {
@@ -71,7 +70,7 @@ public partial class CoinTest : TestClass
     });
   }
 
-  [Test]
+  [Fact]
   public void Initializes()
   {
     _coin.Setup();
@@ -80,7 +79,7 @@ public partial class CoinTest : TestClass
     _coin.CoinLogic.ShouldNotBeNull();
   }
 
-  [Test]
+  [Fact]
   public void OnPhysicsProcess()
   {
     _logic.Reset();
@@ -93,7 +92,7 @@ public partial class CoinTest : TestClass
     _logic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void OnCollectorDetectorBodyEntered()
   {
     _logic.Reset();
@@ -107,7 +106,7 @@ public partial class CoinTest : TestClass
     _logic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void StartsCollectionProcess()
   {
     _coin.OnResolved();
@@ -120,7 +119,7 @@ public partial class CoinTest : TestClass
     _animPlayer.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public async Task InitializesDetectorAreaDynamically()
   {
     // This test has to be run in the actual scene tree since it verifies the
@@ -134,7 +133,7 @@ public partial class CoinTest : TestClass
     await fixture.Cleanup();
   }
 
-  [Test]
+  [Fact]
   public async Task MovesAndSelfDestructs()
   {
     // This test has to be run in the actual scene tree since it verifies the

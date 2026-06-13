@@ -1,11 +1,10 @@
 namespace GameDemo.Tests;
 
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
-public class MainMenuTest : TestClass
+public class MainMenuTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
@@ -26,7 +25,7 @@ public class MainMenuTest : TestClass
     _context.Set(_data);
   }
 
-  [Test]
+  [Fact]
   public void Enters()
   {
     _state.Enter();
@@ -37,7 +36,7 @@ public class MainMenuTest : TestClass
     ]);
   }
 
-  [Test]
+  [Fact]
   public void StartsGame()
   {
     var next = _state.On(new AppLogicState.Input.NewGame());
@@ -45,7 +44,7 @@ public class MainMenuTest : TestClass
     next.IsAssignableTo(typeof(AppLogicState.LeavingMenu)).ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public void LeavesMenuOnLoadGame()
   {
     var next = _state.On(new AppLogicState.Input.LoadGame());

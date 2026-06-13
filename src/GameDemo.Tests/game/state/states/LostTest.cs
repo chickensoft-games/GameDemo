@@ -1,11 +1,10 @@
 namespace GameDemo.Tests;
 
 using System.Linq;
-using Chickensoft.LogicBlocks;
 using Godot;
 using Shouldly;
 
-public class LostTest : TestClass
+public class LostTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private GameLogicState.Lost _state = default!;
@@ -19,21 +18,21 @@ public class LostTest : TestClass
     _context = _state.Test();
   }
 
-  [Test]
+  [Fact]
   public void OnEnter()
   {
     _state.Enter();
     _context.Outputs.First().ShouldBeOfType<GameLogicState.Output.ShowLostScreen>();
   }
 
-  [Test]
+  [Fact]
   public void OnStartGame()
   {
     var result = _state.On(new GameLogicState.Input.Start());
     result.ShouldBe(typeof(GameLogicState.RestartingGame));
   }
 
-  [Test]
+  [Fact]
   public void OnGoToMainMenu()
   {
     var result = _state.On(new GameLogicState.Input.GoToMainMenu());

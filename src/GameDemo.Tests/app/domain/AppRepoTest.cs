@@ -11,7 +11,7 @@ using Shouldly;
     Justification = "Disposable field is disposed in last test"
   )
 ]
-public class AppRepoTest : TestClass
+public class AppRepoTest(GodotHeadlessFixture godot)
 {
   private AppRepo _repo = default!;
 
@@ -23,14 +23,14 @@ public class AppRepoTest : TestClass
   [Cleanup]
   public void Cleanup() => _repo.Dispose();
 
-  [Test]
+  [Fact]
   public void Initializes()
   {
     var repo = new AppRepo();
     repo.ShouldBeAssignableTo<IAppRepo>();
   }
 
-  [Test]
+  [Fact]
   public void SkipSplashScreen()
   {
     var called = false;
@@ -45,7 +45,7 @@ public class AppRepoTest : TestClass
     called.ShouldBe(true);
   }
 
-  [Test]
+  [Fact]
   public void OnMainMenuEnteredInvokesEvent()
   {
     var called = 0;
@@ -57,7 +57,7 @@ public class AppRepoTest : TestClass
     called.ShouldBe(1);
   }
 
-  [Test]
+  [Fact]
   public void OnEnterGameInvokesEvent()
   {
     var called = 0;
@@ -69,7 +69,7 @@ public class AppRepoTest : TestClass
     called.ShouldBe(1);
   }
 
-  [Test]
+  [Fact]
   public void OnExitGameInvokesEventWithPostGameAction()
   {
     var called = 0;
@@ -87,7 +87,7 @@ public class AppRepoTest : TestClass
     called.ShouldBe(1);
   }
 
-  [Test]
+  [Fact]
   public void Disposes()
   {
     Should.NotThrow(_repo.Dispose);

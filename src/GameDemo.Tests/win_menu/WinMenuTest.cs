@@ -14,7 +14,7 @@ using Shouldly;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-public class WinMenuTest : TestClass
+public class WinMenuTest(GodotHeadlessFixture godot)
 {
   private Mock<IButton> _mainMenuButton = default!;
   private Mock<IAnimationPlayer> _animationPlayer = default!;
@@ -36,7 +36,7 @@ public class WinMenuTest : TestClass
     _menu._Notification(-1);
   }
 
-  [Test]
+  [Fact]
   public void Subscribes()
   {
     _menu.OnReady();
@@ -47,7 +47,7 @@ public class WinMenuTest : TestClass
       .VerifyRemove(menu => menu.Pressed -= _menu.OnMainMenuPressed);
   }
 
-  [Test]
+  [Fact]
   public async Task SignalsMainMenuButtonPressed()
   {
     var signal = _menu.ToSignal(_menu, WinMenu.SignalName.MainMenu);
@@ -59,21 +59,21 @@ public class WinMenuTest : TestClass
     signal.IsCompleted.ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public void FadeIn()
   {
     _menu.FadeIn();
     _animationPlayer.Verify(player => player.Play("fade_in", -1, 1, false));
   }
 
-  [Test]
+  [Fact]
   public void FadeOut()
   {
     _menu.FadeOut();
     _animationPlayer.Verify(player => player.Play("fade_out", -1, 1, false));
   }
 
-  [Test]
+  [Fact]
   public void OnAnimationFinished()
   {
     var called = false;

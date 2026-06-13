@@ -2,7 +2,6 @@ namespace GameDemo.Tests;
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Chickensoft.Sync.Primitives;
 using Godot;
 using Moq;
 using Shouldly;
@@ -14,7 +13,7 @@ using Shouldly;
     Justification = "Disposable field is disposed in cleanup"
   )
 ]
-public class GameLogicTest : TestClass
+public class GameLogicTest(GodotHeadlessFixture godot)
 {
   private GameLogic _logic = default!;
   private IGameRepo _gameRepo = default!;
@@ -33,7 +32,7 @@ public class GameLogicTest : TestClass
     _logic.Set(_appRepo);
   }
 
-  [Test]
+  [Fact]
   public void SubscribesToIsMouseCaptured()
   {
     var outputs = new List<object>();
@@ -52,7 +51,7 @@ public class GameLogicTest : TestClass
     outputs.ShouldContain(new GameLogicState.Output.CaptureMouse(true));
   }
 
-  [Test]
+  [Fact]
   public void SubscribesToIsPaused()
   {
     var outputs = new List<object>();
@@ -71,7 +70,7 @@ public class GameLogicTest : TestClass
     outputs.ShouldContain(new GameLogicState.Output.SetPauseMode(true));
   }
 
-  [Test]
+  [Fact]
   public void OnStopWithoutStartSucceeds()
   {
     var logic = new GameLogic();

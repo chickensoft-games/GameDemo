@@ -1,12 +1,11 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.Collections;
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
-public class CoinLogicStateCollectingTest : TestClass
+public class CoinLogicStateCollectingTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private Mock<IGameRepo> _gameRepo = default!;
@@ -42,7 +41,7 @@ public class CoinLogicStateCollectingTest : TestClass
     _context.Set(_entityTable);
   }
 
-  [Test]
+  [Fact]
   public void Enters()
   {
     _gameRepo.Setup(repo => repo.StartCoinCollection(_coin.Object));
@@ -52,7 +51,7 @@ public class CoinLogicStateCollectingTest : TestClass
     _gameRepo.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void ComputesNextPositionOnPhysicsProcess()
   {
     var input = new CoinLogicState.Input.PhysicsProcess(

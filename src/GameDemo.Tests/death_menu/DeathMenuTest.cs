@@ -14,7 +14,7 @@ using Shouldly;
     Justification = "Disposable field is a Godot object; Godot will dispose"
   )
 ]
-public class DeathMenuTest : TestClass
+public class DeathMenuTest(GodotHeadlessFixture godot)
 {
   private Mock<IButton> _mainMenuButton = default!;
   private Mock<IButton> _tryAgainButton = default!;
@@ -43,7 +43,7 @@ public class DeathMenuTest : TestClass
     _menu._Notification(-1);
   }
 
-  [Test]
+  [Fact]
   public void Subscribes()
   {
     _menu.OnReady();
@@ -57,7 +57,7 @@ public class DeathMenuTest : TestClass
       .VerifyRemove(menu => menu.Pressed -= _menu.OnTryAgainPressed);
   }
 
-  [Test]
+  [Fact]
   public async Task SignalsMainMenuButtonPressed()
   {
     var signal = _menu.ToSignal(_menu, DeathMenu.SignalName.MainMenu);
@@ -69,7 +69,7 @@ public class DeathMenuTest : TestClass
     signal.IsCompleted.ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public async Task SignalsTryAgainButtonPressed()
   {
     var signal = _menu.ToSignal(_menu, DeathMenu.SignalName.TryAgain);
@@ -81,7 +81,7 @@ public class DeathMenuTest : TestClass
     signal.IsCompleted.ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public void Animates()
   {
     _animationPlayer
@@ -92,7 +92,7 @@ public class DeathMenuTest : TestClass
     _animationPlayer.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void FadeIn()
   {
     _fadeAnimationPlayer
@@ -103,7 +103,7 @@ public class DeathMenuTest : TestClass
     _fadeAnimationPlayer.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void FadeOut()
   {
     _fadeAnimationPlayer
@@ -114,7 +114,7 @@ public class DeathMenuTest : TestClass
     _fadeAnimationPlayer.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void OnAnimationFinished()
   {
     var called = false;

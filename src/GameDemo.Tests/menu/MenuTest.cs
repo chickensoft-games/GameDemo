@@ -14,7 +14,7 @@ using Shouldly;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-public class MenuTest : TestClass
+public class MenuTest(GodotHeadlessFixture godot)
 {
   private Mock<IButton> _newGameButton = default!;
   private Mock<IButton> _loadGameButton = default!;
@@ -37,7 +37,7 @@ public class MenuTest : TestClass
     _menu._Notification(-1);
   }
 
-  [Test]
+  [Fact]
   public void Subscribes()
   {
     _menu.OnReady();
@@ -48,7 +48,7 @@ public class MenuTest : TestClass
       .VerifyRemove(menu => menu.Pressed -= _menu.OnNewGamePressed);
   }
 
-  [Test]
+  [Fact]
   public async Task SignalsNewGameButtonPressed()
   {
     var signal = _menu.ToSignal(_menu, Menu.SignalName.NewGame);
@@ -60,7 +60,7 @@ public class MenuTest : TestClass
     signal.IsCompleted.ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public async Task SignalLoadGameButtonPressed()
   {
     var signal = _menu.ToSignal(_menu, Menu.SignalName.LoadGame);

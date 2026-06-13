@@ -1,11 +1,10 @@
 namespace GameDemo.Tests;
 
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
-public class PlayerLogicStateAliveAirborneJumpingTest : TestClass
+public class PlayerLogicStateAliveAirborneJumpingTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private Mock<IPlayer> _player = default!;
@@ -36,7 +35,7 @@ public class PlayerLogicStateAliveAirborneJumpingTest : TestClass
     _context.Set(_settings);
   }
 
-  [Test]
+  [Fact]
   public void Enters()
   {
     _gameRepo.Setup(repo => repo.OnJump());
@@ -50,7 +49,7 @@ public class PlayerLogicStateAliveAirborneJumpingTest : TestClass
     _gameRepo.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void ContinuedJumpInputFurthersJump()
   {
     _player.Setup(player => player.Velocity).Returns(Vector3.Up);

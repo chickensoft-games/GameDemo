@@ -5,7 +5,7 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class PlayerCameraLogicTest : TestClass
+public class PlayerCameraLogicTest(GodotHeadlessFixture godot)
 {
   private PlayerCameraLogic _logic = default!;
   private AutoValue<bool> _isMouseCaptured = default!;
@@ -40,7 +40,7 @@ public class PlayerCameraLogicTest : TestClass
     });
   }
 
-  [Test]
+  [Fact]
   public void Initializes()
   {
     // Make sure the camera logic block sets up the blackboard with
@@ -79,7 +79,7 @@ public class PlayerCameraLogicTest : TestClass
     cameraOffsetChanged.Offset.ShouldBe(Vector3.Zero);
   }
 
-  [Test]
+  [Fact]
   public void SubscribesToMouseCaptured()
   {
     _logic.Start<PlayerCameraLogicState.InputDisabled>();
@@ -93,7 +93,7 @@ public class PlayerCameraLogicTest : TestClass
     _logic.State.ShouldBeOfType<PlayerCameraLogicState.InputDisabled>();
   }
 
-  [Test]
+  [Fact]
   public void SubscribesToPlayerGlobalPosition()
   {
     _logic.Start<PlayerCameraLogicState.InputDisabled>();
@@ -123,7 +123,7 @@ public class PlayerCameraLogicTest : TestClass
     lastOutput.Value.GlobalTransform.Origin.ShouldNotBe(Vector3.Zero);
   }
 
-  [Test]
+  [Fact]
   public void OnStopWithoutStartSucceeds()
   {
     var logic = new PlayerCameraLogic();

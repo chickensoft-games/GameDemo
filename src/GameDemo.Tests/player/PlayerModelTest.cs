@@ -16,7 +16,7 @@ using Shouldly;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-public class PlayerModelTest : TestClass
+public class PlayerModelTest(GodotHeadlessFixture godot)
 {
   private Mock<IPlayerLogic> _playerLogic = default!;
   private LogicBlock.FakeBinding _playerBinding = default!;
@@ -74,7 +74,7 @@ public class PlayerModelTest : TestClass
     _model._Notification((int)Node.NotificationEnterTree);
   }
 
-  [Test]
+  [Fact]
   public void OnEnterTree()
   {
     _model.OnEnterTree();
@@ -82,7 +82,7 @@ public class PlayerModelTest : TestClass
     _blinkTimer.VerifyAdd(timer => timer.Timeout += It.IsAny<Action>());
   }
 
-  [Test]
+  [Fact]
   public void OnExitTree()
   {
     _model.OnResolved();
@@ -91,7 +91,7 @@ public class PlayerModelTest : TestClass
     _blinkTimer.VerifyRemove(timer => timer.Timeout -= It.IsAny<Action>());
   }
 
-  [Test]
+  [Fact]
   public void Idles()
   {
     _animStateMachine.Setup(sm => sm.Travel("idle", true));
@@ -101,7 +101,7 @@ public class PlayerModelTest : TestClass
     _animStateMachine.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void Runs()
   {
     _animStateMachine.Setup(sm => sm.Travel("run", true));
@@ -110,7 +110,7 @@ public class PlayerModelTest : TestClass
     _animStateMachine.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void Jumps()
   {
     _animStateMachine.Setup(sm => sm.Travel("jump", true));
@@ -119,7 +119,7 @@ public class PlayerModelTest : TestClass
     _animStateMachine.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void Falls()
   {
     _animStateMachine.Setup(sm => sm.Travel("fall", true));
@@ -128,7 +128,7 @@ public class PlayerModelTest : TestClass
     _animStateMachine.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void MoveSpeedChanged()
   {
     _model.AnimationStateMachine = _animStateMachine.Object;
@@ -141,7 +141,7 @@ public class PlayerModelTest : TestClass
     _animationTree.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void MovementComputedAffectsLeanWhenGrounded()
   {
     _model.OnResolved();
@@ -164,14 +164,14 @@ public class PlayerModelTest : TestClass
     );
   }
 
-  [Test]
+  [Fact]
   public void GetTarget()
   {
     PlayerModel.GetTarget(1, new PlayerLogicState.Jumping()).ShouldBe(0);
     PlayerModel.GetTarget(1, new PlayerLogicState.Idle()).ShouldBe(1);
   }
 
-  [Test]
+  [Fact]
   public void Blinks()
   {
     _model.OnBlink();
@@ -179,7 +179,7 @@ public class PlayerModelTest : TestClass
     _animationTree.Verify(tree => tree.Set(PlayerModel.BLINK_REQUEST, (int)AnimationNodeOneShot.OneShotRequest.Fire));
   }
 
-  [Test]
+  [Fact]
   public void Ready()
   {
     var sm = new AnimationNodeStateMachinePlayback();

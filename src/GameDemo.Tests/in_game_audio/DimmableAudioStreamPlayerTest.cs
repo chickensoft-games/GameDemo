@@ -2,7 +2,6 @@ namespace GameDemo.Tests;
 
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-using Chickensoft.GodotTestDriver;
 using Godot;
 using Shouldly;
 
@@ -13,7 +12,7 @@ using Shouldly;
     Justification = "Disposable field is added to TestDriver fixture"
   )
 ]
-public class DimmableAudioStreamPlayerTest : TestClass
+public class DimmableAudioStreamPlayerTest(GodotHeadlessFixture godot)
 {
   private DimmableAudioStreamPlayer _player = default!;
   private Fixture _fixture = default!;
@@ -34,7 +33,7 @@ public class DimmableAudioStreamPlayerTest : TestClass
   [Cleanup]
   public async Task Cleanup() => await _fixture.Cleanup();
 
-  [Test]
+  [Fact]
   public void Initializes()
   {
     _player.VolumeDb = -1f;
@@ -44,7 +43,7 @@ public class DimmableAudioStreamPlayerTest : TestClass
     _player.VolumeDb.ShouldBe(DimmableAudioStreamPlayer.VOLUME_DB_INAUDIBLE);
   }
 
-  [Test]
+  [Fact]
   public void FadesIn()
   {
     _player.FadeIn();
@@ -53,7 +52,7 @@ public class DimmableAudioStreamPlayerTest : TestClass
     _player.FadeTween.Kill();
   }
 
-  [Test]
+  [Fact]
   public void FadesOut()
   {
     _player.FadeOut();

@@ -6,8 +6,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
-using Chickensoft.GodotTestDriver;
-using Chickensoft.GodotTestDriver.Util;
 using Chickensoft.LogicBlocks;
 using Chickensoft.SaveFileBuilder;
 using Chickensoft.Serialization;
@@ -23,7 +21,7 @@ using Shouldly;
     Justification = "Disposable field is added to TestDriver fixture"
   )
 ]
-public class GameTest : TestClass
+public class GameTest(GodotHeadlessFixture godot)
 {
   private Fixture _fixture = default!;
   private IAppRepo _appRepo = default!;
@@ -128,7 +126,7 @@ public class GameTest : TestClass
   [Cleanup]
   public async Task Cleanup() => await _fixture.Cleanup();
 
-  [Test]
+  [Fact]
   public void Initializes()
   {
     ((IProvide<IGameRepo>)_game).Value().ShouldBe(_gameRepo);
@@ -147,7 +145,7 @@ public class GameTest : TestClass
     (_game as IProvider).ProviderState.IsInitialized.ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public void StartsGame()
   {
     _logic.Setup(logic => logic.Input(It.IsAny<GameLogicState.Input.Initialize>()));
@@ -160,7 +158,7 @@ public class GameTest : TestClass
     _playerCam.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public async Task SetsPauseMode()
   {
     _game.OnResolved();
@@ -175,7 +173,7 @@ public class GameTest : TestClass
     tree.Paused = false;
   }
 
-  [Test]
+  [Fact]
   public void CapturesMouse()
   {
     _game.OnResolved();
@@ -187,7 +185,7 @@ public class GameTest : TestClass
     Input.MouseMode.ShouldBe(Input.MouseModeEnum.Visible);
   }
 
-  [Test]
+  [Fact]
   public void ShowsLostScreen()
   {
     _deathMenu.Setup(menu => menu.Show());
@@ -201,7 +199,7 @@ public class GameTest : TestClass
     _deathMenu.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void ExitsLostScreen()
   {
     _game.OnResolved();
@@ -211,7 +209,7 @@ public class GameTest : TestClass
     _deathMenu.Verify(menu => menu.FadeOut());
   }
 
-  [Test]
+  [Fact]
   public void ShowsPauseMenu()
   {
     _pauseMenu.Setup(menu => menu.Show());
@@ -224,7 +222,7 @@ public class GameTest : TestClass
     _pauseMenu.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void ShowsWonScreen()
   {
     _winMenu.Setup(menu => menu.Show());
@@ -237,7 +235,7 @@ public class GameTest : TestClass
     _winMenu.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void ExitsWonScreen()
   {
     _game.OnResolved();
@@ -247,7 +245,7 @@ public class GameTest : TestClass
     _winMenu.Verify(menu => menu.FadeOut());
   }
 
-  [Test]
+  [Fact]
   public void ExitsPauseMenu()
   {
     _game.OnResolved();
@@ -257,7 +255,7 @@ public class GameTest : TestClass
     _pauseMenu.Verify(menu => menu.FadeOut());
   }
 
-  [Test]
+  [Fact]
   public void HidesPauseMenu()
   {
     _game.OnResolved();
@@ -267,7 +265,7 @@ public class GameTest : TestClass
     _pauseMenu.Verify(menu => menu.Hide());
   }
 
-  [Test]
+  [Fact]
   public void ShowsPauseSaveOverlay()
   {
     _game.OnResolved();
@@ -277,7 +275,7 @@ public class GameTest : TestClass
     _pauseMenu.Verify(menu => menu.OnSaveStarted());
   }
 
-  [Test]
+  [Fact]
   public void HidesPauseSaveOverlay()
   {
     _game.OnResolved();
@@ -287,7 +285,7 @@ public class GameTest : TestClass
     _pauseMenu.Verify(menu => menu.OnSaveCompleted());
   }
 
-  [Test]
+  [Fact]
   public async Task SavesGame()
   {
     _game.SaveFile = _saveFile.Object;
@@ -302,7 +300,7 @@ public class GameTest : TestClass
       .Verify(logic => logic.Input(It.IsAny<GameLogicState.Input.SaveCompleted>()));
   }
 
-  [Test]
+  [Fact]
   public void InputsPauseButtonPressed()
   {
     _logic.Setup(
@@ -315,7 +313,7 @@ public class GameTest : TestClass
     _logic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void OnMainMenu()
   {
     _game.OnMainMenu();
@@ -325,7 +323,7 @@ public class GameTest : TestClass
     );
   }
 
-  [Test]
+  [Fact]
   public void OnResume()
   {
     _game.OnResume();
@@ -335,7 +333,7 @@ public class GameTest : TestClass
     );
   }
 
-  [Test]
+  [Fact]
   public void OnStart()
   {
     _game.OnStart();
@@ -343,7 +341,7 @@ public class GameTest : TestClass
     _logic.Verify(logic => logic.Input(It.IsAny<GameLogicState.Input.Start>()));
   }
 
-  [Test]
+  [Fact]
   public void OnWinMenuTransitioned()
   {
     _game.OnWinMenuTransitioned();
@@ -353,7 +351,7 @@ public class GameTest : TestClass
     );
   }
 
-  [Test]
+  [Fact]
   public void OnPauseMenuTransitioned()
   {
     _game.OnPauseMenuTransitioned();
@@ -363,7 +361,7 @@ public class GameTest : TestClass
     );
   }
 
-  [Test]
+  [Fact]
   public void OnPauseMenuSaveRequested()
   {
     _game.OnPauseMenuSaveRequested();
@@ -373,7 +371,7 @@ public class GameTest : TestClass
     );
   }
 
-  [Test]
+  [Fact]
   public void OnDeathMenuTransitioned()
   {
     _game.OnDeathMenuTransitioned();
@@ -383,7 +381,7 @@ public class GameTest : TestClass
     );
   }
 
-  [Test]
+  [Fact]
   public void SavesChunk()
   {
     _game.Setup();
@@ -423,7 +421,7 @@ public class GameTest : TestClass
     saveData.PlayerCameraData.ShouldBe(playerCameraData);
   }
 
-  [Test]
+  [Fact]
   public void LoadsChunk()
   {
     _game.Setup();
@@ -465,7 +463,7 @@ public class GameTest : TestClass
     _gameChunk.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public async Task SaveFileDoesNothingIfSaveFileDoesNotExist()
   {
     var file = new Mock<IFile>();
@@ -479,7 +477,7 @@ public class GameTest : TestClass
       .ShouldBeNull();
   }
 
-  [Test]
+  [Fact]
   public async Task SavesFile()
   {
     var file = new Mock<IFile>();
@@ -498,7 +496,7 @@ public class GameTest : TestClass
     file.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public async Task LoadsSaveFile()
   {
     var file = new Mock<IFile>();
@@ -518,7 +516,7 @@ public class GameTest : TestClass
     loadedData.ShouldBe(TestSaveData.GameData);
   }
 
-  [Test]
+  [Fact]
   public async Task LoadExistingGameWorks()
   {
     _saveFile.Reset();

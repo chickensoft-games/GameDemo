@@ -1,11 +1,10 @@
 namespace GameDemo.Tests;
 
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
-public class PlayerLogicStateAliveGroundedMovingTest : TestClass
+public class PlayerLogicStateAliveGroundedMovingTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
@@ -25,7 +24,7 @@ public class PlayerLogicStateAliveGroundedMovingTest : TestClass
     _context.Set(_appRepo.Object);
   }
 
-  [Test]
+  [Fact]
   public void Enters()
   {
     _state.Enter(new PlayerLogicState.Idle());
@@ -35,7 +34,7 @@ public class PlayerLogicStateAliveGroundedMovingTest : TestClass
     ]);
   }
 
-  [Test]
+  [Fact]
   public void OnStoppedMovingHorizontallyIdles()
   {
     var next = _state.On(new PlayerLogicState.Input.StoppedMovingHorizontally());

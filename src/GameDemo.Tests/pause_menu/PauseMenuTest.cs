@@ -3,7 +3,6 @@ namespace GameDemo.Tests;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.GodotTestDriver.Util;
 using Godot;
 using Moq;
 using Shouldly;
@@ -15,7 +14,7 @@ using Shouldly;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-public class PauseMenuTest : TestClass
+public class PauseMenuTest(GodotHeadlessFixture godot)
 {
   private Mock<IButton> _mainMenuButton = default!;
   private Mock<IButton> _resumeButton = default!;
@@ -50,7 +49,7 @@ public class PauseMenuTest : TestClass
     _menu._Notification(-1);
   }
 
-  [Test]
+  [Fact]
   public void Subscribes()
   {
     _menu.OnReady();
@@ -73,7 +72,7 @@ public class PauseMenuTest : TestClass
       );
   }
 
-  [Test]
+  [Fact]
   public async Task SignalsMainMenuButtonPressed()
   {
     var signal = _menu.ToSignal(_menu, PauseMenu.SignalName.MainMenu);
@@ -85,7 +84,7 @@ public class PauseMenuTest : TestClass
     signal.IsCompleted.ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public async Task SignalsResumeButtonPressed()
   {
     var signal = _menu.ToSignal(_menu, PauseMenu.SignalName.Resume);
@@ -97,7 +96,7 @@ public class PauseMenuTest : TestClass
     signal.IsCompleted.ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public async Task SignalsTransitionCompleted()
   {
     var signal =
@@ -110,7 +109,7 @@ public class PauseMenuTest : TestClass
     signal.IsCompleted.ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public void FadesIn()
   {
     _animationPlayer.Setup(player => player.Play("fade_in", -1, 1, false));
@@ -118,7 +117,7 @@ public class PauseMenuTest : TestClass
     _animationPlayer.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void FadesOut()
   {
     _animationPlayer.Setup(player => player.Play("fade_out", -1, 1, false));
@@ -126,7 +125,7 @@ public class PauseMenuTest : TestClass
     _animationPlayer.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void OnSavePressed()
   {
     var called = false;
@@ -137,7 +136,7 @@ public class PauseMenuTest : TestClass
     called.ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public async Task OnSaveStarted()
   {
     _saveOverlayAnimationPlayer
@@ -149,7 +148,7 @@ public class PauseMenuTest : TestClass
     _saveOverlayAnimationPlayer.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public async Task OnSaveFinished()
   {
     _saveOverlayAnimationPlayer

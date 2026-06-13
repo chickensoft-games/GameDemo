@@ -14,7 +14,7 @@ using Shouldly;
     Justification = "Disposable field is disposed in cleanup"
   )
 ]
-public class InGameUILogicTest : TestClass
+public class InGameUILogicTest(GodotHeadlessFixture godot)
 {
   private InGameUILogic _logic = default!;
   private Mock<IGameRepo> _gameRepo = default!;
@@ -37,7 +37,7 @@ public class InGameUILogicTest : TestClass
     _logic.Set(_gameRepo.Object);
   }
 
-  [Test]
+  [Fact]
   public void SubscribesToNumCoinsCollected()
   {
     var outputs = new List<object>();
@@ -56,7 +56,7 @@ public class InGameUILogicTest : TestClass
     outputs.ShouldContain(new InGameUILogicState.Output.NumCoinsChanged(5, 0));
   }
 
-  [Test]
+  [Fact]
   public void SubscribesToNumCoinsAtStart()
   {
     var outputs = new List<object>();
@@ -75,7 +75,7 @@ public class InGameUILogicTest : TestClass
     outputs.ShouldContain(new InGameUILogicState.Output.NumCoinsChanged(0, 10));
   }
 
-  [Test]
+  [Fact]
   public void OnStopWithoutStartSucceeds()
   {
     var logic = new InGameUILogic();

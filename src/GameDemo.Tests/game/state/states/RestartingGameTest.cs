@@ -1,10 +1,9 @@
 namespace GameDemo.Tests;
 
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 
-public class RestartingGameTest : TestClass
+public class RestartingGameTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private GameLogicState.RestartingGame _state = default!;
@@ -22,7 +21,7 @@ public class RestartingGameTest : TestClass
     _context.Set(_appRepo.Object);
   }
 
-  [Test]
+  [Fact]
   public void OnEnter()
   {
     _appRepo.Setup(repo => repo.OnExitGame(PostGameAction.RestartGame));

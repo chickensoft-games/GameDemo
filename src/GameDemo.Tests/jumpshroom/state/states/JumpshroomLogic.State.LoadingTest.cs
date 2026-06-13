@@ -1,11 +1,10 @@
 namespace GameDemo.Tests;
 
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
-public class JumpshroomLogicStateLoadingTest : TestClass
+public class JumpshroomLogicStateLoadingTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private Mock<IPushEnabled> _target = default!;
@@ -32,7 +31,7 @@ public class JumpshroomLogicStateLoadingTest : TestClass
     _context.Set(_data);
   }
 
-  [Test]
+  [Fact]
   public void AnimatesAndAnnouncesJumpshroomUseOnEnter()
   {
     _gameRepo.Setup(repo => repo.OnJumpshroomUsed());
@@ -46,7 +45,7 @@ public class JumpshroomLogicStateLoadingTest : TestClass
     _gameRepo.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void LaunchGoesToLaunching()
   {
     var next = _state.On(new JumpshroomLogicState.Input.Launch());

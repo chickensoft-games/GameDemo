@@ -3,7 +3,7 @@ namespace GameDemo.Tests;
 using Godot;
 using Shouldly;
 
-public class InputUtilitiesTest : TestClass
+public class InputUtilitiesTest(GodotHeadlessFixture godot)
 {
   private float _deadZoneX = default!;
   private float _deadZoneY = default!;
@@ -19,7 +19,7 @@ public class InputUtilitiesTest : TestClass
     _deadZoneY = InputMap.ActionGetDeadzone("camera_down");
   }
 
-  [Test]
+  [Fact]
   public void NotTriggerJoyPadWhenAxisIsNotPressed()
   {
     Input.UseAccumulatedInput = false;
@@ -41,7 +41,7 @@ public class InputUtilitiesTest : TestClass
     yMotion.ShouldBeNull();
   }
 
-  [Test]
+  [Fact]
   public void TriggerJoyPadWhenAxisIsPressed()
   {
     //up and left are always negative
@@ -61,7 +61,7 @@ public class InputUtilitiesTest : TestClass
     yMotion?.AxisValue.ShouldBe(0.6f);
   }
 
-  [Test]
+  [Fact]
   public void NotTriggerJoyPadWhenAxisIsPressedInDeadZone()
   {
     Input.ActionRelease("camera_left");

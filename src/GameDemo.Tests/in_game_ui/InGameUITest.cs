@@ -16,7 +16,7 @@ using Shouldly;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-public class InGameUITest : TestClass
+public class InGameUITest(GodotHeadlessFixture godot)
 {
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
@@ -53,7 +53,7 @@ public class InGameUITest : TestClass
     _ui._Notification(-1);
   }
 
-  [Test]
+  [Fact]
   public void Initializes()
   {
     _ui.Setup();
@@ -61,7 +61,7 @@ public class InGameUITest : TestClass
     _ui.InGameUILogic.ShouldBeOfType<InGameUILogic>();
   }
 
-  [Test]
+  [Fact]
   public void OnExitTree()
   {
     _logic.Reset();
@@ -73,7 +73,7 @@ public class InGameUITest : TestClass
     _logic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void NumCoinsCollectedChanged()
   {
     _ui.OnResolved();
@@ -90,7 +90,7 @@ public class InGameUITest : TestClass
     _coinsLabel.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void NumCoinsAtStartChanged()
   {
     _ui.OnResolved();

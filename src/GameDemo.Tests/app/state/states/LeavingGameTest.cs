@@ -1,11 +1,10 @@
 namespace GameDemo.Tests;
 
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
-public class LeavingGameTest : TestClass
+public class LeavingGameTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
@@ -25,7 +24,7 @@ public class LeavingGameTest : TestClass
     _context.Set(_data);
   }
 
-  [Test]
+  [Fact]
   public void OnFadeOutFinishedGoesToMainMenu()
   {
     var state = new AppLogicState.LeavingGame();
@@ -42,7 +41,7 @@ public class LeavingGameTest : TestClass
       .ShouldBe([new AppLogicState.Output.RemoveExistingGame()]);
   }
 
-  [Test]
+  [Fact]
   public void OnFadeOutFinishedRestartsGame()
   {
     var state = new AppLogicState.LeavingGame();

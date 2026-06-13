@@ -1,12 +1,11 @@
 namespace GameDemo.Tests;
 
 using System.Linq;
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
-public class PausedTest : TestClass
+public class PausedTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private GameLogicState.Paused _state = default!;
@@ -24,7 +23,7 @@ public class PausedTest : TestClass
     _context.Set(_gameRepo.Object);
   }
 
-  [Test]
+  [Fact]
   public void OnEnter()
   {
     _gameRepo.Setup(repo => repo.Pause());
@@ -33,28 +32,28 @@ public class PausedTest : TestClass
     _gameRepo.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void OnExit()
   {
     _state.Exit();
     _context.Outputs.Single().ShouldBeOfType<GameLogicState.Output.ExitPauseMenu>();
   }
 
-  [Test]
+  [Fact]
   public void OnPauseButtonPressed()
   {
     var result = _state.On(new GameLogicState.Input.PauseButtonPressed());
     result.ShouldBe(typeof(GameLogicState.Resuming));
   }
 
-  [Test]
+  [Fact]
   public void OnGameSaveRequested()
   {
     var result = _state.On(new GameLogicState.Input.SaveRequested());
     result.ShouldBe(typeof(GameLogicState.Saving));
   }
 
-  [Test]
+  [Fact]
   public void OnGoToMainMenu()
   {
     var result = _state.On(new GameLogicState.Input.GoToMainMenu());

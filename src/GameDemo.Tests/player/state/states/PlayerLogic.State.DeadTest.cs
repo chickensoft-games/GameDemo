@@ -3,11 +3,11 @@ namespace GameDemo.Tests;
 using Godot;
 using Shouldly;
 
-public class PlayerLogicStateDeadTest : TestClass
+public class PlayerLogicStateDeadTest(GodotHeadlessFixture godot)
 {
   public PlayerLogicStateDeadTest(Node testScene) : base(testScene) { }
 
-  [Test]
+  [Fact]
   public void Initializes()
   {
     var state = new PlayerLogicState.Dead();

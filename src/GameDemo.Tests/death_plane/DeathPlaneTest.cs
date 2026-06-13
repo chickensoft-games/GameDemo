@@ -12,7 +12,7 @@ using Shouldly;
     Justification = "Disposable field is a Godot object; Godot will dispose"
   )
 ]
-public partial class DeathPlaneTest : TestClass
+public partial class DeathPlaneTest(GodotHeadlessFixture godot)
 {
   private DeathPlane _plane = default!;
 
@@ -21,7 +21,7 @@ public partial class DeathPlaneTest : TestClass
   [Setup]
   public void Setup() => _plane = new();
 
-  [Test]
+  [Fact]
   public void InitializesAndCleansUp() => Should.NotThrow(() =>
   {
     _plane.OnReady();
@@ -29,7 +29,7 @@ public partial class DeathPlaneTest : TestClass
     _plane._Notification(-1);
   });
 
-  [Test]
+  [Fact]
   public void KillsKillableObjects()
   {
     var killable = new Mock<IKillable>();

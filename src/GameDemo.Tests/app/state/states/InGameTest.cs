@@ -5,7 +5,7 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class InGameTest : TestClass
+public class InGameTest(GodotHeadlessFixture godot)
 {
   private StateTester _tester = default!;
   private AppLogicState.InGame _state = default!;
@@ -25,7 +25,7 @@ public class InGameTest : TestClass
     _tester.Set(_data);
   }
 
-  [Test]
+  [Fact]
   public void OnEnter()
   {
     _appRepo.Setup(repo => repo.OnEnteringGame());
@@ -36,7 +36,7 @@ public class InGameTest : TestClass
     _tester.Outputs[0].ShouldBeOfType<AppLogicState.Output.ShowGame>();
   }
 
-  [Test]
+  [Fact]
   public void OnExit()
   {
     _state.Exit();
@@ -44,7 +44,7 @@ public class InGameTest : TestClass
     _tester.Outputs[0].ShouldBeOfType<AppLogicState.Output.HideGame>();
   }
 
-  [Test]
+  [Fact]
   public void OnRestartGameRequested()
   {
     _state.OnGameExited(PostGameAction.RestartGame);
@@ -55,7 +55,7 @@ public class InGameTest : TestClass
     input.PostGameAction.ShouldBe(PostGameAction.RestartGame);
   }
 
-  [Test]
+  [Fact]
   public void OnGameExited()
   {
     _state.OnGameExited(PostGameAction.RestartGame);
@@ -66,7 +66,7 @@ public class InGameTest : TestClass
     input.PostGameAction.ShouldBe(PostGameAction.RestartGame);
   }
 
-  [Test]
+  [Fact]
   public void OnEndGame()
   {
     _tester.Set(new AppLogicState.LeavingGame());

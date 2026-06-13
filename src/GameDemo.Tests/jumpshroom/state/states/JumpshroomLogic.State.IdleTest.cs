@@ -1,11 +1,10 @@
 namespace GameDemo.Tests;
 
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
-public class JumpshroomLogicStateIdleTest : TestClass
+public class JumpshroomLogicStateIdleTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
@@ -24,7 +23,7 @@ public class JumpshroomLogicStateIdleTest : TestClass
     _context.Set(new JumpshroomLogic.Data(30));
   }
 
-  [Test]
+  [Fact]
   public void HitGoesToLoading()
   {
     var target = new Mock<IPushEnabled>();

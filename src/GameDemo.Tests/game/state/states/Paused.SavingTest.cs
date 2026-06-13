@@ -1,12 +1,11 @@
 namespace GameDemo.Tests;
 
 using System.Linq;
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
-public class PausedSavingTest : TestClass
+public class PausedSavingTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private GameLogicState.Saving _state = default!;
@@ -25,7 +24,7 @@ public class PausedSavingTest : TestClass
     _context.Set(_gameRepo.Object);
   }
 
-  [Test]
+  [Fact]
   public void OnEnter()
   {
     _state.Enter(new GameLogicState.Paused());
@@ -36,19 +35,19 @@ public class PausedSavingTest : TestClass
     _gameRepo.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void OnExit()
   {
     _state.Exit(new GameLogicState.Paused());
     _context.Outputs.Single().ShouldBeOfType<GameLogicState.Output.HidePauseSaveOverlay>();
   }
 
-  [Test]
+  [Fact]
   public void OnInputSaveCompleted() =>
     _state.On(new GameLogicState.Input.SaveCompleted())
       .ShouldBe(typeof(GameLogicState.Paused));
 
-  [Test]
+  [Fact]
   public void OnPauseButtonPressed() =>
     _state.On(new GameLogicState.Input.PauseButtonPressed())
       .ShouldBe(_state.GetType());

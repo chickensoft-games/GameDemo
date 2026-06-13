@@ -17,7 +17,7 @@ using Shouldly;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-public class MapTest : TestClass
+public class MapTest(GodotHeadlessFixture godot)
 {
   private Mock<INode3D> _coins = default!;
   private Mock<IGameRepo> _gameRepo = default!;
@@ -56,7 +56,7 @@ public class MapTest : TestClass
       .Returns(_data);
   }
 
-  [Test]
+  [Fact]
   public void Initializes()
   {
     _map.Setup();
@@ -67,7 +67,7 @@ public class MapTest : TestClass
     _map._Notification(-1);
   }
 
-  [Test]
+  [Fact]
   public void GetCoinCount()
   {
     _coins.Setup(coins => coins.GetChildCount(false)).Returns(5);
@@ -75,7 +75,7 @@ public class MapTest : TestClass
     _map.GetCoinCount().ShouldBe(5);
   }
 
-  [Test]
+  [Fact]
   public void PerformsSetup()
   {
     _map.OnResolved();
@@ -85,7 +85,7 @@ public class MapTest : TestClass
     _mapLogic.Verify(logic => logic.Start<MapLogicState>(true));
   }
 
-  [Test]
+  [Fact]
   public void Saves()
   {
     var coin1 = new Mock<ICoin>();
@@ -110,7 +110,7 @@ public class MapTest : TestClass
     mapData.CollectedCoinIds.ShouldContain("coin1");
   }
 
-  [Test]
+  [Fact]
   public void Loads()
   {
     var logic = new CoinLogic();

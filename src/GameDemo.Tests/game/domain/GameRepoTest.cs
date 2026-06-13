@@ -13,7 +13,7 @@ using Shouldly;
     Justification = "Disposable fields are disposed in cleanup"
   )
 ]
-public class GameRepoTest : TestClass
+public class GameRepoTest(GodotHeadlessFixture godot)
 {
   private AutoValue<bool> _isMouseCaptured = default!;
   private AutoValue<bool> _isPaused = default!;
@@ -58,14 +58,14 @@ public class GameRepoTest : TestClass
     _isMouseCaptured.Dispose();
   }
 
-  [Test]
+  [Fact]
   public void Initializes()
   {
     var repo = new GameRepo();
     repo.ShouldBeAssignableTo<IGameRepo>();
   }
 
-  [Test]
+  [Fact]
   public void SetPlayerGlobalPosition()
   {
     _repo.SetPlayerGlobalPosition(Vector3.One);
@@ -73,7 +73,7 @@ public class GameRepoTest : TestClass
     _repo.PlayerGlobalPosition.Value.ShouldBe(Vector3.One);
   }
 
-  [Test]
+  [Fact]
   public void SetIsMouseCaptured()
   {
     _repo.SetIsMouseCaptured(true);
@@ -81,7 +81,7 @@ public class GameRepoTest : TestClass
     _repo.IsMouseCaptured.Value.ShouldBe(true);
   }
 
-  [Test]
+  [Fact]
   public void SetCameraBasis()
   {
     _repo.SetCameraBasis(Basis.Identity);
@@ -89,7 +89,7 @@ public class GameRepoTest : TestClass
     _repo.CameraBasis.Value.ShouldBe(Basis.Identity);
   }
 
-  [Test]
+  [Fact]
   public void StartCoinCollection()
   {
     var coin = new Mock<ICoin>();
@@ -104,7 +104,7 @@ public class GameRepoTest : TestClass
     called.ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public void StartCoinCollectionDoesNotInvokeEventIfNoListeners()
   {
     var coin = new Mock<ICoin>();
@@ -114,7 +114,7 @@ public class GameRepoTest : TestClass
     _numCoinsCollected.Value.ShouldBe(1);
   }
 
-  [Test]
+  [Fact]
   public void OnFinishCoinCollectionTriggersWin()
   {
     var coin = new Mock<ICoin>();
@@ -136,14 +136,14 @@ public class GameRepoTest : TestClass
     binding.Dispose();
   }
 
-  [Test]
+  [Fact]
   public void OnFinishCoinCollectionDoesNothingIfNonZeroAmountOfCoins()
   {
     var coin = new Mock<ICoin>();
     Should.NotThrow(() => _repo.OnFinishCoinCollection(coin.Object));
   }
 
-  [Test]
+  [Fact]
   public void OnFinishCoinCollectionInvokes()
   {
     var called = false;
@@ -160,7 +160,7 @@ public class GameRepoTest : TestClass
     called.ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public void OnJumpInvokesEvent()
   {
     Should.NotThrow(_repo.OnJump);
@@ -173,7 +173,7 @@ public class GameRepoTest : TestClass
     called.ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public void OnGameEndedPausesAndInvokesGameEnded()
   {
     var called = false;
@@ -186,11 +186,11 @@ public class GameRepoTest : TestClass
     _repo.IsMouseCaptured.Value.ShouldBe(false);
   }
 
-  [Test]
+  [Fact]
   public void OnGameEndedDoesNotInvokeEventIfNoListeners() =>
     Should.NotThrow(() => _repo.OnGameEnded(GameOverReason.Won));
 
-  [Test]
+  [Fact]
   public void Pause()
   {
     _repo.Pause();
@@ -198,7 +198,7 @@ public class GameRepoTest : TestClass
     _isPaused.Value.ShouldBe(true);
   }
 
-  [Test]
+  [Fact]
   public void Resume()
   {
     _repo.Resume();
@@ -206,7 +206,7 @@ public class GameRepoTest : TestClass
     _isPaused.Value.ShouldBe(false);
   }
 
-  [Test]
+  [Fact]
   public void OnJumpshroomUsedInvokesEvent()
   {
     var called = 0;
@@ -218,7 +218,7 @@ public class GameRepoTest : TestClass
     called.ShouldBe(1);
   }
 
-  [Test]
+  [Fact]
   public void SetNumCoinsAtStart()
   {
     _repo.SetNumCoinsAtStart(5);
@@ -226,7 +226,7 @@ public class GameRepoTest : TestClass
     _repo.NumCoinsAtStart.Value.ShouldBe(5);
   }
 
-  [Test]
+  [Fact]
   public void SetNumCoinsCollected()
   {
     _repo.SetNumCoinsCollected(5);
@@ -234,7 +234,7 @@ public class GameRepoTest : TestClass
     _repo.NumCoinsCollected.Value.ShouldBe(5);
   }
 
-  [Test]
+  [Fact]
   public void GlobalCameraDirection()
   {
     _repo.SetCameraBasis(Basis.Identity);

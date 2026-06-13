@@ -15,7 +15,7 @@ using Shouldly;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-public class InGameAudioTest : TestClass
+public class InGameAudioTest(GodotHeadlessFixture godot)
 {
   private Mock<IAppRepo> _appRepo = default!;
   private Mock<IGameRepo> _gameRepo = default!;
@@ -68,7 +68,7 @@ public class InGameAudioTest : TestClass
     _audio._Notification(-1);
   }
 
-  [Test]
+  [Fact]
   public void Initializes()
   {
     _audio.Setup();
@@ -76,7 +76,7 @@ public class InGameAudioTest : TestClass
     _audio.InGameAudioLogic.ShouldBeOfType<InGameAudioLogic>();
   }
 
-  [Test]
+  [Fact]
   public void OnExitTree()
   {
     _logic.Reset();
@@ -88,7 +88,7 @@ public class InGameAudioTest : TestClass
     _logic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void PlaysMainMenuMusic()
   {
     _logic.Setup(logic => logic.Start<InGameAudioLogicState>(true));
@@ -105,7 +105,7 @@ public class InGameAudioTest : TestClass
     _mainMenuMusic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void PlaysGameMusic()
   {
     _logic.Setup(logic => logic.Start<InGameAudioLogicState>(true));
@@ -122,7 +122,7 @@ public class InGameAudioTest : TestClass
     _mainMenuMusic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void StopsGameMusic()
   {
     _logic.Setup(logic => logic.Start<InGameAudioLogicState>(true));
@@ -135,7 +135,7 @@ public class InGameAudioTest : TestClass
     _gameMusic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void PlaysSounds()
   {
     _logic.Setup(logic => logic.Start<InGameAudioLogicState>(true));

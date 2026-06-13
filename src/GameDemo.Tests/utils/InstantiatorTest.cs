@@ -3,11 +3,11 @@ namespace GameDemo.Tests;
 using Godot;
 using Shouldly;
 
-public class InstantiatorTest : TestClass
+public class InstantiatorTest(GodotHeadlessFixture godot)
 {
   public InstantiatorTest(Node testScene) : base(testScene) { }
 
-  [Test]
+  [Fact]
   public void Instantiates()
   {
     var instantiator = new Instantiator(TestScene.GetTree());

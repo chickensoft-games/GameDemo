@@ -14,7 +14,7 @@ using Shouldly;
     Justification = "Disposable fields are disposed in cleanup"
   )
 ]
-public class PlayingTest : TestClass
+public class PlayingTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private GameLogicState.Playing _state = default!;
@@ -47,7 +47,7 @@ public class PlayingTest : TestClass
     _isMouseCaptured.Dispose();
   }
 
-  [Test]
+  [Fact]
   public void OnEnter()
   {
     _gameRepo.Reset();
@@ -57,19 +57,19 @@ public class PlayingTest : TestClass
     _gameRepo.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void OnPauseButtonPressed() =>
     _state.On(new GameLogicState.Input.PauseButtonPressed())
       .ShouldBe(typeof(GameLogicState.Paused));
 
-  [Test]
+  [Fact]
   public void OnEnded()
   {
     _state.OnEnded(GameOverReason.Won);
     _context.Inputs.Single().ShouldBeOfType<GameLogicState.Input.EndGame>();
   }
 
-  [Test]
+  [Fact]
   public void OnEndGameWins()
   {
     var result = _state.On(new GameLogicState.Input.EndGame(GameOverReason.Won));
@@ -77,7 +77,7 @@ public class PlayingTest : TestClass
     result.ShouldBe(typeof(GameLogicState.Won));
   }
 
-  [Test]
+  [Fact]
   public void OnEndGameLoses()
   {
     var result = _state.On(new GameLogicState.Input.EndGame(GameOverReason.Lost));
@@ -85,7 +85,7 @@ public class PlayingTest : TestClass
     result.ShouldBe(typeof(GameLogicState.Lost));
   }
 
-  [Test]
+  [Fact]
   public void OnEndGameQuits()
   {
     var result = _state.On(new GameLogicState.Input.EndGame(GameOverReason.Quit));
@@ -93,7 +93,7 @@ public class PlayingTest : TestClass
     result.ShouldBe(typeof(GameLogicState.Quit));
   }
 
-  [Test]
+  [Fact]
   public void OnUnknownEndGameQuits()
   {
     var result = _state.On(new GameLogicState.Input.EndGame((GameOverReason)25));

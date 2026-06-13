@@ -4,7 +4,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.GodotTestDriver;
 using Chickensoft.LogicBlocks;
 using Chickensoft.SaveFileBuilder;
 using Chickensoft.Sync.Primitives;
@@ -19,7 +18,7 @@ using Shouldly;
     Justification = "Disposable fields are Godot objects; Godot will dispose"
   )
 ]
-public class PlayerCameraTest : TestClass
+public class PlayerCameraTest(GodotHeadlessFixture godot)
 {
   private PlayerCamera _playerCam = default!;
   private Mock<IPlayerCameraLogic> _logic = default!;
@@ -87,14 +86,14 @@ public class PlayerCameraTest : TestClass
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
   }
 
-  [Test]
+  [Fact]
   public void Initializes()
   {
     _playerCam.Setup();
     _playerCam.CameraLogic.ShouldBeOfType<PlayerCameraLogic>();
   }
 
-  [Test]
+  [Fact]
   public void OnPhysicsProcess()
   {
     _logic.Reset();
@@ -114,7 +113,7 @@ public class PlayerCameraTest : TestClass
     _logic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void InputsMouseMotion()
   {
     _logic.Reset();
@@ -131,7 +130,7 @@ public class PlayerCameraTest : TestClass
     _logic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void Getters()
   {
     _springArmTarget.Setup(node => node.Position).Returns(Vector3.Up);
@@ -154,7 +153,7 @@ public class PlayerCameraTest : TestClass
     _playerCam.OffsetPosition.ShouldBe(Vector3.Up);
   }
 
-  [Test]
+  [Fact]
   public void UpdatesGimbalRotation()
   {
     _gimbalHorizontal.SetupSet(node => node.Rotation = Vector3.Up);
@@ -172,7 +171,7 @@ public class PlayerCameraTest : TestClass
     _gimbalVertical.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public async Task UpdatesGlobalTransform()
   {
     // This test has to be conducted inside the scene tree so that we can
@@ -194,7 +193,7 @@ public class PlayerCameraTest : TestClass
     await fixture.Cleanup();
   }
 
-  [Test]
+  [Fact]
   public void UpdatesCameraLocalPosition()
   {
     var value = Vector3.Up;
@@ -208,7 +207,7 @@ public class PlayerCameraTest : TestClass
     _cameraNode.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void UpdatesCameraOffset()
   {
     var value = Vector3.Up;
@@ -222,7 +221,7 @@ public class PlayerCameraTest : TestClass
     _offsetNode.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void MakesItselfCurrentCamera()
   {
     _cameraNode.Setup(node => node.MakeCurrent());
@@ -232,7 +231,7 @@ public class PlayerCameraTest : TestClass
     _cameraNode.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void Saves()
   {
     _playerCam.Setup();
@@ -250,7 +249,7 @@ public class PlayerCameraTest : TestClass
     data.OffsetPosition.ShouldBe(_playerCam.OffsetNode.Position);
   }
 
-  [Test]
+  [Fact]
   public void Loads()
   {
     _playerCam.Setup();

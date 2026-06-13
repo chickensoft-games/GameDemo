@@ -1,10 +1,9 @@
 namespace GameDemo.Tests;
 
-using Chickensoft.LogicBlocks;
 using Godot;
 using Shouldly;
 
-public class JumpshroomLogicStateCooldownTest : TestClass
+public class JumpshroomLogicStateCooldownTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private JumpshroomLogicState.Cooldown _state = default!;
@@ -18,7 +17,7 @@ public class JumpshroomLogicStateCooldownTest : TestClass
     _context = _state.Test();
   }
 
-  [Test]
+  [Fact]
   public void Enters()
   {
     _state.Enter();
@@ -28,7 +27,7 @@ public class JumpshroomLogicStateCooldownTest : TestClass
     ]);
   }
 
-  [Test]
+  [Fact]
   public void CooldownCompletedGoesToIdle()
   {
     var next = _state.On(new JumpshroomLogicState.Input.CooldownCompleted());

@@ -1,11 +1,10 @@
 namespace GameDemo.Tests;
 
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
-public class JumpshroomLogicStateLaunchingTest : TestClass
+public class JumpshroomLogicStateLaunchingTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private Mock<IPushEnabled> _target = default!;
@@ -29,7 +28,7 @@ public class JumpshroomLogicStateLaunchingTest : TestClass
     _context.Set(_data);
   }
 
-  [Test]
+  [Fact]
   public void Enters()
   {
     _target.Setup(t => t.Push(It.IsAny<Vector3>()));
@@ -39,7 +38,7 @@ public class JumpshroomLogicStateLaunchingTest : TestClass
     _target.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void LaunchCompletedGoesToCooldown()
   {
     var next = _state.On(new JumpshroomLogicState.Input.LaunchCompleted());

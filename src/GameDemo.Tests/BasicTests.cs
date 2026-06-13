@@ -1,6 +1,3 @@
-using Godot;
-using twodog.xunit;
-
 namespace App1.Tests;
 
 [Collection("GodotHeadless")]

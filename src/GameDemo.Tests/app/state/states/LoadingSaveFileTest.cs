@@ -1,11 +1,10 @@
 namespace GameDemo.Tests;
 
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
-public class LoadingSaveFileTest : TestClass
+public class LoadingSaveFileTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
@@ -25,7 +24,7 @@ public class LoadingSaveFileTest : TestClass
     _context.Set(_data);
   }
 
-  [Test]
+  [Fact]
   public void Enters()
   {
     _state.Enter();
@@ -35,7 +34,7 @@ public class LoadingSaveFileTest : TestClass
     );
   }
 
-  [Test]
+  [Fact]
   public void GoesToInGameOnSaveFileLoaded()
   {
     var next = _state.On(new AppLogicState.Input.SaveFileLoaded());

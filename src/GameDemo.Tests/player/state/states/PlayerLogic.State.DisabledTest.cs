@@ -4,7 +4,7 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class PlayerLogicStateDisabledTest : TestClass
+public class PlayerLogicStateDisabledTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
@@ -22,7 +22,7 @@ public class PlayerLogicStateDisabledTest : TestClass
     _context.Set(_appRepo.Object);
   }
 
-  [Test]
+  [Fact]
   public void EntersAndExits()
   {
     _state.Enter();
@@ -32,7 +32,7 @@ public class PlayerLogicStateDisabledTest : TestClass
     ]);
   }
 
-  [Test]
+  [Fact]
   public void IdlesOnEnable()
   {
     var next = _state.On(new PlayerLogicState.Input.Enable());
@@ -40,7 +40,7 @@ public class PlayerLogicStateDisabledTest : TestClass
     next.IsAssignableTo(typeof(PlayerLogicState.Idle)).ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public void OnGameAboutToStartEnables()
   {
     _state.OnGameEntered();

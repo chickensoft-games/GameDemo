@@ -1,11 +1,10 @@
 namespace GameDemo.Tests;
 
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
 
-public class LeavingMenuTest : TestClass
+public class LeavingMenuTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private Mock<IAppRepo> _appRepo = default!;
@@ -25,7 +24,7 @@ public class LeavingMenuTest : TestClass
     _context.Set(_data);
   }
 
-  [Test]
+  [Fact]
   public void Enters()
   {
     _state.Enter();
@@ -35,7 +34,7 @@ public class LeavingMenuTest : TestClass
     );
   }
 
-  [Test]
+  [Fact]
   public void StartsGameOnFadeOutFinished()
   {
     var next = _state.On(new AppLogicState.Input.FadeOutFinished());
@@ -43,7 +42,7 @@ public class LeavingMenuTest : TestClass
     next.IsAssignableTo(typeof(AppLogicState.InGame)).ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public void LoadsSaveFileOnFadeOutFinished()
   {
     _data.ShouldLoadExistingGame = true;

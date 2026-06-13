@@ -1,7 +1,6 @@
 namespace GameDemo.Tests;
 
 using System.Diagnostics.CodeAnalysis;
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
@@ -13,7 +12,7 @@ using Shouldly;
     Justification = "Disposable field is disposed in cleanup"
   )
 ]
-public class PlayerCameraLogicStateInputEnabledTest : TestClass
+public class PlayerCameraLogicStateInputEnabledTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private PlayerCameraSettings _settings = default!;
@@ -54,7 +53,7 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass
   [CleanupAll]
   public void CleanupAll() => _settings.Dispose();
 
-  [Test]
+  [Fact]
   public void GoesToInputDisabled()
   {
     var next = _state.On(new PlayerCameraLogicState.Input.DisableInput());
@@ -62,7 +61,7 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass
     next.IsAssignableTo(typeof(PlayerCameraLogicState.InputDisabled)).ShouldBeTrue();
   }
 
-  [Test]
+  [Fact]
   public void UpdatesTargetAnglesWhenMouseInputOccurs()
   {
     var targetAngleHorizontal = _data.TargetAngleHorizontal;
@@ -83,7 +82,7 @@ public class PlayerCameraLogicStateInputEnabledTest : TestClass
     _data.TargetAngleVertical.ShouldNotBe(targetAngleVertical);
   }
 
-  [Test]
+  [Fact]
   public void UpdatesTargetAnglesWhenJoypadInputOccurs()
   {
     var targetAngleHorizontal = _data.TargetAngleHorizontal;

@@ -4,13 +4,13 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class PlayerCameraLogicStateInputDisabledTest : TestClass
+public class PlayerCameraLogicStateInputDisabledTest(GodotHeadlessFixture godot)
 {
   public PlayerCameraLogicStateInputDisabledTest(Node testScene) :
     base(testScene)
   { }
 
-  [Test]
+  [Fact]
   public void GoesToInputEnabled()
   {
     var state = new PlayerCameraLogicState.InputDisabled();

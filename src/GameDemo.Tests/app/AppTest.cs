@@ -15,7 +15,7 @@ using Shouldly;
     Justification = "Disposable field is a Godot object; Godot will dispose"
   )
 ]
-public class AppTest : TestClass
+public class AppTest(GodotHeadlessFixture godot)
 {
   private App _app = default!;
   private Mock<IAppRepo> _appRepo = default!;
@@ -68,7 +68,7 @@ public class AppTest : TestClass
     _logic.Setup(logic => logic.Start<AppLogicState.SplashScreen>(true));
   }
 
-  [Test]
+  [Fact]
   public void Initializes()
   {
     // Naturally, the app controls al ot of systems (mostly menus), so there's
@@ -105,7 +105,7 @@ public class AppTest : TestClass
     _app._Notification(-1);
   }
 
-  [Test]
+  [Fact]
   public void ShowsSplashScreen()
   {
     SetupHideMenus();
@@ -120,7 +120,7 @@ public class AppTest : TestClass
     _splash.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void HidesSplashScreen()
   {
     _blankScreen.Setup(blank => blank.Show());
@@ -133,7 +133,7 @@ public class AppTest : TestClass
     _blankScreen.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void RemovesExistingGame()
   {
     _game.Setup(game => game.QueueFree());
@@ -152,7 +152,7 @@ public class AppTest : TestClass
     _game.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void LoadsGame()
   {
     var game = new Game();
@@ -173,7 +173,7 @@ public class AppTest : TestClass
     _gamePreview.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void ShowsMainMenu()
   {
     SetupHideMenus();
@@ -191,7 +191,7 @@ public class AppTest : TestClass
     _animationPlayer.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void FadesOut()
   {
     SetupFadeOut();
@@ -203,7 +203,7 @@ public class AppTest : TestClass
     VerifyFade();
   }
 
-  [Test]
+  [Fact]
   public void ShowsGame()
   {
     SetupHideMenus();
@@ -217,7 +217,7 @@ public class AppTest : TestClass
     VerifyFade();
   }
 
-  [Test]
+  [Fact]
   public void HidesGame()
   {
     SetupFadeOut();
@@ -229,7 +229,7 @@ public class AppTest : TestClass
     VerifyFade();
   }
 
-  [Test]
+  [Fact]
   public void StartsLoadingSaveFile()
   {
     _app.OnReady();
@@ -240,7 +240,7 @@ public class AppTest : TestClass
     _game.Verify(game => game.LoadExistingGame());
   }
 
-  [Test]
+  [Fact]
   public void OnNewGameWorks()
   {
     _logic.Reset();
@@ -249,7 +249,7 @@ public class AppTest : TestClass
     _logic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void OnLoadGameWorks()
   {
     _logic.Reset();
@@ -258,7 +258,7 @@ public class AppTest : TestClass
     _logic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void OnAnimationFinishedRespondsToFadeInFinished()
   {
     _logic.Reset();
@@ -272,7 +272,7 @@ public class AppTest : TestClass
     _blankScreen.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void OnAnimationFinishedRespondsToFadeOutFinished()
   {
     _logic.Reset();
@@ -284,7 +284,7 @@ public class AppTest : TestClass
     _logic.VerifyAll();
   }
 
-  [Test]
+  [Fact]
   public void OnSaveFileLoaded()
   {
 

@@ -4,7 +4,7 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class MapLogicStateTest : TestClass
+public class MapLogicStateTest(GodotHeadlessFixture godot)
 {
   private StateTester _context = default!;
   private Mock<IGameRepo> _gameRepo = default!;
@@ -26,7 +26,7 @@ public class MapLogicStateTest : TestClass
     _context.Set(_data);
   }
 
-  [Test]
+  [Fact]
   public void GameLoadedFromSaveFile()
   {
     _state.On(new MapLogicState.Input.GameLoadedFromSaveFile(5));
@@ -34,7 +34,7 @@ public class MapLogicStateTest : TestClass
     _gameRepo.Verify(repo => repo.SetNumCoinsCollected(5));
   }
 
-  [Test]
+  [Fact]
   public void OnCoinCollectionStarted()
   {
     var coin = new Mock<ICoin>();
@@ -46,7 +46,7 @@ public class MapLogicStateTest : TestClass
     _data.CoinsBeingCollected.ShouldContain("coin1");
   }
 
-  [Test]
+  [Fact]
   public void OnCoinCollectionCompleted()
   {
     var coin = new Mock<ICoin>();
