@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://rqrvv1eud2n1"
-path.s3tc="res://.godot/imported/flower_head_normal.png-cfea3de6f22b99e78460820a71e48388.s3tc.ctex"
+path.s3tc="res://.godot/imported/flower_head_normal.png-9a363b213b72eaf2e7857a507d10ae82.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://src/map/flowers/textures/flower_head_normal.png"
-dest_files=["res://.godot/imported/flower_head_normal.png-cfea3de6f22b99e78460820a71e48388.s3tc.ctex"]
+source_file="res://map/flowers/textures/flower_head_normal.png"
+dest_files=["res://.godot/imported/flower_head_normal.png-9a363b213b72eaf2e7857a507d10ae82.s3tc.ctex"]
 
 [params]
 

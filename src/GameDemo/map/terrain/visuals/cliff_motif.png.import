@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bng5mcjuskuvs"
-path.s3tc="res://.godot/imported/cliff_motif.png-b9986152d7f9169c41c88f0766b152a1.s3tc.ctex"
+path.s3tc="res://.godot/imported/cliff_motif.png-05e19dcedcd50b84dbc50478a1389d75.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://src/map/terrain/visuals/cliff_motif.png"
-dest_files=["res://.godot/imported/cliff_motif.png-b9986152d7f9169c41c88f0766b152a1.s3tc.ctex"]
+source_file="res://map/terrain/visuals/cliff_motif.png"
+dest_files=["res://.godot/imported/cliff_motif.png-05e19dcedcd50b84dbc50478a1389d75.s3tc.ctex"]
 
 [params]
 

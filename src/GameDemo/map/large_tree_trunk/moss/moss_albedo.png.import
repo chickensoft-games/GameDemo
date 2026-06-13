@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cn7jeol1kvocq"
-path.s3tc="res://.godot/imported/moss_albedo.png-342638cf53032da19ffd42b77d3463b2.s3tc.ctex"
+path.s3tc="res://.godot/imported/moss_albedo.png-185b5249e342bc230b3eda44ca465484.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://src/map/large_tree_trunk/moss/moss_albedo.png"
-dest_files=["res://.godot/imported/moss_albedo.png-342638cf53032da19ffd42b77d3463b2.s3tc.ctex"]
+source_file="res://map/large_tree_trunk/moss/moss_albedo.png"
+dest_files=["res://.godot/imported/moss_albedo.png-185b5249e342bc230b3eda44ca465484.s3tc.ctex"]
 
 [params]
 

@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://de71rucbhgdtl"]
 
-[ext_resource type="Texture2D" uid="uid://cy2mpbqsp3tgb" path="res://src/map/fence/fence_bridge_planks_albedo.png" id="1_22m3q"]
-[ext_resource type="Texture2D" uid="uid://bhkkxfnecai8s" path="res://src/map/fence/fence_bridge_planks_roughness.png" id="2_kgnlf"]
+[ext_resource type="Texture2D" uid="uid://cy2mpbqsp3tgb" path="res://map/fence/fence_bridge_planks_albedo.png" id="1_22m3q"]
+[ext_resource type="Texture2D" uid="uid://bhkkxfnecai8s" path="res://map/fence/fence_bridge_planks_roughness.png" id="2_kgnlf"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0mfgy"]
 resource_name = "bridge_planks"

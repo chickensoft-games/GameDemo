@@ -6,7 +6,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
-using Chickensoft.GoDotTest;
 using Chickensoft.GodotTestDriver;
 using Chickensoft.GodotTestDriver.Util;
 using Chickensoft.LogicBlocks;

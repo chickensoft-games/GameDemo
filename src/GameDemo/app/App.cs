@@ -17,7 +17,7 @@ public partial class App : CanvasLayer, IApp
 
   #region Constants
 
-  public const string GAME_SCENE_PATH = "res://src/game/Game.tscn";
+  public const string GAME_SCENE_PATH = "res://game/Game.tscn";
 
   #endregion Constants
 

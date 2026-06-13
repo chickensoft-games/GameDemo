@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dlmp8l0e8ynm1"
-path.s3tc="res://.godot/imported/PerlinNoise.png-e185734ce42d36d9f14bbbe6328d4bcc.s3tc.ctex"
+path.s3tc="res://.godot/imported/PerlinNoise.png-f87ac5d2947e4c73a058a2564d0a6500.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://src/map/water/textures/PerlinNoise.png"
-dest_files=["res://.godot/imported/PerlinNoise.png-e185734ce42d36d9f14bbbe6328d4bcc.s3tc.ctex"]
+source_file="res://map/water/textures/PerlinNoise.png"
+dest_files=["res://.godot/imported/PerlinNoise.png-f87ac5d2947e4c73a058a2564d0a6500.s3tc.ctex"]
 
 [params]
 

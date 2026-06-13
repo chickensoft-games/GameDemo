@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bkohv1qjq5s83"
-path.s3tc="res://.godot/imported/simple_pin_leaves_albedo.png-403cff8c7dcf754d6010811033d31457.s3tc.ctex"
+path.s3tc="res://.godot/imported/simple_pin_leaves_albedo.png-286500167ff906fd60e9e7c2ae19dd94.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://src/map/trees/simple_pine_leaves/simple_pin_leaves_albedo.png"
-dest_files=["res://.godot/imported/simple_pin_leaves_albedo.png-403cff8c7dcf754d6010811033d31457.s3tc.ctex"]
+source_file="res://map/trees/simple_pine_leaves/simple_pin_leaves_albedo.png"
+dest_files=["res://.godot/imported/simple_pin_leaves_albedo.png-286500167ff906fd60e9e7c2ae19dd94.s3tc.ctex"]
 
 [params]
 

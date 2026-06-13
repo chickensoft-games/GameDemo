@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://da6g1opr3lbj7"]
 
-[ext_resource type="PackedScene" uid="uid://ndll0y08l4t5" path="res://src/map/glow_shrooms/glow_shroom.tscn" id="1_dv0h0"]
+[ext_resource type="PackedScene" uid="uid://ndll0y08l4t5" path="res://map/glow_shrooms/glow_shroom.tscn" id="1_dv0h0"]
 
 [node name="GlowShrooms" type="Node3D" unique_id=2068378370]
 

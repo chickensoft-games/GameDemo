@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://cqgeudyie3glq"]
 
-[ext_resource type="Material" path="res://src/map/dark_bark/dark_bark.tres" id="1_o0b2o"]
-[ext_resource type="Material" uid="uid://cbwea5kec68u6" path="res://src/map/large_tree_trunk/trunk_top/trunk_top.tres" id="2_apqwk"]
+[ext_resource type="Material" path="res://map/dark_bark/dark_bark.tres" id="1_o0b2o"]
+[ext_resource type="Material" uid="uid://cbwea5kec68u6" path="res://map/large_tree_trunk/trunk_top/trunk_top.tres" id="2_apqwk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_coflm"]
 

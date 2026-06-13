@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dd4v2mrsloa8d"
-path="res://.godot/imported/simple_bark_heightmap.png-ab746e1976d76b94938ac799e83ede0a.ctex"
+path="res://.godot/imported/simple_bark_heightmap.png-c145e0df86792a20535885dfd3c175c1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/map/trees/simple_bark/simple_bark_heightmap.png"
-dest_files=["res://.godot/imported/simple_bark_heightmap.png-ab746e1976d76b94938ac799e83ede0a.ctex"]
+source_file="res://map/trees/simple_bark/simple_bark_heightmap.png"
+dest_files=["res://.godot/imported/simple_bark_heightmap.png-c145e0df86792a20535885dfd3c175c1.ctex"]
 
 [params]
 

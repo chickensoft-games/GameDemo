@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bc8j1qgoetjdi"
-path.s3tc="res://.godot/imported/mushroom_mushroom_normal.png-948e4352fea1186b63185782e356f433.s3tc.ctex"
+path.s3tc="res://.godot/imported/mushroom_mushroom_normal.png-f323237f287592e6863aa5a70a617bb8.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://src/map/mushroom/mushroom_mushroom_normal.png"
-dest_files=["res://.godot/imported/mushroom_mushroom_normal.png-948e4352fea1186b63185782e356f433.s3tc.ctex"]
+source_file="res://map/mushroom/mushroom_mushroom_normal.png"
+dest_files=["res://.godot/imported/mushroom_mushroom_normal.png-f323237f287592e6863aa5a70a617bb8.s3tc.ctex"]
 
 [params]
 

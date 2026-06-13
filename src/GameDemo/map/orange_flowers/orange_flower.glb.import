@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cndyqf8jamodj"
-path="res://.godot/imported/orange_flower.glb-1d8532dc7aa47c769e517301d17a2ed1.scn"
+path="res://.godot/imported/orange_flower.glb-8bd6a269801a4e6a1bc7ec0cd3a41eba.scn"
 
 [deps]
 
-source_file="res://src/map/orange_flowers/orange_flower.glb"
-dest_files=["res://.godot/imported/orange_flower.glb-1d8532dc7aa47c769e517301d17a2ed1.scn"]
+source_file="res://map/orange_flowers/orange_flower.glb"
+dest_files=["res://.godot/imported/orange_flower.glb-8bd6a269801a4e6a1bc7ec0cd3a41eba.scn"]
 
 [params]
 

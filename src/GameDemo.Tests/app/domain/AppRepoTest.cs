@@ -1,7 +1,6 @@
 namespace GameDemo.Tests;
 
 using System.Diagnostics.CodeAnalysis;
-using Chickensoft.GoDotTest;
 using Godot;
 using Shouldly;
 

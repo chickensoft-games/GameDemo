@@ -4,14 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://bc18k45jn4wcx"
-path="res://.godot/imported/large_trunk.obj-518e9fd63a83bccc1830120362891954.mesh"
+path="res://.godot/imported/large_trunk.obj-fb669f6273fed8dff1395dfdacbcf586.mesh"
 
 [deps]
 
-files=["res://.godot/imported/large_trunk.obj-518e9fd63a83bccc1830120362891954.mesh"]
+files=["res://.godot/imported/large_trunk.obj-fb669f6273fed8dff1395dfdacbcf586.mesh"]
 
-source_file="res://src/map/large_tree_trunk/large_trunk.obj"
-dest_files=["res://.godot/imported/large_trunk.obj-518e9fd63a83bccc1830120362891954.mesh", "res://.godot/imported/large_trunk.obj-518e9fd63a83bccc1830120362891954.mesh"]
+source_file="res://map/large_tree_trunk/large_trunk.obj"
+dest_files=["res://.godot/imported/large_trunk.obj-fb669f6273fed8dff1395dfdacbcf586.mesh", "res://.godot/imported/large_trunk.obj-fb669f6273fed8dff1395dfdacbcf586.mesh"]
 
 [params]
 

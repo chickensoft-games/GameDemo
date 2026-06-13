@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://ndll0y08l4t5"]
 
-[ext_resource type="PackedScene" uid="uid://d3jgve1g030hy" path="res://src/map/mushroom/mushroom.glb" id="1_g3eif"]
-[ext_resource type="Texture2D" uid="uid://bn2dckxcyjlje" path="res://src/map/mushroom/mushroom_mushroom_albedo.png" id="2_w1uti"]
-[ext_resource type="Texture2D" uid="uid://bc8j1qgoetjdi" path="res://src/map/mushroom/mushroom_mushroom_normal.png" id="3_ux8m5"]
+[ext_resource type="PackedScene" uid="uid://d3jgve1g030hy" path="res://map/mushroom/mushroom.glb" id="1_g3eif"]
+[ext_resource type="Texture2D" uid="uid://bn2dckxcyjlje" path="res://map/mushroom/mushroom_mushroom_albedo.png" id="2_w1uti"]
+[ext_resource type="Texture2D" uid="uid://bc8j1qgoetjdi" path="res://map/mushroom/mushroom_mushroom_normal.png" id="3_ux8m5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e0lf1"]
 transparency = 1

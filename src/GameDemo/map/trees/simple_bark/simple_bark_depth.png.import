@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dnmd828c21irw"
-path.s3tc="res://.godot/imported/simple_bark_depth.png-c746829db9878ecaa50c8471b2f08015.s3tc.ctex"
+path.s3tc="res://.godot/imported/simple_bark_depth.png-f8fafb8cc67cbee7924aa1b4e64148a2.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://src/map/trees/simple_bark/simple_bark_depth.png"
-dest_files=["res://.godot/imported/simple_bark_depth.png-c746829db9878ecaa50c8471b2f08015.s3tc.ctex"]
+source_file="res://map/trees/simple_bark/simple_bark_depth.png"
+dest_files=["res://.godot/imported/simple_bark_depth.png-f8fafb8cc67cbee7924aa1b4e64148a2.s3tc.ctex"]
 
 [params]
 

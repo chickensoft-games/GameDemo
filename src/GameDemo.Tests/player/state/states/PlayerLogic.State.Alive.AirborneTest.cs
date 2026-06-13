@@ -1,6 +1,5 @@
 namespace GameDemo.Tests;
 
-using Chickensoft.GoDotTest;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 using Chickensoft.LogicBlocks.Auto;

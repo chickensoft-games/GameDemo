@@ -1,6 +1,5 @@
 namespace GameDemo.Tests;
 
-using Chickensoft.GoDotTest;
 using Chickensoft.Sync.Primitives;
 using Godot;
 using Moq;

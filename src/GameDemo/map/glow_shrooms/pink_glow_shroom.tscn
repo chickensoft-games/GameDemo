@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cao44elhmn1dh"]
 
-[ext_resource type="PackedScene" uid="uid://d3jgve1g030hy" path="res://src/map/mushroom/mushroom.glb" id="1_tfog6"]
+[ext_resource type="PackedScene" uid="uid://d3jgve1g030hy" path="res://map/mushroom/mushroom.glb" id="1_tfog6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ty13"]
 transparency = 1

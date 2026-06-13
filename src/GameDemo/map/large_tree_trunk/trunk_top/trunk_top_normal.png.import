@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cwf2n313rmv35"
-path.s3tc="res://.godot/imported/trunk_top_normal.png-63bf9229859e5e646de896843f1e3d8e.s3tc.ctex"
+path.s3tc="res://.godot/imported/trunk_top_normal.png-a79d3fcc7022c5b6f5b1959b978f1d18.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://src/map/large_tree_trunk/trunk_top/trunk_top_normal.png"
-dest_files=["res://.godot/imported/trunk_top_normal.png-63bf9229859e5e646de896843f1e3d8e.s3tc.ctex"]
+source_file="res://map/large_tree_trunk/trunk_top/trunk_top_normal.png"
+dest_files=["res://.godot/imported/trunk_top_normal.png-a79d3fcc7022c5b6f5b1959b978f1d18.s3tc.ctex"]
 
 [params]
 

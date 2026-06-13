@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.GoDotTest;
 using Chickensoft.GodotTestDriver;
 using Chickensoft.LogicBlocks;
 using Godot;

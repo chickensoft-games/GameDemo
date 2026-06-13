@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://biuslycmdg0lp"
-path.s3tc="res://.godot/imported/simple_bark_mask.png-c64a5d7cab4bfe63fd3598334a734d5c.s3tc.ctex"
+path.s3tc="res://.godot/imported/simple_bark_mask.png-7be8d4ec69a7a2eedefa775b34c04290.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://src/map/trees/simple_bark/simple_bark_mask.png"
-dest_files=["res://.godot/imported/simple_bark_mask.png-c64a5d7cab4bfe63fd3598334a734d5c.s3tc.ctex"]
+source_file="res://map/trees/simple_bark/simple_bark_mask.png"
+dest_files=["res://.godot/imported/simple_bark_mask.png-7be8d4ec69a7a2eedefa775b34c04290.s3tc.ctex"]
 
 [params]
 

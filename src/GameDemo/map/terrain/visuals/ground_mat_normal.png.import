@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://gmvm6bg3lh0i"
-path.s3tc="res://.godot/imported/ground_mat_normal.png-3b8c34d5c3d83c8e27bee332ec7a6c33.s3tc.ctex"
+path.s3tc="res://.godot/imported/ground_mat_normal.png-4f223b2b73b4a0a8e3f56e2f08cfd715.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://src/map/terrain/visuals/ground_mat_normal.png"
-dest_files=["res://.godot/imported/ground_mat_normal.png-3b8c34d5c3d83c8e27bee332ec7a6c33.s3tc.ctex"]
+source_file="res://map/terrain/visuals/ground_mat_normal.png"
+dest_files=["res://.godot/imported/ground_mat_normal.png-4f223b2b73b4a0a8e3f56e2f08cfd715.s3tc.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dvjf8fld1dqdg"
-path.s3tc="res://.godot/imported/cliff_mat_depth.png-23e8b7563213857455b991faefee2700.s3tc.ctex"
+path.s3tc="res://.godot/imported/cliff_mat_depth.png-e2e1fca01f89293ef13be89ac9260b5d.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://src/map/terrain/visuals/cliff_mat_depth.png"
-dest_files=["res://.godot/imported/cliff_mat_depth.png-23e8b7563213857455b991faefee2700.s3tc.ctex"]
+source_file="res://map/terrain/visuals/cliff_mat_depth.png"
+dest_files=["res://.godot/imported/cliff_mat_depth.png-e2e1fca01f89293ef13be89ac9260b5d.s3tc.ctex"]
 
 [params]
 

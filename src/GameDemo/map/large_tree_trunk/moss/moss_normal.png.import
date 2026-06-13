@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dubwk207cispr"
-path.s3tc="res://.godot/imported/moss_normal.png-2a63ff70cb2d2c97e083dbcd9d1c871f.s3tc.ctex"
+path.s3tc="res://.godot/imported/moss_normal.png-4facc99610e9de5027f0d2110df2603d.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://src/map/large_tree_trunk/moss/moss_normal.png"
-dest_files=["res://.godot/imported/moss_normal.png-2a63ff70cb2d2c97e083dbcd9d1c871f.s3tc.ctex"]
+source_file="res://map/large_tree_trunk/moss/moss_normal.png"
+dest_files=["res://.godot/imported/moss_normal.png-4facc99610e9de5027f0d2110df2603d.s3tc.ctex"]
 
 [params]
 

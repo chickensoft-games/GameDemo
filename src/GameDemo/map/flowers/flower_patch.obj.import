@@ -4,14 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://rkhbgqrcux2x"
-path="res://.godot/imported/flower_patch.obj-0a48eb3033403704b69340938b3e9d63.mesh"
+path="res://.godot/imported/flower_patch.obj-8a24c64d42ad50b7e15f80b813499c6a.mesh"
 
 [deps]
 
-files=["res://.godot/imported/flower_patch.obj-0a48eb3033403704b69340938b3e9d63.mesh"]
+files=["res://.godot/imported/flower_patch.obj-8a24c64d42ad50b7e15f80b813499c6a.mesh"]
 
-source_file="res://src/map/flowers/flower_patch.obj"
-dest_files=["res://.godot/imported/flower_patch.obj-0a48eb3033403704b69340938b3e9d63.mesh", "res://.godot/imported/flower_patch.obj-0a48eb3033403704b69340938b3e9d63.mesh"]
+source_file="res://map/flowers/flower_patch.obj"
+dest_files=["res://.godot/imported/flower_patch.obj-8a24c64d42ad50b7e15f80b813499c6a.mesh", "res://.godot/imported/flower_patch.obj-8a24c64d42ad50b7e15f80b813499c6a.mesh"]
 
 [params]
 

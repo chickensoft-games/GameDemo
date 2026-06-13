@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GameDemo"
-run/main_scene="res://src/Main.tscn"
+run/main_scene="uid://deqdtimrd6526"
 config/features=PackedStringArray("4.6", "C#", "Mobile")
 config/icon="res://icon.png"
 
@@ -30,6 +30,7 @@ window/vsync/vsync_mode=0
 [dotnet]
 
 project/assembly_name="GameDemo"
+project/solution_directory="../../"
 
 [input]
 

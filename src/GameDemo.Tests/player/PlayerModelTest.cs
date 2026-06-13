@@ -4,7 +4,6 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
-using Chickensoft.GoDotTest;
 using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;

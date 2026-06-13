@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bhkkxfnecai8s"
-path.s3tc="res://.godot/imported/fence_bridge_planks_roughness.png-fd7609a0df2a9203c7979e6d5f750483.s3tc.ctex"
+path.s3tc="res://.godot/imported/fence_bridge_planks_roughness.png-63a424bd926a9b4649540940592e5b99.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://src/map/fence/fence_bridge_planks_roughness.png"
-dest_files=["res://.godot/imported/fence_bridge_planks_roughness.png-fd7609a0df2a9203c7979e6d5f750483.s3tc.ctex"]
+source_file="res://map/fence/fence_bridge_planks_roughness.png"
+dest_files=["res://.godot/imported/fence_bridge_planks_roughness.png-63a424bd926a9b4649540940592e5b99.s3tc.ctex"]
 
 [params]
 

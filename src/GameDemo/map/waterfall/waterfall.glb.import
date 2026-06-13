@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bagye1eo3p8u6"
-path="res://.godot/imported/waterfall.glb-73b0a63ad587b40c2f8776ff4a9d029f.scn"
+path="res://.godot/imported/waterfall.glb-67c419d4ae00c65c0c49beffa6c73677.scn"
 
 [deps]
 
-source_file="res://src/map/waterfall/waterfall.glb"
-dest_files=["res://.godot/imported/waterfall.glb-73b0a63ad587b40c2f8776ff4a9d029f.scn"]
+source_file="res://map/waterfall/waterfall.glb"
+dest_files=["res://.godot/imported/waterfall.glb-67c419d4ae00c65c0c49beffa6c73677.scn"]
 
 [params]
 

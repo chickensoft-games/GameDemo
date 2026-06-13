@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cu3aa5yfewdlj"
-path.s3tc="res://.godot/imported/terrain_bridge_planks_roughness.png-ccf60475811d010fb9fafa5a1407f910.s3tc.ctex"
+path.s3tc="res://.godot/imported/terrain_bridge_planks_roughness.png-de441ee15488d80b3bd8162d61ce360a.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://src/map/terrain_bridge_planks_roughness.png"
-dest_files=["res://.godot/imported/terrain_bridge_planks_roughness.png-ccf60475811d010fb9fafa5a1407f910.s3tc.ctex"]
+source_file="res://map/terrain_bridge_planks_roughness.png"
+dest_files=["res://.godot/imported/terrain_bridge_planks_roughness.png-de441ee15488d80b3bd8162d61ce360a.s3tc.ctex"]
 
 [params]
 

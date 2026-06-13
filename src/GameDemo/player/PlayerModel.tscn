@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c6hf4ibwmd31r"]
 
-[ext_resource type="PackedScene" uid="uid://20qwxeyklyrk" path="res://src/player/visuals/chicken/chicken.tscn" id="1_02lhe"]
+[ext_resource type="PackedScene" uid="uid://20qwxeyklyrk" path="res://player/visuals/chicken/chicken.tscn" id="1_02lhe"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yw24n"]
 animation = &"blink"

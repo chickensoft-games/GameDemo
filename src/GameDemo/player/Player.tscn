@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bwbxe1hh3doh"]
 
-[ext_resource type="Script" uid="uid://c0mfd5dv11tod" path="res://src/player/Player.cs" id="1_t35ph"]
-[ext_resource type="PackedScene" uid="uid://c6hf4ibwmd31r" path="res://src/player/PlayerModel.tscn" id="2_g641l"]
-[ext_resource type="Script" uid="uid://cujxu3g3s7yf6" path="res://src/player/PlayerModel.cs" id="3_3ojaj"]
+[ext_resource type="Script" uid="uid://c0mfd5dv11tod" path="res://player/Player.cs" id="1_t35ph"]
+[ext_resource type="PackedScene" uid="uid://c6hf4ibwmd31r" path="res://player/PlayerModel.tscn" id="2_g641l"]
+[ext_resource type="Script" uid="uid://cujxu3g3s7yf6" path="res://player/PlayerModel.cs" id="3_3ojaj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c2exj"]
 radius = 0.302119

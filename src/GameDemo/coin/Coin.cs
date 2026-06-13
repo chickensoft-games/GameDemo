@@ -44,7 +44,7 @@ public partial class Coin : Node3D, ICoin
   #region PackedScenes
 
   public static PackedScene CollectorDetector =>
-    GD.Load<PackedScene>("res://src/coin/CollectorDetector.tscn");
+    GD.Load<PackedScene>("res://coin/CollectorDetector.tscn");
 
   #endregion PackedScenes
 

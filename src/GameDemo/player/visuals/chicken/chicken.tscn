@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://20qwxeyklyrk"]
 
-[ext_resource type="PackedScene" uid="uid://bnf50n8imq0pg" path="res://src/player/visuals/chicken/chicken.glb" id="1_33xro"]
-[ext_resource type="Material" uid="uid://8k0x7l1y4em8" path="res://src/player/visuals/chicken/materials/chicken_material.tres" id="2_uelql"]
+[ext_resource type="PackedScene" uid="uid://bnf50n8imq0pg" path="res://player/visuals/chicken/chicken.glb" id="1_33xro"]
+[ext_resource type="Material" uid="uid://8k0x7l1y4em8" path="res://player/visuals/chicken/materials/chicken_material.tres" id="2_uelql"]
 
 [node name="chickensoft_mascot" unique_id=1561459962 instance=ExtResource("1_33xro")]
 

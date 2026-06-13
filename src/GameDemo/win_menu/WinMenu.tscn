@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bthdrw6580hll"]
 
-[ext_resource type="Script" uid="uid://d1lxcluhtvwtq" path="res://src/win_menu/WinMenu.cs" id="1_ephor"]
-[ext_resource type="Shader" uid="uid://d1wdbf0skc62s" path="res://src/win_menu/fireworks.gdshader" id="1_m8kyu"]
+[ext_resource type="Script" uid="uid://d1lxcluhtvwtq" path="res://win_menu/WinMenu.cs" id="1_ephor"]
+[ext_resource type="Shader" uid="uid://d1wdbf0skc62s" path="res://win_menu/fireworks.gdshader" id="1_m8kyu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6nh0u"]
 bg_color = Color(0, 0.815686, 1, 0.337255)

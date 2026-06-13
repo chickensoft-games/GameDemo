@@ -2,7 +2,6 @@ namespace GameDemo.Tests;
 
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-using Chickensoft.GoDotTest;
 using Chickensoft.GodotTestDriver;
 using Godot;
 using Shouldly;

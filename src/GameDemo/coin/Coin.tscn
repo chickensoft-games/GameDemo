@@ -1,11 +1,11 @@
 [gd_scene format=4 uid="uid://cxpsn4dx47at8"]
 
-[ext_resource type="Script" uid="uid://s7iulxlg5f7g" path="res://src/coin/Coin.cs" id="1_ptagp"]
-[ext_resource type="PackedScene" uid="uid://dta8u77j4ye4v" path="res://src/coin/visuals/coin_model.glb" id="2_xha7h"]
-[ext_resource type="Shader" uid="uid://ovili82k2ix6" path="res://src/coin/visuals/teleport_3d.gdshader" id="3_ginri"]
-[ext_resource type="Texture2D" uid="uid://dba7wt27xcums" path="res://src/coin/visuals/coin_normal.tres" id="4_5p810"]
-[ext_resource type="Texture2D" uid="uid://b732tt1ornv6l" path="res://src/coin/visuals/coin_roughness.tres" id="5_3pul8"]
-[ext_resource type="Texture2D" uid="uid://o4tlel2kn2r2" path="res://src/coin/visuals/coin_texture.tres" id="6_7cq1i"]
+[ext_resource type="Script" uid="uid://s7iulxlg5f7g" path="res://coin/Coin.cs" id="1_ptagp"]
+[ext_resource type="PackedScene" uid="uid://dta8u77j4ye4v" path="res://coin/visuals/coin_model.glb" id="2_xha7h"]
+[ext_resource type="Shader" uid="uid://ovili82k2ix6" path="res://coin/visuals/teleport_3d.gdshader" id="3_ginri"]
+[ext_resource type="Texture2D" uid="uid://dba7wt27xcums" path="res://coin/visuals/coin_normal.tres" id="4_5p810"]
+[ext_resource type="Texture2D" uid="uid://b732tt1ornv6l" path="res://coin/visuals/coin_roughness.tres" id="5_3pul8"]
+[ext_resource type="Texture2D" uid="uid://o4tlel2kn2r2" path="res://coin/visuals/coin_texture.tres" id="6_7cq1i"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_67twf"]
 height = 0.0740437
