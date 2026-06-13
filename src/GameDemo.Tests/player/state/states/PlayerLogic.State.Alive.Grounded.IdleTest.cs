@@ -1,21 +1,14 @@
 namespace GameDemo.Tests;
 
-using Godot;
 using Shouldly;
 
-public class PlayerLogicStateAliveGroundedIdleTest(GodotHeadlessFixture godot)
+public class PlayerLogicStateAliveGroundedIdleTest
 {
-  private StateTester _context = default!;
-  private PlayerLogicState.Idle _state = default!;
+  private readonly StateTester _context;
+  private readonly PlayerLogicState.Idle _state = new();
 
-  public PlayerLogicStateAliveGroundedIdleTest(Node testScene) :
-    base(testScene)
-  { }
-
-  [Setup]
-  public void Setup()
+  public PlayerLogicStateAliveGroundedIdleTest()
   {
-    _state = new();
     _context = _state.Test();
   }
 

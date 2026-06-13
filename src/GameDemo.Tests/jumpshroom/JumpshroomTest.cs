@@ -15,35 +15,25 @@ using Shouldly;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-public partial class JumpshroomTest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public partial class JumpshroomTest
 {
   public partial class FakePushEnabled : Node3D, IPushEnabled
   {
     public void Push(Vector3 force) { }
   }
 
-  private LogicBlock.FakeBinding _binding = default!;
+  private readonly LogicBlock.FakeBinding _binding = LogicBlock.CreateFakeBinding();
 
-  private Mock<IJumpshroomLogic> _logic = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
-  private Mock<IAnimationPlayer> _animPlayer = default!;
-  private Mock<IArea3D> _area3D = default!;
-  private Mock<ITimer> _cooldownTimer = default!;
-  private Jumpshroom _shroom = default!;
+  private readonly Mock<IJumpshroomLogic> _logic = new();
+  private readonly Mock<IGameRepo> _gameRepo = new();
+  private readonly Mock<IAnimationPlayer> _animPlayer = new();
+  private readonly Mock<IArea3D> _area3D = new();
+  private readonly Mock<ITimer> _cooldownTimer = new();
+  private readonly Jumpshroom _shroom;
 
-  public JumpshroomTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public JumpshroomTest()
   {
-    _binding = LogicBlock.CreateFakeBinding();
-
-    _logic = new();
-    _gameRepo = new();
-    _animPlayer = new();
-    _area3D = new();
-    _cooldownTimer = new();
-
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
 
     _shroom = new Jumpshroom

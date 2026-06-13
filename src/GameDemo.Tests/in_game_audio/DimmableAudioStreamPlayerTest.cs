@@ -1,8 +1,6 @@
 namespace GameDemo.Tests;
 
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
-using Godot;
 using Shouldly;
 
 [
@@ -12,26 +10,21 @@ using Shouldly;
     Justification = "Disposable field is added to TestDriver fixture"
   )
 ]
-public class DimmableAudioStreamPlayerTest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public class DimmableAudioStreamPlayerTest : IDisposable
 {
-  private DimmableAudioStreamPlayer _player = default!;
-  private Fixture _fixture = default!;
+  private readonly DimmableAudioStreamPlayer _player = new();
 
-  public DimmableAudioStreamPlayerTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public async Task Setup()
+  public DimmableAudioStreamPlayerTest(GodotHeadlessFixture godot)
   {
-    // This node has to be tested in the scene tree since you can't create
-    // tweens outside of the scene tree.
-    _player = new();
-    _fixture = new(TestScene.GetTree());
-
-    await _fixture.AddToRoot(_player);
+    godot.Tree.Root.AddChild(_player);
   }
 
-  [Cleanup]
-  public async Task Cleanup() => await _fixture.Cleanup();
+  public void Dispose()
+  {
+    _player.QueueFree();
+    _player.Dispose();
+  }
 
   [Fact]
   public void Initializes()

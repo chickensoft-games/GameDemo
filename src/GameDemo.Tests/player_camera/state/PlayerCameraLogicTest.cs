@@ -5,26 +5,18 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class PlayerCameraLogicTest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public class PlayerCameraLogicTest : IDisposable
 {
-  private PlayerCameraLogic _logic = default!;
-  private AutoValue<bool> _isMouseCaptured = default!;
-  private AutoValue<Vector3> _playerGlobalPosition = default!;
-  private PlayerCameraSettings _settings = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
-  private Mock<IPlayerCamera> _camera = default!;
-  public PlayerCameraLogicTest(Node testScene) : base(testScene) { }
+  private readonly PlayerCameraLogic _logic = new();
+  private readonly AutoValue<bool> _isMouseCaptured = new(false);
+  private readonly AutoValue<Vector3> _playerGlobalPosition = new(Vector3.Zero);
+  private readonly PlayerCameraSettings _settings = new();
+  private readonly Mock<IGameRepo> _gameRepo = new();
+  private readonly Mock<IPlayerCamera> _camera = new();
 
-  [Setup]
-  public void Setup()
+  public PlayerCameraLogicTest()
   {
-    _logic = new();
-    _settings = new();
-    _gameRepo = new();
-    _isMouseCaptured = new AutoValue<bool>(false);
-    _playerGlobalPosition = new AutoValue<Vector3>(Vector3.Zero);
-    _camera = new();
-
     _gameRepo.Setup(repo => repo.IsMouseCaptured).Returns(_isMouseCaptured);
     _gameRepo.Setup(repo => repo.PlayerGlobalPosition).Returns(_playerGlobalPosition);
 
@@ -38,6 +30,13 @@ public class PlayerCameraLogicTest(GodotHeadlessFixture godot)
       TargetAngleVertical = 0f,
       TargetOffset = Vector3.Zero
     });
+  }
+
+  public void Dispose()
+  {
+    _logic.Stop();
+    _isMouseCaptured.Dispose();
+    _playerGlobalPosition.Dispose();
   }
 
   [Fact]
@@ -128,13 +127,5 @@ public class PlayerCameraLogicTest(GodotHeadlessFixture godot)
   {
     var logic = new PlayerCameraLogic();
     logic.OnStop();
-  }
-
-  [Cleanup]
-  public void Cleanup()
-  {
-    _logic.Stop();
-    _isMouseCaptured.Dispose();
-    _playerGlobalPosition.Dispose();
   }
 }

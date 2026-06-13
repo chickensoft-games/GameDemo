@@ -1,25 +1,19 @@
 namespace GameDemo.Tests;
 
 using System.Linq;
-using Godot;
 using Moq;
 using Shouldly;
 
-public class ResumingTest(GodotHeadlessFixture godot)
+public class ResumingTest
 {
-  private StateTester _context = default!;
-  private GameLogicState.Resuming _state = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
+  private readonly StateTester _context;
+  private readonly GameLogicState.Resuming _state = new();
+  private readonly Mock<IGameRepo> _gameRepo = new();
 
-  public ResumingTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public ResumingTest()
   {
-    _state = new GameLogicState.Resuming();
     _context = _state.Test();
 
-    _gameRepo = new();
     _context.Set(_gameRepo.Object);
   }
 

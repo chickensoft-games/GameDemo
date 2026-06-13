@@ -13,19 +13,15 @@ using Moq;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-public class SplashTest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public class SplashTest
 {
-  private Mock<IAppRepo> _appRepo = default!;
-  private Mock<IAnimationPlayer> _animationPlayer = default!;
-  private Splash _splash = default!;
+  private readonly Mock<IAppRepo> _appRepo = new();
+  private readonly Mock<IAnimationPlayer> _animationPlayer = new();
+  private readonly Splash _splash;
 
-  public SplashTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public SplashTest()
   {
-    _appRepo = new Mock<IAppRepo>();
-    _animationPlayer = new Mock<IAnimationPlayer>();
     _splash = new Splash()
     {
       AnimationPlayer = _animationPlayer.Object

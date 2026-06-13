@@ -1,24 +1,16 @@
 namespace GameDemo.Tests;
 
-using Godot;
 using Moq;
 using Shouldly;
 
-public class PlayerLogicStateAliveGroundedMovingTest(GodotHeadlessFixture godot)
+public class PlayerLogicStateAliveGroundedMovingTest
 {
-  private StateTester _context = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private PlayerLogicState.Moving _state = default!;
+  private readonly StateTester _context;
+  private readonly Mock<IAppRepo> _appRepo = new();
+  private readonly PlayerLogicState.Moving _state = new();
 
-  public PlayerLogicStateAliveGroundedMovingTest(Node testScene) :
-    base(testScene)
-  { }
-
-  [Setup]
-  public void Setup()
+  public PlayerLogicStateAliveGroundedMovingTest()
   {
-    _appRepo = new();
-    _state = new();
     _context = _state.Test();
 
     _context.Set(_appRepo.Object);

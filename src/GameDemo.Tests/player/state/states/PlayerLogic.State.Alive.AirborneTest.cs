@@ -2,24 +2,17 @@ namespace GameDemo.Tests;
 
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks.Auto;
-using Godot;
 using Shouldly;
 
-public partial class PlayerLogicStateAliveAirborneTest(GodotHeadlessFixture godot)
+public partial class PlayerLogicStateAliveAirborneTest
 {
   [Meta, TestState]
   public partial record TestPlayerState : PlayerLogicState.Airborne;
 
-  private PlayerLogicState.Airborne _state = default!;
+  private readonly PlayerLogicState.Airborne _state = new TestPlayerState();
 
-  public PlayerLogicStateAliveAirborneTest(Node testScene) :
-    base(testScene)
-  { }
-
-  [Setup]
-  public void Setup()
+  public PlayerLogicStateAliveAirborneTest()
   {
-    _state = new TestPlayerState();
     _state.Test();
   }
 

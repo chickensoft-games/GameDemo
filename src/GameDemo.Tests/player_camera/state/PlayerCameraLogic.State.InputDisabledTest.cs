@@ -1,15 +1,10 @@
 namespace GameDemo.Tests;
 
-using Godot;
 using Moq;
 using Shouldly;
 
-public class PlayerCameraLogicStateInputDisabledTest(GodotHeadlessFixture godot)
+public class PlayerCameraLogicStateInputDisabledTest
 {
-  public PlayerCameraLogicStateInputDisabledTest(Node testScene) :
-    base(testScene)
-  { }
-
   [Fact]
   public void GoesToInputEnabled()
   {

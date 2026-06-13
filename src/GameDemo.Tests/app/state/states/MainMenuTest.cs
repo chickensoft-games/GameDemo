@@ -1,25 +1,17 @@
 namespace GameDemo.Tests;
 
-using Godot;
 using Moq;
 using Shouldly;
 
-public class MainMenuTest(GodotHeadlessFixture godot)
+public class MainMenuTest
 {
-  private StateTester _context = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private AppLogicState.MainMenu _state = default!;
-  private AppLogic.Data _data = default!;
+  private readonly StateTester _context;
+  private readonly Mock<IAppRepo> _appRepo = new();
+  private readonly AppLogicState.MainMenu _state = new();
+  private readonly AppLogic.Data _data = new();
 
-
-  public MainMenuTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public MainMenuTest()
   {
-    _state = new();
-    _appRepo = new();
-    _data = new();
     _context = _state.Test();
     _context.Set(_appRepo.Object);
     _context.Set(_data);

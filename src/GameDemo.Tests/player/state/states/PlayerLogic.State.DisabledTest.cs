@@ -1,22 +1,16 @@
 namespace GameDemo.Tests;
 
-using Godot;
 using Moq;
 using Shouldly;
 
-public class PlayerLogicStateDisabledTest(GodotHeadlessFixture godot)
+public class PlayerLogicStateDisabledTest
 {
-  private StateTester _context = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private PlayerLogicState.Disabled _state = default!;
+  private readonly StateTester _context;
+  private readonly Mock<IAppRepo> _appRepo = new ();
+  private readonly PlayerLogicState.Disabled _state = new();
 
-  public PlayerLogicStateDisabledTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public PlayerLogicStateDisabledTest()
   {
-    _appRepo = new ();
-    _state = new();
     _context = _state.Test();
 
     _context.Set(_appRepo.Object);

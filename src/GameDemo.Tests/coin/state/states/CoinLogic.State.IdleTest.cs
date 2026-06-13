@@ -1,32 +1,23 @@
 namespace GameDemo.Tests;
 
 using Chickensoft.Collections;
-using Godot;
 using Moq;
 using Shouldly;
 
-public class CoinLogicStateIdleTest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public class CoinLogicStateIdleTest
 {
-  private StateTester _context = default!;
-  private CoinLogicState.Idle _state = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private Mock<ICoinCollector> _target = default!;
-  private Mock<ICoin> _coin = default!;
-  private CoinLogic.Data _data = default!;
+  private readonly StateTester _context;
+  private readonly CoinLogicState.Idle _state = new();
+  private readonly Mock<IAppRepo> _appRepo = new();
+  private readonly Mock<ICoinCollector> _target = new();
+  private readonly Mock<ICoin> _coin = new();
+  private readonly CoinLogic.Data _data = new() { Target = "target_id" };
 
-  private EntityTable _entityTable = default!;
+  private readonly EntityTable _entityTable = new();
 
-  public CoinLogicStateIdleTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public CoinLogicStateIdleTest()
   {
-    _state = new();
-    _coin = new();
-    _target = new();
-    _appRepo = new();
-    _data = new() { Target = "target_id" };
-    _entityTable = new();
     _entityTable.Set("target_id", _target.Object);
 
     _target.Setup(target => target.Name).Returns("target_id");

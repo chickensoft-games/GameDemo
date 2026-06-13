@@ -16,40 +16,29 @@ using Shouldly;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-public class PlayerModelTest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public class PlayerModelTest
 {
-  private Mock<IPlayerLogic> _playerLogic = default!;
-  private LogicBlock.FakeBinding _playerBinding = default!;
-  private Mock<IAnimationTree> _animationTree = default!;
-  private Mock<IAnimationNodeStateMachinePlayback> _animStateMachine = default!;
-  private Mock<INode3D> _visualRoot = default!;
-  private Mock<INode3D> _centerRoot = default!;
-  private Mock<ITimer> _blinkTimer = default!;
-  private PlayerModel _model = default!;
-  private PlayerLogic.Settings _settings = default!;
+  private readonly Mock<IPlayerLogic> _playerLogic = new();
+  private readonly LogicBlock.FakeBinding _playerBinding = LogicBlock.CreateFakeBinding();
+  private readonly Mock<IAnimationTree> _animationTree = new();
+  private readonly Mock<IAnimationNodeStateMachinePlayback> _animStateMachine = new();
+  private readonly Mock<INode3D> _visualRoot = new();
+  private readonly Mock<INode3D> _centerRoot = new();
+  private readonly Mock<ITimer> _blinkTimer = new();
+  private readonly PlayerModel _model;
+  private readonly PlayerLogic.Settings _settings = new(
+    RotationSpeed: 1.0f,
+    StoppingSpeed: 1.0f,
+    Gravity: -1.0f,
+    MoveSpeed: 1.0f,
+    Acceleration: 1.0f,
+    JumpImpulseForce: 1.0f,
+    JumpForce: 1.0f
+  );
 
-  public PlayerModelTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public PlayerModelTest()
   {
-    _playerLogic = new Mock<IPlayerLogic>();
-    _playerBinding = LogicBlock.CreateFakeBinding();
-    _animationTree = new Mock<IAnimationTree>();
-    _animStateMachine = new Mock<IAnimationNodeStateMachinePlayback>();
-    _visualRoot = new Mock<INode3D>();
-    _centerRoot = new Mock<INode3D>();
-    _blinkTimer = new Mock<ITimer>();
-    _settings = new PlayerLogic.Settings(
-      RotationSpeed: 1.0f,
-      StoppingSpeed: 1.0f,
-      Gravity: -1.0f,
-      MoveSpeed: 1.0f,
-      Acceleration: 1.0f,
-      JumpImpulseForce: 1.0f,
-      JumpForce: 1.0f
-    );
-
     _playerLogic.Setup(logic => logic.Bind()).Returns(_playerBinding);
 
     _model = new PlayerModel()

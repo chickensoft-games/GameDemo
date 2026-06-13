@@ -4,29 +4,17 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class PlayerLogicStateAliveAirborneJumpingTest(GodotHeadlessFixture godot)
+public class PlayerLogicStateAliveAirborneJumpingTest
 {
-  private StateTester _context = default!;
-  private Mock<IPlayer> _player = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
-  private PlayerLogic.Settings _settings = default!;
-  private PlayerLogicState.Jumping _state = default!;
+  private readonly StateTester _context;
+  private readonly Mock<IPlayer> _player = new();
+  private readonly Mock<IAppRepo> _appRepo = new();
+  private readonly Mock<IGameRepo> _gameRepo = new();
+  private readonly PlayerLogic.Settings _settings = new(1, 1, 1, 1, 1, 1, JumpForce: 1);
+  private readonly PlayerLogicState.Jumping _state = new();
 
-  public PlayerLogicStateAliveAirborneJumpingTest(Node testScene) :
-    base(testScene)
+  public PlayerLogicStateAliveAirborneJumpingTest()
   {
-  }
-
-  [Setup]
-  public void Setup()
-  {
-    _player = new();
-    _appRepo = new();
-    _gameRepo = new();
-    _settings = new PlayerLogic.Settings(1, 1, 1, 1, 1, 1, JumpForce: 1);
-
-    _state = new();
     _context = _state.Test();
 
     _context.Set(_player.Object);

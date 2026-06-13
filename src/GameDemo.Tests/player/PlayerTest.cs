@@ -1,7 +1,6 @@
 namespace GameDemo.Tests;
 
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.LogicBlocks;
@@ -17,42 +16,30 @@ using Shouldly;
     Justification = "Disposable field is added to TestDriver fixture"
   )
 ]
-public class PlayerTest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public class PlayerTest : IDisposable
 {
-  private Fixture _fixture = default!;
-  private IAppRepo _appRepo = default!;
-  private IGameRepo _gameRepo = default!;
-  private Mock<IPlayerLogic> _logic = default!;
-  private EntityTable _entityTable = default!;
-  private Mock<ISaveChunk<GameData>> _gameChunk = default!;
+  private readonly IAppRepo _appRepo = new AppRepo();
+  private readonly IGameRepo _gameRepo = new GameRepo();
+  private readonly Mock<IPlayerLogic> _logic = new();
+  private readonly EntityTable _entityTable = new();
+  private readonly Mock<ISaveChunk<GameData>> _gameChunk = new();
 
-  private LogicBlock.FakeBinding _binding = default!;
+  private readonly LogicBlock.FakeBinding _binding = LogicBlock.CreateFakeBinding();
 
-  private PlayerLogic.Settings _settings = default!;
-  private Player _player = default!;
+  private readonly PlayerLogic.Settings _settings = new(
+    RotationSpeed: 1.0f,
+    StoppingSpeed: 1.0f,
+    Gravity: -1.0f,
+    MoveSpeed: 1.0f,
+    Acceleration: 1.0f,
+    JumpImpulseForce: 1.0f,
+    JumpForce: 1.0f
+  );
+  private readonly Player _player;
 
-  public PlayerTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public async Task Setup()
+  public PlayerTest(GodotHeadlessFixture godot)
   {
-    _fixture = new(TestScene.GetTree());
-
-    _appRepo = new AppRepo();
-    _gameRepo = new GameRepo();
-    _logic = new();
-    _binding = LogicBlock.CreateFakeBinding();
-    _settings = new PlayerLogic.Settings(
-      RotationSpeed: 1.0f,
-      StoppingSpeed: 1.0f,
-      Gravity: -1.0f,
-      MoveSpeed: 1.0f,
-      Acceleration: 1.0f,
-      JumpImpulseForce: 1.0f,
-      JumpForce: 1.0f
-    );
-    _entityTable = new();
-    _gameChunk = new();
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
 
     _player = new()
@@ -76,11 +63,10 @@ public class PlayerTest(GodotHeadlessFixture godot)
     _player.FakeDependency(_entityTable);
     _player.FakeDependency(_gameChunk.Object);
 
-    await _fixture.AddToRoot(_player);
+    godot.Tree.Root.AddChild(_player);
   }
 
-  [Cleanup]
-  public async Task Cleanup() => await _fixture.Cleanup();
+  public void Dispose() => _player.QueueFree();
 
   [Fact]
   public void Initializes()

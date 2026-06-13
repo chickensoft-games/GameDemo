@@ -3,7 +3,6 @@ namespace GameDemo.Tests;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Chickensoft.GodotNodeInterfaces;
-using Godot;
 using Moq;
 using Shouldly;
 
@@ -14,27 +13,21 @@ using Shouldly;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-public class PauseMenuTest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public class PauseMenuTest
 {
-  private Mock<IButton> _mainMenuButton = default!;
-  private Mock<IButton> _resumeButton = default!;
-  private Mock<IButton> _saveButton = default!;
-  private Mock<IAnimationPlayer> _animationPlayer = default!;
-  private Mock<IAnimationPlayer> _saveOverlayAnimationPlayer = default!;
-  private Mock<IVBoxContainer> _saveOverlay = default!;
-  private PauseMenu _menu = default!;
+  private readonly GodotHeadlessFixture _godot;
+  private readonly Mock<IButton> _mainMenuButton = new();
+  private readonly Mock<IButton> _resumeButton = new();
+  private readonly Mock<IButton> _saveButton = new();
+  private readonly Mock<IAnimationPlayer> _animationPlayer = new();
+  private readonly Mock<IAnimationPlayer> _saveOverlayAnimationPlayer = new();
+  private readonly Mock<IVBoxContainer> _saveOverlay = new();
+  private readonly PauseMenu _menu;
 
-  public PauseMenuTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public PauseMenuTest(GodotHeadlessFixture godot)
   {
-    _mainMenuButton = new Mock<IButton>();
-    _resumeButton = new Mock<IButton>();
-    _saveButton = new Mock<IButton>();
-    _animationPlayer = new Mock<IAnimationPlayer>();
-    _saveOverlayAnimationPlayer = new Mock<IAnimationPlayer>();
-    _saveOverlay = new Mock<IVBoxContainer>();
+    _godot = godot;
 
     _menu = new PauseMenu
     {
@@ -137,25 +130,25 @@ public class PauseMenuTest(GodotHeadlessFixture godot)
   }
 
   [Fact]
-  public async Task OnSaveStarted()
+  public void OnSaveStarted()
   {
     _saveOverlayAnimationPlayer
       .Setup(player => player.Play("save_fade_in", -1, 1, false));
     _menu.OnSaveStarted();
 
-    await TestScene.GetTree().NextFrame();
+    _godot.GodotInstance.Iteration();
 
     _saveOverlayAnimationPlayer.VerifyAll();
   }
 
   [Fact]
-  public async Task OnSaveFinished()
+  public void OnSaveFinished()
   {
     _saveOverlayAnimationPlayer
       .Setup(player => player.Play("save_fade_out", -1, 1, false));
     _menu.OnSaveCompleted();
 
-    await TestScene.GetTree().NextFrame();
+    _godot.GodotInstance.Iteration();
 
     _saveOverlayAnimationPlayer.VerifyAll();
   }

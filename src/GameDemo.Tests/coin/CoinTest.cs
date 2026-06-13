@@ -17,35 +17,30 @@ using Shouldly;
     Justification = "Disposable field is a Godot object; Godot will dispose"
   )
 ]
-public partial class CoinTest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public partial class CoinTest
 {
+  private readonly GodotHeadlessFixture _godot;
+
   public partial class FakeCoinCollector : Node3D, ICoinCollector
   {
     public Vector3 CenterOfMass => Vector3.Zero;
     public void Collect(ICoin coin) { }
   }
 
-  private Mock<IGameRepo> _gameRepo = default!;
-  private Mock<IAnimationPlayer> _animPlayer = default!;
-  private Mock<INode3D> _coinModel = default!;
-  private Mock<ICoinLogic> _logic = default!;
-  private EntityTable _entityTable = default!;
+  private readonly Mock<IGameRepo> _gameRepo = new();
+  private readonly Mock<IAnimationPlayer> _animPlayer = new();
+  private readonly Mock<INode3D> _coinModel = new();
+  private readonly Mock<ICoinLogic> _logic = new();
+  private readonly EntityTable _entityTable = new();
 
-  private LogicBlock.FakeBinding _binding = default!;
+  private readonly LogicBlock.FakeBinding _binding = LogicBlock.CreateFakeBinding();
 
-  private Coin _coin = default!;
+  private readonly Coin _coin;
 
-  public CoinTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public CoinTest(GodotHeadlessFixture godot)
   {
-    _gameRepo = new();
-    _animPlayer = new();
-    _coinModel = new();
-    _logic = new();
-    _binding = LogicBlock.CreateFakeBinding();
-    _entityTable = new EntityTable();
+    _godot = godot;
 
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
 
@@ -120,27 +115,25 @@ public partial class CoinTest(GodotHeadlessFixture godot)
   }
 
   [Fact]
-  public async Task InitializesDetectorAreaDynamically()
+  public void InitializesDetectorAreaDynamically()
   {
     // This test has to be run in the actual scene tree since it verifies the
     // coin loads and adds a real scene.
-    var tree = TestScene.GetTree();
-    var fixture = new Fixture(tree);
-    await fixture.AddToRoot(_coin);
+    var tree = _godot.Tree;
+    tree.Root.AddChild(_coin);
 
     _coin.GetChildren().ShouldContain(child => child is Area3D);
 
-    await fixture.Cleanup();
+    _coin.QueueFree();
   }
 
   [Fact]
-  public async Task MovesAndSelfDestructs()
+  public void MovesAndSelfDestructs()
   {
     // This test has to be run in the actual scene tree since it verifies the
     // coin changes its GlobalPosition.
-    var tree = TestScene.GetTree();
-    var fixture = new Fixture(tree);
-    await fixture.AddToRoot(_coin);
+    var tree = _godot.Tree;
+    tree.Root.AddChild(_coin);
 
     _binding.Output(new CoinLogicState.Output.Move(Vector3.One));
 
@@ -150,6 +143,6 @@ public partial class CoinTest(GodotHeadlessFixture godot)
 
     _coin.IsQueuedForDeletion().ShouldBeTrue();
 
-    await fixture.Cleanup();
+    _coin.QueueFree();
   }
 }

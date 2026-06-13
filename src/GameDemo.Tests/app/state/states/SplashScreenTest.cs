@@ -1,24 +1,17 @@
 namespace GameDemo.Tests;
 
-using Godot;
 using Moq;
 using Shouldly;
 
-public class SplashScreenTest(GodotHeadlessFixture godot)
+public class SplashScreenTest
 {
-  private StateTester _context = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private AppLogicState.SplashScreen _state = default!;
-  private AppLogic.Data _data = default!;
+  private readonly StateTester _context;
+  private readonly Mock<IAppRepo> _appRepo = new();
+  private readonly AppLogicState.SplashScreen _state = new();
+  private readonly AppLogic.Data _data = new();
 
-  public SplashScreenTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public SplashScreenTest()
   {
-    _state = new();
-    _appRepo = new();
-    _data = new();
     _context = _state.Test();
     _context.Set(_appRepo.Object);
     _context.Set(_data);

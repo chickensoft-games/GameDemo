@@ -2,8 +2,6 @@ namespace GameDemo.Tests;
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Godot;
-using Moq;
 using Shouldly;
 
 [
@@ -13,23 +11,23 @@ using Shouldly;
     Justification = "Disposable field is disposed in cleanup"
   )
 ]
-public class GameLogicTest(GodotHeadlessFixture godot)
+public class GameLogicTest : IDisposable
 {
-  private GameLogic _logic = default!;
-  private IGameRepo _gameRepo = default!;
-  private IAppRepo _appRepo = default!;
+  private readonly GameLogic _logic = new();
+  private readonly IGameRepo _gameRepo = new GameRepo();
+  private readonly IAppRepo _appRepo = new AppRepo();
 
-  public GameLogicTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public GameLogicTest()
   {
-    _logic = new GameLogic();
-    _gameRepo = new GameRepo();
-    _appRepo = new AppRepo();
-
     _logic.Set(_gameRepo);
     _logic.Set(_appRepo);
+  }
+
+  public void Dispose()
+  {
+    _logic.Stop();
+    _gameRepo.Dispose();
+    _appRepo.Dispose();
   }
 
   [Fact]
@@ -75,13 +73,5 @@ public class GameLogicTest(GodotHeadlessFixture godot)
   {
     var logic = new GameLogic();
     logic.OnStop();
-  }
-
-  [Cleanup]
-  public void Cleanup()
-  {
-    _logic.Stop();
-    _gameRepo.Dispose();
-    _appRepo.Dispose();
   }
 }

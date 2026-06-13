@@ -1,23 +1,17 @@
 namespace GameDemo.Tests;
 
-using Godot;
 using Moq;
 
-public class RestartingGameTest(GodotHeadlessFixture godot)
+public class RestartingGameTest
 {
-  private StateTester _context = default!;
-  private GameLogicState.RestartingGame _state = default!;
-  private Mock<IAppRepo> _appRepo = default!;
+  private readonly StateTester _context;
+  private readonly GameLogicState.RestartingGame _state = new();
+  private readonly Mock<IAppRepo> _appRepo = new();
 
-  public RestartingGameTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public RestartingGameTest()
   {
-    _state = new GameLogicState.RestartingGame();
     _context = _state.Test();
 
-    _appRepo = new Mock<IAppRepo>();
     _context.Set(_appRepo.Object);
   }
 

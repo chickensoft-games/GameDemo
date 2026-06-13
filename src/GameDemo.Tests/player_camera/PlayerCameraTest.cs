@@ -18,41 +18,27 @@ using Shouldly;
     Justification = "Disposable fields are Godot objects; Godot will dispose"
   )
 ]
-public class PlayerCameraTest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public class PlayerCameraTest
 {
-  private PlayerCamera _playerCam = default!;
-  private Mock<IPlayerCameraLogic> _logic = default!;
-  private LogicBlock.FakeBinding _binding = default!;
-  private PlayerCameraSettings _settings = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private Mock<ISaveChunk<GameData>> _gameChunk = default!;
+  private readonly GodotHeadlessFixture _godot;
+  private readonly PlayerCamera _playerCam;
+  private readonly Mock<IPlayerCameraLogic> _logic = new();
+  private readonly LogicBlock.FakeBinding _binding = LogicBlock.CreateFakeBinding();
+  private readonly PlayerCameraSettings _settings = new();
+  private readonly Mock<IGameRepo> _gameRepo = new();
+  private readonly Mock<IAppRepo> _appRepo = new();
+  private readonly Mock<ISaveChunk<GameData>> _gameChunk = new();
 
-  private Mock<INode3D> _offsetNode = default!;
-  private Mock<INode3D> _gimbalHorizontal = default!;
-  private Mock<INode3D> _gimbalVertical = default!;
-  private Mock<ICamera3D> _cameraNode = default!;
-  private Mock<INode3D> _springArmTarget = default!;
+  private readonly Mock<INode3D> _offsetNode = new();
+  private readonly Mock<INode3D> _gimbalHorizontal = new();
+  private readonly Mock<INode3D> _gimbalVertical = new();
+  private readonly Mock<ICamera3D> _cameraNode = new();
+  private readonly Mock<INode3D> _springArmTarget = new();
 
-  public PlayerCameraTest(Node testScene) :
-    base(testScene)
-  { }
-
-  [Setup]
-  public void Setup()
+  public PlayerCameraTest(GodotHeadlessFixture godot)
   {
-    _logic = new();
-    _binding = LogicBlock.CreateFakeBinding();
-    _settings = new();
-    _gameRepo = new();
-    _appRepo = new();
-    _gameChunk = new();
-
-    _offsetNode = new();
-    _gimbalHorizontal = new();
-    _gimbalVertical = new();
-    _cameraNode = new();
-    _springArmTarget = new();
+    _godot = godot;
 
     _playerCam = new()
     {
@@ -172,12 +158,11 @@ public class PlayerCameraTest(GodotHeadlessFixture godot)
   }
 
   [Fact]
-  public async Task UpdatesGlobalTransform()
+  public void UpdatesGlobalTransform()
   {
     // This test has to be conducted inside the scene tree so that we can
     // verify GlobalTransform is updated.
-    var fixture = new Fixture(TestScene.GetTree());
-    await fixture.AddToRoot(_playerCam);
+    _godot.Tree.Root.AddChild(_playerCam);
 
     var transform =
       new Transform3D(Vector3.Up, Vector3.Up, Vector3.Up, Vector3.Zero);
@@ -190,7 +175,7 @@ public class PlayerCameraTest(GodotHeadlessFixture godot)
 
     _playerCam.GlobalTransform.ShouldBe(transform);
 
-    await fixture.Cleanup();
+    _playerCam.QueueFree();
   }
 
   [Fact]

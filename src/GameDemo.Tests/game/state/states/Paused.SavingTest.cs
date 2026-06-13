@@ -1,25 +1,18 @@
 namespace GameDemo.Tests;
 
 using System.Linq;
-using Godot;
 using Moq;
 using Shouldly;
 
-public class PausedSavingTest(GodotHeadlessFixture godot)
+public class PausedSavingTest
 {
-  private StateTester _context = default!;
-  private GameLogicState.Saving _state = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
+  private readonly StateTester _context;
+  private readonly GameLogicState.Saving _state = new();
+  private readonly Mock<IGameRepo> _gameRepo = new();
 
-  public PausedSavingTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public PausedSavingTest()
   {
-    _state = new();
     _context = _state.Test();
-
-    _gameRepo = new();
 
     _context.Set(_gameRepo.Object);
   }

@@ -4,7 +4,6 @@ using System.Diagnostics.CodeAnalysis;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.LogicBlocks;
-using Godot;
 using Moq;
 using Shouldly;
 
@@ -15,38 +14,25 @@ using Shouldly;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-public class InGameAudioTest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public class InGameAudioTest
 {
-  private Mock<IAppRepo> _appRepo = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
-  private Mock<IInGameAudioLogic> _logic = default!;
+  private readonly Mock<IAppRepo> _appRepo = new();
+  private readonly Mock<IGameRepo> _gameRepo = new();
+  private readonly Mock<IInGameAudioLogic> _logic = new();
 
-  private LogicBlock.FakeBinding _binding = default!;
+  private readonly LogicBlock.FakeBinding _binding = LogicBlock.CreateFakeBinding();
 
-  private Mock<IAudioStreamPlayer> _coinCollected = default!;
-  private Mock<IAudioStreamPlayer> _bounce = default!;
-  private Mock<IAudioStreamPlayer> _playerDied = default!;
-  private Mock<IAudioStreamPlayer> _playerJumped = default!;
-  private Mock<IDimmableAudioStreamPlayer> _mainMenuMusic = default!;
-  private Mock<IDimmableAudioStreamPlayer> _gameMusic = default!;
-  private InGameAudio _audio = default!;
+  private readonly Mock<IAudioStreamPlayer> _coinCollected = new();
+  private readonly Mock<IAudioStreamPlayer> _bounce = new();
+  private readonly Mock<IAudioStreamPlayer> _playerDied = new();
+  private readonly Mock<IAudioStreamPlayer> _playerJumped = new();
+  private readonly Mock<IDimmableAudioStreamPlayer> _mainMenuMusic = new();
+  private readonly Mock<IDimmableAudioStreamPlayer> _gameMusic = new();
+  private readonly InGameAudio _audio;
 
-  public InGameAudioTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public InGameAudioTest()
   {
-    _appRepo = new Mock<IAppRepo>();
-    _gameRepo = new Mock<IGameRepo>();
-    _logic = new Mock<IInGameAudioLogic>();
-    _binding = LogicBlock.CreateFakeBinding();
-    _coinCollected = new Mock<IAudioStreamPlayer>();
-    _bounce = new Mock<IAudioStreamPlayer>();
-    _playerDied = new Mock<IAudioStreamPlayer>();
-    _playerJumped = new Mock<IAudioStreamPlayer>();
-    _mainMenuMusic = new Mock<IDimmableAudioStreamPlayer>();
-    _gameMusic = new Mock<IDimmableAudioStreamPlayer>();
-
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
 
     _audio = new InGameAudio

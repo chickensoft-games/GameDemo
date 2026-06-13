@@ -3,21 +3,11 @@ namespace GameDemo.Tests;
 using Godot;
 using Shouldly;
 
-public class InputUtilitiesTest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public class InputUtilitiesTest
 {
-  private float _deadZoneX = default!;
-  private float _deadZoneY = default!;
-
-  public InputUtilitiesTest(Node testScene) :
-  base(testScene)
-  { }
-
-  [Setup]
-  public void Setup()
-  {
-    _deadZoneX = InputMap.ActionGetDeadzone("camera_right");
-    _deadZoneY = InputMap.ActionGetDeadzone("camera_down");
-  }
+  private readonly float _deadZoneX = InputMap.ActionGetDeadzone("camera_right");
+  private readonly float _deadZoneY = InputMap.ActionGetDeadzone("camera_down");
 
   [Fact]
   public void NotTriggerJoyPadWhenAxisIsNotPressed()

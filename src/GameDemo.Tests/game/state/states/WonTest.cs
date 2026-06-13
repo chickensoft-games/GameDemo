@@ -1,25 +1,19 @@
 namespace GameDemo.Tests;
 
 using System.Linq;
-using Godot;
 using Moq;
 using Shouldly;
 
-public class WonTest(GodotHeadlessFixture godot)
+public class WonTest
 {
-  private StateTester _context = default!;
-  private GameLogicState.Won _state = default!;
-  private Mock<IAppRepo> _appRepo = default!;
+  private readonly StateTester _context;
+  private readonly GameLogicState.Won _state = new();
+  private readonly Mock<IAppRepo> _appRepo = new();
 
-  public WonTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public WonTest()
   {
-    _state = new GameLogicState.Won();
     _context = _state.Test();
 
-    _appRepo = new Mock<IAppRepo>();
     _context.Set(_appRepo.Object);
   }
 

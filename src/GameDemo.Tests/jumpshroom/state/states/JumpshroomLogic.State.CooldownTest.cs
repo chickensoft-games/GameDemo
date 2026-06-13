@@ -1,19 +1,14 @@
 namespace GameDemo.Tests;
 
-using Godot;
 using Shouldly;
 
-public class JumpshroomLogicStateCooldownTest(GodotHeadlessFixture godot)
+public class JumpshroomLogicStateCooldownTest
 {
-  private StateTester _context = default!;
-  private JumpshroomLogicState.Cooldown _state = default!;
+  private readonly StateTester _context;
+  private readonly JumpshroomLogicState.Cooldown _state = new();
 
-  public JumpshroomLogicStateCooldownTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public JumpshroomLogicStateCooldownTest()
   {
-    _state = new();
     _context = _state.Test();
   }
 

@@ -3,7 +3,6 @@ namespace GameDemo.Tests;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Chickensoft.Sync.Primitives;
-using Godot;
 using Moq;
 using Shouldly;
 
@@ -14,27 +13,27 @@ using Shouldly;
     Justification = "Disposable field is disposed in cleanup"
   )
 ]
-public class InGameUILogicTest(GodotHeadlessFixture godot)
+public class InGameUILogicTest : IDisposable
 {
-  private InGameUILogic _logic = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
-  private AutoValue<int> _numCoinsCollected = default!;
-  private AutoValue<int> _numCoinsAtStart = default!;
+  private readonly InGameUILogic _logic = new();
+  private readonly Mock<IGameRepo> _gameRepo = new();
+  private readonly AutoValue<int> _numCoinsCollected = new(0);
+  private readonly AutoValue<int> _numCoinsAtStart = new(0);
 
-  public InGameUILogicTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public InGameUILogicTest()
   {
-    _logic = new InGameUILogic();
-    _gameRepo = new();
-    _numCoinsCollected = new AutoValue<int>(0);
-    _numCoinsAtStart = new AutoValue<int>(0);
-
     _gameRepo.Setup(repo => repo.NumCoinsCollected).Returns(_numCoinsCollected);
     _gameRepo.Setup(repo => repo.NumCoinsAtStart).Returns(_numCoinsAtStart);
 
     _logic.Set(_gameRepo.Object);
+  }
+
+  public void Dispose()
+  {
+    _logic.Stop();
+
+    _numCoinsCollected.Dispose();
+    _numCoinsAtStart.Dispose();
   }
 
   [Fact]
@@ -80,14 +79,5 @@ public class InGameUILogicTest(GodotHeadlessFixture godot)
   {
     var logic = new InGameUILogic();
     logic.OnStop();
-  }
-
-  [Cleanup]
-  public void Cleanup()
-  {
-    _logic.Stop();
-
-    _numCoinsCollected.Dispose();
-    _numCoinsAtStart.Dispose();
   }
 }

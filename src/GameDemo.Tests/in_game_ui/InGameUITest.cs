@@ -5,7 +5,6 @@ using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.LogicBlocks;
 using Chickensoft.Sync.Primitives;
-using Godot;
 using Moq;
 using Shouldly;
 
@@ -16,28 +15,19 @@ using Shouldly;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-public class InGameUITest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public class InGameUITest
 {
-  private Mock<IAppRepo> _appRepo = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
-  private Mock<ILabel> _coinsLabel = default!;
-  private Mock<IInGameUILogic> _logic = default!;
-  private LogicBlock.FakeBinding _binding = default!;
+  private readonly Mock<IAppRepo> _appRepo = new();
+  private readonly Mock<IGameRepo> _gameRepo = new();
+  private readonly Mock<ILabel> _coinsLabel = new();
+  private readonly Mock<IInGameUILogic> _logic = new();
+  private readonly LogicBlock.FakeBinding _binding = LogicBlock.CreateFakeBinding();
 
-  private InGameUI _ui = default!;
+  private readonly InGameUI _ui;
 
-  public InGameUITest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public InGameUITest()
   {
-    _appRepo = new();
-    _gameRepo = new();
-    _coinsLabel = new();
-    _logic = new();
-
-    _binding = LogicBlock.CreateFakeBinding();
-
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
     _logic.Setup(logic => logic.Start<InGameUILogicState>(true));
 

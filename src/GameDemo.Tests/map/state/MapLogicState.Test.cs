@@ -1,25 +1,18 @@
 namespace GameDemo.Tests;
 
-using Godot;
 using Moq;
 using Shouldly;
 
-public class MapLogicStateTest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public class MapLogicStateTest
 {
-  private StateTester _context = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
-  private MapLogicState _state = default!;
-  private MapLogic.Data _data = default!;
+  private readonly StateTester _context;
+  private readonly Mock<IGameRepo> _gameRepo = new ();
+  private readonly MapLogicState _state = new();
+  private readonly MapLogic.Data _data = new();
 
-  public MapLogicStateTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public MapLogicStateTest()
   {
-    _gameRepo = new ();
-    _data = new MapLogic.Data();
-
-    _state = new MapLogicState();
     _context = _state.Test();
 
     _context.Set(_gameRepo.Object);

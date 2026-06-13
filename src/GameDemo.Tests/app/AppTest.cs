@@ -15,39 +15,27 @@ using Shouldly;
     Justification = "Disposable field is a Godot object; Godot will dispose"
   )
 ]
-public class AppTest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public class AppTest
 {
-  private App _app = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private Mock<IAppLogic> _logic = default!;
+  private readonly GodotHeadlessFixture _godot;
+  private readonly App _app;
+  private readonly Mock<IAppRepo> _appRepo = new();
+  private readonly Mock<IAppLogic> _logic = new();
 
-  private LogicBlock.FakeBinding _binding = default!;
+  private readonly LogicBlock.FakeBinding _binding = LogicBlock.CreateFakeBinding();
 
-  private Mock<IInstantiator> _instantiator = default!;
-  private Mock<IGame> _game = default!;
-  private Mock<IMenu> _menu = default!;
-  private Mock<ISubViewport> _gamePreview = default!;
-  private Mock<IColorRect> _blankScreen = default!;
-  private Mock<IAnimationPlayer> _animationPlayer = default!;
-  private Mock<ISplash> _splash = default!;
+  private readonly Mock<IInstantiator> _instantiator = new();
+  private readonly Mock<IGame> _game = new();
+  private readonly Mock<IMenu> _menu = new();
+  private readonly Mock<ISubViewport> _gamePreview = new();
+  private readonly Mock<IColorRect> _blankScreen = new();
+  private readonly Mock<IAnimationPlayer> _animationPlayer = new();
+  private readonly Mock<ISplash> _splash = new();
 
-  public AppTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public AppTest(GodotHeadlessFixture godot)
   {
-    _appRepo = new();
-    _logic = new();
-    _binding = LogicBlock.CreateFakeBinding();
-
-    _instantiator = new();
-
-    _game = new();
-    _menu = new();
-    _gamePreview = new();
-    _blankScreen = new();
-    _animationPlayer = new();
-    _splash = new();
+    _godot = godot;
 
     _app = new()
     {
@@ -71,7 +59,7 @@ public class AppTest(GodotHeadlessFixture godot)
   [Fact]
   public void Initializes()
   {
-    // Naturally, the app controls al ot of systems (mostly menus), so there's
+    // Naturally, the app controls alot of systems (mostly menus), so there's
     // quite a bit of setup to verify.
 
     _app.AppBinding = _binding;
@@ -159,7 +147,7 @@ public class AppTest(GodotHeadlessFixture godot)
 
     _instantiator.Setup(i => i.LoadAndInstantiate<Game>(It.IsAny<string>()))
       .Returns(game);
-    _instantiator.Setup(i => i.SceneTree).Returns(TestScene.GetTree());
+    _instantiator.Setup(i => i.SceneTree).Returns(_godot.Tree);
 
     _gamePreview.Setup(
       preview => preview.AddChildEx(game, false, Node.InternalMode.Disabled)

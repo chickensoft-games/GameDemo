@@ -4,25 +4,20 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class JumpshroomLogicStateLaunchingTest(GodotHeadlessFixture godot)
+public class JumpshroomLogicStateLaunchingTest
 {
-  private StateTester _context = default!;
-  private Mock<IPushEnabled> _target = default!;
-  private JumpshroomLogic.Data _data = default!;
-  private JumpshroomLogicState.Launching _state = default!;
+  private readonly StateTester _context;
+  private readonly Mock<IPushEnabled> _target = new();
+  private readonly JumpshroomLogic.Data _data;
+  private readonly JumpshroomLogicState.Launching _state = new();
 
-  public JumpshroomLogicStateLaunchingTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public JumpshroomLogicStateLaunchingTest()
   {
-    _target = new Mock<IPushEnabled>();
     _data = new(1.0f)
     {
       Target = _target.Object
     };
 
-    _state = new();
     _context = _state.Test();
 
     _context.Set(_data);

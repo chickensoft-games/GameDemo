@@ -3,7 +3,6 @@ namespace GameDemo.Tests;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Chickensoft.GodotNodeInterfaces;
-using Godot;
 using Moq;
 using Shouldly;
 
@@ -14,24 +13,17 @@ using Shouldly;
     Justification = "Disposable field is a Godot object; Godot will dispose"
   )
 ]
-public class DeathMenuTest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public class DeathMenuTest
 {
-  private Mock<IButton> _mainMenuButton = default!;
-  private Mock<IButton> _tryAgainButton = default!;
-  private Mock<IAnimationPlayer> _animationPlayer = default!;
-  private Mock<IAnimationPlayer> _fadeAnimationPlayer = default!;
-  private DeathMenu _menu = default!;
+  private readonly Mock<IButton> _mainMenuButton = new();
+  private readonly Mock<IButton> _tryAgainButton = new();
+  private readonly Mock<IAnimationPlayer> _animationPlayer = new();
+  private readonly Mock<IAnimationPlayer> _fadeAnimationPlayer = new();
+  private readonly DeathMenu _menu;
 
-  public DeathMenuTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public DeathMenuTest()
   {
-    _mainMenuButton = new Mock<IButton>();
-    _tryAgainButton = new Mock<IButton>();
-    _animationPlayer = new Mock<IAnimationPlayer>();
-    _fadeAnimationPlayer = new Mock<IAnimationPlayer>();
-
     _menu = new DeathMenu
     {
       MainMenuButton = _mainMenuButton.Object,

@@ -1,23 +1,17 @@
 namespace GameDemo.Tests;
 
-using Godot;
 using Moq;
 
-public class QuitTest(GodotHeadlessFixture godot)
+public class QuitTest
 {
-  private StateTester _context = default!;
-  private GameLogicState.Quit _state = default!;
-  private Mock<IAppRepo> _appRepo = default!;
+  private readonly StateTester _context;
+  private readonly GameLogicState.Quit _state = new();
+  private readonly Mock<IAppRepo> _appRepo = new();
 
-  public QuitTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public QuitTest()
   {
-    _state = new GameLogicState.Quit();
     _context = _state.Test();
 
-    _appRepo = new Mock<IAppRepo>();
     _context.Set(_appRepo.Object);
   }
 

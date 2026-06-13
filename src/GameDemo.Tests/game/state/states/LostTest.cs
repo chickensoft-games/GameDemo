@@ -1,20 +1,15 @@
 namespace GameDemo.Tests;
 
 using System.Linq;
-using Godot;
 using Shouldly;
 
-public class LostTest(GodotHeadlessFixture godot)
+public class LostTest
 {
-  private StateTester _context = default!;
-  private GameLogicState.Lost _state = default!;
+  private readonly StateTester _context;
+  private readonly GameLogicState.Lost _state = new();
 
-  public LostTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public LostTest()
   {
-    _state = new GameLogicState.Lost();
     _context = _state.Test();
   }
 

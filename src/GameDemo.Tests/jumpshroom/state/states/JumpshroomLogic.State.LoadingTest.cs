@@ -1,30 +1,23 @@
 namespace GameDemo.Tests;
 
-using Godot;
 using Moq;
 using Shouldly;
 
-public class JumpshroomLogicStateLoadingTest(GodotHeadlessFixture godot)
+public class JumpshroomLogicStateLoadingTest
 {
-  private StateTester _context = default!;
-  private Mock<IPushEnabled> _target = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
-  private JumpshroomLogic.Data _data = default!;
-  private JumpshroomLogicState.Loading _state = default!;
+  private readonly StateTester _context;
+  private readonly Mock<IPushEnabled> _target = new();
+  private readonly Mock<IGameRepo> _gameRepo = new();
+  private readonly JumpshroomLogic.Data _data;
+  private readonly JumpshroomLogicState.Loading _state = new();
 
-  public JumpshroomLogicStateLoadingTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public JumpshroomLogicStateLoadingTest()
   {
-    _target = new();
-    _gameRepo = new();
     _data = new(1.0f)
     {
       Target = _target.Object
     };
 
-    _state = new();
     _context = _state.Test();
 
     _context.Set(_gameRepo.Object);

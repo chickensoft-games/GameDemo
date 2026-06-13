@@ -3,7 +3,6 @@ namespace GameDemo.Tests;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Chickensoft.GodotNodeInterfaces;
-using Godot;
 using Moq;
 using Shouldly;
 
@@ -14,20 +13,15 @@ using Shouldly;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-public class MenuTest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public class MenuTest
 {
-  private Mock<IButton> _newGameButton = default!;
-  private Mock<IButton> _loadGameButton = default!;
-  private Menu _menu = default!;
+  private readonly Mock<IButton> _newGameButton = new();
+  private readonly Mock<IButton> _loadGameButton = new();
+  private readonly Menu _menu;
 
-  public MenuTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public MenuTest()
   {
-    _newGameButton = new Mock<IButton>();
-    _loadGameButton = new Mock<IButton>();
-
     _menu = new Menu
     {
       NewGameButton = _newGameButton.Object,

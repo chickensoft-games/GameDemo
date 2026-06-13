@@ -2,7 +2,6 @@ namespace GameDemo.Tests;
 
 using System.Diagnostics.CodeAnalysis;
 using Chickensoft.Sync.Primitives;
-using Godot;
 using Moq;
 using Shouldly;
 
@@ -13,23 +12,15 @@ using Shouldly;
     Justification = "Disposable fields are disposed in cleanup"
   )
 ]
-public class MenuBackdropTest(GodotHeadlessFixture godot)
+public class MenuBackdropTest
 {
-  private StateTester _context = default!;
-  private GameLogicState.MenuBackdrop _state = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
+  private readonly StateTester _context;
+  private readonly GameLogicState.MenuBackdrop _state = new();
+  private readonly Mock<IAppRepo> _appRepo = new ();
+  private readonly Mock<IGameRepo> _gameRepo = new ();
 
-  public MenuBackdropTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public MenuBackdropTest()
   {
-    _appRepo = new ();
-    _gameRepo = new ();
-
-    _state = new GameLogicState.MenuBackdrop();
-
     _context = _state.Test();
 
     _context.Set(_appRepo.Object);

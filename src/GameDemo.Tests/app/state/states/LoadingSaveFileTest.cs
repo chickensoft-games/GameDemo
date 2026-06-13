@@ -1,24 +1,18 @@
 namespace GameDemo.Tests;
 
-using Godot;
 using Moq;
 using Shouldly;
 
-public class LoadingSaveFileTest(GodotHeadlessFixture godot)
+public class LoadingSaveFileTest
 {
-  private StateTester _context = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private AppLogicState.LoadingSaveFile _state = default!;
-  private AppLogic.Data _data = default!;
+  private readonly StateTester _context;
+  private readonly Mock<IAppRepo> _appRepo = new();
+  private readonly AppLogicState.LoadingSaveFile _state = new();
+  private readonly AppLogic.Data _data = new();
 
-  public LoadingSaveFileTest(Node testScene) : base(testScene) { }
 
-  [Setup]
-  public void Setup()
+  public LoadingSaveFileTest()
   {
-    _state = new();
-    _appRepo = new();
-    _data = new();
     _context = _state.Test();
     _context.Set(_appRepo.Object);
     _context.Set(_data);

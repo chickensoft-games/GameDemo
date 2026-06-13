@@ -1,21 +1,14 @@
 namespace GameDemo.Tests;
 
-using Godot;
 using Shouldly;
 
-public class PlayerLogicStateAliveAirborneLiftoffTest(GodotHeadlessFixture godot)
+public class PlayerLogicStateAliveAirborneLiftoffTest
 {
-  private StateTester _context = default!;
-  private PlayerLogicState.Liftoff _state = default!;
+  private readonly StateTester _context;
+  private readonly PlayerLogicState.Liftoff _state = new();
 
-  public PlayerLogicStateAliveAirborneLiftoffTest(Node testScene) :
-    base(testScene)
-  { }
-
-  [Setup]
-  public void Setup()
+  public PlayerLogicStateAliveAirborneLiftoffTest()
   {
-    _state = new();
     _context = _state.Test();
   }
 

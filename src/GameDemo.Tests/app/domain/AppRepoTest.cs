@@ -1,7 +1,6 @@
 namespace GameDemo.Tests;
 
 using System.Diagnostics.CodeAnalysis;
-using Godot;
 using Shouldly;
 
 [
@@ -11,17 +10,10 @@ using Shouldly;
     Justification = "Disposable field is disposed in last test"
   )
 ]
-public class AppRepoTest(GodotHeadlessFixture godot)
+public class AppRepoTest : IDisposable
 {
-  private AppRepo _repo = default!;
-
-  public AppRepoTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup() => _repo = new();
-
-  [Cleanup]
-  public void Cleanup() => _repo.Dispose();
+  private readonly AppRepo _repo = new();
+  public void Dispose() => _repo.Dispose();
 
   [Fact]
   public void Initializes()

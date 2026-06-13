@@ -7,34 +7,21 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public partial class PlayerLogicStateAliveTest(GodotHeadlessFixture godot)
+public partial class PlayerLogicStateAliveTest
 {
   [Meta, TestState]
   public partial record TestPlayerState : PlayerLogicState.Alive;
 
-  private StateTester _context = default!;
-  private PlayerLogic.Data _data = default!;
-  private Mock<IPlayer> _player = default!;
-  private PlayerLogic.Settings _settings = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private PlayerLogicState.Alive _state = default!;
+  private readonly StateTester _context;
+  private readonly PlayerLogic.Data _data = new();
+  private readonly Mock<IPlayer> _player = new();
+  private readonly PlayerLogic.Settings _settings = new(1, 1, 1, 1, 1, 1, 1);
+  private readonly Mock<IGameRepo> _gameRepo = new();
+  private readonly Mock<IAppRepo> _appRepo = new();
+  private readonly PlayerLogicState.Alive _state = new TestPlayerState();
 
-  public PlayerLogicStateAliveTest(Node testScene) :
-    base(testScene)
+  public PlayerLogicStateAliveTest()
   {
-  }
-
-  [Setup]
-  public void Setup()
-  {
-    _data = new();
-    _player = new Mock<IPlayer>();
-    _settings = new PlayerLogic.Settings(1, 1, 1, 1, 1, 1, 1);
-    _gameRepo = new Mock<IGameRepo>();
-    _appRepo = new Mock<IAppRepo>();
-
-    _state = new TestPlayerState();
     _context = _state.Test();
 
     _context.Set(_data);

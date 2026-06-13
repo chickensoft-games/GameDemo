@@ -1,25 +1,18 @@
 namespace GameDemo.Tests;
 
 using System.Linq;
-using Godot;
 using Moq;
 using Shouldly;
 
-public class InGameTest(GodotHeadlessFixture godot)
+public class InGameTest
 {
-  private StateTester _tester = default!;
-  private AppLogicState.InGame _state = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private AppLogic.Data _data = default!;
+  private readonly StateTester _tester;
+  private readonly AppLogicState.InGame _state = new();
+  private readonly Mock<IAppRepo> _appRepo = new();
+  private readonly AppLogic.Data _data = new();
 
-  public InGameTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public InGameTest()
   {
-    _state = new();
-    _appRepo = new ();
-    _data = new();
     _tester = _state.Test();
     _tester.Set(_appRepo.Object);
     _tester.Set(_data);

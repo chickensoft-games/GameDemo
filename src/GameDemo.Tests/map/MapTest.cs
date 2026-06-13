@@ -17,30 +17,20 @@ using Shouldly;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-public class MapTest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public class MapTest
 {
-  private Mock<INode3D> _coins = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
-  private Mock<IMapLogic> _mapLogic = default!;
-  private EntityTable _entityTable = default!;
-  private Mock<ISaveChunk<GameData>> _gameChunk = default!;
-  private Mock<ISaveChunk<MapData>> _mapChunk = default!;
-  private MapLogic.Data _data = default!;
-  private Map _map = default!;
+  private readonly Mock<INode3D> _coins = new();
+  private readonly Mock<IGameRepo> _gameRepo = new();
+  private readonly Mock<IMapLogic> _mapLogic = new();
+  private readonly EntityTable _entityTable = new();
+  private readonly Mock<ISaveChunk<GameData>> _gameChunk = new();
+  private readonly Mock<ISaveChunk<MapData>> _mapChunk = new();
+  private readonly MapLogic.Data _data = new();
+  private readonly Map _map;
 
-  public MapTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public MapTest()
   {
-    _coins = new();
-    _gameRepo = new();
-    _entityTable = new();
-    _gameChunk = new();
-    _mapLogic = new();
-    _mapChunk = new();
-    _data = new();
-
     _map = new Map
     {
       Coins = _coins.Object,

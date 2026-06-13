@@ -1,24 +1,17 @@
 namespace GameDemo.Tests;
 
-using Godot;
 using Moq;
 using Shouldly;
 
-public class LeavingMenuTest(GodotHeadlessFixture godot)
+public class LeavingMenuTest
 {
-  private StateTester _context = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private AppLogicState.LeavingMenu _state = default!;
-  private AppLogic.Data _data = default!;
+  private readonly StateTester _context;
+  private readonly Mock<IAppRepo> _appRepo = new();
+  private readonly AppLogicState.LeavingMenu _state = new();
+  private readonly AppLogic.Data _data = new();
 
-  public LeavingMenuTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public LeavingMenuTest()
   {
-    _state = new();
-    _appRepo = new();
-    _data = new();
     _context = _state.Test();
     _context.Set(_appRepo.Object);
     _context.Set(_data);

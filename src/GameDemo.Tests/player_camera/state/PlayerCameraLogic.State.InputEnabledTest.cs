@@ -12,35 +12,25 @@ using Shouldly;
     Justification = "Disposable field is disposed in cleanup"
   )
 ]
-public class PlayerCameraLogicStateInputEnabledTest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public class PlayerCameraLogicStateInputEnabledTest : IDisposable
 {
-  private StateTester _context = default!;
-  private PlayerCameraSettings _settings = default!;
-  private PlayerCameraLogic.Data _data = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
-  private PlayerCameraLogicState.InputEnabled _state = default!;
-
-  public PlayerCameraLogicStateInputEnabledTest(Node testScene) :
-    base(testScene)
-  { }
-
-  [Setup]
-  public void Setup()
+  private readonly StateTester _context;
+  private readonly PlayerCameraSettings _settings = new();
+  private readonly PlayerCameraLogic.Data _data = new()
   {
-    _state = new();
-    _context = _state.Test();
-    _settings = new();
-    _data = new()
-    {
-      TargetPosition = Vector3.Zero,
-      TargetAngleHorizontal = 0,
-      TargetAngleVertical = 0,
-      TargetOffset = Vector3.Zero
-    };
+    TargetPosition = Vector3.Zero,
+    TargetAngleHorizontal = 0,
+    TargetAngleVertical = 0,
+    TargetOffset = Vector3.Zero
+  };
+  private readonly Mock<IAppRepo> _appRepo = new();
+  private readonly Mock<IGameRepo> _gameRepo = new();
+  private readonly PlayerCameraLogicState.InputEnabled _state = new();
 
-    _appRepo = new();
-    _gameRepo = new();
+  public PlayerCameraLogicStateInputEnabledTest()
+  {
+    _context = _state.Test();
 
     // Automatically mock the logic block context to provide mock versions
     // of everything the state needs.
@@ -50,8 +40,7 @@ public class PlayerCameraLogicStateInputEnabledTest(GodotHeadlessFixture godot)
     _context.Set(_gameRepo.Object);
   }
 
-  [CleanupAll]
-  public void CleanupAll() => _settings.Dispose();
+  public void Dispose() => _settings.Dispose();
 
   [Fact]
   public void GoesToInputDisabled()

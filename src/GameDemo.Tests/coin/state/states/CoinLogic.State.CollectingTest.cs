@@ -5,30 +5,19 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public class CoinLogicStateCollectingTest(GodotHeadlessFixture godot)
+public class CoinLogicStateCollectingTest
 {
-  private StateTester _context = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
-  private CoinLogic.Settings _settings = default!;
-  private Mock<ICoin> _coin = default!;
-  private Mock<ICoinCollector> _target = default!;
-  private CoinLogicState.Collecting _state = default!;
-  private CoinLogic.Data _data = default!;
-  private EntityTable _entityTable = default!;
+  private readonly StateTester _context;
+  private readonly Mock<IGameRepo> _gameRepo = new();
+  private readonly CoinLogic.Settings _settings = new(1.0f);
+  private readonly Mock<ICoin> _coin = new();
+  private readonly Mock<ICoinCollector> _target = new();
+  private readonly CoinLogicState.Collecting _state = new();
+  private readonly CoinLogic.Data _data = new() { Target = "target_id" };
+  private readonly EntityTable _entityTable = new();
 
-  public CoinLogicStateCollectingTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public CoinLogicStateCollectingTest()
   {
-    _state = new();
-    _gameRepo = new();
-    _settings = new(1.0f);
-    _coin = new();
-    _target = new();
-    _data = new() { Target = "target_id" };
-    _entityTable = new();
-
     _context = _state.Test();
 
     _entityTable.Set("target_id", _target.Object);

@@ -13,29 +13,19 @@ using Shouldly;
     Justification = "Disposable fields are disposed in cleanup"
   )
 ]
-public class GameRepoTest(GodotHeadlessFixture godot)
+public class GameRepoTest : IDisposable
 {
-  private AutoValue<bool> _isMouseCaptured = default!;
-  private AutoValue<bool> _isPaused = default!;
-  private AutoValue<Vector3> _playerGlobalPosition = default!;
-  private AutoValue<Basis> _cameraBasis = default!;
-  private AutoValue<int> _numCoinsCollected = default!;
-  private AutoValue<int> _numCoinsAtStart = default!;
+  private readonly AutoValue<bool> _isMouseCaptured = new(false);
+  private readonly AutoValue<bool> _isPaused = new(false);
+  private readonly AutoValue<Vector3> _playerGlobalPosition = new(Vector3.Zero);
+  private readonly AutoValue<Basis> _cameraBasis = new(Basis.Identity);
+  private readonly AutoValue<int> _numCoinsCollected = new(0);
+  private readonly AutoValue<int> _numCoinsAtStart = new(0);
 
-  private GameRepo _repo = default!;
+  private readonly GameRepo _repo;
 
-  public GameRepoTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public GameRepoTest()
   {
-    _isMouseCaptured = new(false);
-    _isPaused = new(false);
-    _playerGlobalPosition = new(Vector3.Zero);
-    _cameraBasis = new(Basis.Identity);
-    _numCoinsCollected = new(0);
-    _numCoinsAtStart = new(0);
-
     _repo = new(
       _isMouseCaptured,
       _isPaused,
@@ -46,8 +36,7 @@ public class GameRepoTest(GodotHeadlessFixture godot)
     );
   }
 
-  [Cleanup]
-  public void Cleanup()
+  public void Dispose()
   {
     _repo.Dispose();
     _numCoinsAtStart.Dispose();

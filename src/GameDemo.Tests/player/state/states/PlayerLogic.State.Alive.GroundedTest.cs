@@ -6,29 +6,19 @@ using Godot;
 using Moq;
 using Shouldly;
 
-public partial class PlayerLogicStateAliveGroundedTest(GodotHeadlessFixture godot)
+public partial class PlayerLogicStateAliveGroundedTest
 {
   [Meta, TestState]
   public partial record TestPlayerState : PlayerLogicState.Grounded;
 
-  private StateTester _context = default!;
-  private Mock<IPlayer> _player = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private PlayerLogic.Settings _settings = default!;
-  private PlayerLogicState.Grounded _state = default!;
+  private readonly StateTester _context;
+  private readonly Mock<IPlayer> _player = new();
+  private readonly Mock<IAppRepo> _appRepo = new();
+  private readonly PlayerLogic.Settings _settings = new(1, 1, 1, 1, 1, 1, 1);
+  private readonly PlayerLogicState.Grounded _state = new TestPlayerState();
 
-  public PlayerLogicStateAliveGroundedTest(Node testScene) :
-    base(testScene)
-  { }
-
-  [Setup]
-  public void Setup()
+  public PlayerLogicStateAliveGroundedTest()
   {
-    _player = new Mock<IPlayer>();
-    _appRepo = new Mock<IAppRepo>();
-    _settings = new PlayerLogic.Settings(1, 1, 1, 1, 1, 1, 1);
-
-    _state = new TestPlayerState();
     _context = _state.Test();
 
     _context.Set(_player.Object);

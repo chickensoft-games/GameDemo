@@ -3,7 +3,6 @@ namespace GameDemo.Tests;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Chickensoft.Sync.Primitives;
-using Godot;
 using Moq;
 using Shouldly;
 
@@ -14,34 +13,26 @@ using Shouldly;
     Justification = "Disposable fields are disposed in cleanup"
   )
 ]
-public class PlayingTest(GodotHeadlessFixture godot)
+public class PlayingTest : IDisposable
 {
-  private StateTester _context = default!;
-  private GameLogicState.Playing _state = default!;
-  private Mock<IGameRepo> _gameRepo = default!;
-  private AutoValue<bool> _isMouseCaptured = default!;
-  private AutoValue<bool> _isPaused = default!;
+  private readonly StateTester _context;
+  private readonly GameLogicState.Playing _state = new();
+  private readonly Mock<IGameRepo> _gameRepo = new();
+  private readonly AutoValue<bool> _isMouseCaptured = new(true);
+  private readonly AutoValue<bool> _isPaused = new(true);
 
-  public PlayingTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public PlayingTest()
   {
-    _state = new GameLogicState.Playing();
     _context = _state.Test();
 
-    _isMouseCaptured = new(true);
-    _isPaused = new(true);
-
-    _gameRepo = new();
     _gameRepo.Setup(repo => repo.IsPaused).Returns(_isPaused);
     _gameRepo.Setup(repo => repo.IsMouseCaptured).Returns(_isMouseCaptured);
 
     _context.Set(_gameRepo.Object);
   }
 
-  [Cleanup]
-  public void Cleanup()
+
+  public void Dispose()
   {
     _isPaused.Dispose();
     _isMouseCaptured.Dispose();

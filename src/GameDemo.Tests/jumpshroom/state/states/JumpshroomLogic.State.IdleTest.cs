@@ -1,23 +1,16 @@
 namespace GameDemo.Tests;
 
-using Godot;
 using Moq;
 using Shouldly;
 
-public class JumpshroomLogicStateIdleTest(GodotHeadlessFixture godot)
+public class JumpshroomLogicStateIdleTest
 {
-  private StateTester _context = default!;
-  private Mock<IAppRepo> _appRepo = default!;
-  private JumpshroomLogicState.Idle _state = default!;
+  private readonly StateTester _context;
+  private readonly Mock<IAppRepo> _appRepo = new();
+  private readonly JumpshroomLogicState.Idle _state = new();
 
-  public JumpshroomLogicStateIdleTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup()
+  public JumpshroomLogicStateIdleTest()
   {
-    _appRepo = new Mock<IAppRepo>();
-
-    _state = new();
     _context = _state.Test();
     _context.Set(_appRepo.Object);
     _context.Set(new JumpshroomLogic.Data(30));

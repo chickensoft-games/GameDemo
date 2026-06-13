@@ -21,64 +21,44 @@ using Shouldly;
     Justification = "Disposable field is added to TestDriver fixture"
   )
 ]
-public class GameTest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public class GameTest : IDisposable
 {
-  private Fixture _fixture = default!;
-  private IAppRepo _appRepo = default!;
-  private IGameRepo _gameRepo = default!;
-  private Mock<IGameLogic> _logic = default!;
+  private readonly IAppRepo _appRepo = new AppRepo();
+  private readonly IGameRepo _gameRepo = new GameRepo();
+  private readonly Mock<IGameLogic> _logic = new();
 
-  private LogicBlock.FakeBinding _binding = default!;
+  private readonly LogicBlock.FakeBinding _binding = LogicBlock.CreateFakeBinding();
 
-  private Mock<IPlayerCamera> _playerCam = default!;
-  private Mock<IPlayer> _player = default!;
-  private Mock<IMap> _map = default!;
-  private Mock<IInGameUI> _ui = default!;
-  private Mock<IDeathMenu> _deathMenu = default!;
-  private Mock<IWinMenu> _winMenu = default!;
-  private Mock<IPauseMenu> _pauseMenu = default!;
-  private EntityTable _entityTable = default!;
-  private Mock<ISaveChunk<GameData>> _gameChunk = default!;
-  private Mock<ISaveFile<GameData>> _saveFile = default!;
-  private Mock<IFileSystem> _fileSystem = default!;
-  private JsonSerializerOptions _jsonOptions = default!;
+  private readonly Mock<IPlayerCamera> _playerCam = new();
+  private readonly Mock<IPlayer> _player = new();
+  private readonly Mock<IMap> _map = new();
+  private readonly Mock<IInGameUI> _ui = new();
+  private readonly Mock<IDeathMenu> _deathMenu = new();
+  private readonly Mock<IWinMenu> _winMenu = new();
+  private readonly Mock<IPauseMenu> _pauseMenu = new();
+  private readonly EntityTable _entityTable = new();
+  private readonly Mock<ISaveChunk<GameData>> _gameChunk = new();
+  private readonly Mock<ISaveFile<GameData>> _saveFile = new();
+  private readonly Mock<IFileSystem> _fileSystem = new();
+  private readonly JsonSerializerOptions _jsonOptions = new()
+  {
+    WriteIndented = true,
+    TypeInfoResolver = new SerializableTypeResolver(),
+    Converters = {
+      new SerializableTypeConverter(new Blackboard())
+    },
+  };
   private const string SAVE_FILE_PATH = "/game.json";
 
-  private Game _game = default!;
+  private readonly Game _game;
+  private readonly GodotHeadlessFixture _godot;
 
-  public GameTest(Node testScene) : base(testScene) { }
-
-  [SetupAll]
-  public void SetupAll() => GodotSerialization.Setup();
-
-  [Setup]
-  public async Task Setup()
+  public GameTest(GodotHeadlessFixture godot)
   {
-    _fixture = new(TestScene.GetTree());
+    GodotSerialization.Setup();
 
-    _appRepo = new AppRepo();
-    _gameRepo = new GameRepo();
-    _logic = new();
-    _binding = LogicBlock.CreateFakeBinding();
-    _playerCam = new();
-    _player = new();
-    _map = new();
-    _ui = new();
-    _deathMenu = new();
-    _winMenu = new();
-    _pauseMenu = new();
-    _entityTable = new();
-    _gameChunk = new();
-    _saveFile = new();
-    _fileSystem = new();
-    _jsonOptions = new()
-    {
-      WriteIndented = true,
-      TypeInfoResolver = new SerializableTypeResolver(),
-      Converters = {
-        new SerializableTypeConverter(new Blackboard())
-      },
-    };
+    _godot = godot;
 
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
 
@@ -120,11 +100,10 @@ public class GameTest(GodotHeadlessFixture godot)
       ["%PauseMenu"] = _pauseMenu.Object
     });
 
-    await _fixture.AddToRoot(_game);
+    _godot.Tree.Root.AddChild(_game);
   }
 
-  [Cleanup]
-  public async Task Cleanup() => await _fixture.Cleanup();
+  public void Dispose() => _game.QueueFree();
 
   [Fact]
   public void Initializes()
@@ -159,15 +138,15 @@ public class GameTest(GodotHeadlessFixture godot)
   }
 
   [Fact]
-  public async Task SetsPauseMode()
+  public void SetsPauseMode()
   {
     _game.OnResolved();
-    var tree = TestScene.GetTree();
+    var tree = _godot.Tree;
     tree.Paused.ShouldBeFalse();
 
     _binding.Output(new GameLogicState.Output.SetPauseMode(IsPaused: true));
 
-    await tree.NextFrame();
+    _godot.GodotInstance.Iteration();
 
     tree.Paused.ShouldBeTrue();
     tree.Paused = false;
@@ -286,7 +265,7 @@ public class GameTest(GodotHeadlessFixture godot)
   }
 
   [Fact]
-  public async Task SavesGame()
+  public void SavesGame()
   {
     _game.SaveFile = _saveFile.Object;
 
@@ -294,7 +273,7 @@ public class GameTest(GodotHeadlessFixture godot)
 
     _binding.Output(new GameLogicState.Output.StartSaving());
 
-    await TestScene.ProcessFrame();
+    _godot.GodotInstance.Iteration();
 
     _logic
       .Verify(logic => logic.Input(It.IsAny<GameLogicState.Input.SaveCompleted>()));
@@ -308,7 +287,7 @@ public class GameTest(GodotHeadlessFixture godot)
     );
     Input.ActionPress("ui_cancel");
 
-    _game._Input(default!);
+    _game._Input(null!);
 
     _logic.VerifyAll();
   }
@@ -395,14 +374,14 @@ public class GameTest(GodotHeadlessFixture godot)
     var playerData = new PlayerData()
     {
       GlobalTransform = Transform3D.Identity,
-      StateMachine = default!,
+      StateMachine = null!,
       Velocity = Vector3.Zero
     };
 
     var playerCameraData = new PlayerCameraData()
     {
       GlobalTransform = Transform3D.Identity,
-      StateMachine = default!,
+      StateMachine = null!,
       LocalPosition = Vector3.Zero,
       OffsetPosition = Vector3.Zero
     };
@@ -435,14 +414,14 @@ public class GameTest(GodotHeadlessFixture godot)
     var playerData = new PlayerData()
     {
       GlobalTransform = Transform3D.Identity,
-      StateMachine = default!,
+      StateMachine = null!,
       Velocity = Vector3.Zero
     };
 
     var playerCameraData = new PlayerCameraData()
     {
       GlobalTransform = Transform3D.Identity,
-      StateMachine = default!,
+      StateMachine = null!,
       LocalPosition = Vector3.Zero,
       OffsetPosition = Vector3.Zero
     };
@@ -487,7 +466,7 @@ public class GameTest(GodotHeadlessFixture godot)
 
     file
       .Setup(f => f.WriteAllTextAsync(
-        SAVE_FILE_PATH, It.IsAny<string>(), default
+        SAVE_FILE_PATH, It.IsAny<string>(), CancellationToken.None
       ))
       .Returns(Task.CompletedTask);
 
@@ -504,7 +483,7 @@ public class GameTest(GodotHeadlessFixture godot)
 
     file.Setup(f => f.Exists(SAVE_FILE_PATH)).Returns(true);
 
-    file.Setup(f => f.ReadAllTextAsync(SAVE_FILE_PATH, default))
+    file.Setup(f => f.ReadAllTextAsync(SAVE_FILE_PATH, CancellationToken.None))
       .ReturnsAsync(
         JsonSerializer.Serialize(TestSaveData.GameData, _jsonOptions)
       );
@@ -517,7 +496,7 @@ public class GameTest(GodotHeadlessFixture godot)
   }
 
   [Fact]
-  public async Task LoadExistingGameWorks()
+  public void LoadExistingGameWorks()
   {
     _saveFile.Reset();
     _saveFile.Setup(s => s.Load()).Returns(Task.CompletedTask);
@@ -526,7 +505,7 @@ public class GameTest(GodotHeadlessFixture godot)
 
     _game.LoadExistingGame();
 
-    await TestScene.ProcessFrame();
+    _godot.GodotInstance.Iteration();
 
     _saveFile.VerifyAll();
   }

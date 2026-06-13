@@ -1,7 +1,6 @@
 namespace GameDemo.Tests;
 
 using System.Diagnostics.CodeAnalysis;
-using Godot;
 using Moq;
 using Shouldly;
 
@@ -12,14 +11,10 @@ using Shouldly;
     Justification = "Disposable field is a Godot object; Godot will dispose"
   )
 ]
-public partial class DeathPlaneTest(GodotHeadlessFixture godot)
+[Collection("GodotHeadless")]
+public partial class DeathPlaneTest
 {
-  private DeathPlane _plane = default!;
-
-  public DeathPlaneTest(Node testScene) : base(testScene) { }
-
-  [Setup]
-  public void Setup() => _plane = new();
+  private readonly DeathPlane _plane = new();
 
   [Fact]
   public void InitializesAndCleansUp() => Should.NotThrow(() =>
