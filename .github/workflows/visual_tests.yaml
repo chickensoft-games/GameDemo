@@ -67,7 +67,7 @@ jobs:
           version: src/GameDemo/global.json
 
       - name: 🧑‍🔬 Generate .NET Bindings
-        run: godot --headless --build-solutions --quit
+        run: godot --path ./src/GameDemo --headless --build-solutions --quit
 
       - name: 🧑‍🔬 Run Tests in Godot
         run: |
