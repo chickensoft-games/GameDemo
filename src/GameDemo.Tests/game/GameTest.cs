@@ -21,7 +21,7 @@ using Shouldly;
     Justification = "Disposable field is added to TestDriver fixture"
   )
 ]
-[Collection(Constants.HEADLESS)]
+[Collection(Constants.GODOT)]
 public class GameTest : IDisposable
 {
   private readonly IAppRepo _appRepo = new AppRepo();
@@ -52,9 +52,9 @@ public class GameTest : IDisposable
   private const string SAVE_FILE_PATH = "/game.json";
 
   private readonly Game _game;
-  private readonly GodotHeadlessFixture _godot;
+  private readonly GodotFixture _godot;
 
-  public GameTest(GodotHeadlessFixture godot)
+  public GameTest(GodotFixture godot)
   {
     GodotSerialization.Setup();
 
@@ -156,7 +156,7 @@ public class GameTest : IDisposable
     tree.Paused = false;
   }
 
-  [Fact(Skip = "Temporarily disabled due to Input.MouseMode not changing")]
+  [Fact]
   public void CapturesMouse()
   {
     _game.OnResolved();
