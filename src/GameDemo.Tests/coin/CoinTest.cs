@@ -17,7 +17,7 @@ using Shouldly;
     Justification = "Disposable field is a Godot object; Godot will dispose"
   )
 ]
-[Collection("GodotHeadless")]
+[Collection(Constants.Headless)]
 public partial class CoinTest
 {
   private readonly GodotHeadlessFixture _godot;

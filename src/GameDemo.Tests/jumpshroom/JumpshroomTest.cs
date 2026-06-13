@@ -15,7 +15,7 @@ using Shouldly;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-[Collection("GodotHeadless")]
+[Collection(Constants.Headless)]
 public partial class JumpshroomTest
 {
   public partial class FakePushEnabled : Node3D, IPushEnabled

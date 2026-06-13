@@ -13,7 +13,7 @@ using Moq;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-[Collection("GodotHeadless")]
+[Collection(Constants.Headless)]
 public class SplashTest
 {
   private readonly Mock<IAppRepo> _appRepo = new();

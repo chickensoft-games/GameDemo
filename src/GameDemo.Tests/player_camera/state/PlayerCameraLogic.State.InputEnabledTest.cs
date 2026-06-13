@@ -12,7 +12,7 @@ using Shouldly;
     Justification = "Disposable field is disposed in cleanup"
   )
 ]
-[Collection("GodotHeadless")]
+[Collection(Constants.Headless)]
 public class PlayerCameraLogicStateInputEnabledTest : IDisposable
 {
   private readonly StateTester _context;

@@ -3,7 +3,7 @@ namespace GameDemo.Tests;
 using Godot;
 using Shouldly;
 
-[Collection("GodotHeadless")]
+[Collection(Constants.Headless)]
 public class InstantiatorTest(GodotHeadlessFixture godot)
 {
   [Fact]

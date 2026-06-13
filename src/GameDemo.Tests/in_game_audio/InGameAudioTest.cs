@@ -14,7 +14,7 @@ using Shouldly;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-[Collection("GodotHeadless")]
+[Collection(Constants.Headless)]
 public class InGameAudioTest
 {
   private readonly Mock<IAppRepo> _appRepo = new();

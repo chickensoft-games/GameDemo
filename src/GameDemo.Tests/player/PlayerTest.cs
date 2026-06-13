@@ -16,7 +16,7 @@ using Shouldly;
     Justification = "Disposable field is added to TestDriver fixture"
   )
 ]
-[Collection("GodotHeadless")]
+[Collection(Constants.Headless)]
 public class PlayerTest : IDisposable
 {
   private readonly IAppRepo _appRepo = new AppRepo();

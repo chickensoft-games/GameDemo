@@ -13,7 +13,7 @@ using Shouldly;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-[Collection("GodotHeadless")]
+[Collection(Constants.Headless)]
 public class MenuTest
 {
   private readonly Mock<IButton> _newGameButton = new();

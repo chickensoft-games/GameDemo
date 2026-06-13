@@ -10,7 +10,7 @@ using Shouldly;
     Justification = "Disposable field is added to TestDriver fixture"
   )
 ]
-[Collection("GodotHeadless")]
+[Collection(Constants.Headless)]
 public class DimmableAudioStreamPlayerTest : IDisposable
 {
   private readonly DimmableAudioStreamPlayer _player = new();

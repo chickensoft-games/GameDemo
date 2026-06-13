@@ -16,7 +16,7 @@ using Shouldly;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-[Collection("GodotHeadless")]
+[Collection(Constants.Headless)]
 public class PlayerModelTest
 {
   private readonly Mock<IPlayerLogic> _playerLogic = new();

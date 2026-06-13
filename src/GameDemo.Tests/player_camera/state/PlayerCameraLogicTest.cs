@@ -5,7 +5,7 @@ using Godot;
 using Moq;
 using Shouldly;
 
-[Collection("GodotHeadless")]
+[Collection(Constants.Headless)]
 public class PlayerCameraLogicTest : IDisposable
 {
   private readonly PlayerCameraLogic _logic = new();
