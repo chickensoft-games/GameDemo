@@ -14,13 +14,13 @@ using Shouldly;
 public class GameLogicTest : IDisposable
 {
   private readonly GameLogic _logic = new();
-  private readonly IGameRepo _gameRepo = new GameRepo();
-  private readonly IAppRepo _appRepo = new AppRepo();
+  private readonly GameRepo _gameRepo = new();
+  private readonly AppRepo _appRepo = new();
 
   public GameLogicTest()
   {
-    _logic.Set(_gameRepo);
-    _logic.Set(_appRepo);
+    _logic.Set<IGameRepo>(_gameRepo);
+    _logic.Set<IAppRepo>(_appRepo);
   }
 
   public void Dispose()
@@ -28,6 +28,7 @@ public class GameLogicTest : IDisposable
     _logic.Stop();
     _gameRepo.Dispose();
     _appRepo.Dispose();
+    GC.SuppressFinalize(this);
   }
 
   [Fact]

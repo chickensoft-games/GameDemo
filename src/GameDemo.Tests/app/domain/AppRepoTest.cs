@@ -13,7 +13,11 @@ using Shouldly;
 public class AppRepoTest : IDisposable
 {
   private readonly AppRepo _repo = new();
-  public void Dispose() => _repo.Dispose();
+  public void Dispose()
+  {
+    _repo.Dispose();
+    GC.SuppressFinalize(this);
+  }
 
   [Fact]
   public void Initializes()

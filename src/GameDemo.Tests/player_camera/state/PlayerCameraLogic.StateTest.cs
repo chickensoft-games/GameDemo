@@ -12,7 +12,7 @@ using Shouldly;
     Justification = "Disposable field is disposed in cleanup"
   )
 ]
-[Collection(Constants.Headless)]
+[Collection(Constants.HEADLESS)]
 public class PlayerCameraLogicStateTest : IDisposable
 {
   private readonly Mock<IPlayerCamera> _camera = new();
@@ -40,7 +40,11 @@ public class PlayerCameraLogicStateTest : IDisposable
     _context.Set(_data);
   }
 
-  public void Dispose() => _settings.Dispose();
+  public void Dispose()
+  {
+    _settings.Dispose();
+    GC.SuppressFinalize(this);
+  }
 
   [Fact]
   public void OnCameraTargetOffsetChanged()

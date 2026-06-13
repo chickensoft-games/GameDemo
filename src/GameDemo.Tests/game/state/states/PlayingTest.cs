@@ -36,6 +36,7 @@ public class PlayingTest : IDisposable
   {
     _isPaused.Dispose();
     _isMouseCaptured.Dispose();
+    GC.SuppressFinalize(this);
   }
 
   [Fact]

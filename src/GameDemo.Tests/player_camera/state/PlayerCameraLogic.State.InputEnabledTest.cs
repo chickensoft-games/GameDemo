@@ -12,7 +12,7 @@ using Shouldly;
     Justification = "Disposable field is disposed in cleanup"
   )
 ]
-[Collection(Constants.Headless)]
+[Collection(Constants.HEADLESS)]
 public class PlayerCameraLogicStateInputEnabledTest : IDisposable
 {
   private readonly StateTester _context;
@@ -40,7 +40,11 @@ public class PlayerCameraLogicStateInputEnabledTest : IDisposable
     _context.Set(_gameRepo.Object);
   }
 
-  public void Dispose() => _settings.Dispose();
+  public void Dispose()
+  {
+    _settings.Dispose();
+    GC.SuppressFinalize(this);
+  }
 
   [Fact]
   public void GoesToInputDisabled()

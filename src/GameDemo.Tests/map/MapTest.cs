@@ -17,7 +17,7 @@ using Shouldly;
     Justification = "Disposable field is Godot object; Godot will dispose"
   )
 ]
-[Collection(Constants.Headless)]
+[Collection(Constants.HEADLESS)]
 public class MapTest
 {
   private readonly Mock<INode3D> _coins = new();

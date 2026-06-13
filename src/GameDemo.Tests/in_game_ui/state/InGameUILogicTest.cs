@@ -34,6 +34,7 @@ public class InGameUILogicTest : IDisposable
 
     _numCoinsCollected.Dispose();
     _numCoinsAtStart.Dispose();
+    GC.SuppressFinalize(this);
   }
 
   [Fact]

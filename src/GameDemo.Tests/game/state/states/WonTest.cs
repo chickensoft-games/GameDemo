@@ -21,7 +21,7 @@ public class WonTest
   public void OnEnter()
   {
     _state.Enter();
-    _context.Outputs.First().ShouldBeOfType<GameLogicState.Output.ShowWonScreen>();
+    _context.Outputs[0].ShouldBeOfType<GameLogicState.Output.ShowWonScreen>();
   }
 
   [Fact]

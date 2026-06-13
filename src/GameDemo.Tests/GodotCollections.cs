@@ -1,13 +1,13 @@
 namespace GameDemo.Tests;
 
-public class Constants
+public static class Constants
 {
-  public const string Headless = "GodotHeadless";
-  public const string Godot = "Godot";
+  public const string HEADLESS = "GodotHeadless";
+  public const string GODOT = "Godot";
 }
 
-[CollectionDefinition(Constants.Headless, DisableParallelization = true)]
+[CollectionDefinition(Constants.HEADLESS, DisableParallelization = true)]
 public class GodotHeadlessCollection : ICollectionFixture<GodotHeadlessFixture>;
 
-[CollectionDefinition(Constants.Godot, DisableParallelization = true)]
+[CollectionDefinition(Constants.GODOT, DisableParallelization = true)]
 public class GodotCollection : ICollectionFixture<GodotFixture>;

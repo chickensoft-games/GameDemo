@@ -4,7 +4,7 @@ using Chickensoft.Collections;
 using Moq;
 using Shouldly;
 
-[Collection(Constants.Headless)]
+[Collection(Constants.HEADLESS)]
 public class CoinLogicStateIdleTest
 {
   private readonly StateTester _context;

@@ -10,7 +10,7 @@ using Shouldly;
     Justification = "Disposable field is added to TestDriver fixture"
   )
 ]
-[Collection(Constants.Headless)]
+[Collection(Constants.HEADLESS)]
 public class DimmableAudioStreamPlayerTest : IDisposable
 {
   private readonly DimmableAudioStreamPlayer _player = new();
@@ -24,6 +24,7 @@ public class DimmableAudioStreamPlayerTest : IDisposable
   {
     _player.QueueFree();
     _player.Dispose();
+    GC.SuppressFinalize(this);
   }
 
   [Fact]

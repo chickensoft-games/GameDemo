@@ -5,7 +5,7 @@ using Godot;
 using Moq;
 using Shouldly;
 
-[Collection(Constants.Headless)]
+[Collection(Constants.HEADLESS)]
 public class PlayerCameraLogicTest : IDisposable
 {
   private readonly PlayerCameraLogic _logic = new();
@@ -37,6 +37,7 @@ public class PlayerCameraLogicTest : IDisposable
     _logic.Stop();
     _isMouseCaptured.Dispose();
     _playerGlobalPosition.Dispose();
+    GC.SuppressFinalize(this);
   }
 
   [Fact]

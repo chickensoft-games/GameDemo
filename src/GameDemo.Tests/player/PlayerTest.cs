@@ -16,7 +16,7 @@ using Shouldly;
     Justification = "Disposable field is added to TestDriver fixture"
   )
 ]
-[Collection(Constants.Headless)]
+[Collection(Constants.HEADLESS)]
 public class PlayerTest : IDisposable
 {
   private readonly IAppRepo _appRepo = new AppRepo();
@@ -66,7 +66,11 @@ public class PlayerTest : IDisposable
     godot.Tree.Root.AddChild(_player);
   }
 
-  public void Dispose() => _player.QueueFree();
+  public void Dispose()
+  {
+    _player.QueueFree();
+    GC.SuppressFinalize(this);
+  }
 
   [Fact]
   public void Initializes()

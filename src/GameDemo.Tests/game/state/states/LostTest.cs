@@ -17,7 +17,7 @@ public class LostTest
   public void OnEnter()
   {
     _state.Enter();
-    _context.Outputs.First().ShouldBeOfType<GameLogicState.Output.ShowLostScreen>();
+    _context.Outputs[0].ShouldBeOfType<GameLogicState.Output.ShowLostScreen>();
   }
 
   [Fact]

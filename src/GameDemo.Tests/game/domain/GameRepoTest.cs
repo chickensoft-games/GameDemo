@@ -45,6 +45,7 @@ public class GameRepoTest : IDisposable
     _playerGlobalPosition.Dispose();
     _isPaused.Dispose();
     _isMouseCaptured.Dispose();
+    GC.SuppressFinalize(this);
   }
 
   [Fact]

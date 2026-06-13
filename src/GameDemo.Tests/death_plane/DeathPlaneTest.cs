@@ -11,7 +11,7 @@ using Shouldly;
     Justification = "Disposable field is a Godot object; Godot will dispose"
   )
 ]
-[Collection(Constants.Headless)]
+[Collection(Constants.HEADLESS)]
 public partial class DeathPlaneTest
 {
   private readonly DeathPlane _plane = new();

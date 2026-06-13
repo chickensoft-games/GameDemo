@@ -3,7 +3,7 @@ namespace GameDemo.Tests;
 using Moq;
 using Shouldly;
 
-[Collection(Constants.Headless)]
+[Collection(Constants.HEADLESS)]
 public class MapLogicStateTest
 {
   private readonly StateTester _context;
