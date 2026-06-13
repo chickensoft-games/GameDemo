@@ -59,7 +59,7 @@ public class AppTest
   [Fact]
   public void Initializes()
   {
-    // Naturally, the app controls alot of systems (mostly menus), so there's
+    // Naturally, the app controls a lot of systems (mostly menus), so there's
     // quite a bit of setup to verify.
 
     _app.AppBinding = _binding;
