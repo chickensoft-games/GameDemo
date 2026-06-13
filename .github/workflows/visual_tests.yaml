@@ -38,7 +38,7 @@ jobs:
         uses: actions/setup-dotnet@v5
         with:
           # Use the .NET SDK from global.json in the root of the repository.
-          global-json-file: global.json
+          global-json-file: src/GameDemo/global.json
 
       - name: 📦 Restore Dependencies
         run: dotnet restore
@@ -64,14 +64,14 @@ jobs:
           #
           # This allows checks on renovatebot PR's to succeed whenever
           # renovatebot updates the Godot SDK version.
-          version: global.json
+          version: src/GameDemo/global.json
 
       - name: 🧑‍🔬 Generate .NET Bindings
-        run: godot --headless --build-solutions --quit
+        run: godot --path ./src/GameDemo --headless --build-solutions --quit
 
-      - name: 🌋 Run Tests in Godot
+      - name: 🧑‍🔬 Run Tests in Godot
         run: |
-          xvfb-run godot --audio-driver Dummy --rendering-driver ${{ matrix.render-driver }} --run-tests --quit-on-finish
+          xvfb-run dotnet test
 
           # The --coverage flag is used by GoDotTest to control the exit code
           # of Godot by force-exiting through C#.

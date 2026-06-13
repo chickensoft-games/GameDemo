@@ -1,0 +1,164 @@
+[gd_scene format=3 uid="uid://c6hf4ibwmd31r"]
+
+[ext_resource type="PackedScene" uid="uid://20qwxeyklyrk" path="res://player/visuals/chicken/chicken.tscn" id="1_02lhe"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yw24n"]
+animation = &"blink"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_o63jc"]
+mix_mode = 1
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_rphh0"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ygu4l"]
+animation = &"walk_lean_L"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oeog2"]
+animation = &"walk_lean_R"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_4huun"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_ygu4l")
+blend_point_0/pos = 1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_oeog2")
+blend_point_1/pos = -1.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jggj0"]
+animation = &"fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_aoase"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8po4y"]
+animation = &"jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_22dnn"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_hjrsp"]
+graph_offset = Vector2(-576, -14)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_22dnn")
+nodes/Animation/position = Vector2(-140, 120)
+node_connections = [&"output", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xv858"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_v430u"]
+graph_offset = Vector2(-251, 48)
+nodes/output/position = Vector2(740, 140)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_xv858")
+nodes/Animation/position = Vector2(260, 110)
+node_connections = [&"output", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_reib3"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ueton"]
+xfade_time = 0.2
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8c50i"]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_w6cjs"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ukwrb"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6qfy3"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_orcnw"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0mheb"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7wo34"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i44gn"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h7vjx"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wyh3w"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_43j38"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2xc1m"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uns2n"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_knmse"]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_w8vh2"]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_gqlm7"]
+states/End/position = Vector2(1032.5, 51.5)
+states/Start/position = Vector2(72, 106.5)
+states/fall/node = SubResource("AnimationNodeAnimation_jggj0")
+states/fall/position = Vector2(744.5, 429)
+states/idle/node = SubResource("AnimationNodeAnimation_aoase")
+states/idle/position = Vector2(300.25, 126.125)
+states/jump/node = SubResource("AnimationNodeAnimation_8po4y")
+states/jump/position = Vector2(273, 406.5)
+states/run/node = SubResource("AnimationNodeBlendTree_hjrsp")
+states/run/position = Vector2(925.75, 124.812)
+states/walk/node = SubResource("AnimationNodeBlendTree_v430u")
+states/walk/position = Vector2(673.5, -12.5)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_reib3"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_ueton"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_8c50i"), "fall", "idle", SubResource("AnimationNodeStateMachineTransition_w6cjs"), "idle", "fall", SubResource("AnimationNodeStateMachineTransition_ukwrb"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_6qfy3"), "walk", "run", SubResource("AnimationNodeStateMachineTransition_orcnw"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_0mheb"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_7wo34"), "run", "walk", SubResource("AnimationNodeStateMachineTransition_i44gn"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_h7vjx"), "walk", "fall", SubResource("AnimationNodeStateMachineTransition_wyh3w"), "fall", "walk", SubResource("AnimationNodeStateMachineTransition_43j38"), "run", "fall", SubResource("AnimationNodeStateMachineTransition_2xc1m"), "fall", "run", SubResource("AnimationNodeStateMachineTransition_uns2n"), "walk", "jump", SubResource("AnimationNodeStateMachineTransition_knmse"), "run", "jump", SubResource("AnimationNodeStateMachineTransition_w8vh2")]
+graph_offset = Vector2(-243, -286)
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ltym2"]
+graph_offset = Vector2(-617.813, -99.2816)
+nodes/output/position = Vector2(680, 120)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_yw24n")
+nodes/Animation/position = Vector2(140, 320)
+nodes/BlinkShot/node = SubResource("AnimationNodeOneShot_o63jc")
+nodes/BlinkShot/position = Vector2(360, 110)
+nodes/LeanAdd/node = SubResource("AnimationNodeAdd2_rphh0")
+nodes/LeanAdd/position = Vector2(110, 30)
+nodes/LeanDirectionBlend/node = SubResource("AnimationNodeBlendSpace1D_4huun")
+nodes/LeanDirectionBlend/position = Vector2(-140, 320)
+nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_gqlm7")
+nodes/StateMachine/position = Vector2(-250, 100)
+node_connections = [&"output", 0, &"BlinkShot", &"BlinkShot", 0, &"LeanAdd", &"BlinkShot", 1, &"Animation", &"LeanAdd", 0, &"StateMachine", &"LeanAdd", 1, &"LeanDirectionBlend"]
+
+[node name="PlayerModel" type="Node3D" unique_id=712158189]
+
+[node name="VisualRoot" type="Node3D" parent="." unique_id=356427241]
+unique_name_in_owner = true
+
+[node name="CenterRoot" type="Node3D" parent="VisualRoot" unique_id=211787138]
+unique_name_in_owner = true
+
+[node name="chicken" parent="VisualRoot/CenterRoot" unique_id=1407695323 instance=ExtResource("1_02lhe")]
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=919238559]
+unique_name_in_owner = true
+root_node = NodePath("%CenterRoot/chicken")
+tree_root = SubResource("AnimationNodeBlendTree_ltym2")
+advance_expression_base_node = NodePath("../VisualRoot/CenterRoot/chicken/AnimationPlayer")
+anim_player = NodePath("../VisualRoot/CenterRoot/chicken/AnimationPlayer")
+parameters/BlinkShot/active = false
+parameters/BlinkShot/internal_active = false
+parameters/BlinkShot/request = 0
+parameters/LeanAdd/add_amount = 1.0
+parameters/LeanDirectionBlend/blend_position = 0.0
+
+[node name="BlinkTimer" type="Timer" parent="." unique_id=908723057]
+unique_name_in_owner = true
+wait_time = 5.0
+autostart = true
+
+[editable path="VisualRoot/CenterRoot/chicken"]

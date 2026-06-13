@@ -1,0 +1,132 @@
+namespace GameDemo.Tests;
+
+using Chickensoft.Sync.Primitives;
+using Godot;
+using Moq;
+using Shouldly;
+
+[Collection(Constants.HEADLESS)]
+public class PlayerCameraLogicTest : IDisposable
+{
+  private readonly PlayerCameraLogic _logic = new();
+  private readonly AutoValue<bool> _isMouseCaptured = new(false);
+  private readonly AutoValue<Vector3> _playerGlobalPosition = new(Vector3.Zero);
+  private readonly PlayerCameraSettings _settings = new();
+  private readonly Mock<IGameRepo> _gameRepo = new();
+  private readonly Mock<IPlayerCamera> _camera = new();
+
+  public PlayerCameraLogicTest()
+  {
+    _gameRepo.Setup(repo => repo.IsMouseCaptured).Returns(_isMouseCaptured);
+    _gameRepo.Setup(repo => repo.PlayerGlobalPosition).Returns(_playerGlobalPosition);
+
+    _logic.Set(_camera.Object);
+    _logic.Set(_gameRepo.Object);
+    _logic.Set(_settings);
+    _logic.Set(new PlayerCameraLogic.Data
+    {
+      TargetPosition = Vector3.Zero,
+      TargetAngleHorizontal = 0f,
+      TargetAngleVertical = 0f,
+      TargetOffset = Vector3.Zero
+    });
+  }
+
+  public void Dispose()
+  {
+    _logic.Stop();
+    _isMouseCaptured.Dispose();
+    _playerGlobalPosition.Dispose();
+    GC.SuppressFinalize(this);
+  }
+
+  [Fact]
+  public void Initializes()
+  {
+    // Make sure the camera logic block sets up the blackboard with
+    // everything the states will need to use.
+    var data = new PlayerCameraLogic.Data()
+    {
+      TargetPosition = Vector3.Zero,
+      TargetAngleHorizontal = 0,
+      TargetAngleVertical = 0,
+      TargetOffset = Vector3.Zero
+    };
+
+    data.TargetPosition.ShouldBe(Vector3.Zero);
+    data.TargetAngleHorizontal.ShouldBe(0f);
+    data.TargetAngleVertical.ShouldBe(0f);
+    data.TargetOffset.ShouldBe(Vector3.Zero);
+
+    // Test outputs
+    var gimbalRotationChanged =
+      new PlayerCameraLogicState.Output.GimbalRotationChanged(
+        Vector3.Zero, Vector3.Zero
+      );
+    gimbalRotationChanged.GimbalRotationHorizontal.ShouldBe(Vector3.Zero);
+    gimbalRotationChanged.GimbalRotationVertical.ShouldBe(Vector3.Zero);
+
+    var globalTransformChanged =
+      new PlayerCameraLogicState.Output.GlobalTransformChanged(Transform3D.Identity);
+    globalTransformChanged.GlobalTransform.ShouldBe(Transform3D.Identity);
+
+    var cameraLocalPositionChanged =
+      new PlayerCameraLogicState.Output.CameraLocalPositionChanged(Vector3.Zero);
+    cameraLocalPositionChanged.CameraLocalPosition.ShouldBe(Vector3.Zero);
+
+    var cameraOffsetChanged =
+      new PlayerCameraLogicState.Output.CameraOffsetChanged(Vector3.Zero);
+    cameraOffsetChanged.Offset.ShouldBe(Vector3.Zero);
+  }
+
+  [Fact]
+  public void SubscribesToMouseCaptured()
+  {
+    _logic.Start<PlayerCameraLogicState.InputDisabled>();
+
+    _logic.State.ShouldBeOfType<PlayerCameraLogicState.InputDisabled>();
+
+    _isMouseCaptured.Value = true;
+    _logic.State.ShouldBeOfType<PlayerCameraLogicState.InputEnabled>();
+
+    _isMouseCaptured.Value = false;
+    _logic.State.ShouldBeOfType<PlayerCameraLogicState.InputDisabled>();
+  }
+
+  [Fact]
+  public void SubscribesToPlayerGlobalPosition()
+  {
+    _logic.Start<PlayerCameraLogicState.InputDisabled>();
+
+    var targetPos = new Vector3(10, 0, 10);
+    _playerGlobalPosition.Value = targetPos;
+
+    _camera.Setup(c => c.GimbalRotationHorizontal).Returns(Vector3.Zero);
+    _camera.Setup(c => c.GimbalRotationVertical).Returns(Vector3.Zero);
+    _camera.Setup(c => c.GlobalTransform).Returns(Transform3D.Identity);
+    _camera.Setup(c => c.CameraLocalPosition).Returns(Vector3.Zero);
+    _camera.Setup(c => c.OffsetPosition).Returns(Vector3.Zero);
+    _camera.Setup(c => c.SpringArmTargetPosition).Returns(Vector3.Zero);
+    _camera.Setup(c => c.Offset).Returns(Vector3.Zero);
+    _camera.Setup(c => c.CameraBasis).Returns(Basis.Identity);
+
+    using var binding = _logic.Bind();
+    PlayerCameraLogicState.Output.GlobalTransformChanged? lastOutput = null;
+
+    binding.OnOutput(
+      (in PlayerCameraLogicState.Output.GlobalTransformChanged o) => lastOutput = o
+    );
+
+    _logic.Input(new PlayerCameraLogicState.Input.PhysicsTicked(1.0));
+
+    lastOutput.ShouldNotBeNull();
+    lastOutput.Value.GlobalTransform.Origin.ShouldNotBe(Vector3.Zero);
+  }
+
+  [Fact]
+  public void OnStopWithoutStartSucceeds()
+  {
+    var logic = new PlayerCameraLogic();
+    logic.OnStop();
+  }
+}

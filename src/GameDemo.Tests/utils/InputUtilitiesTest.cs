@@ -1,0 +1,75 @@
+namespace GameDemo.Tests;
+
+using Godot;
+using Shouldly;
+
+[Collection(Constants.HEADLESS)]
+public class InputUtilitiesTest
+{
+  private readonly float _deadZoneX = InputMap.ActionGetDeadzone("camera_right");
+  private readonly float _deadZoneY = InputMap.ActionGetDeadzone("camera_down");
+
+  [Fact]
+  public void NotTriggerJoyPadWhenAxisIsNotPressed()
+  {
+    Input.UseAccumulatedInput = false;
+
+    Input.ActionRelease("camera_left");
+    Input.ActionRelease("camera_right");
+
+    var xMotion = InputUtilities.GetJoyPadActionPressedMotion(
+      "camera_left", "camera_right", JoyAxis.RightX
+    );
+
+    Input.ActionRelease("camera_up");
+    Input.ActionRelease("camera_down");
+    var yMotion = InputUtilities.GetJoyPadActionPressedMotion(
+      "camera_up", "camera_down", JoyAxis.RightY
+    );
+
+    xMotion.ShouldBeNull();
+    yMotion.ShouldBeNull();
+  }
+
+  [Fact]
+  public void TriggerJoyPadWhenAxisIsPressed()
+  {
+    //up and left are always negative
+    //down and right are always positive
+
+    Input.ActionPress("camera_right", 0.8f);
+    var xMotion = InputUtilities.GetJoyPadActionPressedMotion(
+      "camera_left", "camera_right", JoyAxis.RightX
+    );
+    xMotion?.AxisValue.ShouldBe(0.8f);
+
+    Input.ActionPress("camera_down", 0.6f);
+    System.Console.WriteLine($"Worked? {Input.GetActionStrength("camera_up")}");
+    var yMotion = InputUtilities.GetJoyPadActionPressedMotion(
+      "camera_up", "camera_down", JoyAxis.RightY
+    );
+    yMotion?.AxisValue.ShouldBe(0.6f);
+  }
+
+  [Fact]
+  public void NotTriggerJoyPadWhenAxisIsPressedInDeadZone()
+  {
+    Input.ActionRelease("camera_left");
+    Input.ActionPress("camera_right", _deadZoneX - 0.1f);
+
+    var xMotion = InputUtilities.GetJoyPadActionPressedMotion(
+      "camera_left", "camera_right", JoyAxis.RightX
+    );
+    Input.ActionRelease("camera_right");
+
+    Input.ActionRelease("camera_up");
+    Input.ActionPress("camera_down", _deadZoneY - 0.1f);
+    var yMotion = InputUtilities.GetJoyPadActionPressedMotion(
+      "camera_up", "camera_down", JoyAxis.RightY
+    );
+    Input.ActionRelease("camera_down");
+
+    xMotion.ShouldBeNull();
+    yMotion.ShouldBeNull();
+  }
+}

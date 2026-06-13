@@ -1,0 +1,311 @@
+namespace GameDemo.Tests;
+
+using System.Diagnostics.CodeAnalysis;
+using Chickensoft.AutoInject;
+using Chickensoft.GodotNodeInterfaces;
+using Chickensoft.LogicBlocks;
+using Godot;
+using Moq;
+using Shouldly;
+
+[
+  SuppressMessage(
+    "Design",
+    "CA1001",
+    Justification = "Disposable field is a Godot object; Godot will dispose"
+  )
+]
+[Collection(Constants.HEADLESS)]
+public class AppTest
+{
+  private readonly GodotHeadlessFixture _godot;
+  private readonly App _app;
+  private readonly Mock<IAppRepo> _appRepo = new();
+  private readonly Mock<IAppLogic> _logic = new();
+
+  private readonly LogicBlock.FakeBinding _binding = LogicBlock.CreateFakeBinding();
+
+  private readonly Mock<IInstantiator> _instantiator = new();
+  private readonly Mock<IGame> _game = new();
+  private readonly Mock<IMenu> _menu = new();
+  private readonly Mock<ISubViewport> _gamePreview = new();
+  private readonly Mock<IColorRect> _blankScreen = new();
+  private readonly Mock<IAnimationPlayer> _animationPlayer = new();
+  private readonly Mock<ISplash> _splash = new();
+
+  public AppTest(GodotHeadlessFixture godot)
+  {
+    _godot = godot;
+
+    _app = new()
+    {
+      AppRepo = _appRepo.Object,
+      AppLogic = _logic.Object,
+      Game = _game.Object,
+      Instantiator = _instantiator.Object,
+      Menu = _menu.Object,
+      GamePreview = _gamePreview.Object,
+      BlankScreen = _blankScreen.Object,
+      AnimationPlayer = _animationPlayer.Object,
+      Splash = _splash.Object
+    };
+
+    (_app as IAutoInit).IsTesting = true;
+
+    _logic.Setup(logic => logic.Bind()).Returns(_binding);
+    _logic.Setup(logic => logic.Start<AppLogicState.SplashScreen>(true));
+  }
+
+  [Fact]
+  public void Initializes()
+  {
+    // Naturally, the app controls a lot of systems (mostly menus), so there's
+    // quite a bit of setup to verify.
+
+    _app.AppBinding = _binding;
+
+    _app.Initialize();
+
+    _app.Instantiator.ShouldBeOfType<Instantiator>();
+    _app.AppRepo.ShouldBeOfType<AppRepo>();
+    _app.AppLogic.ShouldBeOfType<AppLogic>();
+
+    _menu.VerifyAdd(menu => menu.NewGame += _app.OnNewGame);
+
+    _animationPlayer.VerifyAdd(
+      player => player.AnimationFinished += _app.OnAnimationFinished
+    );
+
+    // Make sure the app provides dependency values to its descendants.
+    (_app as IProvider).ProviderState.IsInitialized.ShouldBeTrue();
+    (_app as IProvide<IAppRepo>).Value().ShouldBe(_app.AppRepo);
+
+    // Make sure it cleans everything up.
+
+    _app.OnExitTree();
+
+    _menu.VerifyRemove(menu => menu.NewGame -= _app.OnNewGame);
+
+    _animationPlayer.VerifyRemove(
+      player => player.AnimationFinished -= _app.OnAnimationFinished
+    );
+
+    _app._Notification(-1);
+  }
+
+  [Fact]
+  public void ShowsSplashScreen()
+  {
+    SetupHideMenus();
+    _blankScreen.Setup(blank => blank.Hide());
+    _splash.Setup(splash => splash.Show());
+
+    _app.OnReady();
+
+    _binding.Output(new AppLogicState.Output.ShowSplashScreen());
+
+    _blankScreen.VerifyAll();
+    _splash.VerifyAll();
+  }
+
+  [Fact]
+  public void HidesSplashScreen()
+  {
+    _blankScreen.Setup(blank => blank.Show());
+    SetupFadeOut();
+
+    _app.OnReady();
+
+    _binding.Output(new AppLogicState.Output.HideSplashScreen());
+
+    _blankScreen.VerifyAll();
+  }
+
+  [Fact]
+  public void RemovesExistingGame()
+  {
+    _game.Setup(game => game.QueueFree());
+
+    _app.Game = _game.Object;
+    _gamePreview.Setup(preview => preview.RemoveChildEx(_game.Object));
+
+    _app.OnReady();
+
+    _binding.Output(new AppLogicState.Output.RemoveExistingGame());
+
+    _gamePreview.VerifyAll();
+
+    _app.Game.ShouldBe(null);
+
+    _game.VerifyAll();
+  }
+
+  [Fact]
+  public void LoadsGame()
+  {
+    var game = new Game();
+
+    _instantiator.Setup(i => i.LoadAndInstantiate<Game>(It.IsAny<string>()))
+      .Returns(game);
+    _instantiator.Setup(i => i.SceneTree).Returns(_godot.Tree);
+
+    _gamePreview.Setup(
+      preview => preview.AddChildEx(game, false, Node.InternalMode.Disabled)
+    );
+
+    _app.OnReady();
+
+    _binding.Output(new AppLogicState.Output.SetupGameScene());
+
+    _instantiator.VerifyAll();
+    _gamePreview.VerifyAll();
+  }
+
+  [Fact]
+  public void ShowsMainMenu()
+  {
+    SetupHideMenus();
+    _menu.Setup(menu => menu.Show());
+    _game.Setup(game => game.Show());
+    SetupFadeIn();
+
+    _app.OnReady();
+
+    _binding.Output(new AppLogicState.Output.ShowMainMenu());
+
+    _menu.VerifyAll();
+    _game.VerifyAll();
+    _blankScreen.VerifyAll();
+    _animationPlayer.VerifyAll();
+  }
+
+  [Fact]
+  public void FadesOut()
+  {
+    SetupFadeOut();
+
+    _app.OnReady();
+
+    _binding.Output(new AppLogicState.Output.FadeToBlack());
+
+    VerifyFade();
+  }
+
+  [Fact]
+  public void ShowsGame()
+  {
+    SetupHideMenus();
+
+    SetupFadeIn();
+
+    _app.OnReady();
+
+    _binding.Output(new AppLogicState.Output.ShowGame());
+
+    VerifyFade();
+  }
+
+  [Fact]
+  public void HidesGame()
+  {
+    SetupFadeOut();
+
+    _app.OnReady();
+
+    _binding.Output(new AppLogicState.Output.HideGame());
+
+    VerifyFade();
+  }
+
+  [Fact]
+  public void StartsLoadingSaveFile()
+  {
+    _app.OnReady();
+
+    _binding.Output(new AppLogicState.Output.StartLoadingSaveFile());
+
+    _game.VerifyAdd(game => game.SaveFileLoaded += _app.OnSaveFileLoaded);
+    _game.Verify(game => game.LoadExistingGame());
+  }
+
+  [Fact]
+  public void OnNewGameWorks()
+  {
+    _logic.Reset();
+    _logic.Setup(logic => logic.Input(It.IsAny<AppLogicState.Input.NewGame>()));
+    _app.OnNewGame();
+    _logic.VerifyAll();
+  }
+
+  [Fact]
+  public void OnLoadGameWorks()
+  {
+    _logic.Reset();
+    _logic.Setup(logic => logic.Input(It.IsAny<AppLogicState.Input.LoadGame>()));
+    _app.OnLoadGame();
+    _logic.VerifyAll();
+  }
+
+  [Fact]
+  public void OnAnimationFinishedRespondsToFadeInFinished()
+  {
+    _logic.Reset();
+    _logic
+      .Setup(logic => logic.Input(It.IsAny<AppLogicState.Input.FadeInFinished>()));
+    _blankScreen.Setup(screen => screen.Hide());
+
+    _app.OnAnimationFinished("fade_in");
+
+    _logic.VerifyAll();
+    _blankScreen.VerifyAll();
+  }
+
+  [Fact]
+  public void OnAnimationFinishedRespondsToFadeOutFinished()
+  {
+    _logic.Reset();
+    _logic
+      .Setup(logic => logic.Input(It.IsAny<AppLogicState.Input.FadeOutFinished>()));
+
+    _app.OnAnimationFinished("fade_out");
+
+    _logic.VerifyAll();
+  }
+
+  [Fact]
+  public void OnSaveFileLoaded()
+  {
+
+    _app.OnSaveFileLoaded();
+
+    _logic.Verify(logic => logic.Input(It.IsAny<AppLogicState.Input.SaveFileLoaded>()));
+
+    _game.VerifyRemove(game => game.SaveFileLoaded -= _app.OnSaveFileLoaded);
+  }
+
+  // Mocking helpers
+
+  private void SetupHideMenus()
+  {
+    _menu.Setup(menu => menu.Hide());
+    _splash.Setup(splash => splash.Hide());
+  }
+
+  private void SetupFadeIn()
+  {
+    _blankScreen.Setup(blank => blank.Show());
+    _animationPlayer.Setup(player => player.Play("fade_in", -1, 1, false));
+  }
+
+  private void SetupFadeOut()
+  {
+    _blankScreen.Setup(blank => blank.Show());
+    _animationPlayer.Setup(player => player.Play("fade_out", -1, 1, false));
+  }
+
+  private void VerifyFade()
+  {
+    _blankScreen.VerifyAll();
+    _animationPlayer.VerifyAll();
+  }
+}

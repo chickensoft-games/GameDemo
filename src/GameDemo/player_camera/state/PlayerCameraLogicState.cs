@@ -1,0 +1,100 @@
+namespace GameDemo;
+
+using System;
+using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
+using Godot;
+
+
+/// <summary>
+///   Overall player camera state. This would be abstract, but it's helpful to
+///   be able to instantiate it by itself for easier testing.
+/// </summary>
+[Meta, StateDiagram]
+public abstract partial record PlayerCameraLogicState : LogicBlockState,
+  IGet<PlayerCameraLogicState.Input.PhysicsTicked>,
+  IGet<PlayerCameraLogicState.Input.TargetPositionChanged>,
+  IGet<PlayerCameraLogicState.Input.TargetOffsetChanged>
+{
+  public void OnCameraTargetOffsetChanged(Vector3 targetOffset) =>
+    Input(new Input.TargetOffsetChanged(targetOffset));
+
+  public Type On(in Input.PhysicsTicked input)
+  {
+    var camera = Get<IPlayerCamera>();
+    var gameRepo = Get<IGameRepo>();
+    var settings = Get<PlayerCameraSettings>();
+    var data = Get<PlayerCameraLogic.Data>();
+
+    // Lerp to the desired horizontal angle.
+    var rotationHorizontal = camera.GimbalRotationHorizontal;
+    var rotationHorizontalY = Mathf.RadToDeg(rotationHorizontal.Y);
+    rotationHorizontal.Y = Mathf.DegToRad(Mathf.Lerp(
+      rotationHorizontalY,
+      data.TargetAngleHorizontal,
+      (float)input.Delta * settings.HorizontalRotationAcceleration
+    ));
+
+    // Lerp to the desired vertical angle.
+    var rotationVertical = camera.GimbalRotationVertical;
+    var rotationVerticalX = Mathf.RadToDeg(rotationVertical.X);
+    rotationVertical.X = Mathf.DegToRad(Mathf.Lerp(
+      rotationVerticalX,
+      data.TargetAngleVertical,
+      (float)input.Delta * settings.VerticalRotationAcceleration
+    ));
+
+    // This triggers the camera to update its gimbal nodes.
+    // This keeps us from having to know about the camera's implementation
+    // details.
+    Output(new Output.GimbalRotationChanged(
+      rotationHorizontal, rotationVertical
+    ));
+
+    // We can just read properties off the camera and set them on the game.
+    gameRepo.SetCameraBasis(camera.CameraBasis);
+
+    // Lerp to the desired target position.
+    var transform = camera.GlobalTransform;
+    transform.Origin = data.TargetPosition + camera.Offset;
+    var globalTransform = camera.GlobalTransform.InterpolateWith(
+      transform, (float)input.Delta * settings.FollowSpeed
+    ).Orthonormalized();
+
+    Output(new Output.GlobalTransformChanged(globalTransform));
+
+    // Lerp camera inside system to spring arm target position
+    var springArmTargetPosition = camera.SpringArmTargetPosition;
+    var cameraLocalPosition = camera.CameraLocalPosition;
+    var springArmTargetPositionLerp = cameraLocalPosition.Lerp(
+      springArmTargetPosition, (float)input.Delta * settings.SpringArmAdjSpeed
+    );
+
+    Output(
+      new Output.CameraLocalPositionChanged(springArmTargetPositionLerp)
+    );
+
+    // Lerp the camera local offset
+    var offset = camera.OffsetPosition.Lerp(
+      data.TargetOffset, (float)input.Delta * settings.OffsetAdjSpeed
+    );
+
+    Output(new Output.CameraOffsetChanged(offset));
+
+    return ToSelf();
+  }
+
+  public Type On(in Input.TargetPositionChanged input)
+  {
+    var data = Get<PlayerCameraLogic.Data>();
+    data.TargetPosition = input.TargetPosition;
+    return ToSelf();
+  }
+
+  public Type On(in Input.TargetOffsetChanged input)
+  {
+    var data = Get<PlayerCameraLogic.Data>();
+    data.TargetOffset = input.TargetOffset;
+    return ToSelf();
+  }
+}
