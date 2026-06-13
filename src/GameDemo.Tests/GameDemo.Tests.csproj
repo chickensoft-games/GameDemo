@@ -36,6 +36,7 @@
 
     <ItemGroup>
         <Using Include="Xunit"/>
+        <Using Include="twodog.xunit"/>
     </ItemGroup>
 
     <ItemGroup>
