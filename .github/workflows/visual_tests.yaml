@@ -64,7 +64,7 @@ jobs:
           #
           # This allows checks on renovatebot PR's to succeed whenever
           # renovatebot updates the Godot SDK version.
-          version: global.json
+          version: src/GameDemo/global.json
 
       - name: 🧑‍🔬 Generate .NET Bindings
         run: godot --headless --build-solutions --quit
