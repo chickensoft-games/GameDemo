@@ -130,7 +130,7 @@ public class GameRepo : IGameRepo
     _numCoinsAtStart = new AutoValue<int>(0);
   }
 
-  internal GameRepo(
+  public GameRepo(
     AutoValue<bool> isMouseCaptured,
     AutoValue<bool> isPaused,
     AutoValue<Vector3> playerGlobalPosition,

@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <!-- 2dog packages -->
+    <ItemGroup>
+        <PackageReference Include="2dog" Version="0.1.23-pre"/>
+        <PackageReference Include="2dog.xunit" Version="0.1.23-pre"/>
+        <PackageReference Include="GodotSharp" Version="4.6.3"/>
+    </ItemGroup>
+
+    <!-- Platform-specific native library packages -->
+    <ItemGroup Condition="$([MSBuild]::IsOSPlatform('Windows'))">
+        <PackageReference Include="2dog.win-x64" Version="4.6.2.0"/>
+    </ItemGroup>
+    <ItemGroup Condition="$([MSBuild]::IsOSPlatform('Linux'))">
+        <PackageReference Include="2dog.linux-x64" Version="4.6.2.0"/>
+    </ItemGroup>
+    <ItemGroup Condition="$([MSBuild]::IsOSPlatform('OSX'))">
+        <PackageReference Include="2dog.osx-arm64" Version="4.6.2.0"/>
+    </ItemGroup>
+
+    <!-- Test framework packages -->
+    <ItemGroup>
+        <PackageReference Include="coverlet.collector" Version="6.0.2"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0"/>
+        <PackageReference Include="xunit" Version="2.9.2"/>
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Xunit"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="../GameDemo/GameDemo.csproj"/>
+    </ItemGroup>
+
+    <!-- Godot project location -->
+    <PropertyGroup>
+        <GodotProjectDir>../GameDemo</GodotProjectDir>
+    </PropertyGroup>
+
+    <!-- Remove duplicate Godot.SourceGenerators that come from GodotSharp package
+         (2dog package already embeds them) -->
+    <Target Name="RemoveDuplicateGodotAnalyzers" BeforeTargets="CoreCompile">
+        <ItemGroup>
+            <Analyzer Remove="@(Analyzer)" Condition="$([System.String]::Copy('%(Analyzer.Identity)').Contains('Godot.SourceGenerators'))"/>
+        </ItemGroup>
+    </Target>
+</Project>

@@ -5,14 +5,11 @@ state "PlayerLogicState" as GameDemo_PlayerLogicState {
       state "Falling" as GameDemo_PlayerLogicState_Falling
       state "Jumping" as GameDemo_PlayerLogicState_Jumping
       state "Liftoff" as GameDemo_PlayerLogicState_Liftoff
-      state "TestPlayerState" as GameDemo_Tests_PlayerLogicStateAliveAirborneTest_TestPlayerState
     }
     state "Grounded" as GameDemo_PlayerLogicState_Grounded {
       state "Idle" as GameDemo_PlayerLogicState_Idle
       state "Moving" as GameDemo_PlayerLogicState_Moving
-      state "TestPlayerState" as GameDemo_Tests_PlayerLogicStateAliveGroundedTest_TestPlayerState
     }
-    state "TestPlayerState" as GameDemo_Tests_PlayerLogicStateAliveTest_TestPlayerState
   }
   state "Dead" as GameDemo_PlayerLogicState_Dead
   state "Disabled" as GameDemo_PlayerLogicState_Disabled

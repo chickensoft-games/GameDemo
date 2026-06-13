@@ -16,7 +16,7 @@ public abstract partial record PlayerCameraLogicState : LogicBlockState,
   IGet<PlayerCameraLogicState.Input.TargetPositionChanged>,
   IGet<PlayerCameraLogicState.Input.TargetOffsetChanged>
 {
-  internal void OnCameraTargetOffsetChanged(Vector3 targetOffset) =>
+  public void OnCameraTargetOffsetChanged(Vector3 targetOffset) =>
     Input(new Input.TargetOffsetChanged(targetOffset));
 
   public Type On(in Input.PhysicsTicked input)
