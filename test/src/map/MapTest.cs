@@ -122,7 +122,7 @@ public class MapTest : TestClass
       {
         ["coin2"] = new CoinData
         {
-          StateMachine = logic.Save(),
+          StateMachine = logic.GetSaveData(),
           GlobalTransform = Transform3D.Identity
         }
       },

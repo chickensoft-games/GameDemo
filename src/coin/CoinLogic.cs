@@ -18,7 +18,7 @@ public partial class CoinLogic : AutoBlock, ICoinLogic
 
   public record Settings(double CollectionTimeInSeconds);
 
-  public override ILogicBlockSaveData GetSaveData(LogicBlockData data) =>
+  public override ILogicBlockSaveData Serialize(LogicBlockData data) =>
     new CoinLogicSaveData { Data = data };
 }
 

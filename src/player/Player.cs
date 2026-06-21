@@ -133,13 +133,13 @@ IProvide<PlayerLogic.Settings>
     PlayerLogic.Set(Settings);
     PlayerLogic.Set(AppRepo);
     PlayerLogic.Set(GameRepo);
-    PlayerLogic.Set(new PlayerLogic.Data());
+    PlayerLogic.Save(() => new PlayerLogic.Data());
 
     PlayerChunk = new SaveChunk<PlayerData>(
       onSave: (chunk) => new PlayerData()
       {
         GlobalTransform = GlobalTransform,
-        StateMachine = PlayerLogic.Save(),
+        StateMachine = PlayerLogic.GetSaveData(),
         Velocity = Velocity
       },
       onLoad: (chunk, data) =>
