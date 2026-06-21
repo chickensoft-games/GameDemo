@@ -246,7 +246,7 @@ public class PlayerCameraTest : TestClass
     var data = _playerCam.PlayerCameraChunk.OnSave(chunk.Object);
 
     data.GlobalTransform.ShouldBe(_playerCam.GlobalTransform);
-    data.StateMachine.Data.ShouldBe(_playerCam.CameraLogic.Save().Data);
+    data.StateMachine.Data.ShouldBe(_playerCam.CameraLogic.GetSaveData().Data);
     data.LocalPosition.ShouldBe(_playerCam.CameraNode.Position);
     data.OffsetPosition.ShouldBe(_playerCam.OffsetNode.Position);
   }
@@ -279,7 +279,7 @@ public class PlayerCameraTest : TestClass
 
     var data = new PlayerCameraData
     {
-      StateMachine = logic.Save(),
+      StateMachine = logic.GetSaveData(),
       GlobalTransform = Transform3D.Identity,
       LocalPosition = Vector3.Zero,
       OffsetPosition = Vector3.Zero
