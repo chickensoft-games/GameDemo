@@ -79,7 +79,7 @@ public class AppTest : TestClass
 
     _app.Initialize();
 
-    _app.Instantiator.ShouldBeOfType<Instantiator>();
+    _app.Instantiator.ShouldBeOfType<GameDemo.Instantiator>();
     _app.AppRepo.ShouldBeOfType<AppRepo>();
     _app.AppLogic.ShouldBeOfType<AppLogic>();
 
