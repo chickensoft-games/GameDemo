@@ -260,7 +260,7 @@ public class PlayerCameraTest : TestClass
     var data = _playerCam.Save();
 
     data.GlobalTransform.ShouldBe(Transform3D.FlipZ);
-    data.StateMachine.Data.ShouldBe(logic.Save().Data);
+    data.StateMachine.Data.ShouldBe(logic.GetSaveData().Data);
     data.LocalPosition.ShouldBe(Vector3.Right);
     data.OffsetPosition.ShouldBe(Vector3.Left);
   }
@@ -293,7 +293,7 @@ public class PlayerCameraTest : TestClass
     var data = new PlayerCameraData()
     {
       GlobalTransform = Transform3D.FlipZ,
-      StateMachine = logic.Save(),
+      StateMachine = logic.GetSaveData(),
       LocalPosition = Vector3.Right,
       OffsetPosition = Vector3.Left,
     };

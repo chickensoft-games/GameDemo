@@ -11,7 +11,7 @@ public class InstantiatorTest : TestClass
   [Test]
   public void Instantiates()
   {
-    var instantiator = new Instantiator(TestScene.GetTree());
+    var instantiator = new GameDemo.Instantiator(TestScene.GetTree());
 
     var scene = instantiator.LoadAndInstantiate<Node3D>(
       "res://src/in_game_ui/coin_scene/CoinScene.tscn"

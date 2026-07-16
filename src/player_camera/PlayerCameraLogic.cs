@@ -47,7 +47,7 @@ public partial class PlayerCameraLogic : AutoBlock, IPlayerCameraLogic
     _playerGlobalPositionBinding?.Dispose();
   }
 
-  public override ILogicBlockSaveData GetSaveData(LogicBlockData data) =>
+  public override ILogicBlockSaveData Serialize(LogicBlockData data) =>
     new PlayerCameraLogicSaveData { Data = data };
 }
 

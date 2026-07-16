@@ -142,7 +142,7 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
     CameraLogic.Set(Settings);
     CameraLogic.Set(GameRepo);
 
-    CameraLogic.Set(new PlayerCameraLogic.Data
+    CameraLogic.Save(() => new PlayerCameraLogic.Data
     {
       TargetPosition = Vector3.Zero,
       TargetAngleHorizontal = 0f,

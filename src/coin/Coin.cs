@@ -71,7 +71,7 @@ public partial class Coin : Node3D, ICoin
     CoinLogic.Set(this as ICoin);
     CoinLogic.Set(Settings);
     CoinLogic.Set(GameRepo);
-    CoinLogic.Set(new CoinLogic.Data());
+    CoinLogic.Save(() => new CoinLogic.Data());
     CoinLogic.Set(EntityTable);
   }
 

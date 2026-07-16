@@ -247,7 +247,7 @@ public class PlayerTest : TestClass
     var data = _player.Save();
 
     data.GlobalTransform.ShouldBe(Transform3D.FlipZ);
-    data.StateMachine.Data.ShouldBe(_player.PlayerLogic.Save().Data);
+    data.StateMachine.Data.ShouldBe(_player.PlayerLogic.GetSaveData().Data);
     data.Velocity.ShouldBe(_player.Velocity);
   }
 
@@ -271,7 +271,7 @@ public class PlayerTest : TestClass
     var data = new PlayerData
     {
       GlobalTransform = Transform3D.FlipZ,
-      StateMachine = logic.Save(),
+      StateMachine = logic.GetSaveData(),
       Velocity = Vector3.Forward
     };
 

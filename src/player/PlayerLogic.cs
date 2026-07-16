@@ -23,7 +23,7 @@ public partial class PlayerLogic : AutoBlock, IPlayerLogic
       .On((in IAppRepo.GameEntering _) => (State as PlayerLogicState.Disabled)?.OnGameEntered());
   }
 
-  public override ILogicBlockSaveData GetSaveData(LogicBlockData data) =>
+  public override ILogicBlockSaveData Serialize(LogicBlockData data) =>
     new PlayerLogicSaveData { Data = data };
 }
 
