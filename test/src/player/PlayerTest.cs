@@ -78,7 +78,16 @@ public class PlayerTest : TestClass
   }
 
   [Cleanup]
-  public async Task Cleanup() => await _fixture.Cleanup();
+  public async Task Cleanup()
+  {
+    // Reset the state machine to a known state before cleanup.
+    if (_player.PlayerLogic.State is null)
+    {
+      _player.PlayerLogic.Start<PlayerLogicState.Idle>();
+    }
+
+    await _fixture.Cleanup();
+  }
 
   [Test]
   public void Initializes()
