@@ -265,7 +265,15 @@ public class GameTest : TestClass
   [Test]
   public void SavesGame()
   {
-    _saveFile.Setup(file => file.SaveAsync(It.IsAny<GameData>())).Returns(ValueTask.CompletedTask);
+    _saveFile.Setup(
+      file =>
+        file.SaveAsync(
+          It.IsAny<GameData>(),
+          It.IsAny<CompressionLevel>(),
+          It.IsAny<CancellationToken>()
+        )
+    )
+      .Returns(ValueTask.CompletedTask);
 
     _binding.Output(new GameLogicState.Output.StartSaving());
 
