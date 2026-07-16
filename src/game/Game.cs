@@ -132,8 +132,14 @@ public partial class Game : Node3D, IGame
       .OnOutput((in GameLogicState.Output.ExitWonScreen _) => WinMenu.FadeOut())
       .OnOutput((in GameLogicState.Output.ExitPauseMenu _) => PauseMenu.FadeOut())
       .OnOutput((in GameLogicState.Output.HidePauseMenu _) => PauseMenu.Hide())
-      .OnOutput((in GameLogicState.Output.ShowPauseSaveOverlay _) => PauseMenu.OnSaveStarted())
-      .OnOutput((in GameLogicState.Output.HidePauseSaveOverlay _) => PauseMenu.OnSaveCompleted())
+      .OnOutput(
+        (in GameLogicState.Output.ShowPauseSaveOverlay _) => 
+          PauseMenu.OnSaveStarted()
+      )
+      .OnOutput(
+        (in GameLogicState.Output.HidePauseSaveOverlay _) => 
+          PauseMenu.OnSaveCompleted()
+      )
       .OnOutput((in GameLogicState.Output.StartSaving _) => SaveGame().AsTask());
 
     // Trigger the first state's OnEnter callbacks so our bindings run.

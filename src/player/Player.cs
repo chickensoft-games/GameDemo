@@ -168,8 +168,14 @@ IProvide<PlayerLogic.Settings>
     GameRepo.SetPlayerGlobalPosition(GlobalPosition);
 
     PlayerBinding = PlayerLogic.Bind()
-      .OnOutput((in PlayerLogicState.Output.MovementComputed output) => Velocity = output.Velocity)
-      .OnOutput((in PlayerLogicState.Output.VelocityChanged output) => Velocity = output.Velocity);
+      .OnOutput(
+        (in PlayerLogicState.Output.MovementComputed output) => 
+          Velocity = output.Velocity
+      )
+      .OnOutput(
+        (in PlayerLogicState.Output.VelocityChanged output) => 
+          Velocity = output.Velocity
+      );
 
     // Allow the player model to lookup our state machine and bind to it.
     this.Provide();

@@ -38,19 +38,19 @@ public partial class App : CanvasLayer, IApp
 
   #region Save
 
-  public ISaveFile SaveFile { get; set; } = Chickensoft.SaveFileBuilder.SaveFile.CreateGZipJsonFile(
-    Path.Join(OS.GetUserDataDir(), "game.json.gz"),
-
-    // Create a standard JsonSerializerOptions with our introspective type
-    // resolver and the logic blocks converter.
-    new JsonSerializerOptions()
-    {
-      Converters = {
-        new SerializableTypeConverter(new Blackboard())
-      },
-      TypeInfoResolver = new SerializableTypeResolver(),
-      WriteIndented = true
-    }
+  public ISaveFile SaveFile { get; set; } = 
+    Chickensoft.SaveFileBuilder.SaveFile.CreateGZipJsonFile(
+      Path.Join(OS.GetUserDataDir(), "game.json.gz"),
+      // Create a standard JsonSerializerOptions with our introspective type
+      // resolver and the logic blocks converter.
+      new JsonSerializerOptions()
+      {
+        Converters = {
+          new SerializableTypeConverter(new Blackboard())
+        },
+        TypeInfoResolver = new SerializableTypeResolver(),
+        WriteIndented = true
+      }
   );
 
   #endregion Save
@@ -131,7 +131,9 @@ public partial class App : CanvasLayer, IApp
 
         Instantiator.SceneTree.Paused = false;
       })
-      .OnOutput((in AppLogicState.Output.ShowMainMenu _) => ShowMainMenu().AsTask())
+      .OnOutput(
+        (in AppLogicState.Output.ShowMainMenu _) => ShowMainMenu().AsTask()
+      )
       .OnOutput((in AppLogicState.Output.FadeToBlack _) => FadeToBlack())
       .OnOutput((in AppLogicState.Output.ShowGame _) =>
       {
@@ -139,8 +141,14 @@ public partial class App : CanvasLayer, IApp
         FadeInFromBlack();
       })
       .OnOutput((in AppLogicState.Output.HideGame _) => FadeToBlack())
-      .OnOutput((in AppLogicState.Output.StartLoadingSaveFile _) => LoadSaveFile().AsTask())
-      .OnOutput((in AppLogicState.Output.StartDeletingSaveFile _) => DeleteSaveFile().AsTask());
+      .OnOutput(
+        (in AppLogicState.Output.StartLoadingSaveFile _) => 
+          LoadSaveFile().AsTask()
+      )
+      .OnOutput(
+        (in AppLogicState.Output.StartDeletingSaveFile _) => 
+          DeleteSaveFile().AsTask()
+      );
 
     // Enter the first state to kick off the binding side effects.
     AppLogic.Start<AppLogicState.SplashScreen>();

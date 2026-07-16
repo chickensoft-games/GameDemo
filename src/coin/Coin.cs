@@ -104,8 +104,13 @@ public partial class Coin : Node3D, ICoin
         // process of being collected.
         AnimationPlayer.Play("collect");
       })
-      .OnOutput((in CoinLogicState.Output.Move output) => GlobalPosition = output.GlobalPosition)
-      .OnOutput((in CoinLogicState.Output.SelfDestruct output) => QueueFree());
+      .OnOutput(
+        (in CoinLogicState.Output.Move output) => 
+          GlobalPosition = output.GlobalPosition
+      )
+      .OnOutput(
+        (in CoinLogicState.Output.SelfDestruct output) => QueueFree()
+      );
 
     CoinLogic.Start<CoinLogicState.Idle>();
   }
