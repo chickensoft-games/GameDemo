@@ -28,8 +28,8 @@ public class GameLogicTest : TestClass
     _gameRepo = new GameRepo();
     _appRepo = new AppRepo();
 
-    _logic.Set(_gameRepo);
-    _logic.Set(_appRepo);
+    _logic.Set((IGameRepo)_gameRepo);
+    _logic.Set((IAppRepo)_appRepo);
   }
 
   [Test]
