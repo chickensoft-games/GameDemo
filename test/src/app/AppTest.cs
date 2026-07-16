@@ -240,8 +240,10 @@ public class AppTest : TestClass
 
     var gameData = new Mock<GameData>();
 
-    _saveFile.Setup(sf => sf.ExistsAsync()).ReturnsAsync(true);
-    _saveFile.Setup(sf => sf.LoadAsync<GameData>()).ReturnsAsync(gameData.Object);
+    _saveFile.Setup(sf => sf.ExistsAsync(It.IsAny<CancellationToken>()))
+      .ReturnsAsync(true);
+    _saveFile.Setup(sf => sf.LoadAsync<GameData>(It.IsAny<CancellationToken>()))
+      .ReturnsAsync(gameData.Object);
     _game.Setup(game => game.Load(gameData.Object));
     _logic.Setup(l => l.Input(new AppLogicState.Input.SaveFileLoaded()));
 
