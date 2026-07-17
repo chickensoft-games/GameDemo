@@ -89,6 +89,11 @@ public partial class CoinTest : TestClass
       logic => logic.Input(in It.Ref<CoinLogicState.Input.PhysicsProcess>.IsAny)
     );
 
+    // If coin isn't in the tree for this test, we get a Godot error when
+    // accessing its Transform
+    var fixture = new Fixture(TestScene.GetTree());
+    fixture.AddToRoot(_coin);
+
     _coin.OnPhysicsProcess(1f);
 
     _logic.VerifyAll();

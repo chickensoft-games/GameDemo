@@ -2,9 +2,11 @@ namespace GameDemo.Tests;
 
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
+using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
+using Chickensoft.GodotTestDriver;
 using Chickensoft.LogicBlocks;
 using Chickensoft.SaveFileBuilder;
 using Godot;
@@ -74,10 +76,14 @@ public class AppTest : TestClass
   }
 
   [Test]
-  public void Initializes()
+  public async Task Initializes()
   {
     // Naturally, the app controls al ot of systems (mostly menus), so there's
     // quite a bit of setup to verify.
+
+    // App needs to be in the tree here b/c the tree is accessed in this test
+    var fixture = new Fixture(TestScene.GetTree());
+    await fixture.AddToRoot(_app);
 
     _app.AppBinding = _binding;
 

@@ -232,14 +232,8 @@ public class PlayerTest : TestClass
   }
 
   [Test]
-  public async Task Saves()
+  public void Saves()
   {
-    // This test has to be run in the actual scene tree since it verifies the
-    // player changes its GlobalPosition.
-    var tree = TestScene.GetTree();
-    var fixture = new Fixture(tree);
-    await fixture.AddToRoot(_player);
-
     _player.Setup();
     _player.PlayerLogic.Start<PlayerLogicState.Disabled>();
 
@@ -252,14 +246,8 @@ public class PlayerTest : TestClass
   }
 
   [Test]
-  public async Task Loads()
+  public void Loads()
   {
-    // This test has to be run in the actual scene tree since it verifies the
-    // coin changes its GlobalPosition.
-    var tree = TestScene.GetTree();
-    var fixture = new Fixture(tree);
-    await fixture.AddToRoot(_player);
-
     _player.Setup();
 
     var logic = new PlayerLogic();
