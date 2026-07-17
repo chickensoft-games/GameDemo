@@ -57,7 +57,7 @@ IProvide<PlayerLogic.Settings>
   public PlayerData Save() => new()
   {
     GlobalTransform = GlobalTransform,
-    StateMachine = PlayerLogic.Save(),
+    StateMachine = PlayerLogic.GetSaveData(),
     Velocity = Velocity
   };
 
@@ -169,11 +169,11 @@ IProvide<PlayerLogic.Settings>
 
     PlayerBinding = PlayerLogic.Bind()
       .OnOutput(
-        (in PlayerLogicState.Output.MovementComputed output) => 
+        (in PlayerLogicState.Output.MovementComputed output) =>
           Velocity = output.Velocity
       )
       .OnOutput(
-        (in PlayerLogicState.Output.VelocityChanged output) => 
+        (in PlayerLogicState.Output.VelocityChanged output) =>
           Velocity = output.Velocity
       );
 

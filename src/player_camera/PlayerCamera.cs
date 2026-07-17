@@ -66,7 +66,7 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
 
   public PlayerCameraData Save() => new()
   {
-    StateMachine = CameraLogic.Save(),
+    StateMachine = CameraLogic.GetSaveData(),
     GlobalTransform = GlobalTransform,
     LocalPosition = CameraNode.Position,
     OffsetPosition = OffsetNode.Position,

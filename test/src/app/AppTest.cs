@@ -1,6 +1,7 @@
 namespace GameDemo.Tests;
 
 using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;

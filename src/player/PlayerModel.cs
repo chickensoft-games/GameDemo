@@ -56,14 +56,12 @@ public partial class PlayerModel : Node3D, IPlayerModel
 
   public void OnReady()
   {
-    AnimationStateMachine = 
+    AnimationStateMachine =
       GodotInterfaces.Adapt<IAnimationNodeStateMachinePlayback>(
         (AnimationNodeStateMachinePlayback)(GodotObject)AnimationTree.Get(
           ANIM_STATE_MACHINE
         )
       );
-      )
-    );
   }
 
   public void OnResolved()

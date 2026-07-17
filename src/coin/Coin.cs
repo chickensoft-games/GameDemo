@@ -26,7 +26,7 @@ public partial class Coin : Node3D, ICoin
 
   public CoinData Save() => new()
   {
-    StateMachine = CoinLogic.Save(),
+    StateMachine = CoinLogic.GetSaveData(),
     GlobalTransform = GlobalTransform,
   };
 
@@ -105,7 +105,7 @@ public partial class Coin : Node3D, ICoin
         AnimationPlayer.Play("collect");
       })
       .OnOutput(
-        (in CoinLogicState.Output.Move output) => 
+        (in CoinLogicState.Output.Move output) =>
           GlobalPosition = output.GlobalPosition
       )
       .OnOutput(

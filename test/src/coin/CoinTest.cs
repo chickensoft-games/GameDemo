@@ -170,7 +170,7 @@ public partial class CoinTest : TestClass
     _coin.GlobalTransform = Transform3D.FlipZ;
     var coinData = _coin.Save();
 
-    coinData.StateMachine.Data.ShouldBe(_coin.CoinLogic.Save().Data);
+    coinData.StateMachine.Data.ShouldBe(_coin.CoinLogic.GetSaveData().Data);
     coinData.GlobalTransform.ShouldBe(Transform3D.FlipZ);
   }
 
@@ -190,7 +190,7 @@ public partial class CoinTest : TestClass
 
     var coinData = new CoinData()
     {
-      StateMachine = logic.Save(),
+      StateMachine = logic.GetSaveData(),
       GlobalTransform = Transform3D.FlipZ,
     };
 

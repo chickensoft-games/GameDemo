@@ -1,6 +1,8 @@
 namespace GameDemo.Tests;
 
 using System.Diagnostics.CodeAnalysis;
+using System.IO.Compression;
+using System.Threading;
 using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
