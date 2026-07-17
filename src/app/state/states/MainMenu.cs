@@ -7,21 +7,21 @@ using Chickensoft.LogicBlocks;
 public partial record AppLogicState
 {
   [Meta]
-  public partial record MainMenu : AppLogicState,
-    IGet<Input.NewGame>, IGet<Input.LoadGame>
+  public partial record MainMenu : AppLogicState
+    , IGet<Input.NewGame>
+    , IGet<Input.LoadGame>
+    , IGet<Input.DeleteGame>
   {
     public MainMenu()
     {
-      this.OnEnter(
-        () =>
-        {
-          Output(new Output.SetupGameScene());
+      this.OnEnter(() =>
+      {
+        Output(new Output.SetupGameScene());
 
-          Get<IAppRepo>().OnMainMenuEntering();
+        Get<IAppRepo>().OnMainMenuEntering();
 
-          Output(new Output.ShowMainMenu());
-        }
-      );
+        Output(new Output.ShowMainMenu());
+      });
     }
 
     public Type On(in Input.NewGame input)
@@ -36,6 +36,13 @@ public partial record AppLogicState
       Get<AppLogic.Data>().ShouldLoadExistingGame = true;
 
       return To<LeavingMenu>();
+    }
+
+    public Type On(in Input.DeleteGame input)
+    {
+      Output(new Output.StartDeletingSaveFile());
+
+      return ToSelf();
     }
   }
 }

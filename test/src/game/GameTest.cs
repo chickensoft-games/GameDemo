@@ -1,8 +1,8 @@
 namespace GameDemo.Tests;
 
 using System.Diagnostics.CodeAnalysis;
-using System.IO.Abstractions;
-using System.Text.Json;
+using System.IO.Compression;
+using System.Threading;
 using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
@@ -11,7 +11,6 @@ using Chickensoft.GodotTestDriver;
 using Chickensoft.GodotTestDriver.Util;
 using Chickensoft.LogicBlocks;
 using Chickensoft.SaveFileBuilder;
-using Chickensoft.Serialization;
 using Chickensoft.Serialization.Godot;
 using Godot;
 using Moq;
@@ -41,11 +40,7 @@ public class GameTest : TestClass
   private Mock<IWinMenu> _winMenu = default!;
   private Mock<IPauseMenu> _pauseMenu = default!;
   private EntityTable _entityTable = default!;
-  private Mock<ISaveChunk<GameData>> _gameChunk = default!;
-  private Mock<ISaveFile<GameData>> _saveFile = default!;
-  private Mock<IFileSystem> _fileSystem = default!;
-  private JsonSerializerOptions _jsonOptions = default!;
-  private const string SAVE_FILE_PATH = "/game.json";
+  private Mock<ISaveFile> _saveFile = default!;
 
   private Game _game = default!;
 
@@ -71,21 +66,9 @@ public class GameTest : TestClass
     _winMenu = new();
     _pauseMenu = new();
     _entityTable = new();
-    _gameChunk = new();
     _saveFile = new();
-    _fileSystem = new();
-    _jsonOptions = new()
-    {
-      WriteIndented = true,
-      TypeInfoResolver = new SerializableTypeResolver(),
-      Converters = {
-        new SerializableTypeConverter(new Blackboard())
-      },
-    };
 
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
-
-    _saveFile.Setup(file => file.Root).Returns(_gameChunk.Object);
 
     _game = new()
     {
@@ -100,17 +83,13 @@ public class GameTest : TestClass
       WinMenu = _winMenu.Object,
       PauseMenu = _pauseMenu.Object,
       EntityTable = _entityTable,
-      SaveFile = _saveFile.Object,
-      GameChunk = _gameChunk.Object,
-      FileSystem = _fileSystem.Object,
-      JsonOptions = _jsonOptions,
-      SaveFilePath = SAVE_FILE_PATH
     };
 
     (_game as IAutoInit).IsTesting = true;
 
     _game.FakeDependency(_appRepo);
     _game.FakeDependency(_entityTable);
+    _game.FakeDependency(_saveFile.Object);
 
     _game.FakeNodeTree(new()
     {
@@ -133,12 +112,9 @@ public class GameTest : TestClass
   public void Initializes()
   {
     ((IProvide<IGameRepo>)_game).Value().ShouldBe(_gameRepo);
-    ((IProvide<ISaveChunk<GameData>>)_game).Value().ShouldBe(_gameChunk.Object);
     ((IProvide<EntityTable>)_game).Value().ShouldBe(_entityTable);
 
     _game.Setup();
-
-    _game.SaveFilePath.ShouldBeOfType<string>();
 
     _game.GameRepo.ShouldBeOfType<GameRepo>();
     _game.GameBinding.ShouldBe(_binding);
@@ -289,18 +265,22 @@ public class GameTest : TestClass
   }
 
   [Test]
-  public async Task SavesGame()
+  public void SavesGame()
   {
-    _game.SaveFile = _saveFile.Object;
-
-    _saveFile.Setup(file => file.Save()).Returns(Task.CompletedTask);
+    _saveFile.Setup(
+      file =>
+        file.SaveAsync(
+          It.IsAny<GameData>(),
+          It.IsAny<CompressionLevel>(),
+          It.IsAny<CancellationToken>()
+        )
+    )
+      .Returns(ValueTask.CompletedTask);
 
     _binding.Output(new GameLogicState.Output.StartSaving());
 
-    await TestScene.ProcessFrame();
-
-    _logic
-      .Verify(logic => logic.Input(It.IsAny<GameLogicState.Input.SaveCompleted>()));
+    _saveFile.VerifyAll();
+    _logic.Verify(logic => logic.Input(It.IsAny<GameLogicState.Input.SaveCompleted>()));
   }
 
   [Test]
@@ -385,7 +365,7 @@ public class GameTest : TestClass
   }
 
   [Test]
-  public void SavesChunk()
+  public void Saves()
   {
     _game.Setup();
 
@@ -410,14 +390,13 @@ public class GameTest : TestClass
       OffsetPosition = Vector3.Zero
     };
 
-    _gameChunk.Setup(c => c.GetChunkSaveData<MapData>()).Returns(mapData);
-    _gameChunk.Setup(c => c.GetChunkSaveData<PlayerData>()).Returns(playerData);
-    _gameChunk.Setup(c => c.GetChunkSaveData<PlayerCameraData>())
-      .Returns(playerCameraData);
+    _map.Setup(m => m.Save()).Returns(mapData);
+    _player.Setup(p => p.Save()).Returns(playerData);
+    _playerCam.Setup(p => p.Save()).Returns(playerCameraData);
 
     // Call the real game chunk, but pass in the fake game chunk to its
     // handlers to make mocking the save data easier.
-    var saveData = _game.GameChunk.OnSave(_gameChunk.Object);
+    var saveData = _game.Save();
 
     saveData.MapData.ShouldBe(mapData);
     saveData.PlayerData.ShouldBe(playerData);
@@ -425,7 +404,7 @@ public class GameTest : TestClass
   }
 
   [Test]
-  public void LoadsChunk()
+  public void Loads()
   {
     _game.Setup();
 
@@ -457,80 +436,10 @@ public class GameTest : TestClass
       PlayerCameraData = playerCameraData
     };
 
-    _gameChunk.Setup(c => c.LoadChunkSaveData(mapData));
-    _gameChunk.Setup(c => c.LoadChunkSaveData(playerData));
-    _gameChunk.Setup(c => c.LoadChunkSaveData(playerCameraData));
+    _game.Load(gameData);
 
-    _game.GameChunk.OnLoad(_gameChunk.Object, gameData);
-
-    _gameChunk.VerifyAll();
-  }
-
-  [Test]
-  public async Task SaveFileDoesNothingIfSaveFileDoesNotExist()
-  {
-    var file = new Mock<IFile>();
-    _fileSystem.Setup(fs => fs.File).Returns(file.Object);
-
-    file.Setup(f => f.Exists(_game.SaveFilePath)).Returns(false);
-
-    _game.OnResolved();
-
-    (await _game.SaveFile.OnLoad())
-      .ShouldBeNull();
-  }
-
-  [Test]
-  public async Task SavesFile()
-  {
-    var file = new Mock<IFile>();
-    _fileSystem.Setup(fs => fs.File).Returns(file.Object);
-
-    _game.OnResolved();
-
-    file
-      .Setup(f => f.WriteAllTextAsync(
-        SAVE_FILE_PATH, It.IsAny<string>(), default
-      ))
-      .Returns(Task.CompletedTask);
-
-    await _game.SaveFile.OnSave(TestSaveData.GameData);
-
-    file.VerifyAll();
-  }
-
-  [Test]
-  public async Task LoadsSaveFile()
-  {
-    var file = new Mock<IFile>();
-    _fileSystem.Setup(fs => fs.File).Returns(file.Object);
-
-    file.Setup(f => f.Exists(SAVE_FILE_PATH)).Returns(true);
-
-    file.Setup(f => f.ReadAllTextAsync(SAVE_FILE_PATH, default))
-      .ReturnsAsync(
-        JsonSerializer.Serialize(TestSaveData.GameData, _jsonOptions)
-      );
-
-    _game.OnResolved();
-
-    var loadedData = await _game.SaveFile.OnLoad();
-
-    loadedData.ShouldBe(TestSaveData.GameData);
-  }
-
-  [Test]
-  public async Task LoadExistingGameWorks()
-  {
-    _saveFile.Reset();
-    _saveFile.Setup(s => s.Load()).Returns(Task.CompletedTask);
-
-    _game.SaveFile = _saveFile.Object;
-
-    _game.LoadExistingGame();
-
-    await TestScene.ProcessFrame();
-
-    _saveFile.VerifyAll();
+    _map.Verify(m => m.Load(mapData));
+    _player.Verify(p => p.Load(playerData));
+    _playerCam.Verify(p => p.Load(playerCameraData));
   }
 }

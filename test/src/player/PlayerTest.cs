@@ -7,7 +7,6 @@ using Chickensoft.Collections;
 using Chickensoft.GoDotTest;
 using Chickensoft.GodotTestDriver;
 using Chickensoft.LogicBlocks;
-using Chickensoft.SaveFileBuilder;
 using Godot;
 using Moq;
 using Shouldly;
@@ -26,7 +25,6 @@ public class PlayerTest : TestClass
   private IGameRepo _gameRepo = default!;
   private Mock<IPlayerLogic> _logic = default!;
   private EntityTable _entityTable = default!;
-  private Mock<ISaveChunk<GameData>> _gameChunk = default!;
 
   private LogicBlock.FakeBinding _binding = default!;
 
@@ -54,7 +52,6 @@ public class PlayerTest : TestClass
       JumpForce: 1.0f
     );
     _entityTable = new();
-    _gameChunk = new();
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
 
     _player = new()
@@ -76,13 +73,21 @@ public class PlayerTest : TestClass
     _player.FakeDependency(_appRepo);
     _player.FakeDependency(_gameRepo);
     _player.FakeDependency(_entityTable);
-    _player.FakeDependency(_gameChunk.Object);
 
     await _fixture.AddToRoot(_player);
   }
 
   [Cleanup]
-  public async Task Cleanup() => await _fixture.Cleanup();
+  public async Task Cleanup()
+  {
+    // Reset the state machine to a known state before cleanup.
+    if (_player.PlayerLogic.State is null)
+    {
+      _player.PlayerLogic.Start<PlayerLogicState.Idle>();
+    }
+
+    await _fixture.Cleanup();
+  }
 
   [Test]
   public void Initializes()
@@ -232,11 +237,10 @@ public class PlayerTest : TestClass
     _player.Setup();
     _player.PlayerLogic.Start<PlayerLogicState.Disabled>();
 
-    var chunk = new Mock<ISaveChunk<PlayerData>>();
+    _player.GlobalTransform = Transform3D.FlipZ;
+    var data = _player.Save();
 
-    var data = _player.PlayerChunk.OnSave(chunk.Object);
-
-    data.GlobalTransform.ShouldBe(_player.GlobalTransform);
+    data.GlobalTransform.ShouldBe(Transform3D.FlipZ);
     data.StateMachine.Data.ShouldBe(_player.PlayerLogic.GetSaveData().Data);
     data.Velocity.ShouldBe(_player.Velocity);
   }
@@ -246,8 +250,6 @@ public class PlayerTest : TestClass
   {
     _player.Setup();
 
-    var chunk = new Mock<ISaveChunk<PlayerData>>();
-
     var logic = new PlayerLogic();
     logic.Set(_appRepo);
     logic.Start<PlayerLogicState.Disabled>();
@@ -256,14 +258,14 @@ public class PlayerTest : TestClass
 
     var data = new PlayerData
     {
-      GlobalTransform = Transform3D.Identity,
+      GlobalTransform = Transform3D.FlipZ,
       StateMachine = logic.GetSaveData(),
       Velocity = Vector3.Forward
     };
 
-    _player.PlayerChunk.OnLoad(chunk.Object, data);
+    _player.Load(data);
 
-    _player.GlobalTransform.ShouldBe(Transform3D.Identity);
+    _player.GlobalTransform.ShouldBe(Transform3D.FlipZ);
     _player.Velocity.ShouldBe(Vector3.Forward);
     _player.PlayerLogic.ShouldBeOfType<PlayerLogic>();
   }

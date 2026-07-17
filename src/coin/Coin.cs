@@ -5,12 +5,10 @@ using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
+using Chickensoft.SaveFileBuilder;
 using Godot;
 
-public interface ICoin : INode3D
-{
-  ICoinLogic CoinLogic { get; }
-}
+public interface ICoin : INode3D, ISaveable<CoinData>;
 
 [Meta(typeof(IAutoNode))]
 public partial class Coin : Node3D, ICoin
@@ -23,6 +21,23 @@ public partial class Coin : Node3D, ICoin
   [Node("%CoinModel")] public INode3D CoinModel { get; set; } = default!;
 
   #endregion Nodes
+
+  #region Save
+
+  public CoinData Save() => new()
+  {
+    StateMachine = CoinLogic.GetSaveData(),
+    GlobalTransform = GlobalTransform,
+  };
+
+  public void Load(in CoinData data)
+  {
+    CoinLogic.Stop();
+    CoinLogic.Start(data.StateMachine.Data);
+    GlobalTransform = data.GlobalTransform;
+  }
+
+  #endregion
 
   #region Exports
 
@@ -78,9 +93,8 @@ public partial class Coin : Node3D, ICoin
   public void OnResolved()
   {
     EntityTable.Set(Name, this);
-    CoinBinding = CoinLogic.Bind();
 
-    CoinBinding
+    CoinBinding = CoinLogic.Bind()
       .OnState<CoinLogicState.Collecting>(_ =>
       {
         // We want to start receiving physics ticks so we can orient ourselves
@@ -95,8 +109,6 @@ public partial class Coin : Node3D, ICoin
           GlobalPosition = output.GlobalPosition
       )
       .OnOutput(
-        // We're done being collected, so we can remove ourselves from the
-        // scene tree.
         (in CoinLogicState.Output.SelfDestruct output) => QueueFree()
       );
 

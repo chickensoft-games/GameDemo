@@ -6,10 +6,10 @@ using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 using Godot;
 
-public interface IPlayerModel;
+public interface IPlayerModel : INode3D;
 
 [Meta(typeof(IAutoNode))]
-public partial class PlayerModel : Node3D
+public partial class PlayerModel : Node3D, IPlayerModel
 {
   public override void _Notification(int what) => this.Notify(what);
 
@@ -57,11 +57,11 @@ public partial class PlayerModel : Node3D
   public void OnReady()
   {
     AnimationStateMachine =
-    GodotInterfaces.Adapt<IAnimationNodeStateMachinePlayback>(
-      (AnimationNodeStateMachinePlayback)AnimationTree.Get(
-      ANIM_STATE_MACHINE
-      )
-    );
+      GodotInterfaces.Adapt<IAnimationNodeStateMachinePlayback>(
+        (AnimationNodeStateMachinePlayback)(GodotObject)AnimationTree.Get(
+          ANIM_STATE_MACHINE
+        )
+      );
   }
 
   public void OnResolved()

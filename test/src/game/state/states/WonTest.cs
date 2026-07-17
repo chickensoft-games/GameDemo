@@ -1,8 +1,6 @@
 namespace GameDemo.Tests;
 
-using System.Linq;
 using Chickensoft.GoDotTest;
-using Chickensoft.LogicBlocks;
 using Godot;
 using Moq;
 using Shouldly;
@@ -29,7 +27,7 @@ public class WonTest : TestClass
   public void OnEnter()
   {
     _state.Enter();
-    _context.Outputs.First().ShouldBeOfType<GameLogicState.Output.ShowWonScreen>();
+    _context.Outputs[0].ShouldBeOfType<GameLogicState.Output.ShowWonScreen>();
   }
 
   [Test]

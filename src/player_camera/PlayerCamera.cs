@@ -13,7 +13,7 @@ using Godot;
 ///   to know about its implementation. This interface can easily be mocked,
 ///   allowing the camera logic block to be unit-tested.
 /// </summary>
-public interface IPlayerCamera : INode3D
+public interface IPlayerCamera : INode3D, ISaveable<PlayerCameraData>
 {
   IPlayerCameraLogic CameraLogic { get; }
 
@@ -64,9 +64,25 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
 
   #region Save
 
-  [Dependency]
-  public ISaveChunk<GameData> GameChunk => this.DependOn<ISaveChunk<GameData>>();
-  public ISaveChunk<PlayerCameraData> PlayerCameraChunk { get; set; } = default!;
+  public PlayerCameraData Save() => new()
+  {
+    StateMachine = CameraLogic.GetSaveData(),
+    GlobalTransform = GlobalTransform,
+    LocalPosition = CameraNode.Position,
+    OffsetPosition = OffsetNode.Position,
+  };
+
+  public void Load(in PlayerCameraData data)
+  {
+    CameraLogic.Stop();
+    CameraLogic.Start(data.StateMachine.Data);
+    GlobalTransform = data.GlobalTransform;
+    CameraNode.Position = data.LocalPosition;
+    OffsetNode.Position = data.OffsetPosition;
+
+    CameraLogic.Input(new PlayerCameraLogicState.Input.PhysicsTicked(0d));
+  }
+
   #endregion Save
 
   #region State
@@ -134,35 +150,12 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
       TargetOffset = Vector3.Zero
     });
 
-    PlayerCameraChunk = new SaveChunk<PlayerCameraData>(
-      onSave: (chunk) => new PlayerCameraData()
-      {
-        StateMachine = CameraLogic.GetSaveData(),
-        GlobalTransform = GlobalTransform,
-        LocalPosition = CameraNode.Position,
-        OffsetPosition = OffsetNode.Position,
-      },
-      onLoad: (chunk, data) =>
-      {
-        CameraLogic.Stop();
-        CameraLogic.Start(data.StateMachine.Data);
-        GlobalTransform = data.GlobalTransform;
-        CameraNode.Position = data.LocalPosition;
-        OffsetNode.Position = data.OffsetPosition;
-
-        CameraLogic.Input(new PlayerCameraLogicState.Input.PhysicsTicked(0d));
-      }
-    );
-
     SetPhysicsProcess(true);
   }
 
   public void OnResolved()
   {
-    GameChunk.AddChunk(PlayerCameraChunk);
-
-    CameraBinding = CameraLogic.Bind();
-    CameraBinding
+    CameraBinding = CameraLogic.Bind()
       .OnOutput((in PlayerCameraLogicState.Output.GimbalRotationChanged output) =>
       {
         GimbalHorizontalNode.Rotation = output.GimbalRotationHorizontal;
@@ -202,9 +195,7 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
       CameraLogic.Input(new PlayerCameraLogicState.Input.JoyPadInputOccurred(yMotion));
     }
 
-    CameraLogic.Input(
-      new PlayerCameraLogicState.Input.PhysicsTicked(delta)
-    );
+    CameraLogic.Input(new PlayerCameraLogicState.Input.PhysicsTicked(delta));
   }
 
   public override void _Input(InputEvent @event)

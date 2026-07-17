@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://dw4emjgi3m85k"]
 
-[ext_resource type="Shader" uid="uid://bb2o1wyb4bxa7" path="res://src/map/waterfall/waterfall.gdshader" id="1_0ynt1"]
+[ext_resource type="Shader" uid="uid://bo02uaywyx1o6" path="res://src/map/waterfall/waterfall.gdshader" id="1_0ynt1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nd568"]
 

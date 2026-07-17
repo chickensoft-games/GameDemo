@@ -5,7 +5,6 @@ using Chickensoft.LogicBlocks.Auto;
 using Chickensoft.Serialization;
 using Godot;
 
-
 [Meta, Id("coin_data")]
 public partial record CoinData
 {

@@ -7,7 +7,6 @@ using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
 using Chickensoft.GodotTestDriver;
 using Chickensoft.LogicBlocks;
-using Chickensoft.SaveFileBuilder;
 using Chickensoft.Sync.Primitives;
 using Godot;
 using Moq;
@@ -28,7 +27,6 @@ public class PlayerCameraTest : TestClass
   private PlayerCameraSettings _settings = default!;
   private Mock<IGameRepo> _gameRepo = default!;
   private Mock<IAppRepo> _appRepo = default!;
-  private Mock<ISaveChunk<GameData>> _gameChunk = default!;
 
   private Mock<INode3D> _offsetNode = default!;
   private Mock<INode3D> _gimbalHorizontal = default!;
@@ -48,7 +46,6 @@ public class PlayerCameraTest : TestClass
     _settings = new();
     _gameRepo = new();
     _appRepo = new();
-    _gameChunk = new();
 
     _offsetNode = new();
     _gimbalHorizontal = new();
@@ -83,7 +80,6 @@ public class PlayerCameraTest : TestClass
 
     _playerCam.FakeDependency(_gameRepo.Object);
     _playerCam.FakeDependency(_appRepo.Object);
-    _playerCam.FakeDependency(_gameChunk.Object);
 
     _logic.Setup(logic => logic.Bind()).Returns(_binding);
   }
@@ -234,35 +230,15 @@ public class PlayerCameraTest : TestClass
   }
 
   [Test]
-  public void Saves()
+  public async Task Saves()
   {
-    _playerCam.Setup();
-    _playerCam.CameraLogic.Start<PlayerCameraLogicState.InputDisabled>();
-
-    var chunk = new Mock<ISaveChunk<PlayerCameraData>>();
-
-    _playerCam.CameraLogic.Get<PlayerCameraLogic.Data>().ShouldNotBeNull();
-
-    var data = _playerCam.PlayerCameraChunk.OnSave(chunk.Object);
-
-    data.GlobalTransform.ShouldBe(_playerCam.GlobalTransform);
-    data.StateMachine.Data.ShouldBe(_playerCam.CameraLogic.GetSaveData().Data);
-    data.LocalPosition.ShouldBe(_playerCam.CameraNode.Position);
-    data.OffsetPosition.ShouldBe(_playerCam.OffsetNode.Position);
-  }
-
-  [Test]
-  public void Loads()
-  {
-    _playerCam.Setup();
-
-    var chunk = new Mock<ISaveChunk<PlayerCameraData>>();
+    // This test has to be run in the actual scene tree since it verifies the
+    // player camera changes its GlobalPosition.
+    var tree = TestScene.GetTree();
+    var fixture = new Fixture(tree);
+    await fixture.AddToRoot(_playerCam);
 
     var logic = new PlayerCameraLogic();
-    _gameRepo.Setup(g => g.IsMouseCaptured).Returns(new AutoValue<bool>(false));
-    _gameRepo.Setup(g => g.PlayerGlobalPosition)
-      .Returns(new AutoValue<Vector3>(Vector3.Zero));
-
     logic.Set(_gameRepo.Object);
     logic.Set<IPlayerCamera>(_playerCam);
     logic.Set(_settings);
@@ -275,20 +251,59 @@ public class PlayerCameraTest : TestClass
     });
 
     logic.Start<PlayerCameraLogicState.InputDisabled>();
-    _playerCam.CameraLogic = logic;
 
-    var data = new PlayerCameraData
+    _playerCam.GlobalTransform = Transform3D.FlipZ;
+    _playerCam.CameraLogic = logic;
+    _cameraNode.Setup(n => n.Position).Returns(Vector3.Right);
+    _offsetNode.Setup(n => n.Position).Returns(Vector3.Left);
+
+    var data = _playerCam.Save();
+
+    data.GlobalTransform.ShouldBe(Transform3D.FlipZ);
+    data.StateMachine.Data.ShouldBe(logic.GetSaveData().Data);
+    data.LocalPosition.ShouldBe(Vector3.Right);
+    data.OffsetPosition.ShouldBe(Vector3.Left);
+  }
+
+  [Test]
+  public async Task Loads()
+  {
+    // This test has to be run in the actual scene tree since it verifies the
+    // player camera changes its GlobalPosition.
+    var tree = TestScene.GetTree();
+    var fixture = new Fixture(tree);
+    await fixture.AddToRoot(_playerCam);
+
+    _playerCam.Setup();
+
+    var logic = new PlayerCameraLogic();
+    logic.Set(_gameRepo.Object);
+    logic.Set<IPlayerCamera>(_playerCam);
+    logic.Set(_settings);
+    logic.Set(new PlayerCameraLogic.Data
     {
+      TargetPosition = Vector3.Zero,
+      TargetAngleHorizontal = 0f,
+      TargetAngleVertical = 0f,
+      TargetOffset = Vector3.Zero
+    });
+
+    logic.Start<PlayerCameraLogicState.InputDisabled>();
+
+    var data = new PlayerCameraData()
+    {
+      GlobalTransform = Transform3D.FlipZ,
       StateMachine = logic.GetSaveData(),
-      GlobalTransform = Transform3D.Identity,
-      LocalPosition = Vector3.Zero,
-      OffsetPosition = Vector3.Zero
+      LocalPosition = Vector3.Right,
+      OffsetPosition = Vector3.Left,
     };
 
-    _playerCam.PlayerCameraChunk.OnLoad(chunk.Object, data);
+    _playerCam.CameraLogic = logic;
+    _playerCam.Load(data);
 
-    _playerCam.GlobalTransform.ShouldBe(Transform3D.Identity);
-    _playerCam.CameraNode.Position.ShouldBe(Vector3.Zero);
-    _playerCam.OffsetNode.Position.ShouldBe(Vector3.Zero);
+    _playerCam.GlobalTransform.ShouldBe(Transform3D.FlipZ);
+    _playerCam.CameraLogic.GetData().ShouldBe(data.StateMachine.Data);
+    _cameraNode.VerifySet(n => n.Position = Vector3.Right);
+    _offsetNode.VerifySet(n => n.Position = Vector3.Left);
   }
 }
