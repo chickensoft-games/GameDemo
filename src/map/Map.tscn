@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bkebdu3non7au" path="res://src/map/Map.cs" id="1_t88o4"]
 [ext_resource type="Sky" uid="uid://jonn5eom7asv" path="res://src/map/sky/blue_sky.tres" id="1_wl8qu"]
 [ext_resource type="PackedScene" uid="uid://cnritjjpfqqyp" path="res://src/map/terrain/terrain.tscn" id="2_tq3o0"]
-[ext_resource type="Shader" uid="uid://c10y63mcvdsod" path="res://src/map/water/water_shader.gdshader" id="4_l0ika"]
+[ext_resource type="Shader" uid="uid://c8psk0mj5o21i" path="res://src/map/water/water_shader.gdshader" id="4_l0ika"]
 [ext_resource type="Texture2D" uid="uid://dsj8vni6l6vih" path="res://src/map/water/textures/WaterDistortion.png" id="5_otw0l"]
 [ext_resource type="Texture2D" uid="uid://dlmp8l0e8ynm1" path="res://src/map/water/textures/PerlinNoise.png" id="6_03tr5"]
 [ext_resource type="PackedScene" uid="uid://deklo7q47fodq" path="res://src/death_plane/DeathPlane.tscn" id="6_v2vxo"]

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cbccubify2aqk"]
 
-[ext_resource type="Shader" uid="uid://dixd3qkabw203" path="res://src/map/cloud/Cloud.gdshader" id="1_4k1u5"]
+[ext_resource type="Shader" uid="uid://gxd1egcphkic" path="res://src/map/cloud/Cloud.gdshader" id="1_4k1u5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1xikf"]
 render_priority = 0
