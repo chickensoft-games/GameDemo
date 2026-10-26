@@ -58,14 +58,14 @@
     <PackageReference Include="System.IO.Abstractions" Version="22.3.0" />
     <PackageReference Include="EnvironmentAbstractions" Version="5.0.0" />
     <PackageReference Include="GodotSharp.SourceGenerators" Version="2.7.1" PrivateAssets="all" OutputItemType="analyzer" />
-    <PackageReference Include="Chickensoft.SaveFileBuilder" Version="2.0.14" />
+    <PackageReference Include="Chickensoft.SaveFileBuilder" Version="2.0.15" />
     <PackageReference Include="Chickensoft.AutoInject" Version="2.14.13" PrivateAssets="all" />
     <PackageReference Include="Chickensoft.Collections" Version="3.2.0" />
     <PackageReference Include="Chickensoft.GodotNodeInterfaces" Version="3.0.42" />
     <PackageReference Include="Chickensoft.Introspection" Version="3.0.3" />
     <PackageReference Include="Chickensoft.Introspection.Generator" Version="3.0.3" PrivateAssets="all" OutputItemType="analyzer" />
     <PackageReference Include="Chickensoft.Serialization" Version="3.1.0" />
-    <PackageReference Include="Chickensoft.Serialization.Godot" Version="0.9.13" />
+    <PackageReference Include="Chickensoft.Serialization.Godot" Version="0.9.14" />
     <PackageReference Include="Chickensoft.LogicBlocks" Version="6.2.2" />
     <PackageReference Include="Chickensoft.LogicBlocks.Auto" Version="6.2.2" />
     <PackageReference Include="Chickensoft.LogicBlocks.DiagramGenerator" Version="6.2.2" PrivateAssets="all" OutputItemType="analyzer" />
